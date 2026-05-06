@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Concierge App - mapa funcional del producto</title>
+<style>
+  @page { size: A4; margin: 18mm 15mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    color: #15213d;
+    background: #ffffff;
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+  h1 {
+    margin: 0 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #4666d9;
+    font-size: 30px;
+    line-height: 1.15;
+    color: #101a36;
+  }
+  h2 {
+    margin: 26px 0 10px;
+    padding: 8px 12px;
+    border-left: 5px solid #4666d9;
+    border-radius: 10px;
+    background: #f3f6ff;
+    font-size: 19px;
+    color: #101a36;
+    break-after: avoid;
+  }
+  h3 {
+    margin: 18px 0 8px;
+    font-size: 15px;
+    color: #263b79;
+    break-after: avoid;
+  }
+  p { margin: 7px 0; }
+  ul { margin: 7px 0 10px 20px; padding: 0; }
+  li { margin: 3px 0; }
+  code {
+    padding: 1px 5px;
+    border-radius: 5px;
+    background: #eef2fb;
+    color: #1f3f9b;
+    font-family: "Cascadia Code", Consolas, monospace;
+    font-size: 11px;
+  }
+  pre {
+    margin: 10px 0 14px;
+    padding: 12px;
+    border: 1px solid #dbe3f0;
+    border-radius: 12px;
+    background: #f8fafc;
+    color: #26324f;
+    white-space: pre-wrap;
+    break-inside: avoid;
+  }
+  pre code { padding: 0; background: transparent; color: inherit; }
+  strong { color: #101a36; }
+  .cover-note {
+    margin: 0 0 22px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #edf2ff, #f8fbff);
+    border: 1px solid #dce5fb;
+    color: #63708a;
+  }
+</style>
+</head>
+<body>
+<div class="cover-note">Documento funcional para visualizar el alcance actual de Concierge App, detectar oportunidades de optimizacion y planificar nuevas fases.</div>
+<h1>Concierge App - mapa funcional del producto</h1>
+<p>Ultima actualizacion: 2026-04-22</p>
+<p>Este documento resume las funcionalidades actuales y las funcionalidades planificadas de Concierge App. La idea es tener una vista completa del producto para detectar redundancias, priorizar mejoras y planificar futuras versiones.</p>
+<h2>1. Vision general</h2>
+<p>Concierge App es una plataforma operativa para edificios residenciales. Conecta managers, conserjes y edificios para gestionar tareas, agenda, inventario, tratamientos, mensajes, unidades/apartamentos, records y supervision.</p>
+<p>El enfoque principal no es ser un sistema contable o inmobiliario completo. El valor central esta en la operacion diaria:</p>
+<ul>
+<li>Saber que hay que hacer hoy.</li>
+<li>Coordinar manager y conserje por edificio.</li>
+<li>Registrar historial por apartamento o area comun.</li>
+<li>Manejar inventario de materiales y equipos.</li>
+<li>Dar visibilidad rapida a edificios con problemas.</li>
+<li>Facilitar comunicacion multi-edificio.</li>
+</ul>
+<h2>2. Roles principales</h2>
+<h3>Manager / Administrador</h3>
+<p>Usuario que administra uno o varios edificios.</p>
+<p>Funciones principales:</p>
+<ul>
+<li>Ver dashboard general.</li>
+<li>Ver dashboard por edificio.</li>
+<li>Crear tareas administrativas propias.</li>
+<li>Crear eventos para el conserje.</li>
+<li>Supervisar tareas operativas del conserje.</li>
+<li>Ver agenda personal.</li>
+<li>Ver agenda del edificio.</li>
+<li>Gestionar edificios vinculados.</li>
+<li>Ver records, inventario, tratamientos e historial por unidad.</li>
+<li>Exportar informacion a Excel.</li>
+<li>Comunicarse con conserjes por edificio.</li>
+</ul>
+<h3>Conserje</h3>
+<p>Usuario operativo que trabaja en uno o varios edificios.</p>
+<p>Funciones principales:</p>
+<ul>
+<li>Ver dashboard del edificio.</li>
+<li>Si tiene varios edificios, ver dashboard general multi-edificio.</li>
+<li>Crear tareas operativas.</li>
+<li>Completar tareas.</li>
+<li>Convertir eventos del manager en tareas.</li>
+<li>Manejar inventario.</li>
+<li>Registrar tratamientos de plagas.</li>
+<li>Ver agenda operativa.</li>
+<li>Ver records.</li>
+<li>Comunicarse con manager por edificio.</li>
+</ul>
+<h3>Propietaria / Owner / Vista ejecutiva futura</h3>
+<p>Rol o vista de supervision con menos operacion diaria y mas indicadores.</p>
+<p>Funciones esperadas:</p>
+<ul>
+<li>Ver estado general de edificios.</li>
+<li>Ver porcentaje de tareas completadas.</li>
+<li>Ver tareas atrasadas.</li>
+<li>Ver ultimos tratamientos.</li>
+<li>Ver alertas inteligentes.</li>
+<li>Exportar reportes ejecutivos.</li>
+</ul>
+<h2>3. Navegacion general</h2>
+<h3>Manager - navegacion principal</h3>
+<pre class="language-mermaid"><code>flowchart TD
+  A[&quot;Inicio manager&quot;] --&gt; B[&quot;Tareas administrativas&quot;]
+  A --&gt; C[&quot;Supervision&quot;]
+  A --&gt; D[&quot;Edificios&quot;]
+  A --&gt; E[&quot;Agenda&quot;]
+  A --&gt; F[&quot;Mensajes globales&quot;]
+  D --&gt; G[&quot;Dashboard de edificio&quot;]
+  G --&gt; H[&quot;Tareas del conserje&quot;]
+  G --&gt; I[&quot;Inventario&quot;]
+  G --&gt; J[&quot;Tratamientos&quot;]
+  G --&gt; K[&quot;Records&quot;]
+  G --&gt; L[&quot;Unidades&quot;]
+  G --&gt; M[&quot;Agenda del edificio&quot;]
+  L --&gt; N[&quot;Ficha de unidad&quot;]</code></pre>
+<p>BottomNav del manager:</p>
+<ul>
+<li>Inicio</li>
+<li>Tareas</li>
+<li>Supervision</li>
+<li>Edificios</li>
+<li>Agenda</li>
+</ul>
+<p>Dentro de un edificio, el manager usa una navegacion especifica del edificio:</p>
+<ul>
+<li>Dashboard</li>
+<li>Tareas</li>
+<li>Inventario</li>
+<li>Tratamientos</li>
+<li>Records</li>
+<li>Units / Unidades</li>
+<li>Agenda</li>
+</ul>
+<h3>Conserje - navegacion principal</h3>
+<pre class="language-mermaid"><code>flowchart TD
+  A[&quot;Entrada conserje&quot;] --&gt; B{&quot;Cantidad de edificios&quot;}
+  B --&gt;|&quot;1 edificio&quot;| C[&quot;Dashboard del edificio&quot;]
+  B --&gt;|&quot;2+ edificios&quot;| D[&quot;Inicio general multi-edificio&quot;]
+  D --&gt; C
+  C --&gt; E[&quot;Tareas&quot;]
+  C --&gt; F[&quot;Inventario&quot;]
+  C --&gt; G[&quot;Tratamientos&quot;]
+  C --&gt; H[&quot;Agenda&quot;]
+  C --&gt; I[&quot;Mensajes&quot;]</code></pre>
+<p>BottomNav del conserje:</p>
+<ul>
+<li>Inicio</li>
+<li>Tareas</li>
+<li>Inventario</li>
+<li>Tratamientos</li>
+<li>Agenda</li>
+</ul>
+<h2>4. Modulos actuales</h2>
+<h2>4.1 Autenticacion y perfil</h2>
+<p>Pantallas:</p>
+<ul>
+<li>Login</li>
+<li>Signup</li>
+<li>Forgot password</li>
+<li>Setup profile</li>
+<li>Editar perfil</li>
+</ul>
+<p>Caracteristicas:</p>
+<ul>
+<li>Registro como manager o conserje.</li>
+<li>Perfil con nombre, email, idioma y avatar.</li>
+<li>Foto de perfil personalizada.</li>
+<li>Avatar visible en headers.</li>
+<li>Cambio de idioma.</li>
+<li>Edicion de email desplegable.</li>
+<li>Para manager, la administracion de edificios se separa del perfil.</li>
+</ul>
+<p>Pendiente o recomendado:</p>
+<ul>
+<li>Permisos mas granulares por rol.</li>
+<li>Flujo formal de invitaciones.</li>
+<li>Soporte para varios managers y varios conserjes por edificio.</li>
+<li>Roles futuros: owner, viewer, supervisor.</li>
+</ul>
+<h2>4.2 Gestion de edificios</h2>
+<p>Pantallas:</p>
+<ul>
+<li>Manager: Edificios</li>
+<li>Manager: Inicio con lista de edificios</li>
+<li>Conserje: selector o inicio multi-edificio</li>
+</ul>
+<p>Caracteristicas actuales:</p>
+<ul>
+<li>Manager puede ver edificios vinculados.</li>
+<li>Manager puede conectar edificio existente con codigo.</li>
+<li>Manager puede crear edificio.</li>
+<li>Manager puede entrar al dashboard de un edificio.</li>
+<li>Conserje puede estar vinculado a uno o varios edificios.</li>
+<li>Cambio de edificio desde el header manteniendo contexto de pantalla.</li>
+<li>Navegacion entre dashboard general y dashboard especifico.</li>
+</ul>
+<p>Caracteristicas planificadas:</p>
+<ul>
+<li>Desvincularse de un edificio.</li>
+<li>Eliminar edificio con permisos y confirmacion.</li>
+<li>Equipo del edificio: managers, conserjes y roles.</li>
+<li>Invitar usuario por codigo o invitacion.</li>
+<li>Editar datos del edificio.</li>
+<li>Imagen/foto del edificio.</li>
+</ul>
+<h2>4.3 Dashboard general del manager</h2>
+<p>Objetivo:</p>
+<p>Dar al manager una vista rapida de su trabajo y de sus edificios.</p>
+<p>Caracteristicas:</p>
+<ul>
+<li>Header con saludo, fecha, mensajes y perfil.</li>
+<li>Accion principal para crear:</li>
+<p>- Tarea administrativa. - Evento para conserje.</p>
+<li>Resumen de tareas administrativas:</li>
+<p>- Vencidas. - Hoy. - Proximas.</p>
+<li>Al tocar un resumen, funciona como semifiltro y muestra las tareas correspondientes.</li>
+<li>Lista de edificios.</li>
+<li>Cada edificio muestra:</li>
+<p>- Nombre. - Direccion. - Tareas del conserje de hoy. - Tareas del manager relacionadas con ese edificio.</p>
+<li>Acceso rapido al dashboard de cada edificio.</li>
+</ul>
+<p>Pendiente o recomendado:</p>
+<ul>
+<li>Mensajes recientes globales si se decide volver a mostrarlos en Inicio.</li>
+<li>Alertas ejecutivas ligeras.</li>
+<li>Mejorar balance visual para muchos edificios.</li>
+</ul>
+<h2>4.4 Dashboard de edificio para manager</h2>
+<p>Objetivo:</p>
+<p>Ver el estado operativo de un edificio especifico.</p>
+<p>Caracteristicas:</p>
+<ul>
+<li>Header con edificio actual.</li>
+<li>Cambio de edificio manteniendo la pantalla actual.</li>
+<li>Acceso a vista general / Mis edificios.</li>
+<li>Contacto del conserje con foto y boton de mensaje.</li>
+<li>Resumen operativo.</li>
+<li>Eventos del manager para el conserje.</li>
+<li>Tareas del conserje organizadas por estado/fecha.</li>
+<li>Cards readonly para revisar tareas operativas.</li>
+</ul>
+<p>Pendiente o recomendado:</p>
+<ul>
+<li>Adaptar dashboard al caso de varios conserjes en un mismo edificio.</li>
+<li>Mostrar equipo completo del edificio.</li>
+<li>Separar conversaciones por edificio y por participante.</li>
+</ul>
+<h2>4.5 Dashboard general del conserje multi-edificio</h2>
+<p>Regla:</p>
+<ul>
+<li>Si el conserje tiene 1 edificio, entra directo al dashboard del edificio.</li>
+<li>Si tiene 2 o mas edificios, entra a un inicio general operativo.</li>
+</ul>
+<p>Caracteristicas:</p>
+<ul>
+<li>Header con saludo, fecha, mensajes y foto.</li>
+<li>Resumen corto del dia.</li>
+<li>Lista de edificios asignados.</li>
+<li>Cards con tareas pendientes, urgentes y tareas de hoy.</li>
+<li>Acceso rapido al edificio.</li>
+</ul>
+<p>Pendiente o recomendado:</p>
+<ul>
+<li>&quot;Continuar en ultimo edificio&quot;.</li>
+<li>Ordenar edificios por urgencia operativa.</li>
+<li>Mensajes recientes por edificio.</li>
+</ul>
+<h2>4.6 Tareas operativas del conserje</h2>
+<p>Categorias principales:</p>
+<ul>
+<li>Limpieza.</li>
+<li>Reparacion.</li>
+<li>Plagas.</li>
+<li>Pintura.</li>
+<li>Reemplazo.</li>
+<li>Entrega.</li>
+<li>Inspeccion.</li>
+<li>Visita.</li>
+<li>Otro.</li>
+</ul>
+<p>Caracteristicas:</p>
+<ul>
+<li>Crear tarea manualmente.</li>
+<li>Parser inteligente para detectar:</li>
+<p>- Categoria. - Fecha. - Ubicacion/apartamento/area. - Prioridad.</p>
+<li>Seleccion de apartamento o area comun.</li>
+<li>Areas comunes separadas de apartamentos.</li>
+<li>Validacion de fecha local.</li>
+<li>Swipe:</li>
+<p>- Derecha para completar. - Izquierda para eliminar con confirmacion/undo.</p>
+<li>Expandir tarjeta para ver detalles.</li>
+<li>Editar tarea.</li>
+<li>Cambiar estado.</li>
+<li>Eliminar tarea.</li>
+<li>Tareas creadas desde eventos del manager tienen marca visual.</li>
+<li>Al completar delivery o reemplazo, se puede actualizar inventario.</li>
+<li>Si se usa inventario en reemplazo, se puede descontar del stock.</li>
+<li>Referencia entre tarea e item de inventario usado.</li>
+</ul>
+<p>Pendiente o recomendado:</p>
+<ul>
+<li>Fotos antes/despues.</li>
+<li>Asignar tarea a un conserje especifico.</li>
+<li>Comentarios dentro de tarea.</li>
+<li>Historial de cambios de estado.</li>
+</ul>
+<h2>4.7 Tareas administrativas del manager</h2>
+<p>Objetivo:</p>
+<p>Separar las tareas propias del manager de las tareas operativas del conserje.</p>
+<p>Categorias actuales:</p>
+<ul>
+<li>Llamada.</li>
+<li>Email.</li>
+<li>Seguimiento.</li>
+<li>Documento.</li>
+<li>Pago.</li>
+<li>Reunion.</li>
+<li>Proveedor.</li>
+<li>Recordatorio.</li>
+<li>Otro.</li>
+</ul>
+<p>Caracteristicas:</p>
+<ul>
+<li>Crear tarea administrativa desde Inicio, Tareas o Agenda.</li>
+<li>Puede estar relacionada con:</li>
+<p>- Tarea administrativa general. - Un edificio especifico.</p>
+<li>Parser inteligente para sugerir categoria, fecha, prioridad y edificio.</li>
+<li>Cards expandibles.</li>
+<li>Cambiar estado.</li>
+<li>Editar tarea.</li>
+<li>Eliminar tarea.</li>
+<li>Swipe para completar/eliminar.</li>
+<li>Resumen en Inicio.</li>
+<li>Filtros en Tareas.</li>
+<li>Vista calendario en Agenda.</li>
+<li>Exportar vista a Excel respetando filtros.</li>
+</ul>
+<p>Pendiente o recomendado:</p>
+<ul>
+<li>Tareas administrativas recurrentes.</li>
+<li>Asignacion interna si hay varios managers.</li>
+<li>Relacionar una tarea administrativa con un mensaje, edificio, conserje o unidad.</li>
+</ul>
+<h2>4.8 Agenda</h2>
+<h3>Agenda del conserje</h3>
+<p>Caracteristicas:</p>
+<ul>
+<li>Calendario mensual.</li>
+<li>Tareas por dia.</li>
+<li>Crear nueva tarea.</li>
+<li>Exportar mes/vista.</li>
+<li>Boton claro para volver a hoy.</li>
+<li>Soporte multi-idioma en labels.</li>
+</ul>
+<h3>Agenda del manager</h3>
+<p>Caracteristicas:</p>
+<ul>
+<li>Solo tareas administrativas del manager.</li>
+<li>Filtros por edificio y estado.</li>
+<li>Calendario mensual.</li>
+<li>Lista de tareas por dia.</li>
+<li>Crear tarea administrativa.</li>
+<li>Exportar vista a Excel.</li>
+</ul>
+<h3>Agenda del edificio para manager</h3>
+<p>Caracteristicas:</p>
+<ul>
+<li>Eventos creados por manager para conserje.</li>
+<li>Vista de tareas/eventos por dia.</li>
+<li>Crear evento para conserje.</li>
+<li>El conserje puede aceptar evento y convertirlo en tarea.</li>
+</ul>
+<p>Pendiente o recomendado:</p>
+<ul>
+<li>Rango de fechas para exportacion.</li>
+<li>Eventos recurrentes.</li>
+<li>Recordatorios/notificaciones.</li>
+</ul>
+<h2>4.9 Mensajes</h2>
+<p>Objetivo:</p>
+<p>Comunicar manager y conserje manteniendo el contexto del edificio.</p>
+<p>Caracteristicas:</p>
+<ul>
+<li>Conversacion por edificio.</li>
+<li>Icono global de mensajes.</li>
+<li>Bandeja global de mensajes.</li>
+<li>Conversaciones separadas por edificio, aunque sean las mismas personas.</li>
+<li>Reacciones a mensajes.</li>
+<li>Crear tarea desde mensaje.</li>
+<li>Manager puede crear tarea administrativa desde mensaje del conserje.</li>
+<li>Conserje puede crear tarea operativa desde mensaje del manager.</li>
+</ul>
+<p>Regla importante:</p>
+<p>No mezclar conversaciones de distintos edificios.</p>
+<p>Ejemplo:</p>
+<ul>
+<li>Hector - Edouard-Montpetit.</li>
+<li>Hector - Cote Saint Luc.</li>
+</ul>
+<p>Pendiente o recomendado:</p>
+<ul>
+<li>Mensajes recientes en home si aporta valor.</li>
+<li>Notificaciones push.</li>
+<li>Indicador persistente de mensajes/eventos pendientes.</li>
+<li>Soporte para multiples conserjes/managers en una conversacion de edificio.</li>
+</ul>
+<h2>4.10 Inventario</h2>
+<p>Objetivo:</p>
+<p>Manejar stock de equipos, materiales y supplies del edificio.</p>
+<p>Caracteristicas:</p>
+<ul>
+<li>Categorias globales simplificadas.</li>
+<li>Items y variantes.</li>
+<li>Nombre libre del articulo.</li>
+<li>Parser inteligente para sugerir categoria/item.</li>
+<li>Cantidad.</li>
+<li>Estado.</li>
+<li>Stock minimo.</li>
+<li>Ubicacion.</li>
+<li>Notas.</li>
+<li>Fotos.</li>
+<li>Historial de movimientos.</li>
+<li>Incremento rapido de stock.</li>
+<li>Modal para agregar inventario desde completar tarea.</li>
+<li>Variantes del mismo item.</li>
+<li>Exportacion a Excel con estilo.</li>
+<li>Filtros compactos por dropdown.</li>
+<li>Solo mostrar categorias/items con stock existente.</li>
+</ul>
+<p>Ejemplo de estructura:</p>
+<ul>
+<li>Appliances</li>
+<p>- Estufa - Estufa Mabe 24&quot; - Estufa usada con problema en piloto - Refrigerador</p>
+<li>Materiales</li>
+<p>- Pintura - Drywall - Cemento blanco - Cemento cola</p>
+</ul>
+<p>Pendiente o recomendado:</p>
+<ul>
+<li>Trazabilidad por unidad instalada.</li>
+<li>Separar stock por ubicacion/deposito.</li>
+<li>Codigo de barras o QR.</li>
+<li>Alertas de stock bajo.</li>
+<li>Costos por item.</li>
+</ul>
+<h2>4.11 Tratamientos de plagas</h2>
+<p>Objetivo:</p>
+<p>Registrar tratamientos, seguimientos y patrones por apartamento o area.</p>
+<p>Caracteristicas:</p>
+<ul>
+<li>Categoria Pest control / Control de plagas.</li>
+<li>Historial por unidad.</li>
+<li>Registros por fecha.</li>
+<li>Filtros.</li>
+<li>Vista en Records.</li>
+<li>Alertas de tratamientos repetidos.</li>
+</ul>
+<p>Pendiente o recomendado:</p>
+<ul>
+<li>Garantia por tratamiento.</li>
+<li>Proveedor/empresa del tratamiento.</li>
+<li>Tipo de plaga.</li>
+<li>Proximo seguimiento sugerido.</li>
+<li>Alertas tipo &quot;Apto 12 con 3 fumigaciones recientes&quot;.</li>
+</ul>
+<h2>4.12 Records</h2>
+<p>Objetivo:</p>
+<p>Centralizar historial de inventario, tratamientos y registros relevantes.</p>
+<p>Caracteristicas:</p>
+<ul>
+<li>Records en BottomNav.</li>
+<li>Tratamientos.</li>
+<li>Inventario.</li>
+<li>Filtros.</li>
+<li>Exportaciones.</li>
+<li>Vista por edificio.</li>
+</ul>
+<p>Pendiente o recomendado:</p>
+<ul>
+<li>Consolidar todos los tipos de historial.</li>
+<li>Vista por unidad desde Records.</li>
+<li>Busqueda global por apartamento, categoria o fecha.</li>
+</ul>
+<h2>4.13 Units / Unidades / Apartamentos</h2>
+<p>Estado actual:</p>
+<ul>
+<li>Vista de unidades derivada del historial.</li>
+<li>Apartamentos y areas comunes separados.</li>
+<li>Ficha de unidad.</li>
+<li>Resumen superior:</li>
+<p>- Ultima pintura. - Ultimo reemplazo. - Ultima reparacion. - Ultimo control de plagas.</p>
+<li>Cards resaltadas cuando hay informacion.</li>
+<li>Historial organizado por ano.</li>
+<li>Cada ano se expande al hacer click.</li>
+<li>Categorias:</li>
+<p>- Trabajos de pintura. - Reparaciones. - Reemplazos. - Control de plagas.</p>
+<li>Tareas expandibles con detalles.</li>
+</ul>
+<p>Problema estructural actual:</p>
+<p>La pantalla de unidades todavia depende mucho del historial/tareas. Para convertirla en un modulo inmobiliario fuerte, conviene crear una tabla real de unidades/apartamentos.</p>
+<p>Plan recomendado:</p>
+<ul>
+<li>Crear tabla <code>building_units</code>.</li>
+<li>Guardar datos permanentes:</li>
+<p>- numero de apartamento. - tipo. - habitaciones. - banos. - estado: ocupado/disponible/problematico. - inquilino actual. - contrato. - garaje. - storage. - notas.</p>
+<li>Mantener <code>unit_history</code> como historial operacional.</li>
+<li>Conectar inventario instalado a unidad.</li>
+</ul>
+<h2>4.14 Supervision ejecutiva</h2>
+<p>Objetivo:</p>
+<p>Dar una vista rapida del estado operativo de todos los edificios.</p>
+<p>Caracteristicas actuales:</p>
+<ul>
+<li>Pantalla en BottomNav del manager.</li>
+<li>Metricas:</li>
+<p>- Porcentaje completado. - Tareas atrasadas. - Alertas.</p>
+<li>Resumen por edificio.</li>
+<li>Ultimo tratamiento.</li>
+<li>Alertas por unidad.</li>
+<li>Exportar supervision a Excel.</li>
+</ul>
+<p>Pendiente o recomendado:</p>
+<ul>
+<li>Quitar exceso de color en cards de edificios.</li>
+<li>Filtros por periodo.</li>
+<li>Comparacion mensual.</li>
+<li>Ranking de edificios con mas problemas.</li>
+<li>Exportacion ejecutiva mas visual.</li>
+</ul>
+<h2>4.15 Exportaciones Excel</h2>
+<p>Exportaciones existentes o avanzadas:</p>
+<ul>
+<li>Inventario.</li>
+<li>Historial de unidades.</li>
+<li>Tareas administrativas del manager.</li>
+<li>Agenda/vista filtrada.</li>
+<li>Supervision.</li>
+</ul>
+<p>Caracteristicas:</p>
+<ul>
+<li>Estilo consistente.</li>
+<li>Headers con color.</li>
+<li>Bordes.</li>
+<li>Auto filtros.</li>
+<li>Hojas por ano o por tipo cuando aplica.</li>
+<li>Respeta filtros en algunas vistas.</li>
+</ul>
+<p>Pendiente o recomendado:</p>
+<ul>
+<li>Estandarizar todos los exports en una sola capa utilitaria.</li>
+<li>Agregar metadata:</li>
+<p>- edificio. - usuario. - fecha de exportacion. - filtros aplicados.</p>
+<li>Exportacion por rango de fecha.</li>
+</ul>
+<h2>4.16 Multi-idioma</h2>
+<p>Idiomas:</p>
+<ul>
+<li>Espanol.</li>
+<li>Ingles.</li>
+<li>Frances.</li>
+<li>Ruso.</li>
+</ul>
+<p>Caracteristicas:</p>
+<ul>
+<li>Archivos de mensajes por idioma.</li>
+<li>Parser de tareas con sinonimos por idioma.</li>
+<li>Labels traducidos.</li>
+<li>Correcciones de encoding en JSON.</li>
+</ul>
+<p>Pendiente o recomendado:</p>
+<ul>
+<li>Traduccion automatica de contenido escrito por usuarios.</li>
+<li>Guardar texto original y traducciones.</li>
+<li>Boton &quot;Ver original&quot;.</li>
+<li>Cache de traducciones.</li>
+</ul>
+<h2>5. Flujos clave</h2>
+<h2>5.1 Crear tarea operativa</h2>
+<pre class="language-mermaid"><code>flowchart TD
+  A[&quot;Usuario escribe titulo&quot;] --&gt; B[&quot;Parser inteligente&quot;]
+  B --&gt; C[&quot;Sugiere categoria, fecha, prioridad, ubicacion&quot;]
+  C --&gt; D[&quot;Usuario confirma o ajusta&quot;]
+  D --&gt; E[&quot;Guardar tarea&quot;]
+  E --&gt; F[&quot;Aparece en dashboard, tareas, agenda y records si aplica&quot;]</code></pre>
+<h2>5.2 Crear evento del manager para conserje</h2>
+<pre class="language-mermaid"><code>flowchart TD
+  A[&quot;Manager crea evento&quot;] --&gt; B[&quot;Selecciona edificio&quot;]
+  B --&gt; C[&quot;Parser sugiere categoria y unidad&quot;]
+  C --&gt; D[&quot;Evento queda pendiente para conserje&quot;]
+  D --&gt; E[&quot;Conserje ve notificacion&quot;]
+  E --&gt; F[&quot;Conserje acepta y crea tarea&quot;]</code></pre>
+<h2>5.3 Completar tarea con inventario</h2>
+<pre class="language-mermaid"><code>flowchart TD
+  A[&quot;Conserje completa tarea&quot;] --&gt; B{&quot;Categoria afecta inventario?&quot;}
+  B --&gt;|&quot;Delivery&quot;| C[&quot;Sugerir agregar stock&quot;]
+  B --&gt;|&quot;Reemplazo&quot;| D[&quot;Sugerir usar item de inventario&quot;]
+  C --&gt; E[&quot;Formulario de inventario prellenado&quot;]
+  D --&gt; F[&quot;Seleccionar variante disponible&quot;]
+  F --&gt; G[&quot;Descontar stock&quot;]
+  E --&gt; H[&quot;Guardar movimiento&quot;]
+  G --&gt; H
+  H --&gt; I[&quot;Relacionar tarea con inventario&quot;]</code></pre>
+<h2>5.4 Mensaje a tarea</h2>
+<pre class="language-mermaid"><code>flowchart TD
+  A[&quot;Mensaje recibido&quot;] --&gt; B[&quot;Usuario mantiene presionado o reacciona&quot;]
+  B --&gt; C[&quot;Selecciona crear tarea&quot;]
+  C --&gt; D{&quot;Rol del usuario&quot;}
+  D --&gt;|&quot;Conserje&quot;| E[&quot;Crear tarea operativa&quot;]
+  D --&gt;|&quot;Manager&quot;| F[&quot;Crear tarea administrativa&quot;]
+  E --&gt; G[&quot;Formulario prellenado desde mensaje&quot;]
+  F --&gt; G</code></pre>
+<h2>5.5 Cambio de edificio manteniendo contexto</h2>
+<pre class="language-mermaid"><code>flowchart TD
+  A[&quot;Usuario esta en modulo de edificio X&quot;] --&gt; B[&quot;Abre selector de edificio&quot;]
+  B --&gt; C[&quot;Selecciona edificio Y&quot;]
+  C --&gt; D[&quot;App conserva modulo actual&quot;]
+  D --&gt; E[&quot;Navega a la misma pantalla en edificio Y&quot;]</code></pre>
+<h2>6. Modelo de datos conceptual</h2>
+<pre class="language-mermaid"><code>erDiagram
+  profiles ||--o{ building_members : belongs_to
+  buildings ||--o{ building_members : has
+  buildings ||--o{ tasks : has
+  buildings ||--o{ inventory_items : has
+  buildings ||--o{ pest_treatments : has
+  buildings ||--o{ manager_tasks : relates_to
+  buildings ||--o{ building_messages : has
+  buildings ||--o{ unit_history : has
+  buildings ||--o{ building_units : planned
+  tasks ||--o{ task_photos : has
+  tasks }o--o| inventory_items : uses
+  manager_tasks }o--o| buildings : optional_scope
+  building_units ||--o{ unit_history : planned_history</code></pre>
+<p>Entidades actuales o esperadas:</p>
+<ul>
+<li><code>profiles</code></li>
+<li><code>buildings</code></li>
+<li><code>building_members</code></li>
+<li><code>tasks</code></li>
+<li><code>manager_tasks</code></li>
+<li><code>building_messages</code></li>
+<li><code>inventory_items</code></li>
+<li><code>inventory_history</code></li>
+<li><code>inventory_photos</code></li>
+<li><code>pest_treatments</code></li>
+<li><code>unit_history</code></li>
+<li><code>task_photos</code></li>
+<li><code>building_units</code> futura/recomendada</li>
+</ul>
+<h2>7. Reglas importantes de producto</h2>
+<h3>Edificios y usuarios</h3>
+<ul>
+<li>Un manager puede tener varios edificios.</li>
+<li>Un conserje puede trabajar en varios edificios.</li>
+<li>Un edificio deberia poder tener varios managers.</li>
+<li>Un edificio deberia poder tener varios conserjes.</li>
+<li>Los permisos deben depender del rol dentro de ese edificio.</li>
+</ul>
+<h3>Mensajes</h3>
+<ul>
+<li>Las conversaciones no se mezclan entre edificios.</li>
+<li>Un mismo manager y conserje pueden tener una conversacion distinta por cada edificio.</li>
+</ul>
+<h3>Tareas</h3>
+<ul>
+<li>Tareas operativas pertenecen al edificio y normalmente al conserje.</li>
+<li>Tareas administrativas pertenecen al manager.</li>
+<li>Una tarea administrativa puede ser general o relacionada con un edificio.</li>
+<li>Eventos del manager no son tareas hasta que el conserje los convierte.</li>
+</ul>
+<h3>Inventario</h3>
+<ul>
+<li>Delivery tiende a incrementar stock.</li>
+<li>Reemplazo tiende a consumir stock.</li>
+<li>La tarea debe guardar referencia del item usado cuando aplique.</li>
+</ul>
+<h3>Fechas</h3>
+<ul>
+<li>Validar siempre con fecha local del usuario/edificio.</li>
+<li>Evitar crear eventos o tareas con fecha anterior a hoy, salvo que se permita explicitamente como registro historico.</li>
+</ul>
+<h2>8. Funcionalidades planificadas de alto valor</h2>
+<h2>8.1 Importacion segura de apartamentos desde Excel</h2>
+<p>Objetivo:</p>
+<p>Permitir que el manager cargue o actualice apartamentos sin destruir datos existentes.</p>
+<p>Reglas:</p>
+<ul>
+<li>Excel vacio no borra datos.</li>
+<li>Dato lleno actualiza.</li>
+<li>Apartamento nuevo crea registro.</li>
+<li>Apartamento no presente se conserva.</li>
+<li>Preview antes de confirmar.</li>
+<li>Modo destructivo, si existe, debe estar protegido.</li>
+</ul>
+<p>Requisito previo recomendado:</p>
+<ul>
+<li>Crear tabla real <code>building_units</code>.</li>
+</ul>
+<h2>8.2 Modulo fuerte de apartamentos</h2>
+<p>Objetivo:</p>
+<p>Convertir Units en una pantalla central del edificio.</p>
+<p>Funciones:</p>
+<ul>
+<li>Lista de apartamentos.</li>
+<li>Estado: ocupado, disponible, problematico.</li>
+<li>Inquilino actual.</li>
+<li>Contrato.</li>
+<li>Garaje/storage.</li>
+<li>Alertas.</li>
+<li>Historial.</li>
+<li>Inventario instalado.</li>
+<li>Fotos/documentos.</li>
+</ul>
+<h2>8.3 Fotos antes/despues en tareas</h2>
+<p>Objetivo:</p>
+<p>Documentar visualmente trabajos.</p>
+<p>Funciones:</p>
+<ul>
+<li>Foto antes.</li>
+<li>Foto despues.</li>
+<li>Galeria por tarea.</li>
+<li>Visible desde tarea, unidad y records.</li>
+</ul>
+<h2>8.4 Traduccion automatica</h2>
+<p>Objetivo:</p>
+<p>Cada usuario escribe en su idioma y otros ven traduccion segun su perfil.</p>
+<p>Reglas:</p>
+<ul>
+<li>Nunca reemplazar texto original.</li>
+<li>Guardar <code>source_locale</code>.</li>
+<li>Guardar traducciones en cache.</li>
+<li>Invalidar traduccion si cambia texto original.</li>
+<li>Boton &quot;Ver original&quot;.</li>
+</ul>
+<h2>8.5 Equipo del edificio y permisos</h2>
+<p>Objetivo:</p>
+<p>Soportar multiples managers y conserjes por edificio.</p>
+<p>Funciones:</p>
+<ul>
+<li>Ver equipo.</li>
+<li>Invitar usuario.</li>
+<li>Desvincular usuario.</li>
+<li>Cambiar rol.</li>
+<li>Limites por plan de suscripcion.</li>
+</ul>
+<h2>9. Oportunidades de optimizacion</h2>
+<h3>9.1 Reducir duplicacion de UI</h3>
+<p>Componentes candidatos:</p>
+<ul>
+<li>Headers de manager/conserje.</li>
+<li>Cards de tareas.</li>
+<li>Dropdowns.</li>
+<li>Export buttons.</li>
+<li>Empty states.</li>
+<li>Modales de confirmacion.</li>
+</ul>
+<h3>9.2 Separar mejor dominios</h3>
+<p>Dominios principales:</p>
+<ul>
+<li><code>buildings</code></li>
+<li><code>tasks</code></li>
+<li><code>managerTasks</code></li>
+<li><code>inventory</code></li>
+<li><code>messages</code></li>
+<li><code>units</code></li>
+<li><code>treatments</code></li>
+<li><code>exports</code></li>
+<li><code>profile</code></li>
+</ul>
+<h3>9.3 Consolidar parsers inteligentes</h3>
+<p>Hoy existen parsers para:</p>
+<ul>
+<li>Tareas operativas.</li>
+<li>Tareas administrativas.</li>
+<li>Inventario.</li>
+<li>Eventos.</li>
+</ul>
+<p>Recomendacion:</p>
+<ul>
+<li>Mantener diccionarios separados por dominio.</li>
+<li>Reutilizar utilidades base:</li>
+<p>- normalizar texto. - detectar fecha. - detectar apartamento. - detectar prioridad. - detectar categoria por sinonimos.</p>
+</ul>
+<h3>9.4 Mejorar consistencia visual</h3>
+<p>Areas a cuidar:</p>
+<ul>
+<li>Tamano de textos.</li>
+<li>Espaciado de cards.</li>
+<li>Dropdowns.</li>
+<li>Headers con scroll.</li>
+<li>BottomNav con muchos items.</li>
+<li>Colores de alertas para no saturar.</li>
+</ul>
+<h3>9.5 Mejorar trazabilidad</h3>
+<p>Agregar historial para:</p>
+<ul>
+<li>Cambio de estado de tareas.</li>
+<li>Edicion de inventario.</li>
+<li>Desvinculacion de edificios.</li>
+<li>Cambios de roles.</li>
+<li>Cambios de unidad/contrato.</li>
+</ul>
+<h2>10. Priorizacion sugerida</h2>
+<h3>Prioridad alta</h3>
+<ul>
+<li>Crear modelo real de unidades/apartamentos.</li>
+<li>Importacion segura desde Excel.</li>
+<li>Equipo del edificio: varios managers/conserjes.</li>
+<li>Fotos antes/despues en tareas.</li>
+<li>Refinar permisos por rol.</li>
+</ul>
+<h3>Prioridad media</h3>
+<ul>
+<li>Mejorar supervision ejecutiva.</li>
+<li>Exportaciones por rango.</li>
+<li>Alertas inteligentes.</li>
+<li>Mensajes recientes globales si se decide reintroducirlos.</li>
+<li>Mejorar dashboard de edificios/unidades.</li>
+</ul>
+<h3>Prioridad estrategica</h3>
+<ul>
+<li>Traduccion automatica.</li>
+<li>Planes y limites por suscripcion.</li>
+<li>Reportes ejecutivos avanzados.</li>
+<li>App movil/PWA mas pulida.</li>
+<li>QR/codigo de barras para inventario y unidades.</li>
+</ul>
+<h2>11. Preguntas abiertas para decidir</h2>
+<ul>
+<li>Cual sera el rol exacto de &quot;owner&quot; versus &quot;manager&quot;?</li>
+<li>Un manager puede borrar un edificio o solo desvincularse?</li>
+<li>Los conserjes pueden ver tareas de otros conserjes del mismo edificio?</li>
+<li>Los mensajes del edificio deben ser 1 a 1 o grupales por equipo?</li>
+<li>Las tareas operativas se asignan a un conserje especifico o al edificio?</li>
+<li>El modulo de unidades debe incluir contratos e inquilinos desde la primera version?</li>
+<li>La importacion Excel debe permitir contratos desde el MVP o dejarlo para fase 2?</li>
+<li>El dashboard ejecutivo reemplaza o complementa Supervision?</li>
+</ul>
+<h2>12. Resumen corto</h2>
+<p>La app ya cubre una base operativa fuerte:</p>
+<ul>
+<li>Multi-edificio.</li>
+<li>Manager y conserje.</li>
+<li>Tareas.</li>
+<li>Agenda.</li>
+<li>Inventario.</li>
+<li>Tratamientos.</li>
+<li>Records.</li>
+<li>Mensajes.</li>
+<li>Exportaciones.</li>
+<li>Supervision.</li>
+</ul>
+<p>La siguiente evolucion natural es convertirla en una plataforma mas estructurada de administracion operativa de edificios:</p>
+<ul>
+<li>Unidades reales.</li>
+<li>Equipo por edificio.</li>
+<li>Permisos.</li>
+<li>Importacion Excel.</li>
+<li>Fotos antes/despues.</li>
+<li>Alertas inteligentes.</li>
+<li>Reportes ejecutivos.</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,52 @@
+{
+  "apartmentPrefix": "Apt",
+  "apartmentAliases": ["apt", "apt.", "apartment", "apartments", "unit"],
+  "dateWords": {
+    "today": ["today"],
+    "tomorrow": ["tomorrow"],
+    "dayAfterTomorrow": ["day after tomorrow"]
+  },
+  "timeWords": {
+    "morning": ["in the morning", "morning"],
+    "early": ["early"],
+    "noon": ["at noon", "noon"],
+    "afternoon": ["in the afternoon", "afternoon"],
+    "night": ["at night", "night", "in the evening", "evening"]
+  },
+  "timePrefixes": ["at", "around"],
+  "pestTargets": {
+    "cucarachas": ["cockroach", "cockroaches", "roach", "roaches", "insect", "insects"],
+    "roedores": ["rodent", "rodents", "mouse", "mice", "rat", "rats"],
+    "chinches": ["bedbug", "bedbugs", "bed bug", "bed bugs"]
+  },
+  "locationWords": {
+    "lobby": ["lobby"],
+    "basement": ["basement"],
+    "hallway": ["hallway"],
+    "mainEntrance": ["main entrance"],
+    "garage": ["garage"],
+    "area": ["area"],
+    "building": ["building"]
+  },
+  "categories": {
+    "cleaning": ["clean", "cleaning", "sweep", "mop", "trash", "garbage", "dirty", "disinfect"],
+    "repair": ["fix", "repair", "repairing", "leak", "plumbing", "pipe", "drip", "electricity", "electrical", "light bulb", "lock", "door broken", "sink", "toilet", "fridge", "stove"],
+    "pest": ["cockroach", "cockroaches", "roach", "roaches", "rodent", "rodents", "mouse", "mice", "rat", "rats", "bedbug", "bedbugs", "bed bug", "bed bugs", "insect", "insects", "pest", "pests", "pest control", "fumigate", "fumigation", "exterminate", "exterminator", "extermination", "treatment", "pest treatment"],
+    "paint": ["paint", "painting", "painted", "painter", "touch up paint", "paint touch up"],
+    "inspection": ["inspection", "inspect", "check", "review", "verify"],
+    "visit": ["visit", "visiting", "show apartment", "show unit"],
+    "change": ["change", "changing", "replace", "replacement", "swap", "install", "installation", "install fridge", "install refrigerator", "install stove", "change fridge", "change refrigerator", "change stove"],
+    "delivery": ["delivery", "deliver", "package", "receive package", "pick up package", "received"],
+    "other": []
+  },
+  "priorities": {
+    "high": ["urgent", "now", "asap", "immediate", "right away"],
+    "low": ["can wait", "not urgent", "low priority"]
+  },
+  "visitTypes": {
+    "nuevo": ["initial", "first visit", "new treatment", "new visit"],
+    "seguimiento": ["follow-up", "follow up", "second visit", "revisit"],
+    "preventivo": ["preventive", "prevention"]
+  }
+  
+}

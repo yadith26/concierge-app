@@ -1,0 +1,850 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "nav": {
+    "home": "Home",
+    "tasks": "Tasks",
+    "inventory": "Inventory",
+    "treatments": "Treatments",
+    "agenda": "Agenda"
+  },
+  "appHeader": {
+    "today": "Today",
+    "hello": "Hello",
+    "user": "User",
+    "goToProfile": "Go to profile"
+  },
+  "dashboard": {
+    "loading": "Loading dashboard...",
+    "nextTask": "Next task",
+    "noLocation": "No location",
+    "showing": "Showing:",
+    "summaryCard": {
+      "building": "Building",
+      "noBuilding": "No building",
+      "urgent": "Urgent",
+      "pending": "Pending",
+      "completed": "Completed"
+    },
+    "daySummary": {
+      "todayTasks": "Today's tasks",
+      "overdueTasks": "Overdue tasks",
+      "showingToday": "Showing today's tasks",
+      "showing": "Showing",
+      "tapToView": "Tap to view"
+    },
+    "overdueSection": {
+      "title": "Overdue tasks"
+    },
+    "upcomingSection": {
+      "title": "Upcoming tasks",
+      "today": "Today",
+      "tomorrow": "Tomorrow"
+    },
+    "emptyState": {
+      "title": "No tasks for this day",
+      "description": "You can create a task",
+      "managerDescription": "You can send an event or message to the concierge",
+      "button": "Create task for this day",
+      "noPendingTasks": "No tasks"
+    },
+    "taskSections": {
+      "todayTasks": "Today's tasks",
+      "tomorrowTasks": "Tomorrow's tasks",
+      "completedTasks": "Completed tasks",
+      "urgentTodaySingle": "urgent today",
+      "urgentTodayPlural": "urgent today",
+      "emptyTodayTitle": "No tasks for today",
+      "emptyTodayDescription": "Your day is clear for now.",
+      "emptyTomorrowTitle": "No tasks for tomorrow",
+      "emptyTomorrowDescription": "Nothing scheduled yet.",
+      "emptyCompletedTitle": "Completed tasks",
+      "emptyCompletedDescription": "No completed tasks to show."
+    }
+  },
+  "taskCard": {
+    "complete": "Complete",
+    "delete": "Delete"
+  },
+  "taskLabels": {
+    "status": {
+      "pending": "Pending",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "priority": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "visitType": {
+      "nuevo": "Initial",
+      "seguimiento": "Follow-up",
+      "preventivo": "Preventive"
+    },
+    "pestTarget": {
+      "cucarachas": "Cockroaches",
+      "roedores": "Rodents",
+      "chinches": "Bedbugs"
+    },
+    "category": {
+      "cleaning": "Cleaning",
+      "repair": "Repair",
+      "pest": "Pest control",
+      "paint": "Painting",
+      "inspection": "Inspection",
+      "visit": "Visit",
+      "change": "Replacement",
+      "delivery": "Delivery",
+      "other": "Other"
+    }
+  },
+  "taskCardExpanded": {
+    "fullTitle": "Full title",
+    "description": "Description",
+    "noNote": "No note",
+    "category": "Category",
+    "location": "Location",
+    "noLocation": "No location",
+    "dateAndTime": "Date and time",
+    "completedOn": "Completed on",
+    "pests": "Pests",
+    "unspecified": "Unspecified",
+    "visitType": "Visit type",
+    "apartments": "Apartments",
+    "photos": "Photos",
+    "photo": "Photo",
+    "changeStatus": "Change status",
+    "editTask": "Edit task",
+    "deleteTask": "Delete task"
+  },
+  "taskWarrantyAlerts": {
+    "activeWarrantyDetected": "Active warranty detected",
+    "activeWarrantyUntil": "with active warranty until",
+    "checkBeforeScheduling": "Check before scheduling a new visit to avoid duplicates or unnecessary charges.",
+    "checkingActiveWarranty": "Checking active warranty..."
+  },
+  "pestApartmentCard": {
+    "history": "History",
+    "activeWarranty": "Active warranty",
+    "recurrentProblem": "Recurring issue",
+    "visits": "{count, plural, one {visit} other {visits}}",
+    "latest": "Latest",
+    "total": "Total",
+    "unspecified": "Unspecified",
+    "activeUntil": "Active warranty until"
+  },
+  "pestGroupCard": {
+    "times": "{count, plural, one {time} other {times}}",
+    "visitType": "Treatment type",
+    "note": "Note",
+    "noNote": "No note",
+    "createdAt": "Created at",
+    "delete": "Delete"
+  },
+  "agendaExport": {
+    "noTasks": "There are no tasks in this month to export.",
+    "sheetName": "Tasks",
+    "filePrefix": "tasks",
+    "columns": {
+      "date": "Date",
+      "time": "Time",
+      "title": "Title",
+      "description": "Description",
+      "apartmentOrArea": "Apartment or area",
+      "category": "Category",
+      "priority": "Priority",
+      "status": "Status",
+      "visitType": "Visit type",
+      "pests": "Pests"
+    }
+  },
+  "treatmentExport": {
+    "sheetName": "Treatment summary",
+    "filePrefix": "treatment_summary",
+    "active": "Active",
+    "closed": "Closed",
+    "columns": {
+      "apartment": "Apartment",
+      "cockroaches": "Cockroaches",
+      "rodents": "Rodents",
+      "bedbugs": "Bedbugs",
+      "total": "Total treatments",
+      "firstDate": "First date",
+      "lastDate": "Last date",
+      "latestPest": "Latest pest",
+      "latestVisit": "Latest visit type",
+      "activeWarranty": "Active warranty",
+      "warrantyUntil": "Warranty until",
+      "status": "Status",
+      "notes": "Notes"
+    }
+  },
+  "taskPestSection": {
+    "pests": "Pests treated *",
+    "multiplePestsHint": "You can select one or multiple pests in the same visit.",
+    "apartments": "Apartments or areas *",
+    "oneApartmentHint": "Enter one apartment at a time, then click “Add apartment”.",
+    "oneApartmentError": "Add only one apartment at a time.",
+    "visitType": "Visit type for this apartment *",
+    "addApartment": "Add apartment",
+    "deleteApartment": "Delete apartment"
+  },
+  "taskSmartParsingHints": {
+    "detectedAutomatically": "Detected automatically",
+    "priority": "Priority",
+    "apartmentAddedAutomatically": "Apartment added automatically",
+    "pressEnterToSave": "You can press Enter to save quickly",
+    "useCleanTitle": "Use clean title"
+  },
+  "taskCategoryPriorityFields": {
+    "category": "Category *",
+    "priority": "Priority *"
+  },
+  "taskTitleField": {
+    "label": "Title *",
+    "placeholder": "Ex: fix apartment 3 water leak tomorrow at 9 urgent"
+  },
+  "taskFormHeader": {
+    "editTitle": "Edit task",
+    "createTitle": "New task",
+    "close": "Close"
+  },
+  "taskFormFooter": {
+    "cancel": "Cancel",
+    "saving": "Saving...",
+    "updating": "Updating...",
+    "saveTask": "Save task",
+    "updateTask": "Update task"
+  },
+  "taskDateTimeFields": {
+    "date": "Date *",
+    "time": "Time"
+  },
+  "locationField": {
+    "label": "Apartment / Area",
+    "apartmentPrefix": "Apt",
+    "preview": "Will be saved as",
+    "placeholderApartment": "Ex: 15, 302, PH2",
+    "placeholderOther": "Enter the area",
+    "placeholderDefault": "Type here",
+    "options": {
+      "apartment": "Apartment",
+      "lobby": "Lobby",
+      "garage": "Garage",
+      "hallway": "Hallway",
+      "stairs": "Stairs",
+      "elevator": "Elevator",
+      "terrace": "Terrace",
+      "basement": "Basement",
+      "laundry": "Laundry room",
+      "other": "Other"
+    }
+  },
+  "tasksPage": {
+    "loading": "Loading tasks...",
+    "title": "Tasks",
+    "newTask": "New task",
+    "building": "Building",
+    "noBuilding": "No building"
+  },
+  "tasksFilterBar": {
+    "searchPlaceholder": "Search tasks...",
+    "allCategories": "All categories",
+    "all": "All",
+    "urgent": "Urgent",
+    "overdue": "Overdue",
+    "pending": "Pending",
+    "inProgress": "In progress",
+    "completed": "Completed"
+  },
+  "tasksEmptyState": {
+    "defaultMessage": "There are no tasks to show"
+  },
+  "overdueCard": {
+    "title": "Overdue",
+    "tapToView": "Tap to view"
+  },
+  "undoDeleteToast": {
+    "deleted": "Task deleted",
+    "undo": "Undo"
+  },
+  "tasksPageSections": {
+    "pendingTasks": "Pending tasks",
+    "todayTasks": "Today's tasks",
+    "tomorrowTasks": "Tomorrow's tasks",
+    "upcomingTasks": "Upcoming tasks",
+    "overdueTasks": "Overdue tasks",
+    "completedTasks": "Completed"
+  },
+  "agendaPage": {
+    "loading": "Loading agenda...",
+    "title": "Agenda",
+    "addTask": "Add task",
+    "date": "Date",
+    "noDate": "Not selected",
+    "today": "Today",
+    "newTask": "New task",
+    "goToToday": "Go to today"
+  },
+  "agendaCalendar": {
+    "export": "Export to Excel",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "tasksThisMonth": "{count, plural, one {# task this month} other {# tasks this month}}",
+    "completed": "{count, plural, one {# completed} other {# completed}}",
+    "urgent": "{count, plural, one {# urgent} other {# urgent}}"
+  },
+  "agendaQuickView": {
+    "title": "Quick view of the day",
+    "total": "{count, plural, one {# task total} other {# tasks total}}",
+    "active": "{count, plural, one {# active} other {# active}}",
+    "completed": "{count, plural, one {# completed} other {# completed}}"
+  },
+  "agendaDayPanel": {
+    "selectDay": "Select a day to view the agenda",
+    "createHint": "You can also create a task directly",
+    "title": "Day agenda",
+    "pending": "{count, plural, one {# pending} other {# pending}}",
+    "timed": "{count, plural, one {# scheduled} other {# scheduled}}",
+    "urgent": "{count, plural, one {# urgent} other {# urgent}}",
+    "empty": "No tasks for this day",
+    "emptyHint": "You can create a task",
+    "createForDay": "Create task for this day",
+    "withTime": "Scheduled",
+    "noTime": "No time",
+    "completed": "Completed"
+  },
+  "agendaNextTask": {
+    "nextTask": "Next task",
+    "firstTask": "First task of the day"
+  },
+  "taskPhotosSection": {
+    "label": "Photos",
+    "takePhoto": "Take photo",
+    "uploadPhotos": "Upload photos",
+    "currentPhotos": "Current photos",
+    "newPhotos": "New photos",
+    "currentPhotoAlt": "Current photo {index}",
+    "newPhotoAlt": "New photo {index}",
+    "removeCurrentPhoto": "Remove current photo",
+    "removeNewPhoto": "Remove new photo"
+  },
+  "inventoryPage": {
+    "loading": "Loading inventory...",
+    "title": "Inventory",
+    "exportInventory": "Export inventory",
+    "mergeCategories": "Merge categories",
+    "newItem": "New item",
+    "merge": "Merge",
+    "export": "Export"
+  },
+  "inventoryManualAdjust": {
+    "eyebrow": "Inventory",
+    "title": "Manually remove item",
+    "close": "Close",
+    "summaryTitle": "You are about to remove {quantity} from {item}",
+    "summaryHint": "Before saving, tell us what happened to this item so the history stays clear.",
+    "quantityLabel": "Quantity to remove",
+    "quantityHintMaterial": "For materials you can use partial quantities, for example 0.5.",
+    "quantityHintUnit": "Use whole numbers for this item.",
+    "reasonLabel": "What did you do with this item?",
+    "reasonPlaceholder": "Ex: used in unit 12, discarded because it was damaged, moved to the lobby...",
+    "locationLabel": "Where was it used or moved",
+    "locationPlaceholder": "Ex: Unit 12, Lobby, Trash, Maintenance room",
+    "cancel": "Cancel",
+    "confirm": "Save adjustment",
+    "saving": "Saving..."
+  },
+  "inventoryFilters": {
+    "searchPlaceholder": "Search inventory...",
+    "categories": {
+      "all": "All categories"
+    },
+    "conditions": {
+      "all": "All",
+      "new": "New",
+      "used": "Used",
+      "damaged": "Damaged"
+    },
+    "locations": {
+      "all": "All locations"
+    },
+    "lowStock": "Low stock only ({count})",
+    "view": {
+      "grouped": "Categories",
+      "list": "List"
+    },
+    "clearFilters": "Clear filters"
+  },
+  "inventoryForm": {
+    "newItem": "New item",
+    "editItem": "Edit item",
+    "close": "Close",
+    "name": "Name",
+    "namePlaceholder": "e.g. Whirlpool fridge",
+    "category": "Category",
+    "selectCategory": "Select category",
+    "searchCategory": "Search category...",
+    "addNew": "Add new",
+    "quantity": "Quantity",
+    "minimumStock": "Minimum stock",
+    "condition": "Condition",
+    "location": "Location",
+    "selectLocation": "Select location",
+    "searchLocation": "Search location...",
+    "notes": "Notes",
+    "notesPlaceholder": "Additional details...",
+    "cancel": "Cancel",
+    "saveItem": "Save item",
+    "updateItem": "Update item",
+    "saving": "Saving...",
+    "updating": "Updating...",
+    "conditions": {
+      "new": "New",
+      "used": "Used",
+      "damaged": "Damaged"
+    }
+  },
+  "inventoryHeaderActions": {
+    "building": "Building",
+    "noBuilding": "No building",
+    "newItem": "New item"
+  },
+  "inventoryCategoryCard": {
+    "itemsCount": "{count, plural, one {# item} other {# items}}",
+    "totalUnits": "{count} total",
+    "emptyCategory": "There are no items in this category yet.",
+    "addItemToCategory": "Add item to this category",
+    "addSelectorHelp": "Choose whether to increase an existing variant or create a new one.",
+    "currentUnits": "{count} units now",
+    "increaseExisting": "Increase",
+    "createVariant": "Create new variant",
+    "expandCategory": "Expand category",
+    "collapseCategory": "Collapse category"
+  },
+  "flatInventoryRow": {
+    "lowStock": "Low stock",
+    "units": "{count} units",
+    "noLocation": "No location",
+    "removeOne": "Remove one unit",
+    "addOne": "Add one unit",
+    "editItem": "Edit item"
+  },
+  "inventoryItemRow": {
+    "fullTitle": "Full name",
+    "lowStock": "Low stock",
+    "currentQuantity": "Current quantity",
+    "minimumStock": "Minimum stock",
+    "itemType": "Item",
+    "location": "Location",
+    "condition": "Condition",
+    "notes": "Notes",
+    "history": "History",
+    "noHistory": "No history yet",
+    "units": "{count} units",
+    "removeOne": "Remove one unit",
+    "addOne": "Add one unit",
+    "editItem": "Edit item"
+  },
+  "mergeCategoriesModal": {
+    "title": "Merge categories",
+    "close": "Close",
+    "whatIsThis": "What is this for?",
+    "description": "This helps you fix duplicate or similar categories.",
+    "fromCategory": "Source category",
+    "toCategory": "Target category",
+    "selectCategory": "Select category",
+    "search": "Search category...",
+    "noResults": "No categories found",
+    "noAvailable": "No categories available",
+    "example": "Example: merge similar categories to keep inventory clean.",
+    "cancel": "Cancel",
+    "merge": "Merge",
+    "merging": "Merging..."
+  },
+  "inventoryCombobox": {
+    "noResults": "No options found",
+    "add": "Add"
+  },
+  "inventoryFormModal": {
+    "editTitle": "Edit item",
+    "createTitle": "New item",
+    "close": "Close",
+    "name": "Item name *",
+    "namePlaceholder": "e.g. Mabe 24\" stove",
+    "searchName": "Search product...",
+    "addName": "Add product",
+    "suggestedItem": "Suggested item",
+    "noSuggestion": "No suggestion",
+    "category": "Category *",
+    "selectCategory": "Select category",
+    "searchCategory": "Search category...",
+    "addCategory": "Add new",
+    "measurementUnit": "Unit of measure",
+    "selectMeasurementUnit": "Select unit",
+    "searchMeasurementUnit": "Search unit...",
+    "addMeasurementUnit": "Add unit",
+    "quantity": "Quantity *",
+    "minimumStock": "Minimum stock",
+    "condition": "Condition *",
+    "location": "Location",
+    "selectLocation": "Select location",
+    "searchLocation": "Search location...",
+    "addLocation": "Add new",
+    "notes": "Notes",
+    "notesPlaceholder": "Additional details...",
+    "cancel": "Cancel",
+    "save": "Save item",
+    "update": "Update item",
+    "saving": "Saving...",
+    "updating": "Updating...",
+    "conditions": {
+      "new": "New",
+      "used": "Used",
+      "damaged": "Damaged"
+    }
+  },
+  "inventoryList": {
+    "noResults": "There are no results with those filters"
+  },
+  "inventory": {
+    "errors": {
+      "missingUser": "Missing user or building information.",
+      "nameRequired": "Name is required.",
+      "categoryRequired": "Category is required.",
+      "invalidQuantity": "Quantity must be a valid number.",
+      "invalidStock": "Minimum stock must be a valid number.",
+      "updateFailed": "Failed to update item.",
+      "createFailed": "Failed to create item.",
+      "saveError": "An error occurred while saving the item."
+    },
+    "history": {
+      "created": "Item created in inventory",
+      "updated": "Item updated",
+      "quickAdd": "Quick adjustment +1",
+      "quickRemove": "Quick adjustment -1",
+      "categoryChanged": "Category changed from \"{from}\" to \"{to}\"",
+      "fromTask": "From task: {task}",
+      "unitLabel": "Unit: {unit}",
+      "reasonLabel": "Reason:",
+      "summary": {
+        "installed": "Installed {quantity}",
+        "used": "Used {quantity}",
+        "entry": "Entry of {quantity}",
+        "adjustment": "Manual adjustment {quantity}",
+        "created": "Created with {quantity}",
+        "updated": "Item updated"
+      }
+    },
+    "merge": {
+      "errors": {
+        "selectBoth": "You must select both categories.",
+        "sameCategory": "Categories cannot be the same.",
+        "noItems": "No items in the source category.",
+        "mergeFailed": "Failed to merge categories.",
+        "mergeError": "An error occurred while merging categories."
+      }
+    }
+  },
+  "inventoryExport": {
+    "generatedAt": "Generated on:",
+    "generatedBy": "Generated by:",
+    "reportSubtitle": "Stock and movement summary for the building",
+    "totalRow": "TOTAL",
+    "columns": {
+      "name": "Name",
+      "category": "Category",
+      "itemType": "Item",
+      "unitOfMeasure": "Unit",
+      "quantity": "Quantity",
+      "minimumStock": "Minimum stock",
+      "condition": "Condition",
+      "location": "Location",
+      "notes": "Notes",
+      "lowStock": "Low stock",
+      "createdAt": "Created at",
+      "updatedAt": "Updated at"
+    },
+    "history": {
+        "itemId": "Item ID",
+        "itemName": "Item",
+        "action": "Action",
+        "source": "Source",
+        "unit": "Unit",
+        "before": "Quantity before",
+        "change": "Change",
+        "after": "Quantity after",
+      "note": "Note",
+      "date": "Date"
+    },
+      "sheet": {
+        "inventory": "Inventory",
+        "history": "History"
+      },
+      "metrics": {
+        "totalItems": "REGISTERED ITEMS",
+        "totalItemsLine1": "Distinct items",
+        "totalItemsLine2": "In inventory",
+        "totalUnits": "TOTAL UNITS",
+        "totalUnitsLine1": "Available sum",
+        "totalUnitsLine2": "Current stock",
+        "lowStock": "LOW STOCK",
+        "lowStockLine1": "Items in alert",
+        "lowStockLine2": "Need restocking",
+        "categories": "CATEGORIES",
+        "categoriesLine1": "Active categories",
+        "categoriesLine2": "In this view",
+        "itemsColumn": "Items"
+      },
+      "noData": "There is no data to export",
+      "noHistory": "There is no history available"
+    },
+  "inventoryHelpers": {
+    "emptyItems": "No items"
+  },
+  "inventoryHistoryAction": {
+    "created": "Item created",
+    "edited": "Item edited",
+    "updated": "Item updated",
+    "entry": "Stock entry",
+    "exit": "Stock exit",
+    "installed": "Installed",
+    "manualAdjustment": "Manual adjustment",
+    "stockAdjustment": "Stock adjustment"
+  },
+  "inventoryHistorySource": {
+    "task": "Task",
+    "manual": "Manual",
+    "manager": "Manager",
+    "system": "System"
+  },
+  "treatmentsPage": {
+    "loading": "Loading treatments...",
+    "title": "Pest Treatments",
+    "building": "Building",
+    "noBuilding": "No building",
+    "newTreatment": "New treatment",
+    "exportExcel": "Export Excel",
+    "emptyScheduled": "There are no scheduled treatments",
+    "emptyHistory": "There are no recorded treatments"
+  },
+  "treatmentsFilters": {
+    "tabs": {
+      "scheduled": "Scheduled",
+      "history": "History"
+    },
+    "searchPlaceholderScheduled": "Search scheduled treatments...",
+    "searchPlaceholderHistory": "Search history...",
+    "filters": {
+      "allPests": "All pests",
+      "allVisits": "All"
+    }
+  },
+  "warrantyBadge": {
+    "active": "Active warranty",
+    "expired": "Expired warranty",
+    "until": "until"
+  },
+  "taskVisitSummary": {
+    "initial": "{count} initial{count, plural, one {} other {s}}",
+    "followUp": "{count} follow-up{count, plural, one {} other {s}}",
+    "preventive": "{count} preventive"
+  },
+  "taskSoonLabel": {
+    "now": "Now",
+    "inMinutes": "In {count} min"
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "subtitle": "Manage and streamline building maintenance with ease.",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Forgot password?",
+      "signIn": "Log in",
+      "signingIn": "Logging in...",
+      "noAccount": "Don’t have an account?",
+      "signUp": "Sign up",
+      "success": "Login successful",
+      "invalidCredentials": "Invalid email or password.",
+      "emailNotConfirmed": "Your email has not been confirmed yet.",
+      "genericError": "Error logging in"
+    },
+    "forgotPassword": {
+      "title": "Reset password",
+      "subtitle": "Enter your email and we’ll send you a link to change your password.",
+      "email": "Email",
+      "sendLink": "Send link",
+      "sending": "Sending...",
+      "backToLogin": "Back to login",
+      "success": "If the email is valid, we sent you instructions to change your password.",
+      "rateLimitError": "We couldn’t send the email right now. Please wait a bit and try again.",
+      "genericError": "We couldn’t send the reset email."
+    }
+  },
+  "setupProfile": {
+    "loading": "Loading...",
+    "header": {
+      "editTitle": "Edit profile",
+      "createTitle": "Set up profile",
+      "subtitle": "Manage your personal information"
+    },
+    "avatar": {
+      "changeAvatar": "Change avatar",
+      "hideAvatars": "Hide avatars",
+      "chooseAvatar": "Choose avatar",
+      "yourProfile": "Your profile",
+      "noBuildingAssigned": "No building assigned",
+      "option": "Avatar"
+    },
+    "personalInfo": {
+      "title": "Personal information",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "noEmail": "No email",
+      "language": "Language"
+    },
+    "buildingInfo": {
+      "title": "Building",
+      "buildingName": "Building name",
+      "address": "Address"
+    },
+    "actions": {
+      "saving": "Saving...",
+      "saveChanges": "Save changes",
+      "signOut": "Sign out"
+    },
+    "messages": {
+      "userError": "Error identifying user",
+      "profileSaveError": "Error saving profile",
+      "buildingSaveError": "Error saving building",
+      "success": "Changes saved successfully"
+    },
+    "emailAccess": {
+      "title": "Access email",
+      "currentEmail": "Current email",
+      "newEmail": "New email",
+      "help": "We will send a confirmation link. Your login email changes after confirmation.",
+      "sendConfirmation": "Send confirmation",
+      "sending": "Sending...",
+      "success": "Confirmation email sent. Check your inbox to complete the change.",
+      "emptyError": "Enter the new email.",
+      "sameEmailError": "That email is already your current email.",
+      "genericError": "We could not start the email change."
+    }
+  },
+  "register": {
+    "title": "Create account",
+    "subtitle": "Create your account to start managing your building.",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "createAccount": "Create account",
+    "creating": "Creating...",
+    "haveAccount": "Already have an account?",
+    "signIn": "Log in",
+    "success": "Account created successfully.",
+    "checkEmail": "Account created. Check your email to confirm.",
+    "passwordMismatch": "Passwords do not match.",
+    "rateLimitError": "Please wait a moment before trying again.",
+    "alreadyExists": "This email is already registered.",
+    "passwordError": "Password does not meet requirements.",
+    "invalidEmail": "Invalid email.",
+    "genericError": "Could not create account."
+  },
+  "emptyState": {
+    "title": "No tasks for this day",
+    "description": "You can create a task",
+    "managerDescription": "You can send an event or message to the concierge",
+    "button": "Create task for this day",
+    "noPendingTasks": "No tasks"
+  },
+  "taskSections": {
+    "todayTasks": "Today's tasks",
+    "tomorrowTasks": "Tomorrow's tasks",
+    "completedTasks": "Completed tasks",
+    "urgentTodaySingle": "urgent today",
+    "urgentTodayPlural": "urgent today",
+    "emptyTodayTitle": "No tasks for today",
+    "emptyTodayDescription": "Your day is clear for now.",
+    "emptyTomorrowTitle": "No tasks for tomorrow",
+    "emptyTomorrowDescription": "Nothing scheduled yet.",
+    "emptyCompletedTitle": "Completed tasks",
+    "emptyCompletedDescription": "No completed tasks to show."
+  },
+  "managerAgenda": {
+    "loading": "Loading agenda...",
+    "title": "Agenda",
+    "date": "Date",
+    "today": "Today",
+    "newEvent": "New event",
+    "messages": "Messages",
+    "noAssignedContact": "No assigned contact",
+    "pickDate": "Select a date",
+    "pickDay": "Choose a day",
+    "dayEvents": "Day events",
+    "conciergeTasks": "Concierge tasks",
+    "events": "Events",
+    "tasksCount": "{count} tasks",
+    "eventsCount": "{count} events",
+    "emptyDayTasks": "No tasks for this day",
+    "emptySectionDescription": "There are no activities recorded in this section.",
+    "allDay": "All day",
+    "noLocation": "No location",
+    "noNote": "No note",
+    "description": "Description",
+    "location": "Location",
+    "building": "Building",
+    "category": "Category",
+    "dateLabel": "Date",
+    "status": "Status",
+    "pending": "Pending",
+    "eventBadge": "Event",
+    "profileLoadError": "Could not load your profile.",
+    "noAccess": "You do not have access to this building.",
+    "buildingLoadError": "Could not load the building.",
+    "tasksLoadError": "Could not load the building tasks.",
+    "eventsLoadError": "Could not load the manager events.",
+    "createEventValidation": "Enter at least the event title and date.",
+    "eventDatePastError": "The event date cannot be earlier than today.",
+    "saveEventError": "Could not save the manager event.",
+    "eventCreated": "Event created and sent to the concierge.",
+    "eventHint": "The concierge will decide whether to turn it into a task.",
+    "titlePlaceholder": "Refrigerator delivery",
+    "selectBuilding": "Select building",
+    "selectCategory": "Select category",
+    "locationPlaceholder": "Lobby / 4B / Basement",
+    "note": "Note",
+    "notePlaceholder": "Details for the concierge",
+    "cancel": "Cancel",
+    "saving": "Saving...",
+    "createEvent": "Create event",
+    "eventStatus": {
+      "pending": "Pending",
+      "viewed": "Viewed",
+      "converted": "Converted",
+      "closed": "Closed"
+    },
+    "eventCategory": {
+      "visit": "Visit",
+      "change": "Replacement",
+      "delivery": "Delivery",
+      "inspection": "Inspection",
+      "repair": "Repair",
+      "cleaning": "Cleaning",
+      "paint": "Painting",
+      "pest": "Pest control",
+      "other": "Other"
+    },
+    "goToToday": "Go to today"
+  }
+}

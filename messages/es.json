@@ -1,0 +1,839 @@
+{
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Agregar",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "nav": {
+    "home": "Inicio",
+    "tasks": "Tareas",
+    "inventory": "Inventario",
+    "treatments": "Tratamientos",
+    "agenda": "Agenda"
+  },
+  "appHeader": {
+    "today": "Hoy",
+    "hello": "Hola",
+    "user": "Usuario",
+    "goToProfile": "Ir al perfil"
+  },
+  "dashboard": {
+    "loading": "Cargando dashboard...",
+    "nextTask": "Próxima tarea",
+    "noLocation": "Sin ubicación",
+    "showing": "Mostrando:",
+    "summaryCard": {
+      "building": "Edificio",
+      "noBuilding": "Sin edificio",
+      "urgent": "Urgentes",
+      "pending": "Pendientes",
+      "completed": "Completadas"
+    },
+    "daySummary": {
+      "todayTasks": "Tareas de hoy",
+      "overdueTasks": "Tareas atrasadas",
+      "showingToday": "Mostrando tareas de hoy",
+      "showing": "Mostrando",
+      "tapToView": "Toca para verlas"
+    },
+    "taskSections": {
+      "todayTasks": "Tareas de hoy",
+      "tomorrowTasks": "Tareas de mañana",
+      "completedTasks": "Tareas completadas",
+      "urgentTodaySingle": "urgente hoy",
+      "urgentTodayPlural": "urgentes hoy",
+      "emptyTodayTitle": "No hay tareas para hoy",
+      "emptyTodayDescription": "Tu día está libre por ahora.",
+      "emptyTomorrowTitle": "No hay tareas para mañana",
+      "emptyTomorrowDescription": "No hay tareas programadas.",
+      "emptyCompletedTitle": "Tareas completadas",
+      "emptyCompletedDescription": "No hay tareas completadas para mostrar."
+    },
+    "overdueSection": {
+      "title": "Tareas vencidas"
+    },
+    "upcomingSection": {
+      "title": "Próximas tareas",
+      "today": "Hoy",
+      "tomorrow": "Mañana"
+    },
+    "emptyState": {
+      "title": "No hay tareas para este día",
+      "description": "Puedes crear una tarea",
+      "managerDescription": "Puedes enviar un evento o mensaje al conserje",
+      "button": "Crear tarea para este día",
+      "noPendingTasks": "No hay tareas"
+    }
+  },
+  "taskCard": {
+    "complete": "Completar",
+    "delete": "Eliminar"
+  },
+  "taskLabels": {
+    "status": {
+      "pending": "Pendiente",
+      "in_progress": "En progreso",
+      "completed": "Completada"
+    },
+    "priority": {
+      "high": "Alta",
+      "medium": "Media",
+      "low": "Baja"
+    },
+    "visitType": {
+      "nuevo": "Inicial",
+      "seguimiento": "Seguimiento",
+      "preventivo": "Preventivo"
+    },
+    "pestTarget": {
+      "cucarachas": "Cucarachas",
+      "roedores": "Roedores",
+      "chinches": "Chinches"
+    },
+    "category": {
+      "cleaning": "Limpieza",
+      "repair": "Reparación",
+      "pest": "Plagas",
+      "paint": "Pintura",
+      "inspection": "Inspección",
+      "visit": "Visita",
+      "change": "Reemplazo",
+      "delivery": "Entrega",
+      "other": "Otro"
+    }
+  },
+  "taskCardExpanded": {
+    "fullTitle": "Titulo completo",
+    "description": "Descripción",
+    "noNote": "Sin nota",
+    "category": "Categoría",
+    "location": "Ubicación",
+    "noLocation": "Sin ubicación",
+    "dateAndTime": "Fecha y hora",
+    "completedOn": "Completada el",
+    "pests": "Plagas",
+    "unspecified": "Sin especificar",
+    "visitType": "Tipo de visita",
+    "apartments": "Apartamentos",
+    "photos": "Fotos",
+    "photo": "Foto",
+    "changeStatus": "Cambiar estado",
+    "editTask": "Editar tarea",
+    "deleteTask": "Eliminar tarea"
+  },
+  "taskWarrantyAlerts": {
+    "activeWarrantyDetected": "Garantía activa detectada",
+    "activeWarrantyUntil": "con garantía activa hasta",
+    "checkBeforeScheduling": "Verifica antes de programar una nueva visita para evitar duplicados o cobros innecesarios.",
+    "checkingActiveWarranty": "Revisando garantía activa..."
+  },
+  "pestApartmentCard": {
+    "history": "Historial",
+    "activeWarranty": "Garantía activa",
+    "recurrentProblem": "Problema recurrente",
+    "visits": "{count, plural, one {visita} other {visitas}}",
+    "latest": "Último",
+    "total": "Total",
+    "unspecified": "Sin especificar",
+    "activeUntil": "Garantía activa hasta"
+  },
+  "pestGroupCard": {
+    "times": "{count, plural, one {vez} other {veces}}",
+    "visitType": "Tipo de tratamiento",
+    "note": "Nota",
+    "noNote": "Sin nota",
+    "createdAt": "Registro",
+    "delete": "Eliminar"
+  },
+  "agendaExport": {
+    "noTasks": "No hay tareas en este mes para exportar.",
+    "sheetName": "Tareas",
+    "filePrefix": "tareas",
+    "columns": {
+      "date": "Fecha",
+      "time": "Hora",
+      "title": "Título",
+      "description": "Descripción",
+      "apartmentOrArea": "Apartamento o área",
+      "category": "Categoría",
+      "priority": "Prioridad",
+      "status": "Estado",
+      "visitType": "Tipo de visita",
+      "pests": "Plagas"
+    }
+  },
+  "treatmentExport": {
+    "sheetName": "Resumen tratamientos",
+    "filePrefix": "resumen_tratamientos",
+    "active": "Activo",
+    "closed": "Cerrado",
+    "columns": {
+      "apartment": "Apartamento",
+      "cockroaches": "Cucarachas",
+      "rodents": "Roedores",
+      "bedbugs": "Chinches",
+      "total": "Total tratamientos",
+      "firstDate": "Primera fecha",
+      "lastDate": "Última fecha",
+      "latestPest": "Última plaga",
+      "latestVisit": "Último tipo de visita",
+      "activeWarranty": "Garantía activa",
+      "warrantyUntil": "Garantía hasta",
+      "status": "Estado",
+      "notes": "Notas"
+    }
+  },
+  "taskPestSection": {
+    "pests": "Plagas tratadas *",
+    "multiplePestsHint": "Puedes escoger una o varias plagas en la misma visita.",
+    "apartments": "Apartamentos o áreas *",
+    "oneApartmentHint": "Escribe un solo apartamento por vez y luego pulsa “Agregar apartamento”.",
+    "oneApartmentError": "Agrega un solo apartamento a la vez.",
+    "visitType": "Tipo de visita para este apartamento *",
+    "addApartment": "Agregar apartamento",
+    "deleteApartment": "Eliminar apartamento"
+  },
+  "taskSmartParsingHints": {
+    "detectedAutomatically": "Detectado automáticamente",
+    "priority": "Prioridad",
+    "apartmentAddedAutomatically": "Apto agregado automáticamente",
+    "pressEnterToSave": "Puedes presionar Enter para guardar rápido",
+    "useCleanTitle": "Usar título limpio"
+  },
+  "taskCategoryPriorityFields": {
+    "category": "Categoría *",
+    "priority": "Prioridad *"
+  },
+  "taskTitleField": {
+    "label": "Título *",
+    "placeholder": "Ej: arreglar apartamento 3 salidero de agua mañana a las 9 urgente"
+  },
+  "taskFormHeader": {
+    "editTitle": "Editar tarea",
+    "createTitle": "Nueva tarea",
+    "close": "Cerrar"
+  },
+  "taskFormFooter": {
+    "cancel": "Cancelar",
+    "saving": "Guardando...",
+    "updating": "Actualizando...",
+    "saveTask": "Guardar tarea",
+    "updateTask": "Actualizar tarea"
+  },
+  "taskDateTimeFields": {
+    "date": "Fecha *",
+    "time": "Hora"
+  },
+  "locationField": {
+    "label": "Apartamento / Área",
+    "apartmentPrefix": "Apto",
+    "preview": "Se guardará como",
+    "placeholderApartment": "Ej: 15, 302, PH2",
+    "placeholderOther": "Escribe el área",
+    "placeholderDefault": "Escribe aquí",
+    "options": {
+      "apartment": "Apartamento",
+      "lobby": "Lobby",
+      "garage": "Garaje",
+      "hallway": "Pasillo",
+      "stairs": "Escalera",
+      "elevator": "Ascensor",
+      "terrace": "Terraza",
+      "basement": "Sótano",
+      "laundry": "Lavandería",
+      "other": "Otro"
+    }
+  },
+  "tasksPage": {
+    "loading": "Cargando tareas...",
+    "title": "Tareas",
+    "newTask": "Nueva tarea",
+    "building": "Edificio",
+    "noBuilding": "Sin edificio"
+  },
+  "tasksFilterBar": {
+    "searchPlaceholder": "Buscar tareas...",
+    "allCategories": "Todas las categorías",
+    "all": "Todas",
+    "urgent": "Urgentes",
+    "overdue": "Atrasadas",
+    "pending": "Pendientes",
+    "inProgress": "En progreso",
+    "completed": "Completadas"
+  },
+  "tasksEmptyState": {
+    "defaultMessage": "No hay tareas para mostrar"
+  },
+  "overdueCard": {
+    "title": "Atrasadas",
+    "tapToView": "Toca para verlas"
+  },
+  "undoDeleteToast": {
+    "deleted": "Tarea eliminada",
+    "undo": "Deshacer"
+  },
+  "tasksPageSections": {
+    "pendingTasks": "Tareas pendientes",
+    "todayTasks": "Tareas de hoy",
+    "tomorrowTasks": "Tareas de mañana",
+    "upcomingTasks": "Próximas tareas",
+    "overdueTasks": "Tareas atrasadas",
+    "completedTasks": "Completadas"
+  },
+  "agendaPage": {
+    "loading": "Cargando agenda...",
+    "title": "Agenda",
+    "addTask": "Agregar tarea",
+    "date": "Fecha",
+    "noDate": "Sin seleccionar",
+    "today": "Hoy",
+    "newTask": "Nueva tarea",
+    "goToToday": "Ir a hoy"
+  },
+  "agendaCalendar": {
+    "export": "Exportar a Excel",
+    "previousMonth": "Mes anterior",
+    "nextMonth": "Mes siguiente",
+    "tasksThisMonth": "{count, plural, one {# tarea este mes} other {# tareas este mes}}",
+    "completed": "{count, plural, one {# completada} other {# completadas}}",
+    "urgent": "{count, plural, one {# urgente} other {# urgentes}}"
+  },
+  "agendaQuickView": {
+    "title": "Vista rápida del día",
+    "total": "{count, plural, one {# tarea en total} other {# tareas en total}}",
+    "active": "{count, plural, one {# activa} other {# activas}}",
+    "completed": "{count, plural, one {# completada} other {# completadas}}"
+  },
+  "agendaDayPanel": {
+    "selectDay": "Selecciona un día para ver la agenda",
+    "createHint": "También puedes crear una tarea directamente",
+    "title": "Agenda del día",
+    "pending": "{count, plural, one {# pendiente} other {# pendientes}}",
+    "timed": "{count, plural, one {# con hora} other {# con hora}}",
+    "urgent": "{count, plural, one {# urgente} other {# urgentes}}",
+    "empty": "No hay tareas para este día",
+    "emptyHint": "Puedes crear una tarea",
+    "createForDay": "Crear tarea para este día",
+    "withTime": "Con hora",
+    "noTime": "Sin hora",
+    "completed": "Completadas"
+  },
+  "agendaNextTask": {
+    "nextTask": "Próxima tarea",
+    "firstTask": "Primera tarea del día"
+  },
+  "taskPhotosSection": {
+    "label": "Fotos",
+    "takePhoto": "Tomar foto",
+    "uploadPhotos": "Subir fotos",
+    "currentPhotos": "Fotos actuales",
+    "newPhotos": "Fotos nuevas",
+    "currentPhotoAlt": "Foto actual {index}",
+    "newPhotoAlt": "Foto nueva {index}",
+    "removeCurrentPhoto": "Eliminar foto actual",
+    "removeNewPhoto": "Eliminar foto nueva"
+  },
+  "inventoryPage": {
+    "loading": "Cargando inventario...",
+    "title": "Inventario",
+    "exportInventory": "Exportar inventario",
+    "mergeCategories": "Unificar categorías",
+    "newItem": "Nuevo ítem",
+    "merge": "Unificar",
+    "export": "Exportar"
+  },
+  "inventoryManualAdjust": {
+    "eyebrow": "Inventario",
+    "title": "Descontar item manualmente",
+    "close": "Cerrar",
+    "summaryTitle": "Vas a descontar {quantity} de {item}",
+    "summaryHint": "Antes de guardar, cuentanos que hiciste con este item para dejar el historial mas claro.",
+    "quantityLabel": "Cantidad a descontar",
+    "quantityHintMaterial": "Para materiales puedes usar cantidades parciales, por ejemplo 0.5.",
+    "quantityHintUnit": "Para este item usa cantidades enteras.",
+    "reasonLabel": "Que hiciste con este item?",
+    "reasonPlaceholder": "Ej: usado en apto 12, descartado por dano, prestado al lobby...",
+    "locationLabel": "Donde termino o se utilizo",
+    "locationPlaceholder": "Ej: Apto 12, Lobby, Basura, Cuarto de mantenimiento",
+    "cancel": "Cancelar",
+    "confirm": "Guardar ajuste",
+    "saving": "Guardando..."
+  },
+  "inventoryFilters": {
+  "searchPlaceholder": "Buscar en inventario...",
+  "filters": "Filtros",
+  "filtersDescription": "Ajusta la vista del inventario",
+  "closeFilters": "Cerrar filtros",
+  "noActiveFilters": "Sin filtros activos",
+  "activeFilters": "{count} filtros activos",
+  "categories": {
+    "all": "Todas las categorías"
+  },
+  "conditions": {
+    "all": "Todos",
+    "new": "Nuevo",
+    "used": "Usado",
+    "damaged": "Dañado"
+  },
+  "locations": {
+    "all": "Todas las ubicaciones"
+  },
+  "lowStock": "Solo stock bajo ({count})",
+  "view": {
+    "grouped": "Categorías",
+    "list": "Lista"
+  },
+  "clearFilters": "Limpiar filtros"
+},  
+
+  "inventoryForm": {
+    "newItem": "Nuevo ítem",
+    "editItem": "Editar ítem",
+    "close": "Cerrar",
+    "name": "Nombre",
+    "namePlaceholder": "Ej: Refrigerador Whirlpool",
+    "category": "Categoría",
+    "selectCategory": "Seleccionar categoría",
+    "searchCategory": "Buscar categoría...",
+    "addNew": "Agregar nueva",
+    "quantity": "Cantidad",
+    "minimumStock": "Stock mínimo",
+    "condition": "Estado",
+    "location": "Ubicación",
+    "selectLocation": "Seleccionar ubicación",
+    "searchLocation": "Buscar ubicación...",
+    "notes": "Notas",
+    "notesPlaceholder": "Detalles adicionales...",
+    "cancel": "Cancelar",
+    "saveItem": "Guardar ítem",
+    "updateItem": "Actualizar ítem",
+    "saving": "Guardando...",
+    "updating": "Actualizando...",
+    "conditions": {
+      "new": "Nuevo",
+      "used": "Usado",
+      "damaged": "Dañado"
+    }
+  },
+  "inventoryHeaderActions": {
+    "building": "Edificio",
+    "noBuilding": "Sin edificio",
+    "newItem": "Nuevo ítem"
+  },
+  "inventoryCategoryCard": {
+    "itemsCount": "{count, plural, one {# item} other {# items}}",
+    "totalUnits": "{count} en total",
+    "emptyCategory": "No hay ítems en esta categoría todavía.",
+    "addItemToCategory": "Agregar ítem a esta categoría",
+    "expandCategory": "Expandir categoría",
+    "collapseCategory": "Cerrar categoría"
+  },
+  "flatInventoryRow": {
+    "lowStock": "Stock bajo",
+    "units": "{count} uds.",
+    "noLocation": "Sin ubicación",
+    "removeOne": "Restar una unidad",
+    "addOne": "Sumar una unidad",
+    "editItem": "Editar ítem"
+  },
+  "inventoryItemRow": {
+    "fullTitle": "Nombre completo",
+    "lowStock": "Stock bajo",
+    "currentQuantity": "Cantidad actual",
+    "minimumStock": "Stock mínimo",
+    "itemType": "Item",
+    "location": "Ubicación",
+    "condition": "Estado",
+    "notes": "Notas",
+    "history": "Historial",
+    "noHistory": "Sin historial todavía",
+    "units": "{count} unidades",
+    "removeOne": "Restar una unidad",
+    "addOne": "Sumar una unidad",
+    "editItem": "Editar ítem"
+  },
+  "mergeCategoriesModal": {
+    "title": "Unificar categorías",
+    "close": "Cerrar",
+    "whatIsThis": "¿Para qué sirve?",
+    "description": "Esta opción te ayuda a corregir categorías duplicadas o parecidas.",
+    "fromCategory": "Categoría origen",
+    "toCategory": "Categoría destino",
+    "selectCategory": "Seleccionar categoría",
+    "search": "Buscar categoría...",
+    "noResults": "No se encontraron categorías",
+    "noAvailable": "No hay categorías disponibles",
+    "example": "Ejemplo: puedes unificar categorías duplicadas para mantener el inventario limpio.",
+    "cancel": "Cancelar",
+    "merge": "Unificar",
+    "merging": "Unificando..."
+  },
+  "inventoryCombobox": {
+    "noResults": "No se encontraron opciones",
+    "add": "Añadir"
+  },
+  "inventoryFormModal": {
+    "editTitle": "Editar ítem",
+    "createTitle": "Nuevo ítem",
+    "close": "Cerrar",
+    "name": "Nombre del articulo *",
+    "namePlaceholder": "Ej: Cocina Mabe 24\"",
+    "searchName": "Buscar producto...",
+    "addName": "Agregar producto",
+    "suggestedItem": "Item sugerido",
+    "noSuggestion": "Sin sugerencia",
+    "category": "Categoría *",
+    "selectCategory": "Seleccionar categoría",
+    "searchCategory": "Buscar categoría...",
+    "addCategory": "Agregar nueva",
+    "measurementUnit": "Unidad de medida",
+    "selectMeasurementUnit": "Seleccionar unidad",
+    "searchMeasurementUnit": "Buscar unidad...",
+    "addMeasurementUnit": "Agregar unidad",
+    "quantity": "Cantidad *",
+    "minimumStock": "Stock mínimo",
+    "condition": "Estado *",
+    "location": "Ubicación",
+    "selectLocation": "Seleccionar ubicación",
+    "searchLocation": "Buscar ubicación...",
+    "addLocation": "Agregar nueva",
+    "notes": "Notas",
+    "notesPlaceholder": "Detalles adicionales...",
+    "cancel": "Cancelar",
+    "save": "Guardar ítem",
+    "update": "Actualizar ítem",
+    "saving": "Guardando...",
+    "updating": "Actualizando...",
+    "conditions": {
+      "new": "Nuevo",
+      "used": "Usado",
+      "damaged": "Dañado"
+    }
+  },
+  "inventoryList": {
+    "noResults": "No hay resultados con esos filtros"
+  },
+  "inventory": {
+    "errors": {
+      "missingUser": "Falta información del usuario o edificio.",
+      "nameRequired": "El nombre es obligatorio.",
+      "categoryRequired": "La categoría es obligatoria.",
+      "invalidQuantity": "La cantidad debe ser un número válido.",
+      "invalidStock": "El stock mínimo debe ser un número válido.",
+      "updateFailed": "No se pudo actualizar el ítem.",
+      "createFailed": "No se pudo crear el ítem.",
+      "saveError": "Ocurrió un error guardando el ítem."
+    },
+    "history": {
+      "created": "Ítem creado en inventario",
+      "updated": "Ítem actualizado",
+      "quickAdd": "Ajuste rápido +1",
+      "quickRemove": "Ajuste rápido -1",
+      "categoryChanged": "Categoría cambiada de \"{from}\" a \"{to}\"",
+      "fromTask": "Desde tarea: {task}",
+      "unitLabel": "Unidad: {unit}",
+      "reasonLabel": "Motivo:",
+      "summary": {
+        "installed": "Instalado {quantity}",
+        "used": "Usado {quantity}",
+        "entry": "Entrada de {quantity}",
+        "adjustment": "Ajuste manual {quantity}",
+        "created": "Creado con {quantity}",
+        "updated": "Item actualizado"
+      }
+    },
+    "merge": {
+      "errors": {
+        "selectBoth": "Debes seleccionar ambas categorías.",
+        "sameCategory": "Las categorías no pueden ser iguales.",
+        "noItems": "No hay ítems en la categoría origen.",
+        "mergeFailed": "No se pudieron unificar las categorías.",
+        "mergeError": "Ocurrió un error al unificar categorías."
+      }
+    }
+  },
+  "inventoryExport": {
+    "generatedAt": "Fecha de generación:",
+    "generatedBy": "Generado por:",
+    "reportSubtitle": "Resumen de stock y movimientos del edificio",
+    "totalRow": "TOTAL",
+    "columns": {
+      "name": "Nombre",
+      "category": "Categoría",
+      "itemType": "Item",
+      "unitOfMeasure": "Unidad",
+      "quantity": "Cantidad",
+      "minimumStock": "Stock mínimo",
+      "condition": "Estado",
+      "location": "Ubicación",
+      "notes": "Notas",
+      "lowStock": "Stock bajo",
+      "createdAt": "Creado el",
+      "updatedAt": "Actualizado el"
+    },
+    "history": {
+        "itemId": "ID ítem",
+        "itemName": "Ítem",
+        "action": "Acción",
+        "source": "Origen",
+        "unit": "Unidad",
+        "before": "Cantidad antes",
+        "change": "Cambio",
+        "after": "Cantidad después",
+      "note": "Nota",
+      "date": "Fecha"
+    },
+    "sheet": {
+      "inventory": "Inventario",
+      "history": "Historial"
+    },
+    "metrics": {
+      "totalItems": "ITEMS REGISTRADOS",
+      "totalItemsLine1": "Items distintos",
+      "totalItemsLine2": "En inventario",
+      "totalUnits": "UNIDADES TOTALES",
+      "totalUnitsLine1": "Suma disponible",
+      "totalUnitsLine2": "Stock actual",
+      "lowStock": "STOCK BAJO",
+      "lowStockLine1": "Items en alerta",
+      "lowStockLine2": "Requieren reposición",
+      "categories": "CATEGORÍAS",
+      "categoriesLine1": "Categorías activas",
+      "categoriesLine2": "En esta vista",
+      "itemsColumn": "Items"
+    },
+    "noData": "No hay datos para exportar",
+    "noHistory": "No hay historial disponible"
+  },
+  "inventoryHelpers": {
+    "emptyItems": "Sin ítems"
+  },
+  "inventoryHistoryAction": {
+    "created": "Ítem creado",
+    "edited": "Ítem editado",
+    "updated": "Ítem actualizado",
+    "entry": "Entrada",
+    "exit": "Salida",
+    "installed": "Instalado",
+    "manualAdjustment": "Ajuste manual",
+    "stockAdjustment": "Ajuste de stock"
+  },
+  "inventoryHistorySource": {
+    "task": "Tarea",
+    "manual": "Manual",
+    "manager": "Manager",
+    "system": "Sistema"
+  },
+  "treatmentsPage": {
+    "loading": "Cargando tratamientos...",
+    "title": "Tratamientos",
+    "building": "Edificio",
+    "noBuilding": "Sin edificio",
+    "newTreatment": "Nuevo tratamiento",
+    "exportExcel": "Exportar Excel",
+    "emptyScheduled": "No hay tratamientos programados",
+    "emptyHistory": "No hay tratamientos registrados"
+  },
+  "treatmentsFilters": {
+    "tabs": {
+      "scheduled": "Programados",
+      "history": "Historial"
+    },
+    "searchPlaceholderScheduled": "Buscar tratamientos programados...",
+    "searchPlaceholderHistory": "Buscar historial...",
+    "filters": {
+      "allPests": "Todas las plagas",
+      "allVisits": "Todas"
+    }
+  },
+  "warrantyBadge": {
+    "active": "Garantía activa",
+    "expired": "Garantía vencida",
+    "until": "hasta"
+  },
+  "taskVisitSummary": {
+    "initial": "{count} inicial{count, plural, one {} other {es}}",
+    "followUp": "{count} seguimiento{count, plural, one {} other {s}}",
+    "preventive": "{count} preventivo{count, plural, one {} other {s}}"
+  },
+  "taskSoonLabel": {
+    "now": "Ahora",
+    "inMinutes": "En {count} min"
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar sesión",
+      "subtitle": "Gestiona y organiza el mantenimiento del edificio fácilmente.",
+      "email": "Correo",
+      "password": "Contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "signIn": "Iniciar sesión",
+      "signingIn": "Entrando...",
+      "noAccount": "¿No tienes cuenta?",
+      "signUp": "Registrarse",
+      "success": "Inicio de sesión exitoso",
+      "invalidCredentials": "Correo o contraseña incorrectos.",
+      "emailNotConfirmed": "Tu correo todavía no ha sido confirmado.",
+      "genericError": "Error al iniciar sesión"
+    },
+    "forgotPassword": {
+      "title": "Restablecer contraseña",
+      "subtitle": "Escribe tu correo y te enviaremos un enlace para cambiar tu contraseña.",
+      "email": "Correo",
+      "sendLink": "Enviar enlace",
+      "sending": "Enviando...",
+      "backToLogin": "Volver a iniciar sesión",
+      "success": "Si el correo es válido, te enviamos instrucciones para cambiar tu contraseña.",
+      "rateLimitError": "No se pudo enviar el correo ahora mismo. Espera un poco y vuelve a intentarlo.",
+      "genericError": "No se pudo enviar el correo de restablecimiento."
+    }
+  },
+  "setupProfile": {
+    "loading": "Cargando...",
+    "header": {
+      "editTitle": "Editar perfil",
+      "createTitle": "Configurar perfil",
+      "subtitle": "Gestiona tu información personal"
+    },
+    "avatar": {
+      "changeAvatar": "Cambiar avatar",
+      "hideAvatars": "Ocultar avatares",
+      "chooseAvatar": "Elegir avatar",
+      "yourProfile": "Tu perfil",
+      "noBuildingAssigned": "Sin edificio asignado",
+      "option": "Avatar"
+    },
+    "personalInfo": {
+      "title": "Información personal",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo",
+      "noEmail": "Sin correo",
+      "language": "Idioma"
+    },
+    "buildingInfo": {
+      "title": "Edificio",
+      "buildingName": "Nombre del edificio",
+      "address": "Dirección"
+    },
+    "actions": {
+      "saving": "Guardando...",
+      "saveChanges": "Guardar cambios",
+      "signOut": "Cerrar sesion"
+    },
+    "messages": {
+      "userError": "Error identificando usuario",
+      "profileSaveError": "Error guardando perfil",
+      "buildingSaveError": "Error guardando edificio",
+      "success": "Cambios guardados correctamente"
+    },
+    "emailAccess": {
+      "title": "Correo de acceso",
+      "currentEmail": "Correo actual",
+      "newEmail": "Nuevo correo",
+      "help": "Te enviaremos un enlace de confirmacion. El correo de acceso cambia despues de confirmar.",
+      "sendConfirmation": "Enviar confirmacion",
+      "sending": "Enviando...",
+      "success": "Correo de confirmacion enviado. Revisa tu bandeja para completar el cambio.",
+      "emptyError": "Escribe el nuevo correo.",
+      "sameEmailError": "Ese correo ya es tu correo actual.",
+      "genericError": "No se pudo iniciar el cambio de correo."
+    }
+  },
+  "register": {
+    "title": "Crear cuenta",
+    "subtitle": "Crea tu cuenta para comenzar a gestionar tu edificio.",
+    "email": "Correo",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "createAccount": "Crear cuenta",
+    "creating": "Creando...",
+    "haveAccount": "¿Ya tienes cuenta?",
+    "signIn": "Iniciar sesión",
+    "success": "Cuenta creada correctamente.",
+    "checkEmail": "Cuenta creada. Revisa tu correo para confirmar.",
+    "passwordMismatch": "Las contraseñas no coinciden.",
+    "rateLimitError": "Espera un momento antes de intentar nuevamente.",
+    "alreadyExists": "Este correo ya está registrado.",
+    "passwordError": "La contraseña no cumple los requisitos.",
+    "invalidEmail": "Correo inválido.",
+    "genericError": "No se pudo crear la cuenta."
+  },
+  "emptyState": {
+    "title": "No hay tareas para este día",
+    "description": "Puedes crear una tarea",
+    "managerDescription": "Puedes enviar un evento o mensaje al conserje",
+    "button": "Crear tarea para este día",
+    "noPendingTasks": "No hay tareas"
+  },
+  "managerAgenda": {
+    "loading": "Cargando agenda...",
+    "title": "Agenda",
+    "date": "Fecha",
+    "today": "Hoy",
+    "newEvent": "Nuevo evento",
+    "messages": "Mensajes",
+    "noAssignedContact": "Sin contacto asignado",
+    "pickDate": "Selecciona una fecha",
+    "pickDay": "Escoge un día",
+    "dayEvents": "Eventos del día",
+    "conciergeTasks": "Tareas del conserje",
+    "events": "Eventos",
+    "tasksCount": "{count} tareas",
+    "eventsCount": "{count} eventos",
+    "emptyDayTasks": "No hay tareas para este día",
+    "emptySectionDescription": "No hay actividades registradas en esta sección.",
+    "allDay": "Todo el día",
+    "noLocation": "Sin ubicación",
+    "noNote": "Sin nota",
+    "description": "Descripción",
+    "location": "Ubicación",
+    "building": "Edificio",
+    "category": "Categoría",
+    "dateLabel": "Fecha",
+    "status": "Estado",
+    "pending": "Pendiente",
+    "eventBadge": "Evento",
+    "profileLoadError": "No se pudo cargar tu perfil.",
+    "noAccess": "No tienes acceso a este edificio.",
+    "buildingLoadError": "No se pudo cargar el edificio.",
+    "tasksLoadError": "No se pudieron cargar las tareas del edificio.",
+    "eventsLoadError": "No se pudieron cargar los eventos del manager.",
+    "createEventValidation": "Completa al menos título y fecha del evento.",
+    "eventDatePastError": "La fecha del evento no puede ser anterior a hoy.",
+    "saveEventError": "No se pudo guardar el evento del manager.",
+    "eventCreated": "Evento creado y enviado al conserje.",
+    "eventHint": "El conserje decidirá si lo convierte en tarea.",
+    "titlePlaceholder": "Entrega de refrigerador",
+    "selectBuilding": "Selecciona edificio",
+    "selectCategory": "Selecciona categoría",
+    "locationPlaceholder": "Lobby / 4B / Sótano",
+    "note": "Nota",
+    "notePlaceholder": "Detalles para el conserje",
+    "cancel": "Cancelar",
+    "saving": "Guardando...",
+    "createEvent": "Crear evento",
+    "eventStatus": {
+      "pending": "Pendiente",
+      "viewed": "Visto",
+      "converted": "Convertido",
+      "closed": "Cerrado"
+    },
+    "eventCategory": {
+      "visit": "Visita",
+      "change": "Reemplazo",
+      "delivery": "Entrega",
+      "inspection": "Inspección",
+      "repair": "Reparación",
+      "cleaning": "Limpieza",
+      "paint": "Pintura",
+      "pest": "Plagas",
+      "other": "Otro"
+    },
+    "goToToday": "Ir a hoy"
+  }
+}

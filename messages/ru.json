@@ -1,0 +1,803 @@
+{
+  "common": {
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "add": "Добавить",
+    "yes": "Да",
+    "no": "Нет"
+  },
+  "nav": {
+    "home": "Главная",
+    "tasks": "Задачи",
+    "inventory": "Инвентарь",
+    "treatments": "Обработки",
+    "agenda": "Календарь"
+  },
+  "appHeader": {
+    "today": "Сегодня",
+    "hello": "Привет",
+    "user": "Пользователь",
+    "goToProfile": "Перейти в профиль"
+  },
+  "dashboard": {
+    "loading": "Загрузка панели...",
+    "nextTask": "Следующая задача",
+    "noLocation": "Без локации",
+    "showing": "Показано:",
+    "summaryCard": {
+      "building": "Здание",
+      "noBuilding": "Без здания",
+      "urgent": "Срочные",
+      "pending": "В ожидании",
+      "completed": "Завершённые"
+    },
+    "daySummary": {
+      "todayTasks": "Задачи на сегодня",
+      "overdueTasks": "Просроченные задачи",
+      "showingToday": "Показ задач на сегодня",
+      "showing": "Показано",
+      "tapToView": "Нажмите, чтобы посмотреть"
+    },
+    "overdueSection": {
+      "title": "Просроченные задачи"
+    },
+    "upcomingSection": {
+      "title": "Предстоящие задачи",
+      "today": "Сегодня",
+      "tomorrow": "Завтра"
+    },
+    "emptyState": {
+      "title": "Нет задач на этот день",
+      "description": "Вы можете создать задачу",
+      "managerDescription": "Вы можете отправить событие или сообщение консьержу",
+      "button": "Создать задачу на этот день",
+      "noPendingTasks": "Нет задач"
+    },
+    "taskSections": {
+      "todayTasks": "Задачи на сегодня",
+      "tomorrowTasks": "Задачи на завтра",
+      "completedTasks": "Выполненные задачи",
+      "urgentTodaySingle": "срочная сегодня",
+      "urgentTodayPlural": "срочных сегодня",
+      "emptyTodayTitle": "Нет задач на сегодня",
+      "emptyTodayDescription": "На сегодня ничего не запланировано.",
+      "emptyTomorrowTitle": "Нет задач на завтра",
+      "emptyTomorrowDescription": "Задачи не запланированы.",
+      "emptyCompletedTitle": "Выполненные задачи",
+      "emptyCompletedDescription": "Нет выполненных задач."
+    }
+  },
+  "taskCard": {
+    "complete": "Завершить",
+    "delete": "Удалить"
+  },
+  "taskLabels": {
+    "status": {
+      "pending": "В ожидании",
+      "in_progress": "В процессе",
+      "completed": "Завершена"
+    },
+    "priority": {
+      "high": "Высокая",
+      "medium": "Средняя",
+      "low": "Низкая"
+    },
+    "visitType": {
+      "nuevo": "Первичный",
+      "seguimiento": "Повторный",
+      "preventivo": "Профилактический"
+    },
+    "pestTarget": {
+      "cucarachas": "Тараканы",
+      "roedores": "Грызуны",
+      "chinches": "Клопы"
+    },
+    "category": {
+      "cleaning": "Уборка",
+      "repair": "Ремонт",
+      "pest": "Обработка от вредителей",
+      "paint": "Покраска",
+      "inspection": "Инспекция",
+      "visit": "Визит",
+      "change": "Замена",
+      "delivery": "Доставка",
+      "other": "Другое"
+    }
+  },
+  "taskCardExpanded": {
+    "fullTitle": "Полный заголовок",
+    "description": "Описание",
+    "noNote": "Без заметки",
+    "category": "Категория",
+    "location": "Локация",
+    "noLocation": "Без локации",
+    "dateAndTime": "Дата и время",
+    "completedOn": "Завершено",
+    "pests": "Вредители",
+    "unspecified": "Не указано",
+    "visitType": "Тип визита",
+    "apartments": "Квартиры",
+    "photos": "Фото",
+    "photo": "Фото",
+    "changeStatus": "Изменить статус",
+    "editTask": "Редактировать задачу",
+    "deleteTask": "Удалить задачу"
+  },
+  "taskWarrantyAlerts": {
+    "activeWarrantyDetected": "Обнаружена активная гарантия",
+    "activeWarrantyUntil": "с активной гарантией до",
+    "checkBeforeScheduling": "Проверьте перед планированием нового визита, чтобы избежать дубликатов или лишних расходов.",
+    "checkingActiveWarranty": "Проверка активной гарантии..."
+  },
+  "pestApartmentCard": {
+    "history": "История",
+    "activeWarranty": "Активная гарантия",
+    "recurrentProblem": "Повторяющаяся проблема",
+    "visits": "{count, plural, one {визит} few {визита} many {визитов}}",
+    "latest": "Последний",
+    "total": "Всего",
+    "unspecified": "Не указано",
+    "activeUntil": "Гарантия активна до"
+  },
+  "pestGroupCard": {
+    "times": "{count, plural, one {раз} few {раза} many {раз}}",
+    "visitType": "Тип обработки",
+    "note": "Заметка",
+    "noNote": "Без заметки",
+    "createdAt": "Дата создания",
+    "delete": "Удалить"
+  },
+  "agendaExport": {
+    "noTasks": "В этом месяце нет задач для экспорта.",
+    "sheetName": "Задачи",
+    "filePrefix": "zadachi",
+    "columns": {
+      "date": "Дата",
+      "time": "Время",
+      "title": "Название",
+      "description": "Описание",
+      "apartmentOrArea": "Квартира или зона",
+      "category": "Категория",
+      "priority": "Приоритет",
+      "status": "Статус",
+      "visitType": "Тип визита",
+      "pests": "Вредители"
+    }
+  },
+  "treatmentExport": {
+    "sheetName": "Сводка обработок",
+    "filePrefix": "obrabotki",
+    "active": "Активна",
+    "closed": "Закрыта",
+    "columns": {
+      "apartment": "Квартира",
+      "cockroaches": "Тараканы",
+      "rodents": "Грызуны",
+      "bedbugs": "Клопы",
+      "total": "Всего обработок",
+      "firstDate": "Первая дата",
+      "lastDate": "Последняя дата",
+      "latestPest": "Последний вредитель",
+      "latestVisit": "Тип последнего визита",
+      "activeWarranty": "Гарантия активна",
+      "warrantyUntil": "Гарантия до",
+      "status": "Статус",
+      "notes": "Заметки"
+    }
+  },
+  "taskPestSection": {
+    "pests": "Обработанные вредители *",
+    "multiplePestsHint": "Можно выбрать одного или нескольких вредителей за одно посещение.",
+    "apartments": "Квартиры или зоны *",
+    "oneApartmentHint": "Введите одну квартиру за раз, затем нажмите «Добавить».",
+    "oneApartmentError": "Добавляйте только одну квартиру за раз.",
+    "visitType": "Тип визита для этой квартиры *",
+    "addApartment": "Добавить квартиру",
+    "deleteApartment": "Удалить квартиру"
+  },
+  "taskSmartParsingHints": {
+    "detectedAutomatically": "Определено автоматически",
+    "priority": "Приоритет",
+    "apartmentAddedAutomatically": "Квартира добавлена автоматически",
+    "pressEnterToSave": "Можно нажать Enter для быстрого сохранения",
+    "useCleanTitle": "Использовать очищенный заголовок"
+  },
+  "taskCategoryPriorityFields": {
+    "category": "Категория *",
+    "priority": "Приоритет *"
+  },
+  "taskTitleField": {
+    "label": "Название *",
+    "placeholder": "Напр.: срочно устранить протечку воды в квартире 3 завтра в 9"
+  },
+  "taskFormHeader": {
+    "editTitle": "Редактировать задачу",
+    "createTitle": "Новая задача",
+    "close": "Закрыть"
+  },
+  "taskFormFooter": {
+    "cancel": "Отмена",
+    "saving": "Сохранение...",
+    "updating": "Обновление...",
+    "saveTask": "Сохранить задачу",
+    "updateTask": "Обновить задачу"
+  },
+  "taskDateTimeFields": {
+    "date": "Дата *",
+    "time": "Время"
+  },
+  "locationField": {
+    "label": "Квартира / Зона",
+    "apartmentPrefix": "Кв.",
+    "preview": "Будет сохранено как",
+    "placeholderApartment": "Напр.: 15, 302, PH2",
+    "placeholderOther": "Укажите зону",
+    "placeholderDefault": "Введите здесь",
+    "options": {
+      "apartment": "Квартира",
+      "lobby": "Лобби",
+      "garage": "Гараж",
+      "hallway": "Коридор",
+      "stairs": "Лестница",
+      "elevator": "Лифт",
+      "terrace": "Терраса",
+      "basement": "Подвал",
+      "laundry": "Прачечная",
+      "other": "Другое"
+    }
+  },
+  "tasksPage": {
+    "loading": "Загрузка задач...",
+    "title": "Задачи",
+    "newTask": "Новая задача",
+    "building": "Здание",
+    "noBuilding": "Без здания"
+  },
+  "tasksFilterBar": {
+    "searchPlaceholder": "Поиск задач...",
+    "allCategories": "Все категории",
+    "all": "Все",
+    "urgent": "Срочные",
+    "overdue": "Просроченные",
+    "pending": "В ожидании",
+    "inProgress": "В процессе",
+    "completed": "Завершённые"
+  },
+  "tasksEmptyState": {
+    "defaultMessage": "Нет задач для отображения"
+  },
+  "overdueCard": {
+    "title": "Просроченные",
+    "tapToView": "Нажмите, чтобы посмотреть"
+  },
+  "undoDeleteToast": {
+    "deleted": "Задача удалена",
+    "undo": "Отменить"
+  },
+  "tasksPageSections": {
+    "pendingTasks": "Zadachi v ozhidanii",
+    "todayTasks": "Задачи на сегодня",
+    "tomorrowTasks": "Задачи на завтра",
+    "upcomingTasks": "Предстоящие задачи",
+    "overdueTasks": "Просроченные задачи",
+    "completedTasks": "Завершённые"
+  },
+  "agendaPage": {
+    "loading": "Загрузка календаря...",
+    "title": "Календарь",
+    "addTask": "Добавить задачу",
+    "date": "Дата",
+    "noDate": "Не выбрано",
+    "today": "Сегодня",
+    "newTask": "Новая задача",
+    "goToToday": "К сегодня"
+  },
+  "agendaCalendar": {
+    "export": "Экспорт в Excel",
+    "previousMonth": "Предыдущий месяц",
+    "nextMonth": "Следующий месяц",
+    "tasksThisMonth": "{count, plural, one {# задача в этом месяце} few {# задачи в этом месяце} many {# задач в этом месяце} other {# задач в этом месяце}}",
+    "completed": "{count, plural, one {# выполнена} few {# выполнены} many {# выполнено} other {# выполнено}}",
+    "urgent": "{count, plural, one {# срочная} few {# срочные} many {# срочных} other {# срочных}}"
+  },
+  "agendaQuickView": {
+    "title": "Быстрый обзор дня",
+    "total": "{count, plural, one {# задача всего} few {# задачи всего} many {# задач всего} other {# задач всего}}",
+    "active": "{count, plural, one {# активная} few {# активные} many {# активных} other {# активных}}",
+    "completed": "{count, plural, one {# завершена} few {# завершены} many {# завершено} other {# завершено}}"
+  },
+  "agendaDayPanel": {
+    "selectDay": "Выберите день",
+    "createHint": "Вы можете создать задачу",
+    "title": "Задачи дня",
+    "pending": "{count, plural, one {# в ожидании} few {# в ожидании} many {# в ожидании} other {# в ожидании}}",
+    "timed": "{count, plural, one {# по времени} few {# по времени} many {# по времени} other {# по времени}}",
+    "urgent": "{count, plural, one {# срочная} few {# срочные} many {# срочных} other {# срочные}}",
+    "empty": "Нет задач",
+    "emptyHint": "Вы можете создать задачу",
+    "createForDay": "Создать задачу",
+    "withTime": "По времени",
+    "noTime": "Без времени",
+    "completed": "Завершённые"
+  },
+  "agendaNextTask": {
+    "nextTask": "Следующая задача",
+    "firstTask": "Первая задача дня"
+  },
+  "taskPhotosSection": {
+    "label": "Фото",
+    "takePhoto": "Сделать фото",
+    "uploadPhotos": "Загрузить фото",
+    "currentPhotos": "Текущие фото",
+    "newPhotos": "Новые фото",
+    "currentPhotoAlt": "Текущее фото {index}",
+    "newPhotoAlt": "Новое фото {index}",
+    "removeCurrentPhoto": "Удалить текущее фото",
+    "removeNewPhoto": "Удалить новое фото"
+  },
+  "inventoryPage": {
+    "loading": "Загрузка инвентаря...",
+    "title": "Инвентарь",
+    "exportInventory": "Экспортировать инвентарь",
+    "mergeCategories": "Объединить категории",
+    "newItem": "Новый элемент",
+    "merge": "Объединить",
+    "export": "Экспорт"
+  },
+  "inventoryManualAdjust": {
+    "eyebrow": "Инвентарь",
+    "title": "Списать предмет вручную",
+    "close": "Закрыть",
+    "summaryTitle": "Вы собираетесь списать {quantity} из {item}",
+    "summaryHint": "Перед сохранением укажите, что произошло с этим предметом, чтобы история была понятной.",
+    "quantityLabel": "Количество для списания",
+    "quantityHintMaterial": "Для материалов можно использовать дробные количества, например 0.5.",
+    "quantityHintUnit": "Для этого предмета используйте целые числа.",
+    "reasonLabel": "Что вы сделали с этим предметом?",
+    "reasonPlaceholder": "Например: использован в квартире 12, выброшен из-за повреждения, перенесен в лобби...",
+    "locationLabel": "Где он был использован или оставлен",
+    "locationPlaceholder": "Например: Кв. 12, Лобби, Мусор, Комната обслуживания",
+    "cancel": "Отмена",
+    "confirm": "Сохранить изменение",
+    "saving": "Сохранение..."
+  },
+  "inventoryFilters": {
+    "searchPlaceholder": "Поиск по инвентарю...",
+    "categories": {
+      "all": "Все категории"
+    },
+    "conditions": {
+      "all": "Все",
+      "new": "Новый",
+      "used": "Б/у",
+      "damaged": "Повреждённый"
+    },
+    "locations": {
+      "all": "Все локации"
+    },
+    "lowStock": "Только низкий запас ({count})",
+    "view": {
+      "grouped": "Категории",
+      "list": "Список"
+    },
+    "clearFilters": "Очистить фильтры"
+  },
+  "inventoryForm": {
+    "newItem": "Новый элемент",
+    "editItem": "Редактировать элемент",
+    "close": "Закрыть",
+    "name": "Название",
+    "namePlaceholder": "Напр: холодильник Whirlpool",
+    "category": "Категория",
+    "selectCategory": "Выберите категорию",
+    "searchCategory": "Поиск категории...",
+    "addNew": "Добавить новую",
+    "quantity": "Количество",
+    "minimumStock": "Минимальный запас",
+    "condition": "Состояние",
+    "location": "Локация",
+    "selectLocation": "Выберите локацию",
+    "searchLocation": "Поиск локации...",
+    "notes": "Заметки",
+    "notesPlaceholder": "Дополнительные детали...",
+    "cancel": "Отмена",
+    "saveItem": "Сохранить",
+    "updateItem": "Обновить",
+    "saving": "Сохранение...",
+    "updating": "Обновление...",
+    "conditions": {
+      "new": "Новый",
+      "used": "Б/у",
+      "damaged": "Повреждённый"
+    }
+  },
+  "inventoryHeaderActions": {
+    "building": "Здание",
+    "noBuilding": "Без здания",
+    "newItem": "Новый элемент"
+  },
+  "inventoryCategoryCard": {
+    "itemsCount": "{count, plural, one {# элемент} few {# элемента} many {# элементов} other {# элементов}}",
+    "totalUnits": "Всего: {count}",
+    "emptyCategory": "В этой категории пока нет элементов.",
+    "addItemToCategory": "Добавить элемент в эту категорию",
+    "expandCategory": "Развернуть категорию",
+    "collapseCategory": "Свернуть категорию"
+  },
+  "flatInventoryRow": {
+    "lowStock": "Низкий запас",
+    "units": "{count} шт.",
+    "noLocation": "Без локации",
+    "removeOne": "Уменьшить на одну единицу",
+    "addOne": "Добавить одну единицу",
+    "editItem": "Редактировать элемент"
+  },
+  "inventoryItemRow": {
+    "fullTitle": "Полное название",
+    "lowStock": "Низкий запас",
+    "currentQuantity": "Текущее количество",
+    "minimumStock": "Минимальный запас",
+    "itemType": "Тип",
+    "location": "Локация",
+    "condition": "Состояние",
+    "notes": "Заметки",
+    "history": "История",
+    "noHistory": "Истории пока нет",
+    "units": "{count} единиц",
+    "removeOne": "Уменьшить на одну единицу",
+    "addOne": "Добавить одну единицу",
+    "editItem": "Редактировать элемент"
+  },
+  "mergeCategoriesModal": {
+    "title": "Объединить категории",
+    "close": "Закрыть",
+    "whatIsThis": "Для чего это?",
+    "description": "Позволяет объединять похожие или дублирующиеся категории.",
+    "fromCategory": "Исходная категория",
+    "toCategory": "Целевая категория",
+    "selectCategory": "Выберите категорию",
+    "search": "Поиск...",
+    "noResults": "Категории не найдены",
+    "noAvailable": "Нет доступных категорий",
+    "example": "Пример: объедините похожие категории для чистоты инвентаря.",
+    "cancel": "Отмена",
+    "merge": "Объединить",
+    "merging": "Объединение..."
+  },
+  "inventoryCombobox": {
+    "noResults": "Ничего не найдено",
+    "add": "Добавить"
+  },
+  "inventoryFormModal": {
+    "editTitle": "Редактировать элемент",
+    "createTitle": "Новый элемент",
+    "close": "Закрыть",
+    "name": "Название предмета *",
+    "namePlaceholder": "Напр.: плита Mabe 24\"",
+    "searchName": "Поиск товара...",
+    "addName": "Добавить товар",
+    "suggestedItem": "Рекомендуемый элемент",
+    "noSuggestion": "Нет подсказки",
+    "category": "Категория *",
+    "selectCategory": "Выберите категорию",
+    "searchCategory": "Поиск категории...",
+    "addCategory": "Добавить новую",
+    "measurementUnit": "Единица измерения",
+    "selectMeasurementUnit": "Выберите единицу",
+    "searchMeasurementUnit": "Поиск единицы...",
+    "addMeasurementUnit": "Добавить единицу",
+    "quantity": "Количество *",
+    "minimumStock": "Минимальный запас",
+    "condition": "Состояние *",
+    "location": "Местоположение",
+    "selectLocation": "Выберите местоположение",
+    "searchLocation": "Поиск местоположения...",
+    "addLocation": "Добавить новое",
+    "notes": "Заметки",
+    "notesPlaceholder": "Дополнительные детали...",
+    "cancel": "Отмена",
+    "save": "Сохранить элемент",
+    "update": "Обновить элемент",
+    "saving": "Сохранение...",
+    "updating": "Обновление...",
+    "conditions": {
+      "new": "Новый",
+      "used": "Б/у",
+      "damaged": "Повреждённый"
+    }
+  },
+  "inventoryList": {
+    "noResults": "По этим фильтрам ничего не найдено"
+  },
+  "inventory": {
+    "errors": {
+      "missingUser": "Отсутствует информация о пользователе или здании.",
+      "nameRequired": "Название обязательно.",
+      "categoryRequired": "Категория обязательна.",
+      "invalidQuantity": "Количество должно быть корректным.",
+      "invalidStock": "Минимальный запас должен быть корректным.",
+      "updateFailed": "Не удалось обновить элемент.",
+      "createFailed": "Не удалось создать элемент.",
+      "saveError": "Ошибка при сохранении элемента."
+    },
+    "history": {
+      "created": "Элемент добавлен в инвентарь",
+      "updated": "Элемент обновлён",
+      "quickAdd": "Быстрое увеличение +1",
+      "quickRemove": "Быстрое уменьшение -1",
+      "categoryChanged": "Категория изменена с \"{from}\" на \"{to}\""
+    },
+    "merge": {
+      "errors": {
+        "selectBoth": "Выберите обе категории.",
+        "sameCategory": "Категории не могут совпадать.",
+        "noItems": "Нет элементов в исходной категории.",
+        "mergeFailed": "Не удалось объединить категории.",
+        "mergeError": "Ошибка при объединении категорий."
+      }
+    }
+  },
+  "inventoryExport": {
+    "columns": {
+      "name": "Название",
+      "category": "Категория",
+      "itemType": "Тип",
+      "unitOfMeasure": "Единица",
+      "quantity": "Количество",
+      "minimumStock": "Минимальный запас",
+      "condition": "Состояние",
+      "location": "Местоположение",
+      "notes": "Заметки",
+      "lowStock": "Низкий запас",
+      "createdAt": "Создано",
+      "updatedAt": "Обновлено"
+    },
+    "history": {
+      "itemId": "ID элемента",
+      "itemName": "Элемент",
+      "action": "Действие",
+      "before": "До",
+      "change": "Изменение",
+      "after": "После",
+      "note": "Заметка",
+      "date": "Дата"
+    },
+    "sheet": {
+      "inventory": "Инвентарь",
+      "history": "История"
+    },
+    "noData": "Нет данных для экспорта",
+    "noHistory": "Нет истории"
+  },
+  "inventoryHelpers": {
+    "emptyItems": "Нет элементов"
+  },
+  "inventoryHistoryAction": {
+    "created": "Элемент создан",
+    "edited": "Элемент изменён",
+    "stockAdjustment": "Корректировка запаса"
+  },
+  "treatmentsPage": {
+    "loading": "Загрузка обработок...",
+    "title": "Обработка от вредителей",
+    "building": "Здание",
+    "noBuilding": "Без здания",
+    "newTreatment": "Новая обработка",
+    "exportExcel": "Экспорт в Excel",
+    "emptyScheduled": "Нет запланированных обработок",
+    "emptyHistory": "Нет зарегистрированных обработок"
+  },
+  "treatmentsFilters": {
+    "tabs": {
+      "scheduled": "Запланированные",
+      "history": "История"
+    },
+    "searchPlaceholderScheduled": "Поиск запланированных обработок...",
+    "searchPlaceholderHistory": "Поиск по истории...",
+    "filters": {
+      "allPests": "Все вредители",
+      "allVisits": "Все"
+    }
+  },
+  "warrantyBadge": {
+    "active": "Гарантия активна",
+    "expired": "Гарантия истекла",
+    "until": "до"
+  },
+  "taskVisitSummary": {
+    "initial": "{count} первичн{count, plural, one {ый} few {ых} many {ых} other {ых}}",
+    "followUp": "{count} повторн{count, plural, one {ый} few {ых} many {ых} other {ых}}",
+    "preventive": "{count} профилактическ{count, plural, one {ий} few {их} many {их} other {их}}"
+  },
+  "taskSoonLabel": {
+    "now": "Сейчас",
+    "inMinutes": "Через {count} мин"
+  },
+  "auth": {
+    "login": {
+      "title": "Вход",
+      "subtitle": "Управляйте обслуживанием здания легко и эффективно.",
+      "email": "Эл. почта",
+      "password": "Пароль",
+      "forgotPassword": "Забыли пароль?",
+      "signIn": "Войти",
+      "signingIn": "Вход...",
+      "noAccount": "Нет аккаунта?",
+      "signUp": "Зарегистрироваться",
+      "success": "Успешный вход",
+      "invalidCredentials": "Неверный email или пароль.",
+      "emailNotConfirmed": "Ваш email еще не подтвержден.",
+      "genericError": "Ошибка при входе"
+    },
+    "forgotPassword": {
+      "title": "Сброс пароля",
+      "subtitle": "Введите email, и мы отправим ссылку для смены пароля.",
+      "email": "Эл. почта",
+      "sendLink": "Отправить ссылку",
+      "sending": "Отправка...",
+      "backToLogin": "Вернуться ко входу",
+      "success": "Если email действителен, мы отправили инструкции для смены пароля.",
+      "rateLimitError": "Сейчас не удалось отправить письмо. Подождите немного и попробуйте снова.",
+      "genericError": "Не удалось отправить письмо для сброса пароля."
+    }
+  },
+  "setupProfile": {
+    "loading": "Загрузка...",
+    "header": {
+      "editTitle": "Редактировать профиль",
+      "createTitle": "Настроить профиль",
+      "subtitle": "Управляйте личной информацией"
+    },
+    "avatar": {
+      "changeAvatar": "Сменить аватар",
+      "hideAvatars": "Скрыть аватары",
+      "chooseAvatar": "Выбрать аватар",
+      "yourProfile": "Ваш профиль",
+      "noBuildingAssigned": "Здание не назначено",
+      "option": "Аватар"
+    },
+    "personalInfo": {
+      "title": "Личная информация",
+      "firstName": "Имя",
+      "lastName": "Фамилия",
+      "email": "Эл. почта",
+      "noEmail": "Нет почты",
+      "language": "Язык"
+    },
+    "buildingInfo": {
+      "title": "Здание",
+      "buildingName": "Название здания",
+      "address": "Адрес"
+    },
+    "actions": {
+      "saving": "Сохранение...",
+      "saveChanges": "Сохранить изменения",
+      "signOut": "Выйти"
+    },
+    "messages": {
+      "userError": "Ошибка идентификации пользователя",
+      "profileSaveError": "Ошибка при сохранении профиля",
+      "buildingSaveError": "Ошибка при сохранении здания",
+      "success": "Изменения успешно сохранены"
+    },
+    "emailAccess": {
+      "title": "Эл. почта для входа",
+      "currentEmail": "Текущая эл. почта",
+      "newEmail": "Новая эл. почта",
+      "help": "Мы отправим ссылку для подтверждения. Email для входа изменится после подтверждения.",
+      "sendConfirmation": "Отправить подтверждение",
+      "sending": "Отправка...",
+      "success": "Письмо для подтверждения отправлено. Проверьте почту, чтобы завершить смену.",
+      "emptyError": "Введите новый email.",
+      "sameEmailError": "Этот email уже текущий.",
+      "genericError": "Не удалось начать смену email."
+    }
+  },
+  "register": {
+    "title": "Создать аккаунт",
+    "subtitle": "Создайте аккаунт, чтобы начать управлять зданием.",
+    "email": "Эл. почта",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "createAccount": "Создать аккаунт",
+    "creating": "Создание...",
+    "haveAccount": "Уже есть аккаунт?",
+    "signIn": "Войти",
+    "success": "Аккаунт успешно создан.",
+    "checkEmail": "Аккаунт создан. Проверьте почту для подтверждения.",
+    "passwordMismatch": "Пароли не совпадают.",
+    "rateLimitError": "Подождите немного перед повторной попыткой.",
+    "alreadyExists": "Этот email уже зарегистрирован.",
+    "passwordError": "Пароль не соответствует требованиям.",
+    "invalidEmail": "Неверный email.",
+    "genericError": "Не удалось создать аккаунт."
+  },
+  "emptyState": {
+    "title": "Нет задач на этот день",
+    "description": "Вы можете создать задачу",
+    "managerDescription": "Вы можете отправить событие или сообщение консьержу",
+    "button": "Создать задачу на этот день",
+    "noPendingTasks": "Нет задач"
+  },
+  "taskSections": {
+    "todayTasks": "Задачи на сегодня",
+    "tomorrowTasks": "Задачи на завтра",
+    "completedTasks": "Выполненные задачи",
+    "urgentTodaySingle": "срочная сегодня",
+    "urgentTodayPlural": "срочных сегодня",
+    "emptyTodayTitle": "Нет задач на сегодня",
+    "emptyTodayDescription": "На сегодня ничего не запланировано.",
+    "emptyTomorrowTitle": "Нет задач на завтра",
+    "emptyTomorrowDescription": "Задачи не запланированы.",
+    "emptyCompletedTitle": "Выполненные задачи",
+    "emptyCompletedDescription": "Нет выполненных задач."
+  },
+  "managerAgenda": {
+    "loading": "Загрузка календаря...",
+    "title": "Календарь",
+    "date": "Дата",
+    "today": "Сегодня",
+    "newEvent": "Новое событие",
+    "messages": "Сообщения",
+    "noAssignedContact": "Нет назначенного контакта",
+    "pickDate": "Выберите дату",
+    "pickDay": "Выберите день",
+    "dayEvents": "События дня",
+    "conciergeTasks": "Задачи консьержа",
+    "events": "События",
+    "tasksCount": "{count} задач",
+    "eventsCount": "{count} событий",
+    "emptyDayTasks": "Нет задач на этот день",
+    "emptySectionDescription": "В этом разделе нет зарегистрированных действий.",
+    "allDay": "Весь день",
+    "noLocation": "Без локации",
+    "noNote": "Без заметки",
+    "description": "Описание",
+    "location": "Локация",
+    "building": "Здание",
+    "category": "Категория",
+    "dateLabel": "Дата",
+    "status": "Статус",
+    "pending": "В ожидании",
+    "eventBadge": "Событие",
+    "profileLoadError": "Не удалось загрузить ваш профиль.",
+    "noAccess": "У вас нет доступа к этому зданию.",
+    "buildingLoadError": "Не удалось загрузить здание.",
+    "tasksLoadError": "Не удалось загрузить задачи здания.",
+    "eventsLoadError": "Не удалось загрузить события менеджера.",
+    "createEventValidation": "Введите хотя бы название и дату события.",
+    "eventDatePastError": "Дата события не может быть раньше сегодняшнего дня.",
+    "saveEventError": "Не удалось сохранить событие менеджера.",
+    "eventCreated": "Событие создано и отправлено консьержу.",
+    "eventHint": "Консьерж решит, превращать ли это в задачу.",
+    "titlePlaceholder": "Доставка холодильника",
+    "selectBuilding": "Выберите здание",
+    "selectCategory": "Выберите категорию",
+    "locationPlaceholder": "Лобби / 4B / Подвал",
+    "note": "Заметка",
+    "notePlaceholder": "Детали для консьержа",
+    "cancel": "Отмена",
+    "saving": "Сохранение...",
+    "createEvent": "Создать событие",
+    "eventStatus": {
+      "pending": "В ожидании",
+      "viewed": "Просмотрено",
+      "converted": "Преобразовано",
+      "closed": "Закрыто"
+    },
+    "eventCategory": {
+      "visit": "Визит",
+      "change": "Замена",
+      "delivery": "Доставка",
+      "inspection": "Проверка",
+      "repair": "Ремонт",
+      "cleaning": "Уборка",
+      "paint": "Покраска",
+      "pest": "Обработка от вредителей",
+      "other": "Другое"
+    },
+    "goToToday": "К сегодня"
+  }
+}

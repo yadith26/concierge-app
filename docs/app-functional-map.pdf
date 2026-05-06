@@ -1,0 +1,929 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Length 3367 >>
+stream
+BT /F3 22 Tf 1 0 0 1 48.00 783.89 Tm (Concierge App - mapa funcional del producto) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 740.89 Tm (Ultima actualizacion: 2026-04-22) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 718.89 Tm (Este documento resume las funcionalidades actuales y las funcionalidades planificadas de) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 703.89 Tm (Concierge App. La idea es tener una vista completa del producto para detectar redundancias,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 688.89 Tm (priorizar mejoras y planificar futuras versiones.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 658.89 Tm (1. Vision general) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 627.89 Tm (Concierge App es una plataforma operativa para edificios residenciales. Conecta managers,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 612.89 Tm (conserjes y edificios para gestionar tareas, agenda, inventario, tratamientos, mensajes,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 597.89 Tm (unidades/apartamentos, records y supervision.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 575.89 Tm (El enfoque principal no es ser un sistema contable o inmobiliario completo. El valor) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 560.89 Tm (central esta en la operacion diaria:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 538.89 Tm (- Saber que hay que hacer hoy.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 524.89 Tm (- Coordinar manager y conserje por edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 510.89 Tm (- Registrar historial por apartamento o area comun.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 496.89 Tm (- Manejar inventario de materiales y equipos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 482.89 Tm (- Dar visibilidad rapida a edificios con problemas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 468.89 Tm (- Facilitar comunicacion multi-edificio.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 439.89 Tm (2. Roles principales) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 400.89 Tm (Manager / Administrador) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 373.89 Tm (Usuario que administra uno o varios edificios.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 351.89 Tm (Funciones principales:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 329.89 Tm (- Ver dashboard general.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 315.89 Tm (- Ver dashboard por edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 301.89 Tm (- Crear tareas administrativas propias.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 287.89 Tm (- Crear eventos para el conserje.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 273.89 Tm (- Supervisar tareas operativas del conserje.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 259.89 Tm (- Ver agenda personal.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 245.89 Tm (- Ver agenda del edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 231.89 Tm (- Gestionar edificios vinculados.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 217.89 Tm (- Ver records, inventario, tratamientos e historial por unidad.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 203.89 Tm (- Exportar informacion a Excel.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 189.89 Tm (- Comunicarse con conserjes por edificio.) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 160.89 Tm (Conserje) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 133.89 Tm (Usuario operativo que trabaja en uno o varios edificios.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 111.89 Tm (Funciones principales:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 89.89 Tm (- Ver dashboard del edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 75.89 Tm (- Si tiene varios edificios, ver dashboard general multi-edificio.) Tj ET
+endstream
+endobj
+5 0 obj
+<< /Length 3344 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 60.00 787.89 Tm (- Crear tareas operativas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 773.89 Tm (- Completar tareas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 759.89 Tm (- Convertir eventos del manager en tareas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 745.89 Tm (- Manejar inventario.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 731.89 Tm (- Registrar tratamientos de plagas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 717.89 Tm (- Ver agenda operativa.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 703.89 Tm (- Ver records.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 689.89 Tm (- Comunicarse con manager por edificio.) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 660.89 Tm (Propietaria / Owner / Vista ejecutiva futura) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 633.89 Tm (Rol o vista de supervision con menos operacion diaria y mas indicadores.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 611.89 Tm (Funciones esperadas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 589.89 Tm (- Ver estado general de edificios.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 575.89 Tm (- Ver porcentaje de tareas completadas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 561.89 Tm (- Ver tareas atrasadas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 547.89 Tm (- Ver ultimos tratamientos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 533.89 Tm (- Ver alertas inteligentes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 519.89 Tm (- Exportar reportes ejecutivos.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 490.89 Tm (3. Navegacion general) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 451.89 Tm (Manager - navegacion principal) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 424.89 Tm (flowchart TD) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 413.89 Tm (A["Inicio manager"] --> B["Tareas administrativas"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 402.89 Tm (A --> C["Supervision"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 391.89 Tm (A --> D["Edificios"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 380.89 Tm (A --> E["Agenda"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 369.89 Tm (A --> F["Mensajes globales"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 358.89 Tm (D --> G["Dashboard de edificio"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 347.89 Tm (G --> H["Tareas del conserje"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 336.89 Tm (G --> I["Inventario"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 325.89 Tm (G --> J["Tratamientos"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 314.89 Tm (G --> K["Records"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 303.89 Tm (G --> L["Unidades"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 292.89 Tm (G --> M["Agenda del edificio"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 281.89 Tm (L --> N["Ficha de unidad"]) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 263.89 Tm (BottomNav del manager:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 241.89 Tm (- Inicio) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 227.89 Tm (- Tareas) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 213.89 Tm (- Supervision) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 199.89 Tm (- Edificios) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 185.89 Tm (- Agenda) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 164.89 Tm (Dentro de un edificio, el manager usa una navegacion especifica del edificio:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 142.89 Tm (- Dashboard) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 128.89 Tm (- Tareas) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 114.89 Tm (- Inventario) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 100.89 Tm (- Tratamientos) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 86.89 Tm (- Records) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 72.89 Tm (- Units / Unidades) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Length 3018 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 60.00 787.89 Tm (- Agenda) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 758.89 Tm (Conserje - navegacion principal) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 731.89 Tm (flowchart TD) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 720.89 Tm (A["Entrada conserje"] --> B{"Cantidad de edificios"}) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 709.89 Tm (B -->|"1 edificio"| C["Dashboard del edificio"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 698.89 Tm (B -->|"2+ edificios"| D["Inicio general multi-edificio"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 687.89 Tm (D --> C) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 676.89 Tm (C --> E["Tareas"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 665.89 Tm (C --> F["Inventario"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 654.89 Tm (C --> G["Tratamientos"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 643.89 Tm (C --> H["Agenda"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 632.89 Tm (C --> I["Mensajes"]) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 614.89 Tm (BottomNav del conserje:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 592.89 Tm (- Inicio) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 578.89 Tm (- Tareas) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 564.89 Tm (- Inventario) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 550.89 Tm (- Tratamientos) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 536.89 Tm (- Agenda) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 507.89 Tm (4. Modulos actuales) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 468.89 Tm (4.1 Autenticacion y perfil) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 437.89 Tm (Pantallas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 415.89 Tm (- Login) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 401.89 Tm (- Signup) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 387.89 Tm (- Forgot password) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 373.89 Tm (- Setup profile) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 359.89 Tm (- Editar perfil) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 338.89 Tm (Caracteristicas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 316.89 Tm (- Registro como manager o conserje.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 302.89 Tm (- Perfil con nombre, email, idioma y avatar.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 288.89 Tm (- Foto de perfil personalizada.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 274.89 Tm (- Avatar visible en headers.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 260.89 Tm (- Cambio de idioma.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 246.89 Tm (- Edicion de email desplegable.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 232.89 Tm (- Para manager, la administracion de edificios se separa del perfil.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 211.89 Tm (Pendiente o recomendado:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 189.89 Tm (- Permisos mas granulares por rol.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 175.89 Tm (- Flujo formal de invitaciones.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 161.89 Tm (- Soporte para varios managers y varios conserjes por edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 147.89 Tm (- Roles futuros: owner, viewer, supervisor.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 118.89 Tm (4.2 Gestion de edificios) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 87.89 Tm (Pantallas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 65.89 Tm (- Manager: Edificios) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Length 3539 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 60.00 787.89 Tm (- Manager: Inicio con lista de edificios) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 773.89 Tm (- Conserje: selector o inicio multi-edificio) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 752.89 Tm (Caracteristicas actuales:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 730.89 Tm (- Manager puede ver edificios vinculados.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 716.89 Tm (- Manager puede conectar edificio existente con codigo.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 702.89 Tm (- Manager puede crear edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 688.89 Tm (- Manager puede entrar al dashboard de un edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 674.89 Tm (- Conserje puede estar vinculado a uno o varios edificios.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 660.89 Tm (- Cambio de edificio desde el header manteniendo contexto de pantalla.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 646.89 Tm (- Navegacion entre dashboard general y dashboard especifico.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 625.89 Tm (Caracteristicas planificadas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 603.89 Tm (- Desvincularse de un edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 589.89 Tm (- Eliminar edificio con permisos y confirmacion.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 575.89 Tm (- Equipo del edificio: managers, conserjes y roles.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 561.89 Tm (- Invitar usuario por codigo o invitacion.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 547.89 Tm (- Editar datos del edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 533.89 Tm (- Imagen/foto del edificio.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 504.89 Tm (4.3 Dashboard general del manager) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 473.89 Tm (Objetivo:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 451.89 Tm (Dar al manager una vista rapida de su trabajo y de sus edificios.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 429.89 Tm (Caracteristicas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 407.89 Tm (- Header con saludo, fecha, mensajes y perfil.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 393.89 Tm (- Accion principal para crear:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 379.89 Tm (- Tarea administrativa.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 364.89 Tm (- Evento para conserje.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 349.89 Tm (- Resumen de tareas administrativas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 335.89 Tm (- Vencidas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 320.89 Tm (- Hoy.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 305.89 Tm (- Proximas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 290.89 Tm (- Al tocar un resumen, funciona como semifiltro y muestra las tareas correspondientes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 276.89 Tm (- Lista de edificios.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 262.89 Tm (- Cada edificio muestra:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 248.89 Tm (- Nombre.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 233.89 Tm (- Direccion.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 218.89 Tm (- Tareas del conserje de hoy.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 203.89 Tm (- Tareas del manager relacionadas con ese edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 188.89 Tm (- Acceso rapido al dashboard de cada edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 167.89 Tm (Pendiente o recomendado:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 145.89 Tm (- Mensajes recientes globales si se decide volver a mostrarlos en Inicio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 131.89 Tm (- Alertas ejecutivas ligeras.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 117.89 Tm (- Mejorar balance visual para muchos edificios.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 88.89 Tm (4.4 Dashboard de edificio para manager) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Length 3253 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 48.00 787.89 Tm (Objetivo:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 765.89 Tm (Ver el estado operativo de un edificio especifico.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 743.89 Tm (Caracteristicas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 721.89 Tm (- Header con edificio actual.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 707.89 Tm (- Cambio de edificio manteniendo la pantalla actual.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 693.89 Tm (- Acceso a vista general / Mis edificios.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 679.89 Tm (- Contacto del conserje con foto y boton de mensaje.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 665.89 Tm (- Resumen operativo.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 651.89 Tm (- Eventos del manager para el conserje.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 637.89 Tm (- Tareas del conserje organizadas por estado/fecha.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 623.89 Tm (- Cards readonly para revisar tareas operativas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 602.89 Tm (Pendiente o recomendado:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 580.89 Tm (- Adaptar dashboard al caso de varios conserjes en un mismo edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 566.89 Tm (- Mostrar equipo completo del edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 552.89 Tm (- Separar conversaciones por edificio y por participante.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 523.89 Tm (4.5 Dashboard general del conserje multi-edificio) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 492.89 Tm (Regla:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 470.89 Tm (- Si el conserje tiene 1 edificio, entra directo al dashboard del edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 456.89 Tm (- Si tiene 2 o mas edificios, entra a un inicio general operativo.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 435.89 Tm (Caracteristicas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 413.89 Tm (- Header con saludo, fecha, mensajes y foto.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 399.89 Tm (- Resumen corto del dia.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 385.89 Tm (- Lista de edificios asignados.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 371.89 Tm (- Cards con tareas pendientes, urgentes y tareas de hoy.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 357.89 Tm (- Acceso rapido al edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 336.89 Tm (Pendiente o recomendado:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 314.89 Tm (- "Continuar en ultimo edificio".) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 300.89 Tm (- Ordenar edificios por urgencia operativa.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 286.89 Tm (- Mensajes recientes por edificio.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 257.89 Tm (4.6 Tareas operativas del conserje) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 226.89 Tm (Categorias principales:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 204.89 Tm (- Limpieza.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 190.89 Tm (- Reparacion.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 176.89 Tm (- Plagas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 162.89 Tm (- Pintura.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 148.89 Tm (- Reemplazo.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 134.89 Tm (- Entrega.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 120.89 Tm (- Inspeccion.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 106.89 Tm (- Visita.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 92.89 Tm (- Otro.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 71.89 Tm (Caracteristicas:) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Length 3446 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 60.00 787.89 Tm (- Crear tarea manualmente.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 773.89 Tm (- Parser inteligente para detectar:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 759.89 Tm (- Categoria.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 744.89 Tm (- Fecha.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 729.89 Tm (- Ubicacion/apartamento/area.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 714.89 Tm (- Prioridad.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 699.89 Tm (- Seleccion de apartamento o area comun.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 685.89 Tm (- Areas comunes separadas de apartamentos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 671.89 Tm (- Validacion de fecha local.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 657.89 Tm (- Swipe:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 643.89 Tm (- Derecha para completar.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 628.89 Tm (- Izquierda para eliminar con confirmacion/undo.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 613.89 Tm (- Expandir tarjeta para ver detalles.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 599.89 Tm (- Editar tarea.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 585.89 Tm (- Cambiar estado.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 571.89 Tm (- Eliminar tarea.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 557.89 Tm (- Tareas creadas desde eventos del manager tienen marca visual.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 543.89 Tm (- Al completar delivery o reemplazo, se puede actualizar inventario.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 529.89 Tm (- Si se usa inventario en reemplazo, se puede descontar del stock.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 515.89 Tm (- Referencia entre tarea e item de inventario usado.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 494.89 Tm (Pendiente o recomendado:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 472.89 Tm (- Fotos antes/despues.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 458.89 Tm (- Asignar tarea a un conserje especifico.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 444.89 Tm (- Comentarios dentro de tarea.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 430.89 Tm (- Historial de cambios de estado.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 401.89 Tm (4.7 Tareas administrativas del manager) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 370.89 Tm (Objetivo:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 348.89 Tm (Separar las tareas propias del manager de las tareas operativas del conserje.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 326.89 Tm (Categorias actuales:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 304.89 Tm (- Llamada.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 290.89 Tm (- Email.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 276.89 Tm (- Seguimiento.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 262.89 Tm (- Documento.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 248.89 Tm (- Pago.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 234.89 Tm (- Reunion.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 220.89 Tm (- Proveedor.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 206.89 Tm (- Recordatorio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 192.89 Tm (- Otro.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 171.89 Tm (Caracteristicas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 149.89 Tm (- Crear tarea administrativa desde Inicio, Tareas o Agenda.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 135.89 Tm (- Puede estar relacionada con:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 121.89 Tm (- Tarea administrativa general.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 106.89 Tm (- Un edificio especifico.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 91.89 Tm (- Parser inteligente para sugerir categoria, fecha, prioridad y edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 77.89 Tm (- Cards expandibles.) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Length 2972 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 60.00 787.89 Tm (- Cambiar estado.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 773.89 Tm (- Editar tarea.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 759.89 Tm (- Eliminar tarea.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 745.89 Tm (- Swipe para completar/eliminar.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 731.89 Tm (- Resumen en Inicio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 717.89 Tm (- Filtros en Tareas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 703.89 Tm (- Vista calendario en Agenda.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 689.89 Tm (- Exportar vista a Excel respetando filtros.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 668.89 Tm (Pendiente o recomendado:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 646.89 Tm (- Tareas administrativas recurrentes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 632.89 Tm (- Asignacion interna si hay varios managers.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 618.89 Tm (- Relacionar una tarea administrativa con un mensaje, edificio, conserje o unidad.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 589.89 Tm (4.8 Agenda) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 550.89 Tm (Agenda del conserje) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 523.89 Tm (Caracteristicas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 501.89 Tm (- Calendario mensual.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 487.89 Tm (- Tareas por dia.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 473.89 Tm (- Crear nueva tarea.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 459.89 Tm (- Exportar mes/vista.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 445.89 Tm (- Boton claro para volver a hoy.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 431.89 Tm (- Soporte multi-idioma en labels.) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 402.89 Tm (Agenda del manager) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 375.89 Tm (Caracteristicas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 353.89 Tm (- Solo tareas administrativas del manager.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 339.89 Tm (- Filtros por edificio y estado.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 325.89 Tm (- Calendario mensual.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 311.89 Tm (- Lista de tareas por dia.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 297.89 Tm (- Crear tarea administrativa.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 283.89 Tm (- Exportar vista a Excel.) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 254.89 Tm (Agenda del edificio para manager) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 227.89 Tm (Caracteristicas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 205.89 Tm (- Eventos creados por manager para conserje.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 191.89 Tm (- Vista de tareas/eventos por dia.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 177.89 Tm (- Crear evento para conserje.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 163.89 Tm (- El conserje puede aceptar evento y convertirlo en tarea.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 142.89 Tm (Pendiente o recomendado:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 120.89 Tm (- Rango de fechas para exportacion.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 106.89 Tm (- Eventos recurrentes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 92.89 Tm (- Recordatorios/notificaciones.) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Length 3306 >>
+stream
+BT /F3 15 Tf 1 0 0 1 48.00 787.89 Tm (4.9 Mensajes) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 756.89 Tm (Objetivo:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 734.89 Tm (Comunicar manager y conserje manteniendo el contexto del edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 712.89 Tm (Caracteristicas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 690.89 Tm (- Conversacion por edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 676.89 Tm (- Icono global de mensajes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 662.89 Tm (- Bandeja global de mensajes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 648.89 Tm (- Conversaciones separadas por edificio, aunque sean las mismas personas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 634.89 Tm (- Reacciones a mensajes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 620.89 Tm (- Crear tarea desde mensaje.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 606.89 Tm (- Manager puede crear tarea administrativa desde mensaje del conserje.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 592.89 Tm (- Conserje puede crear tarea operativa desde mensaje del manager.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 571.89 Tm (Regla importante:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 549.89 Tm (No mezclar conversaciones de distintos edificios.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 527.89 Tm (Ejemplo:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 505.89 Tm (- Hector - Edouard-Montpetit.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 491.89 Tm (- Hector - Cote Saint Luc.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 470.89 Tm (Pendiente o recomendado:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 448.89 Tm (- Mensajes recientes en home si aporta valor.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 434.89 Tm (- Notificaciones push.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 420.89 Tm (- Indicador persistente de mensajes/eventos pendientes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 406.89 Tm (- Soporte para multiples conserjes/managers en una conversacion de edificio.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 377.89 Tm (4.10 Inventario) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 346.89 Tm (Objetivo:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 324.89 Tm (Manejar stock de equipos, materiales y supplies del edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 302.89 Tm (Caracteristicas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 280.89 Tm (- Categorias globales simplificadas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 266.89 Tm (- Items y variantes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 252.89 Tm (- Nombre libre del articulo.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 238.89 Tm (- Parser inteligente para sugerir categoria/item.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 224.89 Tm (- Cantidad.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 210.89 Tm (- Estado.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 196.89 Tm (- Stock minimo.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 182.89 Tm (- Ubicacion.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 168.89 Tm (- Notas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 154.89 Tm (- Fotos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 140.89 Tm (- Historial de movimientos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 126.89 Tm (- Incremento rapido de stock.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 112.89 Tm (- Modal para agregar inventario desde completar tarea.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 98.89 Tm (- Variantes del mismo item.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 84.89 Tm (- Exportacion a Excel con estilo.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 70.89 Tm (- Filtros compactos por dropdown.) Tj ET
+endstream
+endobj
+12 0 obj
+<< /Length 2914 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 60.00 787.89 Tm (- Solo mostrar categorias/items con stock existente.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 766.89 Tm (Ejemplo de estructura:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 744.89 Tm (- Appliances) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 730.89 Tm (- Estufa) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 715.89 Tm (- Estufa Mabe 24") Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 700.89 Tm (- Estufa usada con problema en piloto) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 685.89 Tm (- Refrigerador) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 670.89 Tm (- Materiales) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 656.89 Tm (- Pintura) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 641.89 Tm (- Drywall) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 626.89 Tm (- Cemento blanco) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 611.89 Tm (- Cemento cola) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 589.89 Tm (Pendiente o recomendado:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 567.89 Tm (- Trazabilidad por unidad instalada.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 553.89 Tm (- Separar stock por ubicacion/deposito.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 539.89 Tm (- Codigo de barras o QR.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 525.89 Tm (- Alertas de stock bajo.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 511.89 Tm (- Costos por item.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 482.89 Tm (4.11 Tratamientos de plagas) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 451.89 Tm (Objetivo:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 429.89 Tm (Registrar tratamientos, seguimientos y patrones por apartamento o area.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 407.89 Tm (Caracteristicas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 385.89 Tm (- Categoria Pest control / Control de plagas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 371.89 Tm (- Historial por unidad.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 357.89 Tm (- Registros por fecha.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 343.89 Tm (- Filtros.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 329.89 Tm (- Vista en Records.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 315.89 Tm (- Alertas de tratamientos repetidos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 294.89 Tm (Pendiente o recomendado:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 272.89 Tm (- Garantia por tratamiento.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 258.89 Tm (- Proveedor/empresa del tratamiento.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 244.89 Tm (- Tipo de plaga.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 230.89 Tm (- Proximo seguimiento sugerido.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 216.89 Tm (- Alertas tipo "Apto 12 con 3 fumigaciones recientes".) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 187.89 Tm (4.12 Records) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 156.89 Tm (Objetivo:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 134.89 Tm (Centralizar historial de inventario, tratamientos y registros relevantes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 112.89 Tm (Caracteristicas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 90.89 Tm (- Records en BottomNav.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 76.89 Tm (- Tratamientos.) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Length 3367 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 60.00 787.89 Tm (- Inventario.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 773.89 Tm (- Filtros.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 759.89 Tm (- Exportaciones.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 745.89 Tm (- Vista por edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 724.89 Tm (Pendiente o recomendado:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 702.89 Tm (- Consolidar todos los tipos de historial.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 688.89 Tm (- Vista por unidad desde Records.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 674.89 Tm (- Busqueda global por apartamento, categoria o fecha.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 645.89 Tm (4.13 Units / Unidades / Apartamentos) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 614.89 Tm (Estado actual:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 592.89 Tm (- Vista de unidades derivada del historial.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 578.89 Tm (- Apartamentos y areas comunes separados.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 564.89 Tm (- Ficha de unidad.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 550.89 Tm (- Resumen superior:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 536.89 Tm (- Ultima pintura.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 521.89 Tm (- Ultimo reemplazo.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 506.89 Tm (- Ultima reparacion.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 491.89 Tm (- Ultimo control de plagas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 476.89 Tm (- Cards resaltadas cuando hay informacion.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 462.89 Tm (- Historial organizado por ano.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 448.89 Tm (- Cada ano se expande al hacer click.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 434.89 Tm (- Categorias:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 420.89 Tm (- Trabajos de pintura.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 405.89 Tm (- Reparaciones.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 390.89 Tm (- Reemplazos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 375.89 Tm (- Control de plagas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 360.89 Tm (- Tareas expandibles con detalles.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 339.89 Tm (Problema estructural actual:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 317.89 Tm (La pantalla de unidades todavia depende mucho del historial/tareas. Para convertirla en un) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 302.89 Tm (modulo inmobiliario fuerte, conviene crear una tabla real de unidades/apartamentos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 280.89 Tm (Plan recomendado:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 258.89 Tm (- Crear tabla building_units.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 244.89 Tm (- Guardar datos permanentes:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 230.89 Tm (- numero de apartamento.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 215.89 Tm (- tipo.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 200.89 Tm (- habitaciones.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 185.89 Tm (- banos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 170.89 Tm (- estado: ocupado/disponible/problematico.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 155.89 Tm (- inquilino actual.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 140.89 Tm (- contrato.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 125.89 Tm (- garaje.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 110.89 Tm (- storage.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 95.89 Tm (- notas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 80.89 Tm (- Mantener unit_history como historial operacional.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 66.89 Tm (- Conectar inventario instalado a unidad.) Tj ET
+endstream
+endobj
+14 0 obj
+<< /Length 3006 >>
+stream
+BT /F3 15 Tf 1 0 0 1 48.00 779.89 Tm (4.14 Supervision ejecutiva) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 748.89 Tm (Objetivo:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 726.89 Tm (Dar una vista rapida del estado operativo de todos los edificios.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 704.89 Tm (Caracteristicas actuales:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 682.89 Tm (- Pantalla en BottomNav del manager.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 668.89 Tm (- Metricas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 654.89 Tm (- Porcentaje completado.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 639.89 Tm (- Tareas atrasadas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 624.89 Tm (- Alertas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 609.89 Tm (- Resumen por edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 595.89 Tm (- Ultimo tratamiento.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 581.89 Tm (- Alertas por unidad.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 567.89 Tm (- Exportar supervision a Excel.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 546.89 Tm (Pendiente o recomendado:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 524.89 Tm (- Quitar exceso de color en cards de edificios.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 510.89 Tm (- Filtros por periodo.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 496.89 Tm (- Comparacion mensual.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 482.89 Tm (- Ranking de edificios con mas problemas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 468.89 Tm (- Exportacion ejecutiva mas visual.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 439.89 Tm (4.15 Exportaciones Excel) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 408.89 Tm (Exportaciones existentes o avanzadas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 386.89 Tm (- Inventario.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 372.89 Tm (- Historial de unidades.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 358.89 Tm (- Tareas administrativas del manager.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 344.89 Tm (- Agenda/vista filtrada.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 330.89 Tm (- Supervision.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 309.89 Tm (Caracteristicas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 287.89 Tm (- Estilo consistente.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 273.89 Tm (- Headers con color.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 259.89 Tm (- Bordes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 245.89 Tm (- Auto filtros.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 231.89 Tm (- Hojas por ano o por tipo cuando aplica.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 217.89 Tm (- Respeta filtros en algunas vistas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 196.89 Tm (Pendiente o recomendado:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 174.89 Tm (- Estandarizar todos los exports en una sola capa utilitaria.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 160.89 Tm (- Agregar metadata:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 146.89 Tm (- edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 131.89 Tm (- usuario.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 116.89 Tm (- fecha de exportacion.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 101.89 Tm (- filtros aplicados.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 86.89 Tm (- Exportacion por rango de fecha.) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Length 3392 >>
+stream
+BT /F3 15 Tf 1 0 0 1 48.00 787.89 Tm (4.16 Multi-idioma) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 756.89 Tm (Idiomas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 734.89 Tm (- Espanol.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 720.89 Tm (- Ingles.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 706.89 Tm (- Frances.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 692.89 Tm (- Ruso.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 671.89 Tm (Caracteristicas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 649.89 Tm (- Archivos de mensajes por idioma.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 635.89 Tm (- Parser de tareas con sinonimos por idioma.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 621.89 Tm (- Labels traducidos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 607.89 Tm (- Correcciones de encoding en JSON.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 586.89 Tm (Pendiente o recomendado:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 564.89 Tm (- Traduccion automatica de contenido escrito por usuarios.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 550.89 Tm (- Guardar texto original y traducciones.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 536.89 Tm (- Boton "Ver original".) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 522.89 Tm (- Cache de traducciones.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 493.89 Tm (5. Flujos clave) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 454.89 Tm (5.1 Crear tarea operativa) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 423.89 Tm (flowchart TD) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 412.89 Tm (A["Usuario escribe titulo"] --> B["Parser inteligente"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 401.89 Tm (B --> C["Sugiere categoria, fecha, prioridad, ubicacion"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 390.89 Tm (C --> D["Usuario confirma o ajusta"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 379.89 Tm (D --> E["Guardar tarea"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 368.89 Tm (E --> F["Aparece en dashboard, tareas, agenda y records si aplica"]) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 342.89 Tm (5.2 Crear evento del manager para conserje) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 311.89 Tm (flowchart TD) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 300.89 Tm (A["Manager crea evento"] --> B["Selecciona edificio"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 289.89 Tm (B --> C["Parser sugiere categoria y unidad"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 278.89 Tm (C --> D["Evento queda pendiente para conserje"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 267.89 Tm (D --> E["Conserje ve notificacion"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 256.89 Tm (E --> F["Conserje acepta y crea tarea"]) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 230.89 Tm (5.3 Completar tarea con inventario) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 199.89 Tm (flowchart TD) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 188.89 Tm (A["Conserje completa tarea"] --> B{"Categoria afecta inventario?"}) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 177.89 Tm (B -->|"Delivery"| C["Sugerir agregar stock"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 166.89 Tm (B -->|"Reemplazo"| D["Sugerir usar item de inventario"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 155.89 Tm (C --> E["Formulario de inventario prellenado"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 144.89 Tm (D --> F["Seleccionar variante disponible"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 133.89 Tm (F --> G["Descontar stock"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 122.89 Tm (E --> H["Guardar movimiento"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 111.89 Tm (G --> H) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 100.89 Tm (H --> I["Relacionar tarea con inventario"]) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 74.89 Tm (5.4 Mensaje a tarea) Tj ET
+endstream
+endobj
+16 0 obj
+<< /Length 3890 >>
+stream
+BT /F2 8.5 Tf 1 0 0 1 60.00 787.89 Tm (flowchart TD) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 776.89 Tm (A["Mensaje recibido"] --> B["Usuario mantiene presionado o reacciona"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 765.89 Tm (B --> C["Selecciona crear tarea"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 754.89 Tm (C --> D{"Rol del usuario"}) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 743.89 Tm (D -->|"Conserje"| E["Crear tarea operativa"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 732.89 Tm (D -->|"Manager"| F["Crear tarea administrativa"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 721.89 Tm (E --> G["Formulario prellenado desde mensaje"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 710.89 Tm (F --> G) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 684.89 Tm (5.5 Cambio de edificio manteniendo contexto) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 653.89 Tm (flowchart TD) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 642.89 Tm (A["Usuario esta en modulo de edificio X"] --> B["Abre selector de edificio"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 631.89 Tm (B --> C["Selecciona edificio Y"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 620.89 Tm (C --> D["App conserva modulo actual"]) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 609.89 Tm (D --> E["Navega a la misma pantalla en edificio Y"]) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 583.89 Tm (6. Modelo de datos conceptual) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 552.89 Tm (erDiagram) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 541.89 Tm (profiles ||--o{ building_members : belongs_to) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 530.89 Tm (buildings ||--o{ building_members : has) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 519.89 Tm (buildings ||--o{ tasks : has) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 508.89 Tm (buildings ||--o{ inventory_items : has) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 497.89 Tm (buildings ||--o{ pest_treatments : has) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 486.89 Tm (buildings ||--o{ manager_tasks : relates_to) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 475.89 Tm (buildings ||--o{ building_messages : has) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 464.89 Tm (buildings ||--o{ unit_history : has) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 453.89 Tm (buildings ||--o{ building_units : planned) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 442.89 Tm (tasks ||--o{ task_photos : has) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 431.89 Tm (tasks }o--o| inventory_items : uses) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 420.89 Tm (manager_tasks }o--o| buildings : optional_scope) Tj ET
+BT /F2 8.5 Tf 1 0 0 1 60.00 409.89 Tm (building_units ||--o{ unit_history : planned_history) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 391.89 Tm (Entidades actuales o esperadas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 369.89 Tm (- profiles) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 355.89 Tm (- buildings) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 341.89 Tm (- building_members) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 327.89 Tm (- tasks) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 313.89 Tm (- manager_tasks) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 299.89 Tm (- building_messages) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 285.89 Tm (- inventory_items) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 271.89 Tm (- inventory_history) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 257.89 Tm (- inventory_photos) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 243.89 Tm (- pest_treatments) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 229.89 Tm (- unit_history) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 215.89 Tm (- task_photos) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 201.89 Tm (- building_units futura/recomendada) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 172.89 Tm (7. Reglas importantes de producto) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 133.89 Tm (Edificios y usuarios) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 106.89 Tm (- Un manager puede tener varios edificios.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 92.89 Tm (- Un conserje puede trabajar en varios edificios.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 78.89 Tm (- Un edificio deberia poder tener varios managers.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 64.89 Tm (- Un edificio deberia poder tener varios conserjes.) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Length 2996 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 60.00 787.89 Tm (- Los permisos deben depender del rol dentro de ese edificio.) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 758.89 Tm (Mensajes) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 731.89 Tm (- Las conversaciones no se mezclan entre edificios.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 717.89 Tm (- Un mismo manager y conserje pueden tener una conversacion distinta por cada edificio.) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 688.89 Tm (Tareas) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 661.89 Tm (- Tareas operativas pertenecen al edificio y normalmente al conserje.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 647.89 Tm (- Tareas administrativas pertenecen al manager.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 633.89 Tm (- Una tarea administrativa puede ser general o relacionada con un edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 619.89 Tm (- Eventos del manager no son tareas hasta que el conserje los convierte.) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 590.89 Tm (Inventario) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 563.89 Tm (- Delivery tiende a incrementar stock.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 549.89 Tm (- Reemplazo tiende a consumir stock.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 535.89 Tm (- La tarea debe guardar referencia del item usado cuando aplique.) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 506.89 Tm (Fechas) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 479.89 Tm (- Validar siempre con fecha local del usuario/edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 465.89 Tm (- Evitar crear eventos o tareas con fecha anterior a hoy, salvo que se permita) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 451.89 Tm (explicitamente como registro historico.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 422.89 Tm (8. Funcionalidades planificadas de alto valor) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 383.89 Tm (8.1 Importacion segura de apartamentos desde Excel) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 352.89 Tm (Objetivo:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 330.89 Tm (Permitir que el manager cargue o actualice apartamentos sin destruir datos existentes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 308.89 Tm (Reglas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 286.89 Tm (- Excel vacio no borra datos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 272.89 Tm (- Dato lleno actualiza.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 258.89 Tm (- Apartamento nuevo crea registro.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 244.89 Tm (- Apartamento no presente se conserva.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 230.89 Tm (- Preview antes de confirmar.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 216.89 Tm (- Modo destructivo, si existe, debe estar protegido.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 195.89 Tm (Requisito previo recomendado:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 173.89 Tm (- Crear tabla real building_units.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 144.89 Tm (8.2 Modulo fuerte de apartamentos) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 113.89 Tm (Objetivo:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 91.89 Tm (Convertir Units en una pantalla central del edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 69.89 Tm (Funciones:) Tj ET
+endstream
+endobj
+18 0 obj
+<< /Length 2660 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 60.00 787.89 Tm (- Lista de apartamentos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 773.89 Tm (- Estado: ocupado, disponible, problematico.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 759.89 Tm (- Inquilino actual.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 745.89 Tm (- Contrato.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 731.89 Tm (- Garaje/storage.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 717.89 Tm (- Alertas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 703.89 Tm (- Historial.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 689.89 Tm (- Inventario instalado.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 675.89 Tm (- Fotos/documentos.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 646.89 Tm (8.3 Fotos antes/despues en tareas) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 615.89 Tm (Objetivo:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 593.89 Tm (Documentar visualmente trabajos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 571.89 Tm (Funciones:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 549.89 Tm (- Foto antes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 535.89 Tm (- Foto despues.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 521.89 Tm (- Galeria por tarea.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 507.89 Tm (- Visible desde tarea, unidad y records.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 478.89 Tm (8.4 Traduccion automatica) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 447.89 Tm (Objetivo:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 425.89 Tm (Cada usuario escribe en su idioma y otros ven traduccion segun su perfil.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 403.89 Tm (Reglas:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 381.89 Tm (- Nunca reemplazar texto original.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 367.89 Tm (- Guardar source_locale.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 353.89 Tm (- Guardar traducciones en cache.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 339.89 Tm (- Invalidar traduccion si cambia texto original.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 325.89 Tm (- Boton "Ver original".) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 296.89 Tm (8.5 Equipo del edificio y permisos) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 265.89 Tm (Objetivo:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 243.89 Tm (Soportar multiples managers y conserjes por edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 221.89 Tm (Funciones:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 199.89 Tm (- Ver equipo.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 185.89 Tm (- Invitar usuario.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 171.89 Tm (- Desvincular usuario.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 157.89 Tm (- Cambiar rol.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 143.89 Tm (- Limites por plan de suscripcion.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 114.89 Tm (9. Oportunidades de optimizacion) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 75.89 Tm (9.1 Reducir duplicacion de UI) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Length 2785 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 48.00 787.89 Tm (Componentes candidatos:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 765.89 Tm (- Headers de manager/conserje.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 751.89 Tm (- Cards de tareas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 737.89 Tm (- Dropdowns.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 723.89 Tm (- Export buttons.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 709.89 Tm (- Empty states.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 695.89 Tm (- Modales de confirmacion.) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 666.89 Tm (9.2 Separar mejor dominios) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 639.89 Tm (Dominios principales:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 617.89 Tm (- buildings) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 603.89 Tm (- tasks) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 589.89 Tm (- managerTasks) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 575.89 Tm (- inventory) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 561.89 Tm (- messages) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 547.89 Tm (- units) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 533.89 Tm (- treatments) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 519.89 Tm (- exports) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 505.89 Tm (- profile) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 476.89 Tm (9.3 Consolidar parsers inteligentes) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 449.89 Tm (Hoy existen parsers para:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 427.89 Tm (- Tareas operativas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 413.89 Tm (- Tareas administrativas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 399.89 Tm (- Inventario.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 385.89 Tm (- Eventos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 364.89 Tm (Recomendacion:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 342.89 Tm (- Mantener diccionarios separados por dominio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 328.89 Tm (- Reutilizar utilidades base:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 314.89 Tm (- normalizar texto.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 299.89 Tm (- detectar fecha.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 284.89 Tm (- detectar apartamento.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 269.89 Tm (- detectar prioridad.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 254.89 Tm (- detectar categoria por sinonimos.) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 224.89 Tm (9.4 Mejorar consistencia visual) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 197.89 Tm (Areas a cuidar:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 175.89 Tm (- Tamano de textos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 161.89 Tm (- Espaciado de cards.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 147.89 Tm (- Dropdowns.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 133.89 Tm (- Headers con scroll.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 119.89 Tm (- BottomNav con muchos items.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 105.89 Tm (- Colores de alertas para no saturar.) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 76.89 Tm (9.5 Mejorar trazabilidad) Tj ET
+endstream
+endobj
+20 0 obj
+<< /Length 3320 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 48.00 787.89 Tm (Agregar historial para:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 765.89 Tm (- Cambio de estado de tareas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 751.89 Tm (- Edicion de inventario.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 737.89 Tm (- Desvinculacion de edificios.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 723.89 Tm (- Cambios de roles.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 709.89 Tm (- Cambios de unidad/contrato.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 680.89 Tm (10. Priorizacion sugerida) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 641.89 Tm (Prioridad alta) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 614.89 Tm (- Crear modelo real de unidades/apartamentos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 600.89 Tm (- Importacion segura desde Excel.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 586.89 Tm (- Equipo del edificio: varios managers/conserjes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 572.89 Tm (- Fotos antes/despues en tareas.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 558.89 Tm (- Refinar permisos por rol.) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 529.89 Tm (Prioridad media) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 502.89 Tm (- Mejorar supervision ejecutiva.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 488.89 Tm (- Exportaciones por rango.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 474.89 Tm (- Alertas inteligentes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 460.89 Tm (- Mensajes recientes globales si se decide reintroducirlos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 446.89 Tm (- Mejorar dashboard de edificios/unidades.) Tj ET
+BT /F3 12.5 Tf 1 0 0 1 48.00 417.89 Tm (Prioridad estrategica) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 390.89 Tm (- Traduccion automatica.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 376.89 Tm (- Planes y limites por suscripcion.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 362.89 Tm (- Reportes ejecutivos avanzados.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 348.89 Tm (- App movil/PWA mas pulida.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 334.89 Tm (- QR/codigo de barras para inventario y unidades.) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 305.89 Tm (11. Preguntas abiertas para decidir) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 274.89 Tm (- Cual sera el rol exacto de "owner" versus "manager"?) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 260.89 Tm (- Un manager puede borrar un edificio o solo desvincularse?) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 246.89 Tm (- Los conserjes pueden ver tareas de otros conserjes del mismo edificio?) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 232.89 Tm (- Los mensajes del edificio deben ser 1 a 1 o grupales por equipo?) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 218.89 Tm (- Las tareas operativas se asignan a un conserje especifico o al edificio?) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 204.89 Tm (- El modulo de unidades debe incluir contratos e inquilinos desde la primera version?) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 190.89 Tm (- La importacion Excel debe permitir contratos desde el MVP o dejarlo para fase 2?) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 176.89 Tm (- El dashboard ejecutivo reemplaza o complementa Supervision?) Tj ET
+BT /F3 15 Tf 1 0 0 1 48.00 147.89 Tm (12. Resumen corto) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 116.89 Tm (La app ya cubre una base operativa fuerte:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 94.89 Tm (- Multi-edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 80.89 Tm (- Manager y conserje.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 66.89 Tm (- Tareas.) Tj ET
+endstream
+endobj
+21 0 obj
+<< /Length 1114 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 60.00 787.89 Tm (- Agenda.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 773.89 Tm (- Inventario.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 759.89 Tm (- Tratamientos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 745.89 Tm (- Records.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 731.89 Tm (- Mensajes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 717.89 Tm (- Exportaciones.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 703.89 Tm (- Supervision.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 682.89 Tm (La siguiente evolucion natural es convertirla en una plataforma mas estructurada de) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48.00 667.89 Tm (administracion operativa de edificios:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 645.89 Tm (- Unidades reales.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 631.89 Tm (- Equipo por edificio.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 617.89 Tm (- Permisos.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 603.89 Tm (- Importacion Excel.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 589.89 Tm (- Fotos antes/despues.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 575.89 Tm (- Alertas inteligentes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 60.00 561.89 Tm (- Reportes ejecutivos.) Tj ET
+endstream
+endobj
+22 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 4 0 R >>
+endobj
+23 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 5 0 R >>
+endobj
+24 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 6 0 R >>
+endobj
+25 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 7 0 R >>
+endobj
+26 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 8 0 R >>
+endobj
+27 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 9 0 R >>
+endobj
+28 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 10 0 R >>
+endobj
+29 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 11 0 R >>
+endobj
+30 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 12 0 R >>
+endobj
+31 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 13 0 R >>
+endobj
+32 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 14 0 R >>
+endobj
+33 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 15 0 R >>
+endobj
+34 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 16 0 R >>
+endobj
+35 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 17 0 R >>
+endobj
+36 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 18 0 R >>
+endobj
+37 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 19 0 R >>
+endobj
+38 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 20 0 R >>
+endobj
+39 0 obj
+<< /Type /Page /Parent 40 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 21 0 R >>
+endobj
+40 0 obj
+<< /Type /Pages /Kids [22 0 R 23 0 R 24 0 R 25 0 R 26 0 R 27 0 R 28 0 R 29 0 R 30 0 R 31 0 R 32 0 R 33 0 R 34 0 R 35 0 R 36 0 R 37 0 R 38 0 R 39 0 R] /Count 18 >>
+endobj
+41 0 obj
+<< /Type /Catalog /Pages 40 0 R >>
+endobj
+xref
+0 42
+0000000000 65535 f 
+0000000015 00000 n 
+0000000112 00000 n 
+0000000207 00000 n 
+0000000309 00000 n 
+0000003728 00000 n 
+0000007124 00000 n 
+0000010194 00000 n 
+0000013785 00000 n 
+0000017090 00000 n 
+0000020588 00000 n 
+0000023613 00000 n 
+0000026972 00000 n 
+0000029939 00000 n 
+0000033359 00000 n 
+0000036418 00000 n 
+0000039863 00000 n 
+0000043806 00000 n 
+0000046855 00000 n 
+0000049568 00000 n 
+0000052406 00000 n 
+0000055779 00000 n 
+0000056946 00000 n 
+0000057100 00000 n 
+0000057254 00000 n 
+0000057408 00000 n 
+0000057562 00000 n 
+0000057716 00000 n 
+0000057870 00000 n 
+0000058025 00000 n 
+0000058180 00000 n 
+0000058335 00000 n 
+0000058490 00000 n 
+0000058645 00000 n 
+0000058800 00000 n 
+0000058955 00000 n 
+0000059110 00000 n 
+0000059265 00000 n 
+0000059420 00000 n 
+0000059575 00000 n 
+0000059730 00000 n 
+0000059909 00000 n 
+trailer
+<< /Size 42 /Root 41 0 R >>
+startxref
+59960
+%%EOF

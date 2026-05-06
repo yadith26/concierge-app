@@ -1,0 +1,651 @@
+'use client'
+
+import ExcelJS from 'exceljs'
+import { saveAs } from 'file-saver'
+import type { EditableTask } from '@/lib/tasks/taskTypes'
+
+type ExportableTask = EditableTask & {
+  created_at?: string | null
+}
+
+const COLORS = {
+  green: '145C43',
+  greenDark: '0F4A35',
+  greenLight: 'EAF4EE',
+  blue: '2F66C8',
+  blueLight: 'EEF4FF',
+  red: 'D64555',
+  redLight: 'FFF1F3',
+  amber: 'E88A00',
+  amberLight: 'FFF7E6',
+  text: '142952',
+  muted: '6E7F9D',
+  border: 'D9E2EC',
+  white: 'FFFFFF',
+}
+
+const categoryLabels: Record<string, string> = {
+  cleaning: 'Limpieza',
+  repair: 'Reparación',
+  pest: 'Plagas',
+  paint: 'Pintura',
+  inspection: 'Inspección',
+  visit: 'Visita',
+  delivery: 'Entrega',
+  other: 'Otro',
+}
+
+const priorityLabels: Record<string, string> = {
+  high: 'Alta',
+  medium: 'Media',
+  low: 'Baja',
+}
+
+const statusLabels: Record<string, string> = {
+  pending: 'Pendiente',
+  in_progress: 'En progreso',
+  completed: 'Completada',
+}
+
+function formatDate(value?: string | null) {
+  if (!value) return '-'
+  const date = new Date(value.includes('T') ? value : `${value}T12:00:00`)
+  if (Number.isNaN(date.getTime())) return value
+
+  return new Intl.DateTimeFormat('es-CA', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  }).format(date)
+}
+
+function formatDateTime(value?: string | null) {
+  if (!value) return '-'
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return value
+
+  return new Intl.DateTimeFormat('es-CA', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date)
+}
+
+function formatTime(value?: string | null) {
+  if (!value) return '-'
+  const [hours = '0', minutes = '0'] = value.split(':')
+  return `${hours}:${minutes}`
+}
+
+function todayKey() {
+  return new Date().toLocaleDateString('en-CA')
+}
+
+function isOverdue(task: ExportableTask) {
+  return task.status !== 'completed' && task.task_date < todayKey()
+}
+
+function safeFileName(value: string) {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-zA-Z0-9-_ ]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .toLowerCase()
+}
+
+function applySheetDefaults(sheet: ExcelJS.Worksheet) {
+  sheet.views = [{ showGridLines: false }]
+  sheet.properties.defaultRowHeight = 22
+
+  if (!sheet.columns) return
+
+  sheet.columns.forEach((column) => {
+    column.alignment = { vertical: 'middle' }
+  })
+}
+function setCell(
+  sheet: ExcelJS.Worksheet,
+  cell: string,
+  value: string | number,
+  options?: {
+    bold?: boolean
+    size?: number
+    color?: string
+    bg?: string
+    align?: 'left' | 'center' | 'right'
+  }
+) {
+  const current = sheet.getCell(cell)
+  current.value = value
+  current.font = {
+    name: 'Aptos',
+    size: options?.size ?? 11,
+    bold: options?.bold ?? false,
+    color: { argb: options?.color ?? COLORS.text },
+  }
+
+  current.alignment = {
+    vertical: 'middle',
+    horizontal: options?.align ?? 'left',
+    wrapText: true,
+  }
+
+  if (options?.bg) {
+    current.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: options.bg },
+    }
+  }
+}
+
+function styleTitle(sheet: ExcelJS.Worksheet, buildingName: string) {
+  
+  sheet.mergeCells('B2:C3')
+setCell(sheet, 'B2', '▦ CONSERJE\nAPP', {
+  bold: true,
+  size: 18,
+  color: COLORS.green,
+  align: 'center',
+})
+
+  sheet.mergeCells('D2:I2')
+  setCell(sheet, 'D2', 'REPORTE DE TAREAS', {
+    bold: true,
+    size: 18,
+    color: COLORS.greenDark,
+  })
+
+  sheet.mergeCells('D3:I3')
+  setCell(sheet, 'D3', `Resumen operativo del edificio ${buildingName}`, {
+    size: 11,
+    color: COLORS.text,
+  })
+
+  setCell(sheet, 'J2', 'Fecha de generación:', {
+    size: 11,
+    color: COLORS.text,
+  })
+  setCell(sheet, 'K2', formatDate(new Date().toISOString()), {
+    size: 11,
+    color: COLORS.text,
+  })
+
+  setCell(sheet, 'J3', 'Edificio:', {
+    size: 11,
+    color: COLORS.text,
+  })
+  setCell(sheet, 'K3', buildingName || 'Sin edificio', {
+    size: 11,
+    color: COLORS.text,
+  })
+
+  setCell(sheet, 'J4', 'Generado por:', {
+    size: 11,
+    color: COLORS.text,
+  })
+  setCell(sheet, 'K4', 'Conserje', {
+    size: 11,
+    color: COLORS.text,
+  })
+
+  sheet.getRow(6).height = 18
+  sheet.getRow(7).height = 24
+  sheet.getRow(8).height = 24
+}
+
+function addMetricCard(
+  sheet: ExcelJS.Worksheet,
+  range: string,
+  title: string,
+  value: string | number,
+  subtitle1: string,
+  subtitle2: string,
+  color: string,
+  bg: string
+) {
+  sheet.mergeCells(range)
+
+  const [start] = range.split(':')
+  const cell = sheet.getCell(start)
+
+  cell.value = {
+    richText: [
+      {
+        text: `${title}\n`,
+        font: { bold: true, size: 10, color: { argb: color }, name: 'Aptos' },
+      },
+      {
+        text: `${value}\n`,
+        font: { bold: true, size: 20, color: { argb: color }, name: 'Aptos' },
+      },
+      {
+        text: `${subtitle1}\n${subtitle2}`,
+        font: { size: 10, color: { argb: COLORS.text }, name: 'Aptos' },
+      },
+    ],
+  }
+
+  cell.alignment = {
+    vertical: 'middle',
+    horizontal: 'left',
+    wrapText: true,
+  }
+
+  cell.fill = {
+    type: 'pattern',
+    pattern: 'solid',
+    fgColor: { argb: bg },
+  }
+
+  cell.border = {
+    top: { style: 'thin', color: { argb: COLORS.border } },
+    left: { style: 'thin', color: { argb: COLORS.border } },
+    bottom: { style: 'thin', color: { argb: COLORS.border } },
+    right: { style: 'thin', color: { argb: COLORS.border } },
+  }
+}
+
+function addSectionTitle(sheet: ExcelJS.Worksheet, row: number, title: string) {
+  sheet.mergeCells(`B${row}:K${row}`)
+  setCell(sheet, `B${row}`, title, {
+    bold: true,
+    size: 13,
+    color: COLORS.greenDark,
+  })
+}
+
+function styleHeader(row: ExcelJS.Row) {
+  row.eachCell((cell) => {
+    cell.font = {
+      name: 'Aptos',
+      size: 10,
+      bold: true,
+      color: { argb: COLORS.white },
+    }
+    cell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: COLORS.greenDark },
+    }
+    cell.alignment = {
+      vertical: 'middle',
+      horizontal: 'center',
+      wrapText: true,
+    }
+    cell.border = {
+      top: { style: 'thin', color: { argb: COLORS.greenDark } },
+      left: { style: 'thin', color: { argb: COLORS.greenDark } },
+      bottom: { style: 'thin', color: { argb: COLORS.greenDark } },
+      right: { style: 'thin', color: { argb: COLORS.greenDark } },
+    }
+  })
+}
+
+function styleTableBody(sheet: ExcelJS.Worksheet, startRow: number, endRow: number) {
+  for (let rowNumber = startRow; rowNumber <= endRow; rowNumber += 1) {
+    const row = sheet.getRow(rowNumber)
+
+    row.eachCell((cell) => {
+      cell.font = {
+        name: 'Aptos',
+        size: 10,
+        color: { argb: COLORS.text },
+      }
+      cell.alignment = {
+        vertical: 'middle',
+        wrapText: true,
+      }
+      cell.border = {
+        top: { style: 'thin', color: { argb: COLORS.border } },
+        left: { style: 'thin', color: { argb: COLORS.border } },
+        bottom: { style: 'thin', color: { argb: COLORS.border } },
+        right: { style: 'thin', color: { argb: COLORS.border } },
+      }
+    })
+
+    if (rowNumber % 2 === 0) {
+      row.eachCell((cell) => {
+        cell.fill = {
+          type: 'pattern',
+          pattern: 'solid',
+          fgColor: { argb: 'FAFCFF' },
+        }
+      })
+    }
+  }
+}
+
+function buildSummaryByCategory(tasks: ExportableTask[]) {
+  const map = new Map<
+    string,
+    {
+      categoria: string
+      total: number
+      completadas: number
+      pendientes: number
+      atrasadas: number
+      urgentes: number
+    }
+  >()
+
+  tasks.forEach((task) => {
+    const key = task.category || 'other'
+
+    if (!map.has(key)) {
+      map.set(key, {
+        categoria: categoryLabels[key] || key,
+        total: 0,
+        completadas: 0,
+        pendientes: 0,
+        atrasadas: 0,
+        urgentes: 0,
+      })
+    }
+
+    const row = map.get(key)
+    if (!row) return
+
+    row.total += 1
+    if (task.status === 'completed') row.completadas += 1
+    else row.pendientes += 1
+    if (isOverdue(task)) row.atrasadas += 1
+    if (task.priority === 'high' && task.status !== 'completed') row.urgentes += 1
+  })
+
+  return Array.from(map.values()).sort((a, b) =>
+    a.categoria.localeCompare(b.categoria, 'es')
+  )
+}
+
+function addSummaryTable(sheet: ExcelJS.Worksheet, tasks: ExportableTask[]) {
+  const rows = buildSummaryByCategory(tasks)
+  const startRow = 12
+
+  addSectionTitle(sheet, 11, '1. RESUMEN DE TAREAS POR CATEGORÍA')
+
+
+  sheet.getRow(startRow).values = [
+    '',
+    'Categoría',
+    'Total asignadas',
+    'Completadas',
+    'Pendientes',
+    'Atrasadas',
+    'Urgentes',
+    '% completado',
+  ]
+
+  styleHeader(sheet.getRow(startRow))
+
+  rows.forEach((item, index) => {
+    const row = sheet.getRow(startRow + 1 + index)
+    const percent = item.total > 0 ? Math.round((item.completadas / item.total) * 100) : 0
+
+    row.values = [
+      '',
+      item.categoria,
+      item.total,
+      item.completadas,
+      item.pendientes,
+      item.atrasadas,
+      item.urgentes,
+      `${percent}%`,
+    ]
+  })
+
+  const totalRow = sheet.getRow(startRow + 1 + rows.length)
+  const total = rows.reduce((sum, row) => sum + row.total, 0)
+  const completed = rows.reduce((sum, row) => sum + row.completadas, 0)
+
+  totalRow.values = [
+    '',
+    'TOTAL',
+    total,
+    completed,
+    rows.reduce((sum, row) => sum + row.pendientes, 0),
+    rows.reduce((sum, row) => sum + row.atrasadas, 0),
+    rows.reduce((sum, row) => sum + row.urgentes, 0),
+    total > 0 ? `${Math.round((completed / total) * 100)}%` : '0%',
+  ]
+
+  styleTableBody(sheet, startRow + 1, startRow + 1 + rows.length)
+
+  totalRow.eachCell((cell) => {
+    cell.font = { name: 'Aptos', bold: true, size: 10, color: { argb: COLORS.text } }
+    cell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: COLORS.greenLight },
+    }
+  })
+}
+
+function addDetailedTasksTable(sheet: ExcelJS.Worksheet, tasks: ExportableTask[]) {
+  const startRow = 23
+
+  addSectionTitle(sheet, 22, '2. DETALLE DE TAREAS')
+  
+
+  sheet.getRow(startRow).values = [
+    '',
+    'Fecha creación',
+    'Fecha tarea',
+    'Hora',
+    'Título',
+    'Ubicación',
+    'Categoría',
+    'Prioridad',
+    'Estado',
+    'Completada el',
+    'Notas',
+  ]
+
+  styleHeader(sheet.getRow(startRow))
+
+  tasks.forEach((task, index) => {
+    const row = sheet.getRow(startRow + 1 + index)
+
+    row.values = [
+      '',
+      formatDateTime(task.created_at),
+      formatDate(task.task_date),
+      formatTime(task.task_time),
+      task.title,
+      task.apartment_or_area || '-',
+      categoryLabels[task.category] || task.category || '-',
+      priorityLabels[task.priority] || task.priority,
+      statusLabels[task.status] || task.status,
+      formatDateTime(task.completed_at),
+      task.description || '-',
+    ]
+  })
+
+  styleTableBody(sheet, startRow + 1, startRow + tasks.length)
+  sheet.autoFilter = {
+    from: `B${startRow}`,
+    to: `K${startRow + tasks.length}`,
+  }
+}
+
+function setupColumns(sheet: ExcelJS.Worksheet) {
+  sheet.columns = [
+    { width: 3 },
+    { width: 20 },
+    { width: 16 },
+    { width: 10 },
+    { width: 34 },
+    { width: 18 },
+    { width: 16 },
+    { width: 13 },
+    { width: 15 },
+    { width: 20 },
+    { width: 42 },
+  ]
+}
+
+function createDetailsSheet(workbook: ExcelJS.Workbook, name: string, tasks: ExportableTask[]) {
+  const sheet = workbook.addWorksheet(name)
+  applySheetDefaults(sheet)
+
+  sheet.columns = [
+    { width: 16 },
+    { width: 34 },
+    { width: 18 },
+    { width: 16 },
+    { width: 13 },
+    { width: 15 },
+    { width: 20 },
+    { width: 42 },
+  ]
+applySheetDefaults(sheet)
+  sheet.getRow(1).values = [
+    'Fecha tarea',
+    'Título',
+    'Ubicación',
+    'Categoría',
+    'Prioridad',
+    'Estado',
+    'Completada el',
+    'Notas',
+  ]
+
+  styleHeader(sheet.getRow(1))
+
+  tasks.forEach((task, index) => {
+    sheet.getRow(index + 2).values = [
+      formatDate(task.task_date),
+      task.title,
+      task.apartment_or_area || '-',
+      categoryLabels[task.category] || task.category || '-',
+      priorityLabels[task.priority] || task.priority,
+      statusLabels[task.status] || task.status,
+      formatDateTime(task.completed_at),
+      task.description || '-',
+    ]
+  })
+
+  if (tasks.length > 0) {
+    styleTableBody(sheet, 2, tasks.length + 1)
+  }
+
+sheet.views = [{ showGridLines: false }]
+  sheet.autoFilter = {
+    from: 'A1',
+    to: `H${tasks.length + 1}`,
+  }
+
+  return sheet
+}
+
+export async function exportTasksToExcel(
+  tasks: ExportableTask[],
+  buildingName: string
+) {
+  if (!tasks.length) return
+
+  const workbook = new ExcelJS.Workbook()
+  workbook.creator = 'Conserje App'
+  workbook.created = new Date()
+
+  const completedCount = tasks.filter((task) => task.status === 'completed').length
+  const pendingCount = tasks.filter((task) => task.status !== 'completed').length
+  const overdueCount = tasks.filter((task) => isOverdue(task)).length
+  const urgentCount = tasks.filter(
+    (task) => task.priority === 'high' && task.status !== 'completed'
+  ).length
+  const completedPercent =
+    tasks.length > 0 ? Math.round((completedCount / tasks.length) * 100) : 0
+
+const sheet = workbook.addWorksheet('Resumen General')
+setupColumns(sheet)
+applySheetDefaults(sheet)
+
+  styleTitle(sheet, buildingName)
+
+  sheet.getRow(6).height = 22
+  sheet.getRow(7).height = 26
+  sheet.getRow(8).height = 26
+  sheet.getRow(9).height = 26
+
+  addMetricCard(
+    sheet,
+    'B6:C8',
+    '% TAREAS COMPLETADAS',
+    `${completedPercent}%`,
+    `Total completadas: ${completedCount}`,
+    `Total asignadas: ${tasks.length}`,
+    COLORS.green,
+    'F8FCFA'
+  )
+
+  addMetricCard(
+    sheet,
+    'D6:E8',
+    'TAREAS PENDIENTES',
+    pendingCount,
+    `Pendientes: ${pendingCount}`,
+    `En este reporte`,
+    COLORS.blue,
+    COLORS.blueLight
+  )
+
+  addMetricCard(
+    sheet,
+    'F6:G8',
+    'TAREAS ATRASADAS',
+    overdueCount,
+    `Total atrasadas: ${overdueCount}`,
+    `Requieren atención`,
+    COLORS.red,
+    COLORS.redLight
+  )
+
+  addMetricCard(
+    sheet,
+    'H6:I8',
+    'URGENTES',
+    urgentCount,
+    `Prioridad alta: ${urgentCount}`,
+    `No completadas`,
+    COLORS.amber,
+    COLORS.amberLight
+  )
+
+  addSummaryTable(sheet, tasks)
+  addDetailedTasksTable(sheet, tasks)
+
+sheet.views = [{ showGridLines: false }]
+  createDetailsSheet(
+    workbook,
+    'Completadas',
+    tasks.filter((task) => task.status === 'completed')
+  )
+
+  createDetailsSheet(
+    workbook,
+    'Atrasadas',
+    tasks.filter((task) => isOverdue(task))
+  )
+
+  createDetailsSheet(
+    workbook,
+    'Urgentes',
+    tasks.filter((task) => task.priority === 'high' && task.status !== 'completed')
+  )
+
+  const buffer = await workbook.xlsx.writeBuffer()
+
+  const blob = new Blob([buffer], {
+    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  })
+
+  const date = new Date().toISOString().split('T')[0]
+  const safeBuildingName = safeFileName(buildingName || 'edificio')
+
+  saveAs(blob, `reporte-tareas-${safeBuildingName}-${date}.xlsx`)
+}

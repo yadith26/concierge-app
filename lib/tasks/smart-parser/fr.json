@@ -1,0 +1,51 @@
+{
+  "apartmentPrefix": "Appt",
+  "apartmentAliases": ["appt", "appartement", "appartements", "unite", "unité"],
+  "dateWords": {
+    "today": ["aujourd'hui", "aujourdhui"],
+    "tomorrow": ["demain"],
+    "dayAfterTomorrow": ["apres-demain", "après-demain"]
+  },
+  "timeWords": {
+    "morning": ["le matin", "matin"],
+    "early": ["tot", "tôt"],
+    "noon": ["midi"],
+    "afternoon": ["l'apres-midi", "l’après-midi", "apres-midi", "après-midi"],
+    "night": ["le soir", "soir", "la nuit", "nuit"]
+  },
+  "timePrefixes": ["a", "à", "vers"],
+  "pestTargets": {
+    "cucarachas": ["coquerelle", "coquerelles", "cafard", "cafards", "insecte", "insectes"],
+    "roedores": ["rongeur", "rongeurs", "rat", "rats", "souris"],
+    "chinches": ["punaise", "punaises", "punaise de lit", "punaises de lit"]
+  },
+  "locationWords": {
+    "lobby": ["hall", "hall d'entrée", "hall d’entrée"],
+    "basement": ["sous-sol"],
+    "hallway": ["couloir"],
+    "mainEntrance": ["entree principale", "entrée principale"],
+    "garage": ["garage"],
+    "area": ["zone"],
+    "building": ["batiment", "bâtiment"]
+  },
+  "categories": {
+    "cleaning": ["nettoyer", "nettoyage", "balayer", "laver", "ordures", "sale", "désinfecter", "desinfecter"],
+    "repair": ["reparer", "réparer", "réparation", "fuite", "plomberie", "tuyau", "goutte", "electricite", "électricité", "électrique", "ampoule", "serrure", "porte brisee", "porte brisée", "lavabo", "toilette", "frigo", "réfrigérateur", "refrigerateur", "cuisiniere", "cuisinière"],
+    "pest": ["coquerelle", "coquerelles", "cafard", "cafards", "rongeur", "rongeurs", "rat", "rats", "souris", "punaise", "punaises", "punaise de lit", "punaises de lit", "insecte", "insectes", "parasite", "parasites", "nuisible", "nuisibles", "extermination", "exterminateur", "exterminer", "fumigation", "fumiger", "traitement", "traitement antiparasitaire", "controle des parasites", "contrôle des parasites"],
+    "paint": ["peinture", "peinturer", "peindre", "peintre", "retouche peinture", "retouche de peinture"],
+    "inspection": ["inspection", "inspecter", "verifier", "vérifier", "revision", "révision"],
+    "visit": ["visite", "visiter", "faire visiter", "montrer l'appartement", "montrer l’appartement"],
+    "change": ["changement", "changer", "remplacement", "remplacer", "installation", "installer", "installer frigo", "installer refrigerateur", "installer réfrigérateur", "installer cuisiniere", "installer cuisinière", "changer frigo", "changer refrigerateur", "changer réfrigérateur", "changer cuisiniere", "changer cuisinière"],
+    "delivery": ["livraison", "livrer", "colis", "recevoir colis", "recevoir un colis", "ramasser colis", "reçu"],
+    "other": []
+  },
+  "priorities": {
+    "high": ["urgent", "maintenant", "immediat", "immédiat", "tout de suite"],
+    "low": ["peut attendre", "pas urgent", "priorite basse", "priorité basse"]
+  },
+  "visitTypes": {
+    "nuevo": ["initial", "initiale", "premiere visite", "première visite", "nouveau traitement", "nouvelle visite"],
+    "seguimiento": ["suivi", "deuxieme visite", "deuxième visite", "revisite"],
+    "preventivo": ["preventif", "préventif", "prevention", "prévention", "preventive", "préventive"]
+  }
+}
