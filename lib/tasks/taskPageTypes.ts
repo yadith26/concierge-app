@@ -14,6 +14,7 @@ export type CategoryFilter =
 
 export type StatusFilter =
   | 'all'
+  | 'today'
   | 'pending'
   | 'in_progress'
   | 'completed'

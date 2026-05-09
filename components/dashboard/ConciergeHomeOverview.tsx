@@ -21,6 +21,11 @@ type ConciergeHomeOverviewProps = {
   summary: ConciergeHomeSummary
   tasksByStatus: ConciergeHomeTasksByStatus
   onOpenBuilding: (buildingId: string) => void
+  onOpenTask?: (
+    buildingId: string,
+    taskId: string,
+    summaryKey: 'today' | 'urgent' | 'overdue'
+  ) => void
 }
 
 function pluralize(count: number, single: string, plural: string) {
@@ -32,6 +37,7 @@ export default function ConciergeHomeOverview({
   summary,
   tasksByStatus,
   onOpenBuilding,
+  onOpenTask,
 }: ConciergeHomeOverviewProps) {
   const [activeSummaryKey, setActiveSummaryKey] = useState<
     'today' | 'urgent' | 'overdue' | null
@@ -168,6 +174,8 @@ export default function ConciergeHomeOverview({
                   <HomeSummaryTaskRow
                     key={task.id}
                     task={task}
+                    summaryKey={activeSummaryKey}
+                    onOpenTask={onOpenTask}
                     onOpenBuilding={onOpenBuilding}
                   />
                 ))}
@@ -244,9 +252,17 @@ export default function ConciergeHomeOverview({
 
 function HomeSummaryTaskRow({
   task,
+  summaryKey,
+  onOpenTask,
   onOpenBuilding,
 }: {
   task: ConciergeHomeTask
+  summaryKey: 'today' | 'urgent' | 'overdue'
+  onOpenTask?: (
+    buildingId: string,
+    taskId: string,
+    summaryKey: 'today' | 'urgent' | 'overdue'
+  ) => void
   onOpenBuilding: (buildingId: string) => void
 }) {
   const meta = [task.apartmentOrArea || 'Sin ubicacion', task.buildingName]
@@ -257,7 +273,14 @@ function HomeSummaryTaskRow({
   return (
     <button
       type="button"
-      onClick={() => onOpenBuilding(task.buildingId)}
+      onClick={() => {
+        if (onOpenTask) {
+          onOpenTask(task.buildingId, task.id, summaryKey)
+          return
+        }
+
+        onOpenBuilding(task.buildingId)
+      }}
       className="flex w-full items-center gap-3 px-4 py-3 text-left transition hover:bg-[#FBFCFE]"
     >
       <div

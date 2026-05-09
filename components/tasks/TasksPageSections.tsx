@@ -2,6 +2,7 @@
 
 import { ChevronDown } from 'lucide-react'
 import {
+  useEffect,
   useMemo,
   useState,
   type Dispatch,
@@ -14,6 +15,14 @@ import type { StatusFilter } from '@/lib/tasks/taskPageTypes'
 
 type TasksPageSectionsProps = {
   statusFilter: StatusFilter
+  focusSectionKey?:
+    | 'pending'
+    | 'overdue'
+    | 'today'
+    | 'tomorrow'
+    | 'upcoming'
+    | 'completed'
+    | null
   filteredTasks: EditableTask[]
   expandedTaskId: string | null
   setExpandedTaskId: Dispatch<SetStateAction<string | null>>
@@ -24,6 +33,7 @@ type TasksPageSectionsProps = {
   completedTasks: EditableTask[]
   showingOnlyOverdue: boolean
   showingOnlyCompleted: boolean
+  showingOnlyToday?: boolean
   onComplete: (id: string) => void
   onSwipeComplete?: (id: string) => void
   onSetInProgress: (id: string) => void
@@ -34,6 +44,7 @@ type TasksPageSectionsProps = {
 
 export default function TasksPageSections({
   statusFilter,
+  focusSectionKey = null,
   filteredTasks,
   expandedTaskId,
   setExpandedTaskId,
@@ -44,6 +55,7 @@ export default function TasksPageSections({
   completedTasks,
   showingOnlyOverdue,
   showingOnlyCompleted,
+  showingOnlyToday = false,
   onComplete,
   onSwipeComplete,
   onSetInProgress,
@@ -55,6 +67,19 @@ export default function TasksPageSections({
   const [openSections, setOpenSections] = useState<Record<string, boolean>>(() =>
     getInitialOpenSections(statusFilter)
   )
+
+  useEffect(() => {
+    setOpenSections(getInitialOpenSections(statusFilter))
+  }, [statusFilter])
+
+  useEffect(() => {
+    if (!focusSectionKey) return
+
+    setOpenSections((current) => ({
+      ...current,
+      [focusSectionKey]: true,
+    }))
+  }, [focusSectionKey])
 
   const sharedSectionProps = useMemo(
     () => ({
@@ -140,6 +165,19 @@ export default function TasksPageSections({
         title={t('completedTasks')}
         tasks={completedTasks}
         open={openSections.completed}
+        onToggle={toggleSection}
+        {...sharedSectionProps}
+      />
+    )
+  }
+
+  if (showingOnlyToday) {
+    return (
+      <CollapsibleTasksSection
+        sectionKey="today"
+        title={t('todayTasks')}
+        tasks={todayTasks}
+        open={openSections.today}
         onToggle={toggleSection}
         {...sharedSectionProps}
       />
@@ -239,6 +277,17 @@ function CollapsibleTasksSection({
 }
 
 function getInitialOpenSections(statusFilter: StatusFilter): Record<string, boolean> {
+  if (statusFilter === 'today') {
+    return {
+      pending: false,
+      overdue: false,
+      today: true,
+      tomorrow: false,
+      upcoming: false,
+      completed: false,
+    }
+  }
+
   if (statusFilter === 'overdue') {
     return {
       pending: false,

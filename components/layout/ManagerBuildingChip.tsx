@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { Building2, ChevronDown, Grid3X3 } from 'lucide-react'
-import { Link } from '@/i18n/navigation'
+import { useLocale } from 'next-intl'
 
 type ManagerBuildingOption = {
   id: string
@@ -35,9 +35,28 @@ export default function ManagerBuildingChip({
   size = 'default',
   singleBuildingMode = 'link',
 }: ManagerBuildingChipProps) {
+  const locale = useLocale()
   const [open, setOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement | null>(null)
   const hasMenu = buildings.length > 1
+  const localizedMainHref = mainHref.startsWith(`/${locale}/`)
+    ? mainHref
+    : `/${locale}${mainHref.startsWith('/') ? mainHref : `/${mainHref}`}`
+
+  const toLocalizedHref = (href: string) =>
+    href.startsWith(`/${locale}/`)
+      ? href
+      : `/${locale}${href.startsWith('/') ? href : `/${href}`}`
+
+  const handleOpenMain = () => {
+    setOpen(false)
+    window.location.assign(localizedMainHref)
+  }
+
+  const handleOpenBuilding = (nextBuildingId: string) => {
+    setOpen(false)
+    window.location.assign(toLocalizedHref(getBuildingHref(nextBuildingId)))
+  }
 
   useEffect(() => {
     if (!open) return
@@ -89,8 +108,9 @@ export default function ManagerBuildingChip({
 
   if (!hasMenu) {
     return (
-      <Link
-        href={mainHref}
+      <button
+        type="button"
+        onClick={handleOpenMain}
         className={`inline-flex max-w-full items-center transition ${
           size === 'compact'
             ? 'gap-2 rounded-full border border-[#D9E0EA] bg-white/92 px-4 py-3 text-[#142952] shadow-[0_8px_24px_rgba(20,41,82,0.08)] backdrop-blur-sm hover:bg-white'
@@ -101,7 +121,7 @@ export default function ManagerBuildingChip({
         <BuildingIcon compact={size === 'compact'} />
         <ChipLabel buildingName={buildingName} label={label} />
         <ChevronBadge compact={size === 'compact'} />
-      </Link>
+      </button>
     )
   }
 
@@ -134,10 +154,10 @@ export default function ManagerBuildingChip({
               const active = building.id === buildingId
 
               return (
-                <Link
+                <button
                   key={building.id}
-                  href={getBuildingHref(building.id)}
-                  onClick={() => setOpen(false)}
+                  type="button"
+                  onClick={() => handleOpenBuilding(building.id)}
                   className={`flex items-center gap-3 rounded-[20px] px-3 py-3 transition ${
                     active
                       ? 'bg-[#EEF4FF] text-[#2F66C8]'
@@ -161,15 +181,15 @@ export default function ManagerBuildingChip({
                       {building.address || 'Sin direccion'}
                     </span>
                   </span>
-                </Link>
+                </button>
               )
             })}
           </div>
 
           <div className="mt-2 border-t border-[#E7EDF5] pt-2">
-            <Link
-              href={mainHref}
-              onClick={() => setOpen(false)}
+            <button
+              type="button"
+              onClick={handleOpenMain}
               className="flex items-center gap-3 rounded-[20px] px-3 py-3 text-[#142952] transition hover:bg-[#F6F8FC]"
             >
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#F3F6FB] text-[#2F66C8]">
@@ -183,7 +203,7 @@ export default function ManagerBuildingChip({
                   {mainDescription}
                 </span>
               </span>
-            </Link>
+            </button>
           </div>
         </div>
       ) : null}

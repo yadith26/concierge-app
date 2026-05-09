@@ -15,6 +15,21 @@ import type {
   UndoDeleteState,
 } from '@/lib/tasks/taskPageTypes'
 
+function normalizeStatusFilter(value?: string | null): StatusFilter {
+  if (
+    value === 'today' ||
+    value === 'pending' ||
+    value === 'in_progress' ||
+    value === 'completed' ||
+    value === 'urgent' ||
+    value === 'overdue'
+  ) {
+    return value
+  }
+
+  return 'all'
+}
+
 function getDateKey(date: string) {
   return new Date(`${date}T12:00:00`).toLocaleDateString('en-CA')
 }
@@ -46,7 +61,10 @@ function compareTasks(a: Task, b: Task) {
   return a.title.localeCompare(b.title, 'es')
 }
 
-export function useTasksPage(selectedBuildingId?: string | null) {
+export function useTasksPage(
+  selectedBuildingId?: string | null,
+  initialStatusFilter?: string | null
+) {
   const [tasks, setTasks] = useState<Task[]>([])
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedTask, setSelectedTask] = useState<EditableTask | null>(null)
@@ -55,7 +73,9 @@ export function useTasksPage(selectedBuildingId?: string | null) {
   const [buildingId, setBuildingId] = useState('')
   const [profileId, setProfileId] = useState('')
   const [search, setSearch] = useState('')
-  const [statusFilter, setStatusFilter] = useState<StatusFilter>('all')
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>(
+    normalizeStatusFilter(initialStatusFilter)
+  )
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('all')
   const [categoryOpen, setCategoryOpen] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -89,6 +109,10 @@ export function useTasksPage(selectedBuildingId?: string | null) {
   useEffect(() => {
     void fetchTasksData()
   }, [fetchTasksData])
+
+  useEffect(() => {
+    setStatusFilter(normalizeStatusFilter(initialStatusFilter))
+  }, [initialStatusFilter])
 
   useEffect(() => {
     return () => {
@@ -256,6 +280,8 @@ export function useTasksPage(selectedBuildingId?: string | null) {
           matchesStatus = task.priority === 'high' && task.status !== 'completed'
         } else if (statusFilter === 'overdue') {
           matchesStatus = task.status !== 'completed' && taskKey < todayKey
+        } else if (statusFilter === 'today') {
+          matchesStatus = task.status !== 'completed' && taskKey === todayKey
         }
 
         const matchesCategory =
@@ -317,6 +343,7 @@ export function useTasksPage(selectedBuildingId?: string | null) {
 
   const showingOnlyOverdue = statusFilter === 'overdue'
   const showingOnlyCompleted = statusFilter === 'completed'
+  const showingOnlyToday = statusFilter === 'today'
 
   return {
     loading,
@@ -344,6 +371,7 @@ export function useTasksPage(selectedBuildingId?: string | null) {
     counts,
     showingOnlyOverdue,
     showingOnlyCompleted,
+    showingOnlyToday,
 
     setSearch,
     setStatusFilter,

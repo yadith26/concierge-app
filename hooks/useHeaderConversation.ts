@@ -475,7 +475,7 @@ export default function useHeaderConversation({
   return useMemo(
     () => ({
       activeBuildingId,
-      canOpenConversation: Boolean(currentUserId && activeBuildingId),
+      canOpenConversation: Boolean(currentUserId && activeBuildingId && contact?.id),
       contactId: contact?.id || '',
       currentUserId,
       contactName: contact?.name || '',

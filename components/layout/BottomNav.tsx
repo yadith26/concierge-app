@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import {useTranslations} from 'next-intl';
 import {Link} from '@/i18n/navigation'
 import {
@@ -18,19 +17,9 @@ type BottomNavProps = {
 
 export default function BottomNav({ active, buildingId }: BottomNavProps) {
   const t = useTranslations('nav');
-  const [lastBuildingId] = useState(() =>
-    typeof window === 'undefined'
-      ? ''
-      : window.localStorage.getItem('concierge:lastBuildingId') || ''
-  )
 
   const withBuilding = (path: string) => {
-    if (path === '/dashboard') {
-      return buildingId ? `${path}?buildingId=${buildingId}` : path
-    }
-
-    const nextBuildingId = buildingId || lastBuildingId
-    return nextBuildingId ? `${path}?buildingId=${nextBuildingId}` : path
+    return buildingId ? `${path}?buildingId=${buildingId}` : path
   }
 
   return (

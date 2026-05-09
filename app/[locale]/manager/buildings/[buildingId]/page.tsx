@@ -30,7 +30,9 @@ export default function ManagerBuildingDetailPage() {
   const [messageTaskModalOpen, setMessageTaskModalOpen] = useState(false)
   const didHandleAutoOpenRef = useRef(false)
 
-  const { scrollRef, compactHeader } = useCompactHeader<HTMLElement>(18)
+  const { scrollRef, compactHeader } = useCompactHeader<HTMLElement>(18, {
+    minScrollableDistance: 220,
+  })
 
   const handleRedirect = useCallback(
     (path: '/login' | '/dashboard') => router.replace(path),

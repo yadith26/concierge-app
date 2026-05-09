@@ -1,76 +1,52 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useDashboardConversation } from '@/hooks/useDashboardConversation'
+import { useDashboardData } from '@/hooks/useDashboardData'
 import { useDashboardTaskActions } from '@/hooks/useDashboardTaskActions'
-import {
-  filterDashboardTasks,
-  getActiveDashboardFilterLabel,
-  getCompletedDashboardTasks,
-  getDashboardTaskCounts,
-  getDashboardTaskSections,
-  getNextDashboardTask,
-  type DashboardStatusFilter,
-} from '@/lib/dashboard/dashboardHelpers'
-import {
-  getDashboardData,
-  type ConciergeHomeBuilding,
-  type ConciergeHomeSummary,
-  type ConciergeHomeTasksByStatus,
-} from '@/lib/dashboard/dashboardService'
+import { useDashboardTaskMetrics } from '@/hooks/useDashboardTaskMetrics'
+import { type DashboardStatusFilter } from '@/lib/dashboard/dashboardHelpers'
 import {
   fetchRecentBuildingConversations,
-  type BuildingMessage,
   type RecentBuildingConversation,
 } from '@/lib/messages/messageService'
 import type { EditableTask } from '@/lib/tasks/taskTypes'
 
 type DashboardTask = EditableTask
-type DashboardContact = {
-  id: string
-  name: string
-}
 
 export function useDashboardPage(selectedBuildingId?: string | null) {
-  const [userName, setUserName] = useState('')
-  const [avatarKey, setAvatarKey] = useState<string | null>(null)
-  const [buildingName, setBuildingName] = useState('')
-  const [buildings, setBuildings] = useState<
-    { id: string; name: string; address: string | null }[]
-  >([])
-  const [tasks, setTasks] = useState<DashboardTask[]>([])
-  const [loading, setLoading] = useState(true)
+  const isHomeSelection = !selectedBuildingId?.trim()
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedTask, setSelectedTask] = useState<DashboardTask | null>(null)
-  const [buildingId, setBuildingId] = useState('')
-  const [profileId, setProfileId] = useState('')
-  const [profilePhotoUrl, setProfilePhotoUrl] = useState<string | null>(null)
-  const [managerContact, setManagerContact] = useState<DashboardContact | null>(null)
-  const [messages, setMessages] = useState<BuildingMessage[]>([])
-  const [recentConversations, setRecentConversations] = useState<
-    RecentBuildingConversation[]
-  >([])
   const [compactHeader, setCompactHeader] = useState(false)
-  const [homeBuildings, setHomeBuildings] = useState<ConciergeHomeBuilding[]>([])
-  const [homeSummary, setHomeSummary] = useState<ConciergeHomeSummary>({
-    completedToday: 0,
-    overdue: 0,
-    today: 0,
-    urgent: 0,
-  })
-  const [homeTasks, setHomeTasks] = useState<ConciergeHomeTasksByStatus>({
-    overdue: [],
-    today: [],
-    urgent: [],
-  })
-  const [isConciergeHome, setIsConciergeHome] = useState(false)
-  const [lastBuildingId, setLastBuildingId] = useState('')
   const [expandedTaskId, setExpandedTaskId] = useState<string | null>(null)
   const [statusFilter, setStatusFilter] =
     useState<DashboardStatusFilter>('all')
   const [showOverdueTasks, setShowOverdueTasks] = useState(false)
 
   const scrollRef = useRef<HTMLElement | null>(null)
+  const {
+    loading,
+    avatarKey,
+    userName,
+    profilePhotoUrl,
+    buildingName,
+    buildings,
+    buildingId,
+    profileId,
+    tasks,
+    managerContact,
+    messages,
+    recentConversations,
+    homeBuildings,
+    homeSummary,
+    homeTasks,
+    isConciergeHome,
+    setTasks,
+    setMessages,
+    setRecentConversations,
+    fetchDashboardData,
+  } = useDashboardData({ selectedBuildingId })
   const conversation = useDashboardConversation({
     buildingId,
     profileId,
@@ -91,58 +67,7 @@ export function useDashboardPage(selectedBuildingId?: string | null) {
     }).catch(() => [])
 
     setRecentConversations(conversations)
-  }, [])
-
-  const fetchDashboardData = useCallback(async () => {
-    setLoading(true)
-
-    try {
-      const data = await getDashboardData(selectedBuildingId)
-
-      setAvatarKey(data.avatarKey)
-      setUserName(data.userName)
-      setProfileId(data.profileId)
-      setProfilePhotoUrl(data.profilePhotoUrl)
-      setBuildingName(data.buildingName)
-      setBuildingId(data.buildingId)
-      setBuildings(data.buildings)
-      setHomeBuildings(data.homeBuildings)
-      setHomeSummary(data.homeSummary)
-      setHomeTasks(data.homeTasks)
-      setIsConciergeHome(data.isConciergeHome)
-      setTasks(data.tasks)
-      setMessages(data.messages)
-      setRecentConversations([])
-      setManagerContact(data.managerContact)
-
-      if (data.buildingId) {
-        window.localStorage.setItem('concierge:lastBuildingId', data.buildingId)
-        setLastBuildingId(data.buildingId)
-      } else {
-        const storedBuildingId =
-          window.localStorage.getItem('concierge:lastBuildingId') || ''
-        const hasStoredBuilding = data.homeBuildings.some(
-          (building) => building.id === storedBuildingId
-        )
-        setLastBuildingId(hasStoredBuilding ? storedBuildingId : '')
-      }
-
-    } catch (error) {
-      console.error('Error cargando dashboard:', error)
-      setTasks([])
-      setMessages([])
-      setManagerContact(null)
-      setHomeBuildings([])
-      setHomeTasks({
-        overdue: [],
-        today: [],
-        urgent: [],
-      })
-      setIsConciergeHome(false)
-    } finally {
-      setLoading(false)
-    }
-  }, [selectedBuildingId])
+  }, [setRecentConversations])
 
   const openCreateModal = () => {
     setSelectedTask(null)
@@ -165,7 +90,7 @@ export function useDashboardPage(selectedBuildingId?: string | null) {
         )
       )
     },
-    []
+    [setRecentConversations]
   )
 
   const closeModal = () => {
@@ -174,8 +99,18 @@ export function useDashboardPage(selectedBuildingId?: string | null) {
   }
 
   useEffect(() => {
-    void fetchDashboardData()
-  }, [fetchDashboardData])
+    if (!isHomeSelection) return
+
+    const timeoutId = window.setTimeout(() => {
+      setExpandedTaskId(null)
+      setShowOverdueTasks(false)
+      setStatusFilter('all')
+    }, 0)
+
+    return () => {
+      window.clearTimeout(timeoutId)
+    }
+  }, [isHomeSelection])
 
   useEffect(() => {
     if (!profileId) return
@@ -225,38 +160,22 @@ export function useDashboardPage(selectedBuildingId?: string | null) {
     })
   }, [statusFilter])
 
-  const { pendingCount, urgentCount, completedCount } = useMemo(
-    () => getDashboardTaskCounts(tasks),
-    [tasks]
-  )
-
-  const completedTasks = useMemo(() => {
-    return getCompletedDashboardTasks(tasks)
-  }, [tasks])
-
-  const filteredTasks = useMemo(() => {
-    return filterDashboardTasks(tasks, statusFilter, completedTasks)
-  }, [tasks, statusFilter, completedTasks])
-
-  const { overdueTasks, todayTasks, tomorrowTasks, upcomingTasks } = useMemo(() => {
-    return getDashboardTaskSections(filteredTasks, statusFilter, completedTasks)
-  }, [filteredTasks, completedTasks, statusFilter])
-
-  const nextTask = useMemo(() => {
-    return getNextDashboardTask({
-      statusFilter,
-      todayTasks,
-      tomorrowTasks,
-      upcomingTasks,
-    })
-  }, [todayTasks, tomorrowTasks, upcomingTasks, statusFilter])
-
-  const todayUrgentCount = useMemo(
-    () => todayTasks.filter((task) => task.priority === 'high').length,
-    [todayTasks]
-  )
-
-  const activeFilterLabel = getActiveDashboardFilterLabel(statusFilter)
+  const {
+    pendingCount,
+    urgentCount,
+    completedCount,
+    completedTasks,
+    overdueTasks,
+    todayTasks,
+    tomorrowTasks,
+    upcomingTasks,
+    nextTask,
+    todayUrgentCount,
+    activeFilterLabel,
+  } = useDashboardTaskMetrics({
+    tasks,
+    statusFilter,
+  })
 
   return {
     loading,
@@ -285,7 +204,6 @@ export function useDashboardPage(selectedBuildingId?: string | null) {
     homeSummary,
     homeTasks,
     isConciergeHome,
-    lastBuildingId,
     expandedTaskId,
     statusFilter,
     showOverdueTasks,

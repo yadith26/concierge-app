@@ -3,8 +3,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 export function useCompactHeader<T extends HTMLElement = HTMLElement>(
-  threshold = 18
+  threshold = 18,
+  options: { minScrollableDistance?: number } = {}
 ) {
+  const { minScrollableDistance = 0 } = options
   const [element, setElement] = useState<T | null>(null)
   const [compactHeader, setCompactHeader] = useState(false)
   const lastScrollTopRef = useRef(0)
@@ -21,9 +23,17 @@ export function useCompactHeader<T extends HTMLElement = HTMLElement>(
 
     const handleScroll = () => {
       const top = element.scrollTop
+      const scrollableDistance = Math.max(0, element.scrollHeight - element.clientHeight)
+      const hasEnoughScrollRange =
+        scrollableDistance > threshold + minScrollableDistance
       const previousTop = lastScrollTopRef.current
       const scrollingDown = top >= previousTop
       lastScrollTopRef.current = top
+
+      if (!hasEnoughScrollRange) {
+        setCompactHeader(false)
+        return
+      }
 
       setCompactHeader((prev) => {
         if (prev) {
@@ -40,7 +50,7 @@ export function useCompactHeader<T extends HTMLElement = HTMLElement>(
     return () => {
       element.removeEventListener('scroll', handleScroll)
     }
-  }, [element, threshold])
+  }, [element, minScrollableDistance, threshold])
 
   return {
     scrollRef,

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Plus, MessageSquareMore, BellDot } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
@@ -32,6 +32,8 @@ export default function TasksPage() {
   const locale = useLocale()
   const searchParams = useSearchParams()
   const selectedBuildingId = searchParams.get('buildingId')
+  const selectedFilter = searchParams.get('filter')
+  const selectedTaskId = searchParams.get('taskId')
   const headerConversation = useHeaderConversation({
     preferredBuildingId: selectedBuildingId || undefined,
   })
@@ -96,6 +98,21 @@ export default function TasksPage() {
   })
 
   useEffect(() => {
+    if (!selectedFilter) return
+
+    if (
+      selectedFilter === 'today' ||
+      selectedFilter === 'pending' ||
+      selectedFilter === 'in_progress' ||
+      selectedFilter === 'completed' ||
+      selectedFilter === 'urgent' ||
+      selectedFilter === 'overdue'
+    ) {
+      setStatusFilter(selectedFilter)
+    }
+  }, [selectedFilter, setStatusFilter])
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         categoryRef.current &&
@@ -137,6 +154,49 @@ export default function TasksPage() {
       }
     }
   }, [undoComplete])
+
+  useEffect(() => {
+    if (!selectedTaskId) return
+    if (!filteredTasks.some((task) => task.id === selectedTaskId)) return
+
+    setExpandedTaskId(selectedTaskId)
+
+    const timeoutId = window.setTimeout(() => {
+      const element = document.getElementById(`task-${selectedTaskId}`)
+      element?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }, 180)
+
+    return () => {
+      window.clearTimeout(timeoutId)
+    }
+  }, [filteredTasks, selectedTaskId, setExpandedTaskId])
+
+  const focusedTask = useMemo(
+    () => filteredTasks.find((task) => task.id === selectedTaskId) || null,
+    [filteredTasks, selectedTaskId]
+  )
+
+  const focusSectionKey = useMemo(() => {
+    if (!focusedTask) return null
+    if (focusedTask.status === 'completed') return 'completed' as const
+    if (statusFilter === 'pending') return 'pending' as const
+    if (statusFilter === 'overdue') return 'overdue' as const
+    if (statusFilter === 'today') return 'today' as const
+    if (overdueTasks.some((task) => task.id === focusedTask.id)) return 'overdue' as const
+    if (todayTasks.some((task) => task.id === focusedTask.id)) return 'today' as const
+    if (tomorrowTasks.some((task) => task.id === focusedTask.id)) return 'tomorrow' as const
+    if (upcomingTasks.some((task) => task.id === focusedTask.id)) return 'upcoming' as const
+    if (completedTasks.some((task) => task.id === focusedTask.id)) return 'completed' as const
+    return null
+  }, [
+    completedTasks,
+    focusedTask,
+    overdueTasks,
+    statusFilter,
+    todayTasks,
+    tomorrowTasks,
+    upcomingTasks,
+  ])
 
   const handleCompleteTask = async (taskId: string) => {
     const task = tasks.find((item) => item.id === taskId)
@@ -346,6 +406,7 @@ export default function TasksPage() {
               <TasksPageSections
                 key={statusFilter}
                 statusFilter={statusFilter}
+                focusSectionKey={focusSectionKey}
                 filteredTasks={filteredTasks}
                 expandedTaskId={expandedTaskId}
                 setExpandedTaskId={setExpandedTaskId}

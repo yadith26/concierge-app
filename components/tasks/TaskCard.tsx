@@ -93,7 +93,7 @@ export default function TaskCard({
   }
 
   return (
-    <div ref={rootRef} className="relative">
+    <div ref={rootRef} id={`task-${task.id}`} className="relative">
       <div
         className={`absolute inset-0 overflow-hidden ${
           embedded ? '' : 'rounded-[24px]'
