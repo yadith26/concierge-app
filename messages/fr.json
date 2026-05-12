@@ -479,6 +479,15 @@
     "startNameDictation": "Dicter le nom de l’item",
     "stopNameDictation": "Arrêter la dictée du nom",
     "dictationUnsupported": "Ton navigateur ne prend pas en charge la dictée.",
+    "existingSuggestionTitle": "Un article similaire existe déjà",
+    "existingSuggestionTitleWithCount": "Nous avons trouvé {count} articles similaires",
+    "existingSuggestionText": "{item} est déjà dans l’inventaire avec {quantity} unités à {location}. Si c’est le même article, il vaut mieux augmenter sa quantité au lieu d’en créer un autre.",
+    "existingSuggestionListText": "Touchez pour les vérifier avant d’en créer un nouveau.",
+    "existingSuggestionAction": "Augmenter la quantité existante",
+    "existingSuggestionShortAction": "Ajouter",
+    "existingSuggestionNoLocation": "sans emplacement",
+    "existingSuggestionRecommended": "Suggéré",
+    "existingSuggestionUnits": "disponibles",
     "searchName": "Rechercher un produit...",
     "addName": "Ajouter un produit",
     "suggestedItem": "Item suggéré",
@@ -510,6 +519,17 @@
       "used": "Usagé",
       "damaged": "Endommagé"
     }
+  },
+  "inventoryConfirmModal": {
+    "eyebrow": "Inventaire",
+    "title": "Confirmer l'ajout au stock",
+    "manualDescription": "Vous allez ajouter {quantity} à cet article existant. Vous pouvez encore changer d'avis avant d'enregistrer.",
+    "deliveryDescription": "Vous allez ajouter {quantity} à cet article existant pour compléter la livraison.",
+    "locationLabel": "Emplacement : {location}",
+    "cancel": "Annuler",
+    "confirm": "Confirmer l'ajout",
+    "confirming": "Confirmation...",
+    "close": "Fermer"
   },
   "inventoryList": {
     "noResults": "Il n’y a aucun résultat avec ces filtres"

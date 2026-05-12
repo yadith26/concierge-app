@@ -73,6 +73,7 @@ export function useTaskInventoryCompletion({
   const [availableInventoryItems, setAvailableInventoryItems] = useState<InventoryItem[]>([])
   const [selectedInventoryItem, setSelectedInventoryItem] =
     useState<InventoryItem | null>(null)
+  const [confirmExistingOpen, setConfirmExistingOpen] = useState(false)
   const [inventoryUsageQuantity, setInventoryUsageQuantity] = useState('1')
   const [inventoryUsageLocation, setInventoryUsageLocation] = useState('')
   const [pendingTask, setPendingTask] = useState<Task | null>(null)
@@ -174,6 +175,7 @@ export function useTaskInventoryCompletion({
     setAvailableLocations([])
     setAvailableInventoryItems([])
     setSelectedInventoryItem(null)
+    setConfirmExistingOpen(false)
     setInventoryUsageQuantity('1')
     setInventoryUsageLocation('')
     setPendingTask(null)
@@ -494,7 +496,9 @@ export function useTaskInventoryCompletion({
   const selectExistingInventoryItem = useCallback(
     async (item: InventoryItem) => {
       if (inventorySelectionMode === 'increase') {
-        await completeUsingExistingInventoryItem(item)
+        setSelectedInventoryItem(item)
+        setConfirmExistingOpen(true)
+        setInventoryMessage('')
         return
       }
 
@@ -508,11 +512,25 @@ export function useTaskInventoryCompletion({
       setInventoryMessage('')
     },
     [
-      completeUsingExistingInventoryItem,
       inventorySelectionMode,
       pendingTask?.apartment_or_area,
     ]
   )
+
+  const closeConfirmExistingInventoryItem = useCallback(() => {
+    setConfirmExistingOpen(false)
+    setSelectedInventoryItem(null)
+    setInventoryMessage('')
+  }, [])
+
+  const confirmExistingInventoryIncrease = useCallback(async () => {
+    if (!selectedInventoryItem) {
+      setInventoryMessage('No encontramos el item seleccionado.')
+      return
+    }
+
+    await completeUsingExistingInventoryItem(selectedInventoryItem)
+  }, [completeUsingExistingInventoryItem, selectedInventoryItem])
 
   const confirmInventoryUsage = useCallback(async () => {
     if (!selectedInventoryItem) {
@@ -553,6 +571,7 @@ export function useTaskInventoryCompletion({
     savingInventory,
     inventoryMessage,
     setInventoryMessage,
+    confirmExistingOpen,
     availableCategories,
     availableNames,
     availableLocations,
@@ -582,6 +601,8 @@ export function useTaskInventoryCompletion({
     openExistingInventorySelector,
     continueCreatingNewInventoryItem,
     selectExistingInventoryItem,
+    closeConfirmExistingInventoryItem,
+    confirmExistingInventoryIncrease,
     confirmInventoryUsage,
     closePrompt: resetFlow,
     closeInventoryModal: resetFlow,

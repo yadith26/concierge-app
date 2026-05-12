@@ -1,12 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import { BellDot, Download, MessageSquareMore, Plus } from 'lucide-react'
 import BottomNav from '@/components/layout/BottomNav'
 import PageHeader from '@/components/layout/PageHeader'
 import ManagerBuildingChip from '@/components/layout/ManagerBuildingChip'
+import InventoryConfirmExistingItemModal from '@/components/inventory/InventoryConfirmExistingItemModal'
 import InventoryFilters from '@/components/inventory/InventoryFilters'
 import InventoryFormModal from '@/components/inventory/InventoryFormModal'
 import InventoryHeaderActions from '@/components/inventory/InventoryHeaderActions'
@@ -79,6 +80,9 @@ export default function InventoryPage() {
     saving,
     message,
     setMessage,
+    confirmExistingOpen,
+    confirmExistingItem,
+    confirmExistingPayload,
     manualAdjustOpen,
     manualAdjustSaving,
     manualAdjustItem,
@@ -95,11 +99,23 @@ export default function InventoryPage() {
     availableNames,
     handleAddCategory,
     handleAddLocation,
+    useExistingInventoryItem,
+    closeConfirmExistingModal,
+    confirmUseExistingInventoryItem,
     closeFormModal,
     saveInventoryItem,
     closeManualAdjustModal,
     confirmManualAdjust,
   } = inventory
+
+  const formInitialValues = useMemo(() => {
+    if (editingItem) return null
+
+    return {
+      item_type: initialItemType,
+      unit_of_measure: initialUnitOfMeasure,
+    }
+  }, [editingItem, initialItemType, initialUnitOfMeasure])
 
   useSyncConciergeBuildingUrl({
     buildingId,
@@ -349,21 +365,16 @@ export default function InventoryPage() {
         itemToEdit={editingItem}
         initialCategory={initialCategory}
         initialLocation={initialLocation}
-        initialValues={
-          editingItem
-            ? null
-            : {
-                item_type: initialItemType,
-                unit_of_measure: initialUnitOfMeasure,
-              }
-        }
+        initialValues={formInitialValues}
         existingPhotos={existingPhotos}
         photos={photos}
+        items={items}
         availableNames={availableNames}
         availableCategories={availableCategories}
         availableLocations={availableLocations}
         onAddCategory={handleAddCategory}
         onAddLocation={handleAddLocation}
+        onUseExistingItem={useExistingInventoryItem}
         onMessage={setMessage}
         onSelectPhotos={handlePhotosSelected}
         onRemoveExistingPhoto={removeExistingPhoto}
@@ -384,6 +395,20 @@ export default function InventoryPage() {
         onClose={closeManualAdjustModal}
         onConfirm={() => {
           void confirmManualAdjust()
+        }}
+      />
+
+      <InventoryConfirmExistingItemModal
+        open={confirmExistingOpen}
+        item={confirmExistingItem}
+        quantity={confirmExistingPayload?.quantity ?? 0}
+        unitOfMeasure={confirmExistingPayload?.unit_of_measure}
+        context="manual"
+        saving={saving}
+        message={confirmExistingOpen ? message : ''}
+        onClose={closeConfirmExistingModal}
+        onConfirm={() => {
+          void confirmUseExistingInventoryItem()
         }}
       />
 

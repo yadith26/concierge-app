@@ -479,6 +479,15 @@
     "startNameDictation": "Продиктовать название элемента",
     "stopNameDictation": "Остановить диктовку названия",
     "dictationUnsupported": "Ваш браузер не поддерживает диктовку.",
+    "existingSuggestionTitle": "Похожий предмет уже существует",
+    "existingSuggestionTitleWithCount": "Мы нашли {count} похожих предмета",
+    "existingSuggestionText": "{item} уже есть в инвентаре: {quantity} шт. в {location}. Если это тот же предмет, лучше увеличить количество вместо создания новой записи.",
+    "existingSuggestionListText": "Нажмите, чтобы просмотреть их перед созданием нового.",
+    "existingSuggestionAction": "Увеличить существующее количество",
+    "existingSuggestionShortAction": "Добавить",
+    "existingSuggestionNoLocation": "без местоположения",
+    "existingSuggestionRecommended": "Рекомендовано",
+    "existingSuggestionUnits": "в наличии",
     "searchName": "Поиск товара...",
     "addName": "Добавить товар",
     "suggestedItem": "Рекомендуемый элемент",
@@ -510,6 +519,17 @@
       "used": "Б/у",
       "damaged": "Повреждённый"
     }
+  },
+  "inventoryConfirmModal": {
+    "eyebrow": "Инвентарь",
+    "title": "Подтвердить увеличение запаса",
+    "manualDescription": "Вы собираетесь добавить {quantity} к существующему предмету. Перед сохранением вы можете передумать.",
+    "deliveryDescription": "Вы собираетесь добавить {quantity} к существующему предмету для завершения доставки.",
+    "locationLabel": "Местоположение: {location}",
+    "cancel": "Отмена",
+    "confirm": "Подтвердить",
+    "confirming": "Подтверждение...",
+    "close": "Закрыть"
   },
   "inventoryList": {
     "noResults": "По этим фильтрам ничего не найдено"

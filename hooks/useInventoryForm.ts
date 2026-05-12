@@ -10,6 +10,10 @@ import {
   isMaterialInventoryCategory,
 } from '@/lib/inventory/inventoryCatalog'
 import {
+  rankMatchingInventoryItemsDetailed,
+  type RankedInventoryMatch,
+} from '@/lib/inventory/findMatchingInventoryItem'
+import {
   getUniqueCaseInsensitiveValues,
   INITIAL_INVENTORY_FORM_STATE,
   inventoryFormReducer,
@@ -17,6 +21,7 @@ import {
 } from '@/lib/inventory/inventoryFormHelpers'
 import type {
   EditableInventoryItem,
+  InventoryItem,
 } from '@/lib/inventory/inventoryTypes'
 
 type UseInventoryFormParams = {
@@ -24,6 +29,7 @@ type UseInventoryFormParams = {
   itemToEdit: EditableInventoryItem | null
   initialCategory: string
   initialLocation: string
+  items: InventoryItem[]
   availableNames?: string[]
   initialValues?: {
     name?: string
@@ -40,6 +46,20 @@ type UseInventoryFormParams = {
   availableLocations: string[]
   onAddCategory: (value: string) => void
   onAddLocation: (value: string) => void
+  onUseExistingItem: (
+    item: InventoryItem,
+    payload: {
+      name: string
+      category: string
+      item_type: string
+      unit_of_measure: string
+      quantity: number
+      minimum_stock: number
+      location: string
+      condition: InventoryConditionSelection
+      notes: string
+    }
+  ) => Promise<void>
   onSave: (payload: {
     name: string
     category: string
@@ -58,12 +78,14 @@ export function useInventoryForm({
   itemToEdit,
   initialCategory,
   initialLocation,
+  items,
   availableNames,
   initialValues,
   availableCategories,
   availableLocations,
   onAddCategory,
   onAddLocation,
+  onUseExistingItem,
   onSave,
 }: UseInventoryFormParams) {
   const [state, dispatch] = useReducer(
@@ -160,6 +182,32 @@ export function useInventoryForm({
     [availableLocations]
   )
 
+  const suggestedExistingMatches = useMemo(() => {
+    if (!open || itemToEdit || !state.name.trim()) return [] as RankedInventoryMatch<InventoryItem>[]
+
+    const ranked = rankMatchingInventoryItemsDetailed(items, {
+      textToMatch: state.name.trim(),
+      preferredCategory: state.category.trim(),
+      preferredItemLabel: state.itemType.trim() || state.name.trim(),
+    })
+
+    const bestMatch = ranked[0]
+    if (!bestMatch) return [] as RankedInventoryMatch<InventoryItem>[]
+
+    const strongMatch =
+      bestMatch.score >= 100 ||
+      bestMatch.reasons.includes('exact_name') ||
+      bestMatch.reasons.includes('exact_item_type') ||
+      bestMatch.reasons.includes('preferred_name') ||
+      bestMatch.reasons.includes('preferred_item_type')
+
+    if (!strongMatch) return [] as RankedInventoryMatch<InventoryItem>[]
+
+    return ranked.slice(0, 4)
+  }, [open, itemToEdit, items, state.name, state.category, state.itemType])
+
+  const suggestedExistingItem = suggestedExistingMatches[0]?.item || null
+
   const handleToggleCategory = () => {
     dispatch({ type: 'toggleCategory' })
   }
@@ -224,6 +272,23 @@ export function useInventoryForm({
     })
   }
 
+  const handleUseSuggestedItem = async (item?: InventoryItem) => {
+    const targetItem = item || suggestedExistingItem
+    if (!targetItem) return
+
+    await onUseExistingItem(targetItem, {
+      name: state.name.trim(),
+      category: state.category.trim(),
+      item_type: state.itemType.trim(),
+      unit_of_measure: state.unitOfMeasure.trim(),
+      quantity: Number(state.quantity || 0),
+      minimum_stock: Number(state.minimumStock || 0),
+      location: state.location.trim(),
+      condition: state.condition,
+      notes: state.notes.trim(),
+    })
+  }
+
   return {
     fields: {
       name: state.name,
@@ -275,10 +340,13 @@ export function useInventoryForm({
       locations: normalizedLocations,
       names: getUniqueCaseInsensitiveValues(availableNames || []),
     },
+    suggestedExistingItem,
+    suggestedExistingMatches,
     actions: {
       handleAddCategory,
       handleAddLocation,
       handleSubmit,
+      handleUseSuggestedItem,
     },
   }
 }

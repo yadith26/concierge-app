@@ -485,6 +485,15 @@
     "startNameDictation": "Dictar nombre del item",
     "stopNameDictation": "Detener dictado del nombre",
     "dictationUnsupported": "Tu navegador no soporta dictado.",
+    "existingSuggestionTitle": "Ya existe un item parecido",
+    "existingSuggestionTitleWithCount": "Encontramos {count} items parecidos",
+    "existingSuggestionText": "{item} ya esta en inventario con {quantity} unidades en {location}. Si es el mismo articulo, conviene aumentar su cantidad en vez de crear otro.",
+    "existingSuggestionListText": "Toca para revisarlos antes de crear uno nuevo.",
+    "existingSuggestionAction": "Aumentar cantidad al existente",
+    "existingSuggestionShortAction": "Sumar",
+    "existingSuggestionNoLocation": "sin ubicacion",
+    "existingSuggestionRecommended": "Sugerido",
+    "existingSuggestionUnits": "disponibles",
     "searchName": "Buscar producto...",
     "addName": "Agregar producto",
     "suggestedItem": "Item sugerido",
@@ -516,6 +525,17 @@
       "used": "Usado",
       "damaged": "Dañado"
     }
+  },
+  "inventoryConfirmModal": {
+    "eyebrow": "Inventario",
+    "title": "Confirmar suma de stock",
+    "manualDescription": "Vas a sumar {quantity} a este item existente. Puedes cambiar de idea antes de guardar.",
+    "deliveryDescription": "Vas a sumar {quantity} a este item existente para completar la entrega.",
+    "locationLabel": "Ubicacion: {location}",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar suma",
+    "confirming": "Confirmando...",
+    "close": "Cerrar"
   },
   "inventoryList": {
     "noResults": "No hay resultados con esos filtros"

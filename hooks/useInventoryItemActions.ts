@@ -3,6 +3,10 @@
 import { supabase } from '@/lib/supabase'
 import { normalizeInventoryCategory } from '@/lib/inventory/inventoryCatalog'
 import {
+  rankMatchingInventoryItemsDetailed,
+  type InventoryMatchReason,
+} from '@/lib/inventory/findMatchingInventoryItem'
+import {
   createInventoryItem,
   type SaveInventoryPayload,
 } from '@/lib/inventory/inventoryMutations'
@@ -151,6 +155,62 @@ export default function useInventoryItemActions({
       const exists = prev.some((item) => item.toLowerCase() === value.toLowerCase())
       return exists ? prev : [...prev, value].sort((a, b) => a.localeCompare(b))
     })
+  }
+
+  const suggestExistingItem = (payload: SaveInventoryPayload) => {
+    const ranked = rankMatchingInventoryItemsDetailed(items, {
+      textToMatch: payload.name.trim(),
+      preferredCategory: payload.category.trim(),
+      preferredItemLabel: payload.item_type?.trim() || payload.name.trim(),
+    })
+
+    const bestMatch = ranked[0]
+    if (!bestMatch) return null
+
+    const strongReasons = new Set<InventoryMatchReason>([
+      'exact_name',
+      'exact_item_type',
+      'preferred_name',
+      'preferred_item_type',
+    ])
+
+    const isStrongMatch =
+      bestMatch.score >= 100 ||
+      bestMatch.reasons.some((reason) => strongReasons.has(reason))
+
+    return isStrongMatch ? bestMatch.item : null
+  }
+
+  const useExistingInventoryItem = async (
+    item: InventoryItem,
+    payload: SaveInventoryPayload
+  ) => {
+    if (!profileId) return false
+
+    setSaving(true)
+    setMessage('')
+
+    try {
+      const success = await quickAdjustStock(item, payload.quantity, {
+        note: `Entrada manual desde formulario: ${payload.name.trim()}`,
+        unitLabel: payload.location.trim() || null,
+      })
+
+      if (!success) {
+        setMessage('No se pudo aumentar la cantidad del item existente.')
+        return false
+      }
+
+      closeFormModal()
+      setExpandedCategory(item.category || payload.category.trim())
+      return true
+    } catch (error) {
+      console.error('Error increasing existing inventory item:', error)
+      setMessage('No se pudo usar el item existente.')
+      return false
+    } finally {
+      setSaving(false)
+    }
   }
 
   const saveInventoryItem = async (payload: SaveInventoryPayload) => {
@@ -354,6 +414,8 @@ export default function useInventoryItemActions({
     handleAddLocation,
     handleAddName,
     saveInventoryItem,
+    suggestExistingItem,
+    useExistingInventoryItem,
     quickAdjustStock,
   }
 }

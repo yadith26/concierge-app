@@ -1,17 +1,23 @@
 'use client'
 
 import { useMemo, useRef, useState } from 'react'
-import { Mic } from 'lucide-react'
+import { ChevronDown, ChevronUp, MapPin, Mic, Package, Plus } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import InventoryCombobox from './InventoryCombobox'
 import StyledDropdown from '@/components/ui/StyledDropdown'
 import { inferInventoryItemFromName } from '@/lib/inventory/inventorySmartParser'
 import {
+  getConditionMeta,
+  getInventoryItemTypeLabel,
+  getInventoryLocationLabel,
+} from '@/lib/inventory/inventoryUi'
+import type { InventoryMatchReason, RankedInventoryMatch } from '@/lib/inventory/findMatchingInventoryItem'
+import {
   getMeasurementUnitOptions,
   getSuggestedItemsForCategory,
   isMaterialInventoryCategory,
 } from '@/lib/inventory/inventoryCatalog'
-import type { InventoryCondition } from '@/lib/inventory/inventoryTypes'
+import type { InventoryCondition, InventoryItem } from '@/lib/inventory/inventoryTypes'
 
 type SpeechRecognitionResultLike = {
   transcript?: string
@@ -87,8 +93,10 @@ type InventoryFormFieldsProps = {
     categories: string[]
     locations: string[]
   }
+  suggestedExistingMatches?: RankedInventoryMatch<InventoryItem>[]
   actions: {
     handleAddLocation: (value: string) => void
+    handleUseSuggestedItem: (item: InventoryItem) => void
   }
 }
 
@@ -97,11 +105,14 @@ export default function InventoryFormFields({
   setters,
   dropdowns,
   options,
+  suggestedExistingMatches = [],
   actions,
 }: InventoryFormFieldsProps) {
   const t = useTranslations('inventoryFormModal')
+  const tGlobal = useTranslations()
   const locale = useLocale()
   const [isListeningName, setIsListeningName] = useState(false)
+  const [showExistingMatches, setShowExistingMatches] = useState(false)
   const recognitionRef = useRef<SpeechRecognitionLike | null>(null)
   const inferredItem = inferInventoryItemFromName(fields.name)
   const displayedSuggestedItem = fields.itemType || inferredItem
@@ -188,6 +199,10 @@ export default function InventoryFormFields({
     recognition.start()
   }
 
+  const hasSuggestedMatches = suggestedExistingMatches.length > 0
+
+  const shouldShowExistingMatches = hasSuggestedMatches && showExistingMatches
+
   return (
     <>
       <div>
@@ -228,6 +243,114 @@ export default function InventoryFormFields({
           <p className="mt-2 text-[12px] font-medium text-[#E85757]">
             {t('listeningHint')}
           </p>
+        ) : null}
+
+        {hasSuggestedMatches ? (
+          <div className="mt-3">
+            <button
+              type="button"
+              onClick={() => setShowExistingMatches((current) => !current)}
+              className="w-full rounded-2xl border border-[#D8E6FF] bg-[#F4F8FF] px-4 py-4 text-left"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-sm font-semibold text-[#D64555]">
+                    {t('existingSuggestionTitleWithCount', {
+                      count: suggestedExistingMatches.length,
+                    })}
+                  </p>
+                  <p className="mt-1 text-sm leading-7 text-[#5E6E8C]">
+                    {t('existingSuggestionListText')}
+                  </p>
+                </div>
+
+                <span className="mt-0.5 shrink-0 text-[#2F66C8]">
+                  {showExistingMatches ? (
+                    <ChevronUp className="h-5 w-5" />
+                  ) : (
+                    <ChevronDown className="h-5 w-5" />
+                  )}
+                </span>
+              </div>
+            </button>
+
+            {shouldShowExistingMatches ? (
+              <div className="mt-3 space-y-3">
+                {suggestedExistingMatches.map((match, index) => (
+                  <div
+                    key={match.item.id}
+                    className="rounded-[24px] border border-[#D8E6FF] bg-white px-4 py-4"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <p className="text-[15px] font-bold text-[#142952]">
+                            {match.item.name}
+                          </p>
+
+                          {index === 0 ? (
+                            <span className="inline-flex items-center rounded-full bg-[#E8F6ED] px-2.5 py-1 text-[11px] font-semibold text-[#2D8C57]">
+                              {t('existingSuggestionRecommended')}
+                            </span>
+                          ) : null}
+
+                          {getInventoryItemTypeLabel(match.item) ? (
+                            <span className="inline-flex items-center rounded-full bg-[#EEF4FF] px-2.5 py-1 text-[11px] font-semibold text-[#2F66C8]">
+                              {getInventoryItemTypeLabel(match.item)}
+                            </span>
+                          ) : null}
+
+                          <span
+                            className={`inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-semibold ${getConditionMeta(
+                              match.item.condition,
+                              tGlobal
+                            ).chip}`}
+                          >
+                            {getConditionMeta(match.item.condition, tGlobal).label}
+                          </span>
+                        </div>
+
+                        <div className="mt-2 flex flex-wrap items-center gap-3 text-[13px] text-[#7B8BA8]">
+                          <span className="inline-flex items-center gap-1.5">
+                            <Package className="h-4 w-4" />
+                            {match.item.quantity} {t('existingSuggestionUnits')}
+                          </span>
+
+                          <span className="inline-flex items-center gap-1.5">
+                            <MapPin className="h-4 w-4" />
+                            {getInventoryLocationLabel(
+                              match.item.location,
+                              t('existingSuggestionNoLocation')
+                            )}
+                          </span>
+                        </div>
+
+                        <div className="mt-2 flex flex-wrap items-center gap-2">
+                          {getReasonLabels(match.reasons).map((reason) => (
+                            <span
+                              key={`${match.item.id}-${reason}`}
+                              className="inline-flex items-center rounded-full bg-[#FFF8E8] px-2.5 py-1 text-[11px] font-semibold text-[#B7791F]"
+                            >
+                              {reason}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => actions.handleUseSuggestedItem(match.item)}
+                        className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#EEF4FF] px-3 py-1.5 text-[11px] font-semibold text-[#2F66C8] hover:bg-[#DFEAFF]"
+                      >
+                        <Plus size={13} />
+                        {t('existingSuggestionShortAction')}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+          </div>
         ) : null}
       </div>
 
@@ -352,4 +475,39 @@ export default function InventoryFormFields({
       </div>
     </>
   )
+}
+
+function getReasonLabels(reasons: InventoryMatchReason[]) {
+  const labels = new Set<string>()
+
+  if (
+    reasons.includes('exact_name') ||
+    reasons.includes('contains_name') ||
+    reasons.includes('preferred_name') ||
+    reasons.includes('preferred_partial_name')
+  ) {
+    labels.add('Coincide por nombre')
+  }
+
+  if (
+    reasons.includes('exact_item_type') ||
+    reasons.includes('contains_item_type') ||
+    reasons.includes('preferred_item_type')
+  ) {
+    labels.add('Coincide por item')
+  }
+
+  if (reasons.includes('same_category')) {
+    labels.add('Misma categoria')
+  }
+
+  if (reasons.includes('exact_variant') || reasons.includes('contains_variant')) {
+    labels.add('Coincide por variante')
+  }
+
+  if (reasons.includes('shared_tokens')) {
+    labels.add('Palabras parecidas')
+  }
+
+  return Array.from(labels).slice(0, 2)
 }

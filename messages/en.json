@@ -483,6 +483,15 @@
     "startNameDictation": "Dictate item name",
     "stopNameDictation": "Stop name dictation",
     "dictationUnsupported": "Your browser does not support dictation.",
+    "existingSuggestionTitle": "A similar item already exists",
+    "existingSuggestionTitleWithCount": "We found {count} similar items",
+    "existingSuggestionText": "{item} is already in inventory with {quantity} units in {location}. If it is the same item, it is better to increase its quantity instead of creating another one.",
+    "existingSuggestionListText": "Tap to review them before creating a new one.",
+    "existingSuggestionAction": "Increase existing quantity",
+    "existingSuggestionShortAction": "Add",
+    "existingSuggestionNoLocation": "no location",
+    "existingSuggestionRecommended": "Suggested",
+    "existingSuggestionUnits": "available",
     "searchName": "Search product...",
     "addName": "Add product",
     "suggestedItem": "Suggested item",
@@ -514,6 +523,17 @@
       "used": "Used",
       "damaged": "Damaged"
     }
+  },
+  "inventoryConfirmModal": {
+    "eyebrow": "Inventory",
+    "title": "Confirm stock increase",
+    "manualDescription": "You are about to add {quantity} to this existing item. You can still change your mind before saving.",
+    "deliveryDescription": "You are about to add {quantity} to this existing item to complete the delivery.",
+    "locationLabel": "Location: {location}",
+    "cancel": "Cancel",
+    "confirm": "Confirm increase",
+    "confirming": "Confirming...",
+    "close": "Close"
   },
   "inventoryList": {
     "noResults": "There are no results with those filters"

@@ -10,6 +10,7 @@ import { isMaterialInventoryCategory } from '@/lib/inventory/inventoryCatalog'
 import {
   DEFAULT_INVENTORY_CATEGORIES,
   DEFAULT_INVENTORY_LOCATIONS,
+  type SaveInventoryPayload,
 } from '@/lib/inventory/inventoryMutations'
 import type {
   EditableInventoryItem,
@@ -83,6 +84,12 @@ export default function useInventoryPage(selectedBuildingId?: string | null) {
   const [availableLocations, setAvailableLocations] = useState<string[]>(
     DEFAULT_INVENTORY_LOCATIONS
   )
+  const [confirmExistingOpen, setConfirmExistingOpen] = useState(false)
+  const [confirmExistingItem, setConfirmExistingItem] = useState<InventoryItem | null>(
+    null
+  )
+  const [confirmExistingPayload, setConfirmExistingPayload] =
+    useState<SaveInventoryPayload | null>(null)
 
   const fetchInventoryData = useCallback(async () => {
     setLoading(true)
@@ -119,6 +126,7 @@ export default function useInventoryPage(selectedBuildingId?: string | null) {
     handleAddCategory,
     handleAddLocation,
     handleAddName,
+    useExistingInventoryItem: applyExistingInventoryItemIncrease,
     saveInventoryItem,
     quickAdjustStock,
   } = useInventoryItemActions({
@@ -155,6 +163,13 @@ export default function useInventoryPage(selectedBuildingId?: string | null) {
     setMessage('')
   }, [])
 
+  const closeConfirmExistingModal = useCallback(() => {
+    setConfirmExistingOpen(false)
+    setConfirmExistingItem(null)
+    setConfirmExistingPayload(null)
+    setMessage('')
+  }, [])
+
   const handleQuickAdjustStock = useCallback(
     async (item: InventoryItem, change: number) => {
       if (change < 0) {
@@ -170,6 +185,34 @@ export default function useInventoryPage(selectedBuildingId?: string | null) {
     },
     [quickAdjustStock]
   )
+
+  const requestUseExistingInventoryItem = useCallback(
+    async (item: InventoryItem, payload: SaveInventoryPayload) => {
+      setConfirmExistingItem(item)
+      setConfirmExistingPayload(payload)
+      setConfirmExistingOpen(true)
+      setMessage('')
+    },
+    []
+  )
+
+  const confirmUseExistingInventoryItem = useCallback(async () => {
+    if (!confirmExistingItem || !confirmExistingPayload) return
+
+    const success = await applyExistingInventoryItemIncrease(
+      confirmExistingItem,
+      confirmExistingPayload
+    )
+
+    if (success) {
+      closeConfirmExistingModal()
+    }
+  }, [
+    closeConfirmExistingModal,
+    confirmExistingItem,
+    confirmExistingPayload,
+    applyExistingInventoryItemIncrease,
+  ])
 
   const confirmManualAdjust = useCallback(async () => {
     if (!manualAdjustItem) return
@@ -267,6 +310,9 @@ export default function useInventoryPage(selectedBuildingId?: string | null) {
     saving,
     message,
     setMessage,
+    confirmExistingOpen,
+    confirmExistingItem,
+    confirmExistingPayload,
     manualAdjustOpen,
     manualAdjustSaving,
     manualAdjustItem,
@@ -290,6 +336,9 @@ export default function useInventoryPage(selectedBuildingId?: string | null) {
     handleAddCategory,
     handleAddName,
     handleAddLocation,
+    useExistingInventoryItem: requestUseExistingInventoryItem,
+    closeConfirmExistingModal,
+    confirmUseExistingInventoryItem,
     saveInventoryItem,
     quickAdjustStock: handleQuickAdjustStock,
     closeManualAdjustModal,

@@ -9,6 +9,7 @@ import { useInventoryForm } from '@/hooks/useInventoryForm'
 import type {
   EditableInventoryItem,
   ExistingInventoryPhoto,
+  InventoryItem,
 } from '@/lib/inventory/inventoryTypes'
 import type {
   InventoryConditionSelection,
@@ -36,11 +37,16 @@ type InventoryFormModalProps = {
   } | null
   existingPhotos: ExistingInventoryPhoto[]
   photos: SelectedInventoryPhoto[]
+  items?: InventoryItem[]
   availableNames?: string[]
   availableCategories: string[]
   availableLocations: string[]
   onAddCategory: (value: string) => void
   onAddLocation: (value: string) => void
+  onUseExistingItem?: (
+    item: InventoryItem,
+    payload: SaveInventoryPayload
+  ) => Promise<void>
   onMessage: (message: string) => void
   onSelectPhotos: (
     e: React.ChangeEvent<HTMLInputElement>
@@ -61,11 +67,13 @@ export default function InventoryFormModal({
   initialValues,
   existingPhotos,
   photos,
+  items = [],
   availableNames,
   availableCategories,
   availableLocations,
   onAddCategory,
   onAddLocation,
+  onUseExistingItem,
   onMessage,
   onSelectPhotos,
   onRemoveExistingPhoto,
@@ -80,16 +88,25 @@ export default function InventoryFormModal({
     itemToEdit,
     initialCategory,
     initialLocation,
+    items,
     availableNames,
     initialValues,
     availableCategories,
     availableLocations,
     onAddCategory,
     onAddLocation,
+    onUseExistingItem: onUseExistingItem || (async () => {}),
     onSave,
   })
 
-  const { fields, setters, dropdowns, options, actions } = inventoryForm
+  const {
+    fields,
+    setters,
+    dropdowns,
+    options,
+    suggestedExistingMatches,
+    actions,
+  } = inventoryForm
 
   useEffect(() => {
     onMessage('')
@@ -133,8 +150,12 @@ export default function InventoryFormModal({
                 setters={setters}
                 dropdowns={dropdowns}
                 options={options}
+                suggestedExistingMatches={!itemToEdit ? suggestedExistingMatches : []}
                 actions={{
                   handleAddLocation: actions.handleAddLocation,
+                  handleUseSuggestedItem: (item) => {
+                    void actions.handleUseSuggestedItem(item)
+                  },
                 }}
               />
 

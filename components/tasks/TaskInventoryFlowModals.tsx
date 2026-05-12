@@ -1,5 +1,6 @@
 'use client'
 
+import InventoryConfirmExistingItemModal from '@/components/inventory/InventoryConfirmExistingItemModal'
 import InventoryFormModal from '@/components/inventory/InventoryFormModal'
 import TaskInventoryPromptModal from '@/components/tasks/TaskInventoryPromptModal'
 import TaskInventorySelectModal from '@/components/tasks/TaskInventorySelectModal'
@@ -67,6 +68,21 @@ export default function TaskInventoryFlowModals({
         onChangeLocation={taskInventory.setInventoryUsageLocation}
         onConfirm={() => {
           void taskInventory.confirmInventoryUsage()
+        }}
+      />
+
+      <InventoryConfirmExistingItemModal
+        open={taskInventory.confirmExistingOpen}
+        item={taskInventory.selectedInventoryItem}
+        quantity={1}
+        context="delivery"
+        saving={taskInventory.savingInventory}
+        message={
+          taskInventory.confirmExistingOpen ? taskInventory.inventoryMessage : ''
+        }
+        onClose={taskInventory.closeConfirmExistingInventoryItem}
+        onConfirm={() => {
+          void taskInventory.confirmExistingInventoryIncrease()
         }}
       />
 
