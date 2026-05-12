@@ -245,6 +245,20 @@ export default function ConciergeHomeOverview({
             </div>
           </button>
         ))}
+
+        {buildings.length > 1 ? (
+          <div className="rounded-[24px] border border-dashed border-[#D9E4F3] bg-[#F8FBFF] px-5 py-5 text-center">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#4D66DA] shadow-[0_8px_22px_rgba(20,41,82,0.06)]">
+              <Building2 size={22} />
+            </div>
+            <h3 className="mt-3 text-[16px] font-bold text-[#142952]">
+              Selecciona un edificio
+            </h3>
+            <p className="mt-1 text-sm leading-6 text-[#6E7F9D]">
+              Para continuar con tareas, inventario, tratamientos y agenda.
+            </p>
+          </div>
+        ) : null}
       </section>
     </div>
   )

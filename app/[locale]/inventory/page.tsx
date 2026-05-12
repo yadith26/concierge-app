@@ -84,8 +84,6 @@ export default function InventoryPage() {
     manualAdjustItem,
     manualAdjustReason,
     setManualAdjustReason,
-    manualAdjustLocation,
-    setManualAdjustLocation,
     manualAdjustQuantity,
     setManualAdjustQuantity,
     editingItem,
@@ -379,12 +377,10 @@ export default function InventoryPage() {
         item={manualAdjustItem}
         quantity={manualAdjustQuantity}
         reason={manualAdjustReason}
-        location={manualAdjustLocation}
         saving={manualAdjustSaving}
         errorMessage={manualAdjustOpen ? message : ''}
         onQuantityChange={setManualAdjustQuantity}
         onReasonChange={setManualAdjustReason}
-        onLocationChange={setManualAdjustLocation}
         onClose={closeManualAdjustModal}
         onConfirm={() => {
           void confirmManualAdjust()

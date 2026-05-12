@@ -11,12 +11,10 @@ type InventoryManualAdjustModalProps = {
   item: InventoryItem | null
   quantity: string
   reason: string
-  location: string
   saving: boolean
   errorMessage?: string
   onQuantityChange: (value: string) => void
   onReasonChange: (value: string) => void
-  onLocationChange: (value: string) => void
   onClose: () => void
   onConfirm: () => void
 }
@@ -26,12 +24,10 @@ export default function InventoryManualAdjustModal({
   item,
   quantity,
   reason,
-  location,
   saving,
   errorMessage,
   onQuantityChange,
   onReasonChange,
-  onLocationChange,
   onClose,
   onConfirm,
 }: InventoryManualAdjustModalProps) {
@@ -106,20 +102,8 @@ export default function InventoryManualAdjustModal({
             <textarea
               value={reason}
               onChange={(event) => onReasonChange(event.target.value)}
-              rows={3}
+              rows={4}
               placeholder={t('reasonPlaceholder')}
-              className="w-full rounded-[22px] border border-[#DCE3EE] px-4 py-3 text-[16px] text-[#142952] outline-none transition focus:border-[#2F66C8] focus:ring-2 focus:ring-[#DCE7F9]"
-            />
-          </label>
-
-          <label className="block">
-            <span className="mb-2 block text-[15px] font-semibold text-[#142952]">
-              {t('locationLabel')}
-            </span>
-            <input
-              value={location}
-              onChange={(event) => onLocationChange(event.target.value)}
-              placeholder={t('locationPlaceholder')}
               className="w-full rounded-[22px] border border-[#DCE3EE] px-4 py-3 text-[16px] text-[#142952] outline-none transition focus:border-[#2F66C8] focus:ring-2 focus:ring-[#DCE7F9]"
             />
           </label>

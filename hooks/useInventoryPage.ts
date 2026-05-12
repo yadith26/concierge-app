@@ -68,7 +68,6 @@ export default function useInventoryPage(selectedBuildingId?: string | null) {
     null
   )
   const [manualAdjustReason, setManualAdjustReason] = useState('')
-  const [manualAdjustLocation, setManualAdjustLocation] = useState('')
   const [manualAdjustQuantity, setManualAdjustQuantity] = useState('1')
   const [editingItem, setEditingItem] = useState<EditableInventoryItem | null>(
     null
@@ -152,7 +151,6 @@ export default function useInventoryPage(selectedBuildingId?: string | null) {
     setManualAdjustSaving(false)
     setManualAdjustItem(null)
     setManualAdjustReason('')
-    setManualAdjustLocation('')
     setManualAdjustQuantity('1')
     setMessage('')
   }, [])
@@ -162,7 +160,6 @@ export default function useInventoryPage(selectedBuildingId?: string | null) {
       if (change < 0) {
         setManualAdjustItem(item)
         setManualAdjustReason('')
-        setManualAdjustLocation(item.location || '')
         setManualAdjustQuantity('1')
         setMessage('')
         setManualAdjustOpen(true)
@@ -208,7 +205,7 @@ export default function useInventoryPage(selectedBuildingId?: string | null) {
     try {
       const success = await quickAdjustStock(manualAdjustItem, -requestedQuantity, {
         note: manualAdjustReason.trim(),
-        unitLabel: manualAdjustLocation.trim() || null,
+        unitLabel: null,
       })
 
       if (!success) {
@@ -226,7 +223,6 @@ export default function useInventoryPage(selectedBuildingId?: string | null) {
   }, [
     closeManualAdjustModal,
     manualAdjustItem,
-    manualAdjustLocation,
     manualAdjustQuantity,
     manualAdjustReason,
     quickAdjustStock,
@@ -276,8 +272,6 @@ export default function useInventoryPage(selectedBuildingId?: string | null) {
     manualAdjustItem,
     manualAdjustReason,
     setManualAdjustReason,
-    manualAdjustLocation,
-    setManualAdjustLocation,
     manualAdjustQuantity,
     setManualAdjustQuantity,
     editingItem,

@@ -719,6 +719,11 @@ function cleanSmartTitle(text: string, rules: ParserRules) {
     ''
   )
 
+  cleaned = cleaned.replace(
+    /\b(?:a las|alas|a la|al)\s+(?:\d{1,2}|[\p{L}]+)(?::\d{2})?(?:\s*(?:am|pm))?(?:\s+de\s+la\s+(?:mañana|manana|tarde|noche)|\s+del\s+(?:mediodía|mediodia))?\b/giu,
+    ''
+  )
+
   if (rules.timePrefixes.length > 0) {
     cleaned = cleaned.replace(
       new RegExp(

@@ -1,7 +1,8 @@
 'use client'
 
-import { useMemo } from 'react'
-import { useTranslations } from 'next-intl'
+import { useMemo, useRef, useState } from 'react'
+import { Mic } from 'lucide-react'
+import { useLocale, useTranslations } from 'next-intl'
 import InventoryCombobox from './InventoryCombobox'
 import StyledDropdown from '@/components/ui/StyledDropdown'
 import { inferInventoryItemFromName } from '@/lib/inventory/inventorySmartParser'
@@ -11,6 +12,39 @@ import {
   isMaterialInventoryCategory,
 } from '@/lib/inventory/inventoryCatalog'
 import type { InventoryCondition } from '@/lib/inventory/inventoryTypes'
+
+type SpeechRecognitionResultLike = {
+  transcript?: string
+}
+
+type SpeechRecognitionAlternativeListLike =
+  ArrayLike<SpeechRecognitionResultLike>
+
+type SpeechRecognitionResultLikeWithFinal =
+  SpeechRecognitionAlternativeListLike & {
+    isFinal?: boolean
+  }
+
+type SpeechRecognitionResultListLike =
+  ArrayLike<SpeechRecognitionResultLikeWithFinal>
+
+type SpeechRecognitionEventLike = Event & {
+  results?: SpeechRecognitionResultListLike
+}
+
+type SpeechRecognitionLike = {
+  lang: string
+  continuous?: boolean
+  interimResults: boolean
+  maxAlternatives: number
+  onresult: ((event: SpeechRecognitionEventLike) => void) | null
+  onerror: (() => void) | null
+  onend: (() => void) | null
+  start: () => void
+  stop: () => void
+}
+
+type SpeechRecognitionConstructor = new () => SpeechRecognitionLike
 
 type InventoryFormFieldsProps = {
   fields: {
@@ -66,6 +100,9 @@ export default function InventoryFormFields({
   actions,
 }: InventoryFormFieldsProps) {
   const t = useTranslations('inventoryFormModal')
+  const locale = useLocale()
+  const [isListeningName, setIsListeningName] = useState(false)
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null)
   const inferredItem = inferInventoryItemFromName(fields.name)
   const displayedSuggestedItem = fields.itemType || inferredItem
   const isMaterial = isMaterialInventoryCategory(fields.category)
@@ -91,21 +128,107 @@ export default function InventoryFormFields({
     ).sort((a, b) => a.localeCompare(b))
   }, [fields.category, inferredItem])
 
+  const getSpeechLang = () => {
+    if (locale.startsWith('en')) return 'en-US'
+    if (locale.startsWith('fr')) return 'fr-CA'
+    if (locale.startsWith('ru')) return 'ru-RU'
+    return 'es-ES'
+  }
+
+  const handleToggleNameDictation = () => {
+    const browserWindow = window as Window & {
+      SpeechRecognition?: SpeechRecognitionConstructor
+      webkitSpeechRecognition?: SpeechRecognitionConstructor
+    }
+
+    const SpeechRecognition =
+      browserWindow.SpeechRecognition || browserWindow.webkitSpeechRecognition
+
+    if (!SpeechRecognition) {
+      alert(t('dictationUnsupported'))
+      return
+    }
+
+    if (isListeningName) {
+      recognitionRef.current?.stop()
+      setIsListeningName(false)
+      return
+    }
+
+    const recognition = new SpeechRecognition()
+    recognitionRef.current = recognition
+
+    recognition.lang = getSpeechLang()
+    recognition.interimResults = true
+    recognition.continuous = true
+    recognition.maxAlternatives = 1
+
+    setIsListeningName(true)
+
+    recognition.onresult = (event: SpeechRecognitionEventLike) => {
+      let transcript = ''
+      const results = event.results
+      if (!results) return
+
+      for (let index = 0; index < results.length; index += 1) {
+        transcript += results[index]?.[0]?.transcript || ''
+      }
+
+      setters.setName(transcript.trim())
+    }
+
+    recognition.onerror = () => {
+      setIsListeningName(false)
+    }
+
+    recognition.onend = () => {
+      setIsListeningName(false)
+    }
+
+    recognition.start()
+  }
+
   return (
     <>
       <div>
         <label className="mb-2 block text-sm font-semibold text-[#5E6E8C]">
           {t('name')}
         </label>
-        <input
-          type="text"
-          value={fields.name}
-          onChange={(e) => {
-            setters.setName(e.target.value)
-          }}
-          placeholder={t('namePlaceholder')}
-          className="w-full rounded-2xl border border-[#E7EDF5] bg-white px-4 py-4 text-base text-[#142952] outline-none placeholder:text-[#8C9AB3]"
-        />
+        <div className="flex items-center gap-2 rounded-2xl border border-[#E7EDF5] bg-white px-3 py-2 transition focus-within:border-[#BCD1F3] focus-within:ring-2 focus-within:ring-[#EAF2FF]">
+          <input
+            type="text"
+            value={fields.name}
+            onChange={(e) => {
+              setters.setName(e.target.value)
+            }}
+            placeholder={isListeningName ? t('listening') : t('namePlaceholder')}
+            className="min-w-0 flex-1 bg-transparent px-1 py-2 text-base text-[#142952] outline-none placeholder:text-[#8C9AB3]"
+          />
+
+          <button
+            type="button"
+            onClick={handleToggleNameDictation}
+            className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition ${
+              isListeningName
+                ? 'bg-[#E85757] text-white shadow-[0_8px_20px_rgba(232,87,87,0.28)]'
+                : 'bg-[#EEF4FF] text-[#4D66DA]'
+            }`}
+            aria-label={
+              isListeningName ? t('stopNameDictation') : t('startNameDictation')
+            }
+          >
+            {isListeningName ? (
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#E85757] opacity-40" />
+            ) : null}
+            <Mic size={19} className="relative" />
+          </button>
+        </div>
+
+        {isListeningName ? (
+          <p className="mt-2 text-[12px] font-medium text-[#E85757]">
+            {t('listeningHint')}
+          </p>
+        ) : null}
       </div>
 
       <div className="grid grid-cols-2 gap-3">

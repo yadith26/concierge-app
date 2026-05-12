@@ -98,6 +98,7 @@ export default function DashboardPage() {
     isConciergeHome,
   })
   const { isHomeView, selectedBuildingId } = dashboardView
+  const showBottomNav = !isHomeView || homeBuildings.length <= 1
 
   const taskInventory = useTaskInventoryCompletion({ buildingId, profileId })
   const navigation = useDashboardNavigation({ buildingId })
@@ -297,7 +298,12 @@ export default function DashboardPage() {
             )}
           </section>
 
-          <BottomNav active="dashboard" buildingId={isHomeView ? undefined : buildingId} />
+          {showBottomNav ? (
+            <BottomNav
+              active="dashboard"
+              buildingId={isHomeView ? undefined : buildingId}
+            />
+          ) : null}
 
           {!isHomeView ? (
             <DashboardFloatingAddButton onClick={openCreateModal} />
