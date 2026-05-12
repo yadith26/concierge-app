@@ -2,6 +2,11 @@
 
 import ExcelJS from 'exceljs'
 import { saveAs } from 'file-saver'
+import {
+  buildLatestPendingReasonMap,
+  fetchTaskStatusHistory,
+  type TaskStatusHistoryEntry,
+} from '@/lib/tasks/taskStatusHistory'
 import type { EditableTask } from '@/lib/tasks/taskTypes'
 
 type ExportableTask = EditableTask & {
@@ -425,7 +430,11 @@ function addSummaryTable(sheet: ExcelJS.Worksheet, tasks: ExportableTask[]) {
   })
 }
 
-function addDetailedTasksTable(sheet: ExcelJS.Worksheet, tasks: ExportableTask[]) {
+function addDetailedTasksTable(
+  sheet: ExcelJS.Worksheet,
+  tasks: ExportableTask[],
+  latestPendingReasonMap: Map<string, string>
+) {
   const startRow = 23
 
   addSectionTitle(sheet, 22, '2. DETALLE DE TAREAS')
@@ -439,10 +448,11 @@ function addDetailedTasksTable(sheet: ExcelJS.Worksheet, tasks: ExportableTask[]
     'Título',
     'Ubicación',
     'Categoría',
-    'Prioridad',
-    'Estado',
-    'Completada el',
-    'Notas',
+      'Prioridad',
+      'Estado',
+      'Completada el',
+      'Motivo vuelta a pendiente',
+      'Notas',
   ]
 
   styleHeader(sheet.getRow(startRow))
@@ -461,6 +471,7 @@ function addDetailedTasksTable(sheet: ExcelJS.Worksheet, tasks: ExportableTask[]
       priorityLabels[task.priority] || task.priority,
       statusLabels[task.status] || task.status,
       formatDateTime(task.completed_at),
+      latestPendingReasonMap.get(task.id) || '-',
       task.description || '-',
     ]
   })
@@ -468,7 +479,7 @@ function addDetailedTasksTable(sheet: ExcelJS.Worksheet, tasks: ExportableTask[]
   styleTableBody(sheet, startRow + 1, startRow + tasks.length)
   sheet.autoFilter = {
     from: `B${startRow}`,
-    to: `K${startRow + tasks.length}`,
+    to: `L${startRow + tasks.length}`,
   }
 }
 
@@ -484,11 +495,17 @@ function setupColumns(sheet: ExcelJS.Worksheet) {
     { width: 13 },
     { width: 15 },
     { width: 20 },
+    { width: 28 },
     { width: 42 },
   ]
 }
 
-function createDetailsSheet(workbook: ExcelJS.Workbook, name: string, tasks: ExportableTask[]) {
+function createDetailsSheet(
+  workbook: ExcelJS.Workbook,
+  name: string,
+  tasks: ExportableTask[],
+  latestPendingReasonMap: Map<string, string>
+) {
   const sheet = workbook.addWorksheet(name)
   applySheetDefaults(sheet)
 
@@ -500,6 +517,7 @@ function createDetailsSheet(workbook: ExcelJS.Workbook, name: string, tasks: Exp
     { width: 13 },
     { width: 15 },
     { width: 20 },
+    { width: 28 },
     { width: 42 },
   ]
 applySheetDefaults(sheet)
@@ -511,6 +529,7 @@ applySheetDefaults(sheet)
     'Prioridad',
     'Estado',
     'Completada el',
+    'Motivo vuelta a pendiente',
     'Notas',
   ]
 
@@ -525,6 +544,7 @@ applySheetDefaults(sheet)
       priorityLabels[task.priority] || task.priority,
       statusLabels[task.status] || task.status,
       formatDateTime(task.completed_at),
+      latestPendingReasonMap.get(task.id) || '-',
       task.description || '-',
     ]
   })
@@ -536,10 +556,58 @@ applySheetDefaults(sheet)
 sheet.views = [{ showGridLines: false }]
   sheet.autoFilter = {
     from: 'A1',
-    to: `H${tasks.length + 1}`,
+    to: `I${tasks.length + 1}`,
   }
 
   return sheet
+}
+
+function createStatusHistorySheet(
+  workbook: ExcelJS.Workbook,
+  history: TaskStatusHistoryEntry[],
+  taskMap: Map<string, ExportableTask>
+) {
+  const sheet = workbook.addWorksheet('Historial de estado')
+  applySheetDefaults(sheet)
+
+  sheet.columns = [
+    { width: 22 },
+    { width: 32 },
+    { width: 16 },
+    { width: 16 },
+    { width: 40 },
+  ]
+
+  sheet.getRow(1).values = [
+    'Fecha',
+    'Tarea',
+    'Estado anterior',
+    'Nuevo estado',
+    'Motivo',
+  ]
+
+  styleHeader(sheet.getRow(1))
+
+  history.forEach((entry, index) => {
+    const task = taskMap.get(entry.task_id)
+
+    sheet.getRow(index + 2).values = [
+      formatDateTime(entry.created_at),
+      task?.title || entry.task_id,
+      statusLabels[entry.from_status] || entry.from_status,
+      statusLabels[entry.to_status] || entry.to_status,
+      entry.reason || '-',
+    ]
+  })
+
+  if (history.length > 0) {
+    styleTableBody(sheet, 2, history.length + 1)
+  }
+
+  sheet.autoFilter = {
+    from: 'A1',
+    to: `E${history.length + 1}`,
+  }
 }
 
 export async function exportTasksToExcel(
@@ -547,6 +615,10 @@ export async function exportTasksToExcel(
   buildingName: string
 ) {
   if (!tasks.length) return
+
+  const statusHistory = await fetchTaskStatusHistory(tasks.map((task) => task.id))
+  const latestPendingReasonMap = buildLatestPendingReasonMap(statusHistory)
+  const taskMap = new Map(tasks.map((task) => [task.id, task] as const))
 
   const workbook = new ExcelJS.Workbook()
   workbook.creator = 'Conserje App'
@@ -617,26 +689,31 @@ applySheetDefaults(sheet)
   )
 
   addSummaryTable(sheet, tasks)
-  addDetailedTasksTable(sheet, tasks)
+  addDetailedTasksTable(sheet, tasks, latestPendingReasonMap)
 
 sheet.views = [{ showGridLines: false }]
   createDetailsSheet(
     workbook,
     'Completadas',
-    tasks.filter((task) => task.status === 'completed')
+    tasks.filter((task) => task.status === 'completed'),
+    latestPendingReasonMap
   )
 
   createDetailsSheet(
     workbook,
     'Atrasadas',
-    tasks.filter((task) => isOverdue(task))
+    tasks.filter((task) => isOverdue(task)),
+    latestPendingReasonMap
   )
 
   createDetailsSheet(
     workbook,
     'Urgentes',
-    tasks.filter((task) => task.priority === 'high' && task.status !== 'completed')
+    tasks.filter((task) => task.priority === 'high' && task.status !== 'completed'),
+    latestPendingReasonMap
   )
+
+  createStatusHistorySheet(workbook, statusHistory, taskMap)
 
   const buffer = await workbook.xlsx.writeBuffer()
 

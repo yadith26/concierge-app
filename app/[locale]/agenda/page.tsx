@@ -9,6 +9,7 @@ import PageHeader from '@/components/layout/PageHeader'
 import ManagerBuildingChip from '@/components/layout/ManagerBuildingChip'
 import TaskFormModal from '@/components/tasks/TaskFormModal'
 import TaskInventoryFlowModals from '@/components/tasks/TaskInventoryFlowModals'
+import TaskStatusReasonModal from '@/components/tasks/TaskStatusReasonModal'
 import UndoDeleteToast from '@/components/tasks/UndoDeleteToast'
 import AgendaCalendar from '@/components/agenda/AgendaCalendar'
 import AgendaQuickView from '@/components/agenda/AgendaQuickView'
@@ -20,6 +21,7 @@ import { useAgendaPage } from '@/hooks/useAgendaPage'
 import { useAgendaSwipe } from '@/hooks/useAgendaSwipe'
 import { useCompactHeader } from '@/hooks/useCompactHeader'
 import { useTaskInventoryCompletion } from '@/hooks/useTaskInventoryCompletion'
+import { useTaskReopenReason } from '@/hooks/useTaskReopenReason'
 import useHeaderConversation from '@/hooks/useHeaderConversation'
 import useOwnerRequestsInbox from '@/hooks/useOwnerRequestsInbox'
 import { useSyncConciergeBuildingUrl } from '@/hooks/useSyncConciergeBuildingUrl'
@@ -29,6 +31,7 @@ import { requiresInventoryFlow } from '@/lib/inventory/taskInventoryCategories'
 
 export default function AgendaPage() {
   const t = useTranslations('agendaPage')
+  const reopenReasonT = useTranslations('taskStatusReasonModal')
   const nextTaskT = useTranslations('agendaNextTask')
   const locale = useLocale()
   const searchParams = useSearchParams()
@@ -82,6 +85,10 @@ export default function AgendaPage() {
     handleExportMonth,
   } = useAgendaPage(selectedBuildingId)
   const taskInventory = useTaskInventoryCompletion({ buildingId, profileId })
+  const reopenReason = useTaskReopenReason({
+    requiredMessage: reopenReasonT('required'),
+    failedMessage: reopenReasonT('failed'),
+  })
 
   const ownerRequests = useOwnerRequestsInbox(buildingId)
   const { scrollRef, compactHeader } = useCompactHeader<HTMLElement>(18)
@@ -200,6 +207,21 @@ export default function AgendaPage() {
     const { taskId, previousStatus } = undoComplete
     setUndoComplete(null)
     await updateTaskStatus(taskId, previousStatus)
+  }
+
+  const handleSetPendingTask = (taskId: string) => {
+    const task = tasksForDay.find((item) => item.id === taskId)
+    if (!task) return
+
+    if (task.status === 'completed') {
+      reopenReason.requestReopen({
+        taskTitle: task.title,
+        onConfirm: (reason) => updateTaskStatus(task.id, 'pending', reason),
+      })
+      return
+    }
+
+    void updateTaskStatus(taskId, 'pending')
   }
 
   if (loading) {
@@ -384,9 +406,7 @@ export default function AgendaPage() {
                   onSetInProgress={(taskId) =>
                     updateTaskStatus(taskId, 'in_progress')
                   }
-                  onSetPending={(taskId) =>
-                    updateTaskStatus(taskId, 'pending')
-                  }
+                  onSetPending={handleSetPendingTask}
                   onDelete={deleteTask}
                   onEdit={openEditModal}
                   onCreateTask={openCreateModal}
@@ -492,6 +512,19 @@ export default function AgendaPage() {
       />
 
       <TaskInventoryFlowModals taskInventory={taskInventory} />
+
+      <TaskStatusReasonModal
+        open={reopenReason.open}
+        taskTitle={reopenReason.taskTitle}
+        reason={reopenReason.reason}
+        error={reopenReason.error}
+        saving={reopenReason.saving}
+        onChangeReason={reopenReason.setReason}
+        onClose={reopenReason.close}
+        onConfirm={() => {
+          void reopenReason.confirm()
+        }}
+      />
     </>
   )
 }

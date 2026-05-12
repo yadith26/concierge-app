@@ -89,12 +89,13 @@ export function usePestPage(selectedBuildingId?: string | null) {
   const updateTaskStatus = useCallback(
     async (
       taskId: string,
-      status: 'pending' | 'in_progress' | 'completed'
+      status: 'pending' | 'in_progress' | 'completed',
+      reason?: string
     ) => {
       const previousTasks = tasks
       const currentTask = tasks.find((task) => task.id === taskId)
 
-      if (!currentTask) return
+      if (!currentTask) return false
 
       setTasks((prev) =>
         prev.map((task) =>
@@ -102,6 +103,12 @@ export function usePestPage(selectedBuildingId?: string | null) {
             ? {
                 ...task,
                 status,
+                completed_at:
+                  status === 'completed'
+                    ? new Date().toISOString()
+                    : status === 'pending' || status === 'in_progress'
+                      ? null
+                      : task.completed_at,
               }
             : task
         )
@@ -113,9 +120,11 @@ export function usePestPage(selectedBuildingId?: string | null) {
           nextStatus: status,
           buildingId,
           profileId,
+          reason,
         })
 
         await fetchTreatmentsData()
+        return true
       } catch (error) {
         console.error('Error actualizando estado:', error)
 
@@ -126,6 +135,7 @@ export function usePestPage(selectedBuildingId?: string | null) {
         }
 
         setTasks(previousTasks)
+        return false
       }
     },
     [tasks, buildingId, profileId, fetchTreatmentsData]

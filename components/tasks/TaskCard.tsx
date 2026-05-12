@@ -60,6 +60,7 @@ export default function TaskCard({
     handlePointerMove,
     handlePointerEnd,
   } = useTaskCardSwipe()
+  const swipeEnabled = task.status !== 'completed'
 
   const {
     isUrgent,
@@ -84,7 +85,7 @@ export default function TaskCard({
   const handleCardClick = () => {
     if (touchMovedRef.current) return
 
-    if (swipeState !== 'closed') {
+    if (swipeEnabled && swipeState !== 'closed') {
       closeSwipe()
       return
     }
@@ -114,40 +115,44 @@ export default function TaskCard({
           }}
         />
 
-        <div className="absolute inset-y-0 left-0 flex items-stretch">
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation()
-              ;(onSwipeComplete || onComplete)()
-              closeSwipe()
-            }}
-            className="flex w-[96px] items-center justify-center gap-2 text-white"
-          >
-            <Check
-              className="h-5 w-5 transition-transform"
-              style={{
-                transform: `scale(${1 + Math.min(translateX / 120, 0.4)})`,
+        {swipeEnabled ? (
+          <div className="absolute inset-y-0 left-0 flex items-stretch">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                ;(onSwipeComplete || onComplete)()
+                closeSwipe()
               }}
-            />
-            <span className="text-sm font-semibold">{t('complete')}</span>
-          </button>
-        </div>
+              className="flex w-[96px] items-center justify-center gap-2 text-white"
+            >
+              <Check
+                className="h-5 w-5 transition-transform"
+                style={{
+                  transform: `scale(${1 + Math.min(translateX / 120, 0.4)})`,
+                }}
+              />
+              <span className="text-sm font-semibold">{t('complete')}</span>
+            </button>
+          </div>
+        ) : null}
 
-        <div className="absolute inset-y-0 right-0 flex items-stretch">
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation()
-              onDelete()
-              closeSwipe()
-            }}
-            className="flex w-[96px] items-center justify-center gap-2 text-white"
-          >
-            <Trash2 className="h-5 w-5" />
-            <span className="text-sm font-semibold">{t('delete')}</span>
-          </button>
-        </div>
+        {swipeEnabled ? (
+          <div className="absolute inset-y-0 right-0 flex items-stretch">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                onDelete()
+                closeSwipe()
+              }}
+              className="flex w-[96px] items-center justify-center gap-2 text-white"
+            >
+              <Trash2 className="h-5 w-5" />
+              <span className="text-sm font-semibold">{t('delete')}</span>
+            </button>
+          </div>
+        ) : null}
       </div>
 
       <div
@@ -157,14 +162,18 @@ export default function TaskCard({
             : 'rounded-[24px] border border-[#E7EDF5] shadow-[0_8px_24px_rgba(20,41,82,0.05)]'
         }`}
         style={{
-          transform: `translateX(${translateX}px)`,
-          transition: dragging ? 'none' : 'transform 220ms ease',
-          touchAction: 'pan-y',
+          transform: swipeEnabled ? `translateX(${translateX}px)` : undefined,
+          transition: swipeEnabled
+            ? dragging
+              ? 'none'
+              : 'transform 220ms ease'
+            : undefined,
+          touchAction: swipeEnabled ? 'pan-y' : 'auto',
         }}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerEnd}
-        onPointerCancel={handlePointerEnd}
+        onPointerDown={swipeEnabled ? handlePointerDown : undefined}
+        onPointerMove={swipeEnabled ? handlePointerMove : undefined}
+        onPointerUp={swipeEnabled ? handlePointerEnd : undefined}
+        onPointerCancel={swipeEnabled ? handlePointerEnd : undefined}
       >
         <button
           type="button"
@@ -257,7 +266,7 @@ export default function TaskCard({
               taskApartments={taskApartments}
               onSetPending={onSetPending}
               onSetInProgress={onSetInProgress}
-              onComplete={onComplete}
+              onComplete={task.status === 'completed' ? undefined : onComplete}
               onEdit={onEdit}
               onDelete={onDelete}
             />

@@ -127,6 +127,19 @@
     "editTask": "Editar tarea",
     "deleteTask": "Eliminar tarea"
   },
+  "taskStatusReasonModal": {
+    "eyebrow": "Tareas",
+    "title": "Volver a pendiente",
+    "description": "Esta tarea ya estaba completada. Antes de devolverla a pendiente, cuentanos por que cambio de estado.",
+    "label": "Por que vuelve a pendiente?",
+    "placeholder": "Ej: falto una pieza, quedo incompleta, el problema reaparecio, se marco completada por error...",
+    "required": "Escribe el motivo antes de cambiar el estado.",
+    "failed": "No se pudo cambiar el estado. Intentalo de nuevo.",
+    "cancel": "Cancelar",
+    "confirm": "Guardar motivo",
+    "confirming": "Guardando...",
+    "close": "Cerrar"
+  },
   "taskWarrantyAlerts": {
     "activeWarrantyDetected": "Garantía activa detectada",
     "activeWarrantyUntil": "con garantía activa hasta",

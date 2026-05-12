@@ -127,6 +127,19 @@
     "editTask": "Edit task",
     "deleteTask": "Delete task"
   },
+  "taskStatusReasonModal": {
+    "eyebrow": "Tasks",
+    "title": "Move back to pending",
+    "description": "This task was already completed. Before moving it back to pending, tell us why the status changed.",
+    "label": "Why is it going back to pending?",
+    "placeholder": "Ex: a part was missing, it was left unfinished, the problem came back, it was marked completed by mistake...",
+    "required": "Enter the reason before changing the status.",
+    "failed": "We could not change the status. Please try again.",
+    "cancel": "Cancel",
+    "confirm": "Save reason",
+    "confirming": "Saving...",
+    "close": "Close"
+  },
   "taskWarrantyAlerts": {
     "activeWarrantyDetected": "Active warranty detected",
     "activeWarrantyUntil": "with active warranty until",

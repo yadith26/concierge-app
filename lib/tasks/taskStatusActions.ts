@@ -6,12 +6,14 @@ import {
   recordCompletedTaskInUnitHistory,
   recordPestTreatmentsInUnitHistory,
 } from '@/lib/unit-history/unitHistoryService'
+import { recordTaskStatusHistory } from '@/lib/tasks/taskStatusHistory'
 
 type UpdateTaskStatusParams = {
   task: Task
   nextStatus: 'pending' | 'in_progress' | 'completed'
   buildingId: string
   profileId: string
+  reason?: string | null
 }
 
 function logAndThrow(step: string, error: unknown): never {
@@ -45,6 +47,7 @@ export async function updateTaskStatusWithTreatment({
   nextStatus,
   buildingId,
   profileId,
+  reason,
 }: UpdateTaskStatusParams) {
   const previousStatus = task.status
 
@@ -64,6 +67,15 @@ export async function updateTaskStatusWithTreatment({
   if (updateError) {
     logAndThrow('actualizar task.status', updateError)
   }
+
+  await recordTaskStatusHistory({
+    taskId: task.id,
+    buildingId,
+    profileId,
+    fromStatus: previousStatus,
+    toStatus: nextStatus,
+    reason,
+  })
 
   const shouldInsertTreatment =
     previousStatus !== 'completed' && nextStatus === 'completed'

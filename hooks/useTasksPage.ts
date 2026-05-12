@@ -142,7 +142,8 @@ export function useTasksPage(
   const updateTaskStatus = useCallback(
     async (
       taskId: string,
-      status: 'pending' | 'in_progress' | 'completed'
+      status: 'pending' | 'in_progress' | 'completed',
+      reason?: string
     ) => {
       const previousTasks = tasks
       const currentTask = tasks.find((task) => task.id === taskId)
@@ -155,6 +156,12 @@ export function useTasksPage(
             ? {
                 ...task,
                 status,
+                completed_at:
+                  status === 'completed'
+                    ? new Date().toISOString()
+                    : status === 'pending' || status === 'in_progress'
+                      ? null
+                      : task.completed_at,
               }
             : task
         )
@@ -166,6 +173,7 @@ export function useTasksPage(
           nextStatus: status,
           buildingId,
           profileId,
+          reason,
         })
         return true
       } catch (error) {

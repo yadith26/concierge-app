@@ -11,12 +11,14 @@ import PestHistorySection from '@/components/treatments/PestHistorySection'
 import TreatmentsFilters from '@/components/treatments/TreatmentsFilters'
 import TaskFormModal from '@/components/tasks/TaskFormModal'
 import TaskCard from '@/components/tasks/TaskCard'
+import TaskStatusReasonModal from '@/components/tasks/TaskStatusReasonModal'
 import ConversationModal from '@/components/messages/ConversationModal'
 import GlobalMessagesInboxModal from '@/components/messages/GlobalMessagesInboxModal'
 import OwnerRequestsModal from '@/components/owner-requests/OwnerRequestsModal'
 import { toEditableTask } from '@/lib/tasks/taskHelpers'
 import { usePestFilters } from '@/hooks/usePestFilters'
 import { usePestPage } from '@/hooks/usePestPage'
+import { useTaskReopenReason } from '@/hooks/useTaskReopenReason'
 import { useCompactHeader } from '@/hooks/useCompactHeader'
 import useHeaderConversation from '@/hooks/useHeaderConversation'
 import useOwnerRequestsInbox from '@/hooks/useOwnerRequestsInbox'
@@ -33,6 +35,7 @@ type TreatmentsTab = 'scheduled' | 'history'
 
 export default function TreatmentsPage() {
   const t = useTranslations('treatmentsPage')
+  const reopenReasonT = useTranslations('taskStatusReasonModal')
   const locale = useLocale()
   const searchParams = useSearchParams()
   const selectedBuildingId = searchParams.get('buildingId')
@@ -68,6 +71,10 @@ export default function TreatmentsPage() {
     deleteHistoryRecord,
     exportHistoryToExcel,
   } = usePestPage(selectedBuildingId)
+  const reopenReason = useTaskReopenReason({
+    requiredMessage: reopenReasonT('required'),
+    failedMessage: reopenReasonT('failed'),
+  })
 
   const { scheduledTasks, filteredTreatments, groupedTreatments } =
     usePestFilters({
@@ -109,6 +116,18 @@ export default function TreatmentsPage() {
     setExpandedTaskId(null)
     setExpandedApartment(null)
     setExpandedPestKey(null)
+  }
+
+  const handleSetPendingTask = (task: EditableTask) => {
+    if (task.status === 'completed') {
+      reopenReason.requestReopen({
+        taskTitle: task.title,
+        onConfirm: (reason) => updateTaskStatus(task.id, 'pending', reason),
+      })
+      return
+    }
+
+    void updateTaskStatus(task.id, 'pending')
   }
 
   if (loading) {
@@ -267,7 +286,7 @@ export default function TreatmentsPage() {
                         onSetInProgress={() =>
                           updateTaskStatus(task.id, 'in_progress')
                         }
-                        onSetPending={() => updateTaskStatus(task.id, 'pending')}
+                        onSetPending={() => handleSetPendingTask(task)}
                         onDelete={() => deleteScheduledTask(task.id)}
                         onEdit={() => {
                           setSelectedTask(toEditableTask(task))
@@ -369,6 +388,19 @@ export default function TreatmentsPage() {
         taskToEdit={selectedTask}
         initialValues={selectedTask ? null : requestTaskDraft}
         sourceRequestId={requestSourceId}
+      />
+
+      <TaskStatusReasonModal
+        open={reopenReason.open}
+        taskTitle={reopenReason.taskTitle}
+        reason={reopenReason.reason}
+        error={reopenReason.error}
+        saving={reopenReason.saving}
+        onChangeReason={reopenReason.setReason}
+        onClose={reopenReason.close}
+        onConfirm={() => {
+          void reopenReason.confirm()
+        }}
       />
     </>
   )

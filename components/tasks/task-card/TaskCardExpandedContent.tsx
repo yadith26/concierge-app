@@ -217,6 +217,7 @@ export default function TaskCardExpandedContent({
               <TaskCardStatusActionButton
                 label={labelT(getStatusKey('completed'))}
                 active={task.status === 'completed'}
+                disabled={!onComplete}
                 onClick={onComplete ?? (() => {})}
               />
             </div>

@@ -296,12 +296,11 @@ export function ConciergeDashboardBuildingView({
         noLocationLabel={noLocationLabel}
         priorityLabel={priorityLabel}
         onToggleTask={onToggleExpandTask}
-        onCompleteTask={onCompleteTask}
-        onSwipeCompleteTask={onSwipeCompleteTask}
         onOpenTask={onOpenTask}
         onSetPendingTask={onSetPendingTask}
         onSetInProgressTask={onSetInProgressTask}
         onDeleteTask={onDeleteTask}
+        disableTaskSwipe
         emptyLabel={copy.noHistoryToday}
         items={completedTodayTasks.map((task) => ({
           key: task.id,

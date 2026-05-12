@@ -192,17 +192,19 @@ export function DashboardSpotlightCard({
         </button>
 
         <div className="px-4 pb-4">
-          <button
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation()
-              onComplete(task)
-            }}
-            className="flex w-full items-center justify-center gap-2.5 rounded-[18px] bg-[#4B63DF] px-4 py-3.5 text-[16px] font-semibold text-white shadow-[0_14px_28px_rgba(75,99,223,0.24)]"
-          >
-            <CheckCircle2 size={20} />
-            {copy.completeTask}
-          </button>
+          {task.status !== 'completed' ? (
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation()
+                onComplete(task)
+              }}
+              className="flex w-full items-center justify-center gap-2.5 rounded-[18px] bg-[#4B63DF] px-4 py-3.5 text-[16px] font-semibold text-white shadow-[0_14px_28px_rgba(75,99,223,0.24)]"
+            >
+              <CheckCircle2 size={20} />
+              {copy.completeTask}
+            </button>
+          ) : null}
         </div>
 
         <ExpandableTaskDetails
@@ -214,7 +216,7 @@ export function DashboardSpotlightCard({
           taskApartments={taskApartments}
           onSetPending={() => onSetPending(task)}
           onSetInProgress={() => onSetInProgress(task)}
-          onComplete={() => onComplete(task)}
+          onComplete={task.status === 'completed' ? undefined : () => onComplete(task)}
           onEdit={() => onOpenTask(task)}
           onDelete={() => onDelete(task)}
         />
@@ -301,6 +303,7 @@ export function DashboardWideListCard({
   onSetPendingTask,
   onSetInProgressTask,
   onDeleteTask,
+  disableTaskSwipe = false,
   items,
 }: {
   title: string
@@ -321,6 +324,7 @@ export function DashboardWideListCard({
   onSetPendingTask?: (task: EditableTask) => void
   onSetInProgressTask?: (task: EditableTask) => void
   onDeleteTask?: (task: EditableTask) => void
+  disableTaskSwipe?: boolean
   items: Array<{
     key: string
     title: string
@@ -364,7 +368,7 @@ export function DashboardWideListCard({
               key={item.key}
               className={index < items.length - 1 ? 'border-b border-[#EEF2F8]' : ''}
             >
-              {item.task && onToggleTask && onCompleteTask ? (
+              {item.task && onToggleTask ? (
                 <DashboardSwipeTaskRow
                   title={item.title}
                   subtitle={item.subtitle}
@@ -372,10 +376,15 @@ export function DashboardWideListCard({
                   tone={item.tone}
                   icon={item.icon}
                   completeLabel="Completar"
+                  swipeEnabled={!disableTaskSwipe && item.task.status !== 'completed'}
                   onClick={() => onToggleTask(item.task!)}
-                  onComplete={() => onCompleteTask(item.task!)}
+                  onComplete={
+                    item.task.status === 'completed' || !onCompleteTask
+                      ? undefined
+                      : () => onCompleteTask(item.task!)
+                  }
                   onSwipeComplete={
-                    onSwipeCompleteTask
+                    item.task.status !== 'completed' && onSwipeCompleteTask
                       ? () => onSwipeCompleteTask(item.task!)
                       : undefined
                   }
@@ -416,7 +425,6 @@ export function DashboardWideListCard({
               noLocationLabel &&
               priorityLabel &&
               onToggleTask &&
-              onCompleteTask &&
               onOpenTask &&
               onSetPendingTask &&
               onSetInProgressTask &&
@@ -485,7 +493,11 @@ export function DashboardWideListCard({
                             taskApartments={taskApartments}
                             onSetPending={() => onSetPendingTask(task)}
                             onSetInProgress={() => onSetInProgressTask(task)}
-                            onComplete={() => onCompleteTask(task)}
+                            onComplete={
+                              task.status === 'completed' || !onCompleteTask
+                                ? undefined
+                                : () => onCompleteTask(task)
+                            }
                             onEdit={() => onOpenTask(task)}
                             onDelete={() => onDeleteTask(task)}
                             withTopBorder
@@ -501,7 +513,6 @@ export function DashboardWideListCard({
               expandedTaskId === item.task.id &&
               noLocationLabel &&
               priorityLabel &&
-              onCompleteTask &&
               onOpenTask &&
               onSetPendingTask &&
               onSetInProgressTask &&
@@ -515,7 +526,11 @@ export function DashboardWideListCard({
                   taskApartments={getTaskCardViewModel(item.task).taskApartments}
                   onSetPending={() => onSetPendingTask(item.task!)}
                   onSetInProgress={() => onSetInProgressTask(item.task!)}
-                  onComplete={() => onCompleteTask(item.task!)}
+                  onComplete={
+                    item.task.status === 'completed' || !onCompleteTask
+                      ? undefined
+                      : () => onCompleteTask(item.task!)
+                  }
                   onEdit={() => onOpenTask(item.task!)}
                   onDelete={() => onDeleteTask(item.task!)}
                   withTopBorder
@@ -537,6 +552,7 @@ function DashboardSwipeTaskRow({
   icon,
   completeLabel,
   compact = false,
+  swipeEnabled = true,
   onClick,
   onComplete,
   onSwipeComplete,
@@ -549,8 +565,9 @@ function DashboardSwipeTaskRow({
   icon: ReactNode
   completeLabel: string
   compact?: boolean
+  swipeEnabled?: boolean
   onClick: () => void
-  onComplete: () => void
+  onComplete?: () => void
   onSwipeComplete?: () => void
   onDelete?: () => void
 }) {
@@ -571,7 +588,7 @@ function DashboardSwipeTaskRow({
 
   const handleRowClick = () => {
     if (touchMovedRef.current) return
-    if (swipeState !== 'closed') {
+    if (swipeEnabled && swipeState !== 'closed') {
       closeSwipe()
       return
     }
@@ -580,36 +597,46 @@ function DashboardSwipeTaskRow({
 
   return (
     <div ref={rootRef} className="relative">
-      <SwipeBackground
-        translateX={translateX}
-        completeLabel={completeLabel}
-        compact={compact}
-        onComplete={() => {
-          ;(onSwipeComplete || onComplete)()
-          closeSwipe()
-        }}
-        onDelete={() => {
-          onDelete?.()
-          closeSwipe()
-        }}
-      />
+      {swipeEnabled ? (
+        <SwipeBackground
+          translateX={translateX}
+          completeLabel={completeLabel}
+          compact={compact}
+          onComplete={
+            onComplete || onSwipeComplete
+              ? () => {
+                  ;(onSwipeComplete || onComplete)?.()
+                  closeSwipe()
+                }
+              : undefined
+          }
+          onDelete={() => {
+            onDelete?.()
+            closeSwipe()
+          }}
+        />
+      ) : null}
 
       <div
         className={`relative overflow-hidden bg-white ${
           compact ? 'rounded-[18px]' : 'rounded-[24px]'
         }`}
         style={{
-          transform: `translateX(${translateX}px)`,
-          transition: dragging ? 'none' : 'transform 220ms ease',
-          touchAction: 'pan-y',
+          transform: swipeEnabled ? `translateX(${translateX}px)` : undefined,
+          transition: swipeEnabled
+            ? dragging
+              ? 'none'
+              : 'transform 220ms ease'
+            : undefined,
+          touchAction: swipeEnabled ? 'pan-y' : 'auto',
         }}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerEnd}
-        onPointerCancel={handlePointerEnd}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
+        onPointerDown={swipeEnabled ? handlePointerDown : undefined}
+        onPointerMove={swipeEnabled ? handlePointerMove : undefined}
+        onPointerUp={swipeEnabled ? handlePointerEnd : undefined}
+        onPointerCancel={swipeEnabled ? handlePointerEnd : undefined}
+        onTouchStart={swipeEnabled ? handleTouchStart : undefined}
+        onTouchMove={swipeEnabled ? handleTouchMove : undefined}
+        onTouchEnd={swipeEnabled ? handleTouchEnd : undefined}
       >
         <button
           type="button"
@@ -676,7 +703,7 @@ function ExpandableTaskDetails({
   taskApartments: EditableTask['task_apartments']
   onSetPending: () => void
   onSetInProgress: () => void
-  onComplete: () => void
+  onComplete?: () => void
   onEdit: () => void
   onDelete: () => void
   withTopBorder?: boolean
@@ -717,8 +744,8 @@ function SwipeBackground({
   translateX: number
   completeLabel: string
   compact?: boolean
-  onComplete: () => void
-  onDelete: () => void
+  onComplete?: () => void
+  onDelete?: () => void
 }) {
   return (
     <div
@@ -739,25 +766,29 @@ function SwipeBackground({
       />
 
       <div className="absolute inset-y-0 left-0 flex items-stretch">
-        <button
-          type="button"
-          onClick={onComplete}
-          className="flex w-[96px] items-center justify-center gap-2 text-white"
-        >
-          <Check className="h-5 w-5" />
-          <span className="text-sm font-semibold">{completeLabel}</span>
-        </button>
+        {onComplete ? (
+          <button
+            type="button"
+            onClick={onComplete}
+            className="flex w-[96px] items-center justify-center gap-2 text-white"
+          >
+            <Check className="h-5 w-5" />
+            <span className="text-sm font-semibold">{completeLabel}</span>
+          </button>
+        ) : null}
       </div>
 
       <div className="absolute inset-y-0 right-0 flex items-stretch">
-        <button
-          type="button"
-          onClick={onDelete}
-          className="flex w-[96px] items-center justify-center gap-2 text-white"
-        >
-          <Trash2 className="h-5 w-5" />
-          <span className="text-sm font-semibold">Eliminar</span>
-        </button>
+        {onDelete ? (
+          <button
+            type="button"
+            onClick={onDelete}
+            className="flex w-[96px] items-center justify-center gap-2 text-white"
+          >
+            <Trash2 className="h-5 w-5" />
+            <span className="text-sm font-semibold">Eliminar</span>
+          </button>
+        ) : null}
       </div>
     </div>
   )

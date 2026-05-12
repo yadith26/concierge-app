@@ -151,7 +151,8 @@ export function useAgendaPage(selectedBuildingId?: string | null) {
 
   const updateTaskStatus = async (
     taskId: string,
-    status: 'pending' | 'in_progress' | 'completed'
+    status: 'pending' | 'in_progress' | 'completed',
+    reason?: string
   ) => {
     const previousTasks = tasks
     const currentTask = tasks.find((task) => task.id === taskId)
@@ -164,6 +165,12 @@ export function useAgendaPage(selectedBuildingId?: string | null) {
           ? {
               ...task,
               status,
+              completed_at:
+                status === 'completed'
+                  ? new Date().toISOString()
+                  : status === 'pending' || status === 'in_progress'
+                    ? null
+                    : task.completed_at,
             }
           : task
       )
@@ -175,6 +182,7 @@ export function useAgendaPage(selectedBuildingId?: string | null) {
         nextStatus: status,
         buildingId,
         profileId,
+        reason,
       })
       return true
     } catch (error) {

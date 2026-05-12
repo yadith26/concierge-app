@@ -19,6 +19,7 @@ import GlobalMessagesInboxModal from '@/components/messages/GlobalMessagesInboxM
 import OwnerRequestsModal from '@/components/owner-requests/OwnerRequestsModal'
 import TaskInventoryFlowModals from '@/components/tasks/TaskInventoryFlowModals'
 import TaskFormModal from '@/components/tasks/TaskFormModal'
+import TaskStatusReasonModal from '@/components/tasks/TaskStatusReasonModal'
 import { useConciergeDashboardView } from '@/hooks/useConciergeDashboardView'
 import { useDashboardCommunication } from '@/hooks/useDashboardCommunication'
 import { useDashboardCreateActions } from '@/hooks/useDashboardCreateActions'
@@ -26,6 +27,7 @@ import { useDashboardInsights } from '@/hooks/useDashboardInsights'
 import { useDashboardNavigation } from '@/hooks/useDashboardNavigation'
 import { useDashboardPage } from '@/hooks/useDashboardPage'
 import { useDashboardTaskCompletion } from '@/hooks/useDashboardTaskCompletion'
+import { useTaskReopenReason } from '@/hooks/useTaskReopenReason'
 import { useSyncConciergeBuildingUrl } from '@/hooks/useSyncConciergeBuildingUrl'
 import { useTaskInventoryCompletion } from '@/hooks/useTaskInventoryCompletion'
 import { getConciergeDashboardCopy } from '@/lib/dashboard/dashboardCopy'
@@ -36,6 +38,7 @@ import { getPriorityKey } from '@/lib/tasks/taskLabels'
 export default function DashboardPage() {
   const t = useTranslations('dashboard')
   const labelT = useTranslations('taskLabels')
+  const reopenReasonT = useTranslations('taskStatusReasonModal')
   const locale = useLocale()
   const searchParams = useSearchParams()
   const routeSelectedBuildingId = searchParams.get('buildingId')
@@ -149,6 +152,10 @@ export default function DashboardPage() {
     updateTaskStatus,
     taskInventory,
   })
+  const reopenReason = useTaskReopenReason({
+    requiredMessage: reopenReasonT('required'),
+    failedMessage: reopenReasonT('failed'),
+  })
 
   const copy = useMemo(() => getConciergeDashboardCopy(locale), [locale])
 
@@ -215,6 +222,18 @@ export default function DashboardPage() {
       openQuickPhotoCamera,
     ]
   )
+
+  const handleSetPendingTask = (task: (typeof tasks)[number]) => {
+    if (task.status === 'completed') {
+      reopenReason.requestReopen({
+        taskTitle: task.title,
+        onConfirm: (reason) => updateTaskStatus(task.id, 'pending', reason),
+      })
+      return
+    }
+
+    void updateTaskStatus(task.id, 'pending')
+  }
 
   if (loading) {
     return (
@@ -297,7 +316,7 @@ export default function DashboardPage() {
                 onCompleteTask={(task) => void requestTaskCompletion(task)}
                 onSwipeCompleteTask={(task) => void requestTaskSwipeCompletion(task)}
                 onOpenTask={openEditModal}
-                onSetPendingTask={(task) => void updateTaskStatus(task.id, 'pending')}
+                onSetPendingTask={handleSetPendingTask}
                 onSetInProgressTask={(task) =>
                   void updateTaskStatus(task.id, 'in_progress')
                 }
@@ -420,6 +439,19 @@ export default function DashboardPage() {
       />
 
       <TaskInventoryFlowModals taskInventory={taskInventory} />
+
+      <TaskStatusReasonModal
+        open={reopenReason.open}
+        taskTitle={reopenReason.taskTitle}
+        reason={reopenReason.reason}
+        error={reopenReason.error}
+        saving={reopenReason.saving}
+        onChangeReason={reopenReason.setReason}
+        onClose={reopenReason.close}
+        onConfirm={() => {
+          void reopenReason.confirm()
+        }}
+      />
 
       <input
         ref={quickPhotoInputRef}

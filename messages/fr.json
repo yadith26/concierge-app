@@ -127,6 +127,19 @@
     "editTask": "Modifier la tâche",
     "deleteTask": "Supprimer la tâche"
   },
+  "taskStatusReasonModal": {
+    "eyebrow": "TÃ¢ches",
+    "title": "Remettre en attente",
+    "description": "Cette tÃ¢che Ã©tait dÃ©jÃ  complÃ©tÃ©e. Avant de la remettre en attente, indique pourquoi le statut a changÃ©.",
+    "label": "Pourquoi revient-elle en attente ?",
+    "placeholder": "Ex. : il manquait une piÃ¨ce, le travail est restÃ© inachevÃ©, le problÃ¨me est revenu, elle a Ã©tÃ© marquÃ©e complÃ©tÃ©e par erreur...",
+    "required": "Indique le motif avant de changer le statut.",
+    "failed": "Impossible de changer le statut. RÃ©essaie.",
+    "cancel": "Annuler",
+    "confirm": "Enregistrer le motif",
+    "confirming": "Enregistrement...",
+    "close": "Fermer"
+  },
   "taskWarrantyAlerts": {
     "activeWarrantyDetected": "Garantie active détectée",
     "activeWarrantyUntil": "avec garantie active jusqu’au",

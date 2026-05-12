@@ -102,6 +102,7 @@ export async function updateTaskStatusWithLogic(params: {
   nextStatus: 'pending' | 'in_progress' | 'completed'
   buildingId: string
   profileId: string
+  reason?: string | null
 }): Promise<void> {
   await updateTaskStatusWithTreatment(params)
 }

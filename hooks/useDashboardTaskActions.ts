@@ -32,7 +32,8 @@ export function useDashboardTaskActions({
   const updateTaskStatus = useCallback(
     async (
       taskId: string,
-      status: 'pending' | 'in_progress' | 'completed'
+      status: 'pending' | 'in_progress' | 'completed',
+      reason?: string
     ) => {
       const previousTasks = tasks
       const currentTask = tasks.find((task) => task.id === taskId)
@@ -62,6 +63,7 @@ export function useDashboardTaskActions({
           nextStatus: status,
           buildingId,
           profileId,
+          reason,
         })
 
         await onReload()

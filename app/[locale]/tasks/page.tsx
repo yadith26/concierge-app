@@ -6,6 +6,7 @@ import { Plus, MessageSquareMore, BellDot } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import TaskFormModal from '@/components/tasks/TaskFormModal'
 import TaskInventoryFlowModals from '@/components/tasks/TaskInventoryFlowModals'
+import TaskStatusReasonModal from '@/components/tasks/TaskStatusReasonModal'
 import TasksFilterBar from '@/components/tasks/TasksFilterBar'
 import UndoDeleteToast from '@/components/tasks/UndoDeleteToast'
 import TasksEmptyState from '@/components/tasks/TasksEmptyState'
@@ -19,6 +20,7 @@ import GlobalMessagesInboxModal from '@/components/messages/GlobalMessagesInboxM
 import OwnerRequestsModal from '@/components/owner-requests/OwnerRequestsModal'
 import { useTasksPage } from '@/hooks/useTasksPage'
 import { useTaskInventoryCompletion } from '@/hooks/useTaskInventoryCompletion'
+import { useTaskReopenReason } from '@/hooks/useTaskReopenReason'
 import useHeaderConversation from '@/hooks/useHeaderConversation'
 import useOwnerRequestsInbox from '@/hooks/useOwnerRequestsInbox'
 import { useSyncConciergeBuildingUrl } from '@/hooks/useSyncConciergeBuildingUrl'
@@ -29,6 +31,7 @@ import { requiresInventoryFlow } from '@/lib/inventory/taskInventoryCategories'
 
 export default function TasksPage() {
   const t = useTranslations('tasksPage')
+  const reopenReasonT = useTranslations('taskStatusReasonModal')
   const locale = useLocale()
   const searchParams = useSearchParams()
   const selectedBuildingId = searchParams.get('buildingId')
@@ -86,6 +89,10 @@ export default function TasksPage() {
     undoDeleteTask,
   } = useTasksPage(selectedBuildingId)
   const taskInventory = useTaskInventoryCompletion({ buildingId, profileId })
+  const reopenReason = useTaskReopenReason({
+    requiredMessage: reopenReasonT('required'),
+    failedMessage: reopenReasonT('failed'),
+  })
 
   const ownerRequests = useOwnerRequestsInbox(buildingId)
   const categoryRef = useRef<HTMLDivElement | null>(null)
@@ -266,6 +273,21 @@ export default function TasksPage() {
     setUndoComplete(null)
     await updateTaskStatus(taskId, previousStatus)
   }
+
+  const handleSetPendingTask = (taskId: string) => {
+    const task = tasks.find((item) => item.id === taskId)
+    if (!task) return
+
+    if (task.status === 'completed') {
+      reopenReason.requestReopen({
+        taskTitle: task.title,
+        onConfirm: (reason) => updateTaskStatus(task.id, 'pending', reason),
+      })
+      return
+    }
+
+    void updateTaskStatus(taskId, 'pending')
+  }
   if (loading) {
     return (
       <main className="h-screen overflow-hidden bg-[#F6F8FC]">
@@ -420,7 +442,7 @@ export default function TasksPage() {
                 onComplete={handleCompleteTask}
                 onSwipeComplete={handleSwipeCompleteTask}
                 onSetInProgress={(id) => updateTaskStatus(id, 'in_progress')}
-                onSetPending={(id) => updateTaskStatus(id, 'pending')}
+                onSetPending={handleSetPendingTask}
                 onDelete={queueDeleteTask}
                 onEdit={openEditModal}
               />
@@ -524,6 +546,19 @@ export default function TasksPage() {
       />
 
       <TaskInventoryFlowModals taskInventory={taskInventory} />
+
+      <TaskStatusReasonModal
+        open={reopenReason.open}
+        taskTitle={reopenReason.taskTitle}
+        reason={reopenReason.reason}
+        error={reopenReason.error}
+        saving={reopenReason.saving}
+        onChangeReason={reopenReason.setReason}
+        onClose={reopenReason.close}
+        onConfirm={() => {
+          void reopenReason.confirm()
+        }}
+      />
     </>
   )
 }
