@@ -159,7 +159,49 @@ function padTime(n: number) {
   return `${n}`.padStart(2, '0')
 }
 
-function extractSmartTime(text: string, rules: ParserRules): string | null {
+function adjustHourWithDayPeriod(
+  hour: number,
+  context: string,
+  rules: ParserRules
+) {
+  const normalizedContext = normalizeSmartText(context)
+  const isAfternoonContext =
+    buildContainsRegex(rules.timeWords.afternoon)?.test(normalizedContext) ||
+    /\bde la tarde\b/.test(normalizedContext)
+  const isNightContext =
+    buildContainsRegex(rules.timeWords.night)?.test(normalizedContext) ||
+    /\bde la noche\b/.test(normalizedContext)
+  const isMorningContext =
+    buildContainsRegex(rules.timeWords.morning)?.test(normalizedContext) ||
+    buildContainsRegex(rules.timeWords.early)?.test(normalizedContext) ||
+    /\bde la manana\b/.test(normalizedContext)
+  const isNoonContext =
+    buildContainsRegex(rules.timeWords.noon)?.test(normalizedContext) ||
+    /\bdel mediodia\b/.test(normalizedContext)
+
+  if (isAfternoonContext || isNightContext) {
+    if (hour < 12) return hour + 12
+    return hour
+  }
+
+  if (isMorningContext) {
+    if (hour === 12) return 0
+    return hour
+  }
+
+  if (isNoonContext) {
+    if (hour < 12) return hour + 12
+    return hour
+  }
+
+  return hour
+}
+
+function extractSmartTime(
+  text: string,
+  rules: ParserRules,
+  locale: ParserLocale
+): string | null {
   const normalized = normalizeSmartText(text)
   const prefixes = rules.timePrefixes.map(escapeRegex).join('|')
 
@@ -177,6 +219,13 @@ function extractSmartTime(text: string, rules: ParserRules): string | null {
 
     if (meridiem === 'pm' && hour < 12) hour += 12
     if (meridiem === 'am' && hour === 12) hour = 0
+    if (!meridiem && explicitHourMatch.index !== undefined) {
+      const trailingContext = normalized.slice(
+        explicitHourMatch.index,
+        explicitHourMatch.index + explicitHourMatch[0].length + 40
+      )
+      hour = adjustHourWithDayPeriod(hour, trailingContext, rules)
+    }
 
     if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) {
       return `${padTime(hour)}:${padTime(minute)}`
@@ -190,6 +239,41 @@ function extractSmartTime(text: string, rules: ParserRules): string | null {
 
     if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) {
       return `${padTime(hour)}:${padTime(minute)}`
+    }
+  }
+
+  if (prefixes) {
+    const tokens = normalized
+      .replace(/[,.:]/g, ' ')
+      .split(/\s+/)
+      .map((item) => item.trim())
+      .filter(Boolean)
+
+    for (let index = 0; index < tokens.length; index += 1) {
+      const current = tokens[index]
+      const next = tokens[index + 1]
+
+      let hourStartIndex = -1
+
+      if ((current === 'a' && next === 'las') || (current === 'a' && next === 'la')) {
+        hourStartIndex = index + 2
+      } else if (current === 'alas' || current === 'al') {
+        hourStartIndex = index + 1
+      }
+
+      if (hourStartIndex === -1) continue
+
+      const spokenHour = parseSpokenApartmentToken(tokens, hourStartIndex, locale)
+      if (!spokenHour) continue
+
+      const parsedHour = Number(spokenHour.value)
+      if (Number.isNaN(parsedHour) || parsedHour < 0 || parsedHour > 23) continue
+      const trailingContext = tokens
+        .slice(hourStartIndex + spokenHour.consumed, hourStartIndex + spokenHour.consumed + 4)
+        .join(' ')
+      const adjustedHour = adjustHourWithDayPeriod(parsedHour, trailingContext, rules)
+
+      return `${padTime(adjustedHour)}:00`
     }
   }
 
@@ -694,7 +778,7 @@ export function parseSmartTaskInput(
 
   const detectedCategory = extractSmartCategory(input, rules)
   const detectedDate = extractSmartDate(input, rules)
-  const detectedTime = extractSmartTime(input, rules)
+  const detectedTime = extractSmartTime(input, rules, parserLocale)
   const detectedApartments = extractSmartApartments(input, rules, parserLocale)
   const detectedLocation = extractSmartLocation(input, rules, parserLocale)
   const detectedPriority = extractSmartPriority(input, rules)

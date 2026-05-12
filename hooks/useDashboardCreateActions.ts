@@ -8,6 +8,8 @@ import {
   type ChangeEvent,
 } from 'react'
 
+import { normalizeApartmentKey } from '@/lib/locations/normalizeApartment'
+import { parseSmartTaskInput } from '@/lib/tasks/taskSmartParser'
 import type { TaskDraft } from '@/lib/tasks/taskTypes'
 
 type UseDashboardCreateActionsParams = {
@@ -29,6 +31,40 @@ type DictationStartResponse = {
   stream: MediaStream
 }
 
+type SpeechRecognitionResultLike = {
+  transcript?: string
+}
+
+type SpeechRecognitionAlternativeListLike =
+  ArrayLike<SpeechRecognitionResultLike>
+
+type SpeechRecognitionResultLikeWithFinal =
+  SpeechRecognitionAlternativeListLike & {
+    isFinal?: boolean
+  }
+
+type SpeechRecognitionResultListLike =
+  ArrayLike<SpeechRecognitionResultLikeWithFinal>
+
+type SpeechRecognitionEventLike = Event & {
+  error?: string
+  results?: SpeechRecognitionResultListLike
+}
+
+type SpeechRecognitionLike = {
+  lang: string
+  continuous?: boolean
+  interimResults: boolean
+  maxAlternatives: number
+  onresult: ((event: SpeechRecognitionEventLike) => void) | null
+  onerror: ((event: SpeechRecognitionEventLike) => void) | null
+  onend: (() => void) | null
+  start: () => void
+  stop: () => void
+}
+
+type SpeechRecognitionConstructor = new () => SpeechRecognitionLike
+
 const MAX_RECORDING_MS = 45000
 
 export function useDashboardCreateActions({
@@ -42,6 +78,8 @@ export function useDashboardCreateActions({
   const [isListening, setIsListening] = useState(false)
   const [isTranscribing, setIsTranscribing] = useState(false)
   const quickPhotoInputRef = useRef<HTMLInputElement | null>(null)
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null)
+  const speechResolvedRef = useRef(false)
   const recorderRef = useRef<MediaRecorder | null>(null)
   const streamRef = useRef<MediaStream | null>(null)
   const chunksRef = useRef<BlobPart[]>([])
@@ -63,10 +101,19 @@ export function useDashboardCreateActions({
   useEffect(() => {
     return () => {
       clearStopTimeout()
+      speechResolvedRef.current = true
+      recognitionRef.current?.stop()
       recorderRef.current?.stop()
       stopMediaTracks()
     }
   }, [clearStopTimeout, stopMediaTracks])
+
+  const getSpeechLang = useCallback(() => {
+    if (locale.startsWith('en')) return 'en-US'
+    if (locale.startsWith('fr')) return 'fr-CA'
+    if (locale.startsWith('ru')) return 'ru-RU'
+    return 'es-ES'
+  }, [locale])
 
   const getDictationMessage = useCallback(
     (type: DictationErrorType) => {
@@ -163,20 +210,104 @@ export function useDashboardCreateActions({
 
   const openDraftFromTranscript = useCallback(
     (transcript: string) => {
+      const parsed = parseSmartTaskInput(transcript, locale)
+      const detectedVisitType = parsed.detectedVisitType || 'nuevo'
+      const detectedApartments = parsed.detectedApartments.map((apartment) => ({
+        apartment_or_area: apartment,
+        apartment_key: normalizeApartmentKey(apartment),
+        visit_type: detectedVisitType,
+      }))
+
       setRequestTaskDraft({
-        title: transcript,
+        title: parsed.cleanedTitle || transcript,
         description: '',
-        apartment_or_area: '',
-        category: 'other',
-        priority: 'medium',
-        task_date: new Date().toLocaleDateString('en-CA'),
-        task_time: '',
+        apartment_or_area: parsed.detectedLocation || detectedApartments[0]?.apartment_or_area || '',
+        apartment_key: detectedApartments[0]?.apartment_key || null,
+        category: parsed.detectedCategory || 'other',
+        priority: parsed.detectedPriority || 'medium',
+        task_date: parsed.detectedDate || new Date().toLocaleDateString('en-CA'),
+        task_time: parsed.detectedTime || '',
+        pest_targets: parsed.detectedPestTargets,
+        treatment_visit_type: parsed.detectedVisitType,
+        task_apartments: detectedApartments,
       })
 
       openCreateModal()
     },
-    [openCreateModal]
+    [locale, openCreateModal]
   )
+
+  const startBrowserSpeechRecognition = useCallback(() => {
+    const browserWindow = window as Window & {
+      SpeechRecognition?: SpeechRecognitionConstructor
+      webkitSpeechRecognition?: SpeechRecognitionConstructor
+    }
+
+    const SpeechRecognition =
+      browserWindow.SpeechRecognition || browserWindow.webkitSpeechRecognition
+
+    if (!SpeechRecognition) {
+      return false
+    }
+
+    const recognition = new SpeechRecognition()
+    recognitionRef.current = recognition
+    speechResolvedRef.current = false
+
+    recognition.lang = getSpeechLang()
+    recognition.interimResults = true
+    recognition.continuous = true
+    recognition.maxAlternatives = 1
+
+    setDictationError(null)
+    setIsListening(true)
+
+    recognition.onresult = (event: SpeechRecognitionEventLike) => {
+      if (!event.results || speechResolvedRef.current) return
+
+      let transcript = ''
+      let hasFinalResult = false
+
+      for (let index = 0; index < event.results.length; index += 1) {
+        hasFinalResult = hasFinalResult || Boolean(event.results[index]?.isFinal)
+        transcript += event.results[index]?.[0]?.transcript || ''
+      }
+
+      const value = transcript.trim()
+      if (!value || !hasFinalResult) return
+
+      speechResolvedRef.current = true
+      recognitionRef.current = null
+      setIsListening(false)
+      recognition.stop()
+      openDraftFromTranscript(value)
+    }
+
+    recognition.onerror = (event: SpeechRecognitionEventLike) => {
+      speechResolvedRef.current = true
+      recognitionRef.current = null
+      setIsListening(false)
+
+      if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+        setDictationError(getDictationMessage('permission'))
+      }
+    }
+
+    recognition.onend = () => {
+      speechResolvedRef.current = true
+      recognitionRef.current = null
+      setIsListening(false)
+    }
+
+    try {
+      recognition.start()
+      return true
+    } catch {
+      recognitionRef.current = null
+      setIsListening(false)
+      return false
+    }
+  }, [getDictationMessage, getSpeechLang, openDraftFromTranscript])
 
   const chooseRecordingMimeType = useCallback(() => {
     const candidates = [
@@ -275,12 +406,21 @@ export function useDashboardCreateActions({
     }
 
     if (isListening) {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop()
+        return
+      }
+
       stopActiveRecording()
       return
     }
 
     setDictationError(null)
     chunksRef.current = []
+
+    if (startBrowserSpeechRecognition()) {
+      return
+    }
 
     try {
       const { mimeType, recorder, stream } = await startRecorder()
@@ -355,9 +495,10 @@ export function useDashboardCreateActions({
   }, [
     clearStopTimeout,
     getDictationMessage,
-    isListening,
     isTranscribing,
+    isListening,
     openDraftFromTranscript,
+    startBrowserSpeechRecognition,
     startRecorder,
     stopActiveRecording,
     stopMediaTracks,
