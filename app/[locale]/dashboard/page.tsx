@@ -119,6 +119,7 @@ export default function DashboardPage() {
     quickPhotoInputRef,
     dictationError,
     isListening,
+    isTranscribing,
     setRequestTaskDraft,
     setRequestSourceId,
     clearDictationError,
@@ -411,17 +412,25 @@ export default function DashboardPage() {
         onChange={handleQuickPhotoSelected}
       />
 
-      {isListening ? (
+      {isListening || isTranscribing ? (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm">
           <div className="flex flex-col items-center gap-4 rounded-[28px] bg-white px-8 py-8 shadow-[0_20px_50px_rgba(0,0,0,0.2)]">
             <div className="relative flex h-20 w-20 items-center justify-center">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-              <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-white">
+              {isListening ? (
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+              ) : null}
+              <span
+                className={`relative flex h-14 w-14 items-center justify-center rounded-full text-white ${
+                  isListening ? 'bg-green-500' : 'bg-[#4B63DF]'
+                }`}
+              >
                 <Mic size={28} />
               </span>
             </div>
 
-            <p className="text-[16px] font-semibold text-[#142952]">Escuchando...</p>
+            <p className="text-[16px] font-semibold text-[#142952]">
+              {isListening ? 'Grabando audio...' : 'Transcribiendo...'}
+            </p>
 
             <p className="text-center text-[13px] text-[#6E7F9D]">
               Habla ahora, se detendrá automáticamente

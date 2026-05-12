@@ -1,6 +1,12 @@
 'use client'
 
-import { useCallback, useRef, useState, type ChangeEvent } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+} from 'react'
 
 import type { TaskDraft } from '@/lib/tasks/taskTypes'
 
@@ -9,47 +15,21 @@ type UseDashboardCreateActionsParams = {
   openCreateModal: () => void
 }
 
-type SpeechRecognitionResultLike = {
-  transcript?: string
+type DictationErrorType =
+  | 'unsupported'
+  | 'permission'
+  | 'recording'
+  | 'transcription'
+  | 'empty'
+  | 'generic'
+
+type DictationStartResponse = {
+  mimeType: string
+  recorder: MediaRecorder
+  stream: MediaStream
 }
 
-type SpeechRecognitionAlternativeListLike =
-  ArrayLike<SpeechRecognitionResultLike>
-
-type SpeechRecognitionResultLikeWithFinal = SpeechRecognitionAlternativeListLike & {
-  isFinal?: boolean
-}
-
-type SpeechRecognitionResultListLike =
-  ArrayLike<SpeechRecognitionResultLikeWithFinal>
-
-type SpeechRecognitionError =
-  | 'aborted'
-  | 'audio-capture'
-  | 'network'
-  | 'no-speech'
-  | 'not-allowed'
-  | 'service-not-allowed'
-  | string
-
-type SpeechRecognitionEventLike = Event & {
-  error?: SpeechRecognitionError
-  results?: SpeechRecognitionResultListLike
-}
-
-type SpeechRecognitionLike = {
-  lang: string
-  continuous?: boolean
-  interimResults: boolean
-  maxAlternatives: number
-  onresult: ((event: SpeechRecognitionEventLike) => void) | null
-  onerror: ((event: SpeechRecognitionEventLike) => void) | null
-  onend: (() => void) | null
-  start: () => void
-  stop: () => void
-}
-
-type SpeechRecognitionConstructor = new () => SpeechRecognitionLike
+const MAX_RECORDING_MS = 45000
 
 export function useDashboardCreateActions({
   locale,
@@ -60,85 +40,111 @@ export function useDashboardCreateActions({
   const [quickPhotoFile, setQuickPhotoFile] = useState<File | null>(null)
   const [dictationError, setDictationError] = useState<string | null>(null)
   const [isListening, setIsListening] = useState(false)
+  const [isTranscribing, setIsTranscribing] = useState(false)
   const quickPhotoInputRef = useRef<HTMLInputElement | null>(null)
-  const recognitionRef = useRef<SpeechRecognitionLike | null>(null)
-  const transcriptRef = useRef('')
-  const shouldCreateDraftRef = useRef(false)
+  const recorderRef = useRef<MediaRecorder | null>(null)
+  const streamRef = useRef<MediaStream | null>(null)
+  const chunksRef = useRef<BlobPart[]>([])
+  const mimeTypeRef = useRef('audio/webm')
+  const stopTimeoutRef = useRef<number | null>(null)
 
-  const getSpeechLang = useCallback(() => {
-    if (locale.startsWith('en')) return 'en-US'
-    if (locale.startsWith('fr')) return 'fr-CA'
-    if (locale.startsWith('ru')) return 'ru-RU'
-    return 'es-ES'
-  }, [locale])
+  const stopMediaTracks = useCallback(() => {
+    streamRef.current?.getTracks().forEach((track) => track.stop())
+    streamRef.current = null
+  }, [])
+
+  const clearStopTimeout = useCallback(() => {
+    if (stopTimeoutRef.current !== null) {
+      window.clearTimeout(stopTimeoutRef.current)
+      stopTimeoutRef.current = null
+    }
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      clearStopTimeout()
+      recorderRef.current?.stop()
+      stopMediaTracks()
+    }
+  }, [clearStopTimeout, stopMediaTracks])
 
   const getDictationMessage = useCallback(
-    (
-      type: 'unsupported' | 'permission' | 'noSpeech' | 'noMicrophone' | 'generic'
-    ) => {
+    (type: DictationErrorType) => {
       const isEnglish = locale.startsWith('en')
       const isFrench = locale.startsWith('fr')
       const isRussian = locale.startsWith('ru')
 
       if (isEnglish) {
         if (type === 'unsupported') {
-          return 'Voice dictation is not available in this browser. Try Chrome or Safari.'
+          return 'Audio recording is not available in this browser.'
         }
         if (type === 'permission') {
           return 'We could not access the microphone. Allow microphone permission and try again.'
         }
-        if (type === 'noSpeech') {
-          return 'We did not detect any voice. Try again and speak closer to the microphone.'
+        if (type === 'recording') {
+          return 'We could not record your voice right now.'
         }
-        if (type === 'noMicrophone') {
-          return 'No microphone was detected on this device.'
+        if (type === 'transcription') {
+          return 'We could not transcribe the audio right now.'
+        }
+        if (type === 'empty') {
+          return 'We did not hear enough audio. Try again and speak a little closer to the microphone.'
         }
         return 'We could not start voice dictation right now.'
       }
 
       if (isFrench) {
         if (type === 'unsupported') {
-          return 'La dictee vocale n est pas disponible dans ce navigateur. Essaie Chrome ou Safari.'
+          return 'L enregistrement audio n est pas disponible dans ce navigateur.'
         }
         if (type === 'permission') {
           return 'Impossible d acceder au microphone. Autorise le micro puis reessaie.'
         }
-        if (type === 'noSpeech') {
-          return 'Aucune voix detectee. Reessaie en parlant plus pres du microphone.'
+        if (type === 'recording') {
+          return 'Impossible d enregistrer ta voix pour le moment.'
         }
-        if (type === 'noMicrophone') {
-          return 'Aucun microphone n a ete detecte sur cet appareil.'
+        if (type === 'transcription') {
+          return 'Impossible de transcrire l audio pour le moment.'
+        }
+        if (type === 'empty') {
+          return 'Nous n avons pas assez entendu ta voix. Reessaie en parlant plus pres du microphone.'
         }
         return 'La dictee vocale n a pas pu demarrer pour le moment.'
       }
 
       if (isRussian) {
         if (type === 'unsupported') {
-          return 'Golosovoi vvod nedostupen v etom brauzere. Poprobui Chrome ili Safari.'
+          return 'Zapis audio nedostupna v etom brauzere.'
         }
         if (type === 'permission') {
           return 'Ne udalos poluchit dostup k mikrofonu. Razreshi dostup i poprobui snova.'
         }
-        if (type === 'noSpeech') {
-          return 'Goloso ne raspoznan. Poprobui eshche raz i govori blizhe k mikrofonu.'
+        if (type === 'recording') {
+          return 'Ne udalos zapisat golos pryamo seichas.'
         }
-        if (type === 'noMicrophone') {
-          return 'Na etom ustroistve ne naiden mikrofon.'
+        if (type === 'transcription') {
+          return 'Ne udalos raspoznat audio pryamo seichas.'
+        }
+        if (type === 'empty') {
+          return 'My pochti ne uslyshali golos. Poprobui eshche raz i govori blizhe k mikrofonu.'
         }
         return 'Ne udalos zapustit golosovoi vvod.'
       }
 
       if (type === 'unsupported') {
-        return 'Tu navegador no soporta dictado. Prueba en Chrome o Safari.'
+        return 'Tu navegador no permite grabar audio aqui.'
       }
       if (type === 'permission') {
         return 'No pudimos usar el microfono. Activa el permiso del microfono y vuelve a intentarlo.'
       }
-      if (type === 'noSpeech') {
-        return 'No detectamos tu voz. Intentalo otra vez hablando mas cerca del microfono.'
+      if (type === 'recording') {
+        return 'No pudimos grabar tu voz en este momento.'
       }
-      if (type === 'noMicrophone') {
-        return 'No encontramos un microfono disponible en este dispositivo.'
+      if (type === 'transcription') {
+        return 'No pudimos transcribir el audio en este momento.'
+      }
+      if (type === 'empty') {
+        return 'No escuchamos suficiente audio. Intentalo otra vez hablando mas cerca del microfono.'
       }
       return 'No se pudo iniciar el dictado en este momento.'
     },
@@ -172,106 +178,191 @@ export function useDashboardCreateActions({
     [openCreateModal]
   )
 
-  const openDictateTask = useCallback(() => {
-    const browserWindow = window as Window & {
-      SpeechRecognition?: SpeechRecognitionConstructor
-      webkitSpeechRecognition?: SpeechRecognitionConstructor
+  const chooseRecordingMimeType = useCallback(() => {
+    const candidates = [
+      'audio/webm;codecs=opus',
+      'audio/webm',
+      'audio/mp4',
+      'audio/mpeg',
+    ]
+
+    if (typeof MediaRecorder === 'undefined' || !MediaRecorder.isTypeSupported) {
+      return ''
     }
 
-    const SpeechRecognition =
-      browserWindow.SpeechRecognition || browserWindow.webkitSpeechRecognition
+    return candidates.find((type) => MediaRecorder.isTypeSupported(type)) || ''
+  }, [])
 
-    if (!SpeechRecognition) {
-      setDictationError(getDictationMessage('unsupported'))
+  const startRecorder = useCallback(async (): Promise<DictationStartResponse> => {
+    if (
+      typeof window === 'undefined' ||
+      typeof navigator === 'undefined' ||
+      !navigator.mediaDevices?.getUserMedia ||
+      typeof MediaRecorder === 'undefined'
+    ) {
+      throw new Error('unsupported')
+    }
+
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+    const mimeType = chooseRecordingMimeType()
+    const recorder = mimeType
+      ? new MediaRecorder(stream, { mimeType })
+      : new MediaRecorder(stream)
+
+    return {
+      mimeType: mimeType || recorder.mimeType || 'audio/webm',
+      recorder,
+      stream,
+    }
+  }, [chooseRecordingMimeType])
+
+  const transcribeRecordedAudio = useCallback(
+    async (blob: Blob, mimeType: string) => {
+      const extension = mimeType.includes('mp4')
+        ? 'm4a'
+        : mimeType.includes('mpeg')
+          ? 'mp3'
+          : 'webm'
+
+      const file = new File([blob], `dictation.${extension}`, {
+        type: mimeType || blob.type || 'audio/webm',
+      })
+
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('locale', locale)
+
+      const response = await fetch('/api/transcribe', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = (await response.json().catch(() => null)) as
+        | { text?: string; error?: string }
+        | null
+
+      if (!response.ok) {
+        throw new Error(data?.error || 'transcription_failed')
+      }
+
+      const transcript = data?.text?.trim()
+      if (!transcript) {
+        throw new Error('empty_transcript')
+      }
+
+      return transcript
+    },
+    [locale]
+  )
+
+  const stopActiveRecording = useCallback(() => {
+    clearStopTimeout()
+
+    if (!recorderRef.current || recorderRef.current.state === 'inactive') {
+      setIsListening(false)
+      stopMediaTracks()
+      return
+    }
+
+    recorderRef.current.stop()
+    setIsListening(false)
+    setIsTranscribing(true)
+  }, [clearStopTimeout, stopMediaTracks])
+
+  const openDictateTask = useCallback(async () => {
+    if (isTranscribing) {
       return
     }
 
     if (isListening) {
-      recognitionRef.current?.stop()
+      stopActiveRecording()
       return
     }
 
-    const recognition = new SpeechRecognition()
-    recognitionRef.current = recognition
-    transcriptRef.current = ''
-    shouldCreateDraftRef.current = true
-
-    recognition.lang = getSpeechLang()
-    recognition.continuous = true
-    recognition.interimResults = true
-    recognition.maxAlternatives = 1
-
     setDictationError(null)
-    setIsListening(true)
+    chunksRef.current = []
 
-    recognition.onresult = (event: SpeechRecognitionEventLike) => {
-      if (!event.results) return
+    try {
+      const { mimeType, recorder, stream } = await startRecorder()
 
-      let transcript = ''
-      let hasFinalResult = false
+      recorderRef.current = recorder
+      streamRef.current = stream
+      mimeTypeRef.current = mimeType
 
-      for (let index = 0; index < event.results.length; index += 1) {
-        const result = event.results[index]
-        transcript += result?.[0]?.transcript || ''
-        if (result?.isFinal) {
-          hasFinalResult = true
+      recorder.ondataavailable = (event) => {
+        if (event.data && event.data.size > 0) {
+          chunksRef.current.push(event.data)
         }
       }
 
-      transcriptRef.current = transcript.trim()
-
-      if (hasFinalResult) {
-        recognition.stop()
+      recorder.onerror = () => {
+        clearStopTimeout()
+        recorderRef.current = null
+        setIsListening(false)
+        setIsTranscribing(false)
+        stopMediaTracks()
+        setDictationError(getDictationMessage('recording'))
       }
-    }
 
-    recognition.onerror = (event: SpeechRecognitionEventLike) => {
-      shouldCreateDraftRef.current = false
+      recorder.onstop = async () => {
+        clearStopTimeout()
+        const blob = new Blob(chunksRef.current, {
+          type: mimeTypeRef.current || 'audio/webm',
+        })
+        chunksRef.current = []
+        recorderRef.current = null
+        stopMediaTracks()
+
+        if (!blob.size) {
+          setIsTranscribing(false)
+          setDictationError(getDictationMessage('empty'))
+          return
+        }
+
+        try {
+          const transcript = await transcribeRecordedAudio(
+            blob,
+            mimeTypeRef.current || blob.type
+          )
+          setIsTranscribing(false)
+          openDraftFromTranscript(transcript)
+        } catch (error) {
+          setIsTranscribing(false)
+          const message =
+            error instanceof Error && error.message === 'empty_transcript'
+              ? getDictationMessage('empty')
+              : getDictationMessage('transcription')
+          setDictationError(message)
+        }
+      }
+
+      recorder.start()
+      setIsListening(true)
+
+      stopTimeoutRef.current = window.setTimeout(() => {
+        stopActiveRecording()
+      }, MAX_RECORDING_MS)
+    } catch (error) {
+      const message =
+        error instanceof Error && error.message === 'unsupported'
+          ? getDictationMessage('unsupported')
+          : getDictationMessage('permission')
+      setDictationError(message)
+      stopMediaTracks()
       setIsListening(false)
-
-      if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
-        setDictationError(getDictationMessage('permission'))
-        return
-      }
-
-      if (event.error === 'no-speech') {
-        setDictationError(getDictationMessage('noSpeech'))
-        return
-      }
-
-      if (event.error === 'audio-capture') {
-        setDictationError(getDictationMessage('noMicrophone'))
-        return
-      }
-
-      if (event.error !== 'aborted') {
-        setDictationError(getDictationMessage('generic'))
-      }
+      setIsTranscribing(false)
     }
-
-    recognition.onend = () => {
-      setIsListening(false)
-      recognitionRef.current = null
-
-      const transcript = transcriptRef.current.trim()
-      transcriptRef.current = ''
-
-      if (!shouldCreateDraftRef.current || !transcript) {
-        return
-      }
-
-      openDraftFromTranscript(transcript)
-    }
-
-    try {
-      recognition.start()
-    } catch {
-      recognitionRef.current = null
-      shouldCreateDraftRef.current = false
-      setIsListening(false)
-      setDictationError(getDictationMessage('generic'))
-    }
-  }, [getDictationMessage, getSpeechLang, isListening, openDraftFromTranscript])
+  }, [
+    clearStopTimeout,
+    getDictationMessage,
+    isListening,
+    isTranscribing,
+    openDraftFromTranscript,
+    startRecorder,
+    stopActiveRecording,
+    stopMediaTracks,
+    transcribeRecordedAudio,
+  ])
 
   const openQuickPhotoCamera = useCallback(() => {
     quickPhotoInputRef.current?.click()
@@ -296,6 +387,7 @@ export function useDashboardCreateActions({
     quickPhotoInputRef,
     dictationError,
     isListening,
+    isTranscribing,
     setRequestTaskDraft,
     setRequestSourceId,
     clearDictationError,
