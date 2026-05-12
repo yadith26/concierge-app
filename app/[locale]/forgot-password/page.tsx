@@ -13,6 +13,8 @@ export default function ForgotPasswordPage() {
   const [messageType, setMessageType] = useState<'success' | 'error' | ''>('')
   const [loading, setLoading] = useState(false)
 
+  const normalizedEmail = email.trim().toLowerCase()
+
   const getFriendlyErrorMessage = (errorMessage: string) => {
     const msg = errorMessage.toLowerCase()
 
@@ -34,7 +36,7 @@ export default function ForgotPasswordPage() {
         ? `${window.location.origin}/update-password`
         : undefined
 
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    const { error } = await supabase.auth.resetPasswordForEmail(normalizedEmail, {
       redirectTo,
     })
 
@@ -112,6 +114,11 @@ export default function ForgotPasswordPage() {
               placeholder={t('auth.forgotPassword.email')}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              autoCapitalize="none"
+              autoCorrect="off"
+              autoComplete="email"
+              inputMode="email"
+              spellCheck={false}
               required
               className="h-16 w-full rounded-2xl border border-[#D9E0EA] bg-white pl-14 pr-4 text-[18px] text-[#33415C] outline-none transition focus:border-[#2F66C8] focus:ring-2 focus:ring-[#2F66C8]/10"
             />

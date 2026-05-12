@@ -15,6 +15,8 @@ export default function LoginPage() {
   const [messageType, setMessageType] = useState<'success' | 'error' | ''>('')
   const [loading, setLoading] = useState(false)
 
+  const normalizedEmail = email.trim().toLowerCase()
+
   const getFriendlyLoginMessage = (errorMessage: string) => {
     const msg = errorMessage.toLowerCase()
 
@@ -36,7 +38,7 @@ export default function LoginPage() {
     setLoading(true)
 
     const { data, error } = await supabase.auth.signInWithPassword({
-      email,
+      email: normalizedEmail,
       password,
     })
 
@@ -115,6 +117,11 @@ export default function LoginPage() {
             placeholder={t('auth.login.email')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            autoCapitalize="none"
+            autoCorrect="off"
+            autoComplete="email"
+            inputMode="email"
+            spellCheck={false}
             required
             className="h-16 w-full rounded-2xl border border-[#D9E0EA] px-4 text-[18px] outline-none focus:border-[#2F66C8]"
           />
@@ -124,6 +131,10 @@ export default function LoginPage() {
             placeholder={t('auth.login.password')}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            autoCapitalize="none"
+            autoCorrect="off"
+            autoComplete="current-password"
+            spellCheck={false}
             required
             className="h-16 w-full rounded-2xl border border-[#D9E0EA] px-4 text-[18px] outline-none focus:border-[#2F66C8]"
           />

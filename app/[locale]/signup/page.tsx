@@ -20,6 +20,8 @@ export default function SignupPage() {
   const [messageType, setMessageType] = useState<'success' | 'error' | ''>('')
   const [loading, setLoading] = useState(false)
 
+  const normalizedEmail = email.trim().toLowerCase()
+
   const getFriendlyErrorMessage = (errorMessage: string) => {
     const msg = errorMessage.toLowerCase()
 
@@ -43,7 +45,7 @@ export default function SignupPage() {
   }
 
   const resendConfirmationEmail = async () => {
-    if (!email.trim()) {
+    if (!normalizedEmail) {
       setMessage('Escribe el correo para reenviar la confirmacion.')
       setMessageType('error')
       return
@@ -60,7 +62,7 @@ export default function SignupPage() {
 
     const { error } = await supabase.auth.resend({
       type: 'signup',
-      email,
+      email: normalizedEmail,
       options: {
         emailRedirectTo: redirectTo,
       },
@@ -97,7 +99,7 @@ export default function SignupPage() {
         : undefined
 
     const { data, error } = await supabase.auth.signUp({
-      email,
+      email: normalizedEmail,
       password,
       options: {
         emailRedirectTo: redirectTo,
@@ -170,6 +172,11 @@ export default function SignupPage() {
             placeholder={t('register.email')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            autoCapitalize="none"
+            autoCorrect="off"
+            autoComplete="email"
+            inputMode="email"
+            spellCheck={false}
             required
             className="h-16 rounded-2xl border px-4 text-[18px] focus:border-[#2F66C8]"
           />
@@ -179,6 +186,10 @@ export default function SignupPage() {
             placeholder={t('register.password')}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            autoCapitalize="none"
+            autoCorrect="off"
+            autoComplete="new-password"
+            spellCheck={false}
             required
             className="h-16 rounded-2xl border px-4 text-[18px] focus:border-[#2F66C8]"
           />
@@ -188,6 +199,10 @@ export default function SignupPage() {
             placeholder={t('register.confirmPassword')}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            autoCapitalize="none"
+            autoCorrect="off"
+            autoComplete="new-password"
+            spellCheck={false}
             required
             className="h-16 rounded-2xl border px-4 text-[18px] focus:border-[#2F66C8]"
           />
