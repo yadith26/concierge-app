@@ -35,7 +35,7 @@ export default function FlatInventoryRow({
         isLowStock ? 'border-[#F5C9CE]' : 'border-[#E7EDF5]'
       } cursor-pointer`}
     >
-      <div className="flex items-start justify-between gap-3 px-4 py-4">
+      <div className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             <h3 className="line-clamp-2 break-words text-[15px] font-bold leading-tight text-[#142952]">
@@ -62,7 +62,7 @@ export default function FlatInventoryRow({
             )}
           </div>
 
-          <div className="mt-2 flex flex-wrap items-center gap-3 text-[15px] text-[#7B8BA8]">
+          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2 text-[15px] text-[#7B8BA8]">
             <span className="inline-flex items-center gap-1.5">
               <Package className="h-4 w-4" />
               {formatInventoryQuantityWithUnit(item.quantity, item.unit_of_measure)}
@@ -82,7 +82,7 @@ export default function FlatInventoryRow({
           </div>
         </div>
 
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:shrink-0 sm:justify-end">
           <button
             type="button"
             onClick={(event) => {
@@ -107,17 +107,19 @@ export default function FlatInventoryRow({
             <Plus size={18} />
           </button>
 
-          <button
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation()
-              onEdit()
-            }}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-[#142952]"
-            aria-label={t('editItem')}
-          >
-            <Pencil size={18} />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation()
+                onEdit()
+              }}
+              className="flex h-10 w-10 items-center justify-center rounded-full text-[#142952]"
+              aria-label={t('editItem')}
+            >
+              <Pencil size={18} />
+            </button>
+          </div>
         </div>
       </div>
 

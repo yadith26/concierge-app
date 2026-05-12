@@ -226,9 +226,11 @@ export function DashboardSpotlightCard({
 export function DashboardQuickActions({
   title,
   actions,
+  columns = 4,
 }: {
   title: string
   actions: DashboardQuickAction[]
+  columns?: 3 | 4
 }) {
   return (
     <section>
@@ -238,7 +240,11 @@ export function DashboardQuickActions({
         </h2>
       </div>
 
-      <div className="grid grid-cols-4 gap-2.5">
+      <div
+        className={`grid gap-2.5 ${
+          columns === 3 ? 'grid-cols-3' : 'grid-cols-4'
+        }`}
+      >
         {actions.map((action) => (
           <button
             key={action.key}
@@ -260,6 +266,18 @@ export function DashboardQuickActions({
           </button>
         ))}
       </div>
+    </section>
+  )
+}
+
+export function DashboardInlineInfo({
+  message,
+}: {
+  message: string
+}) {
+  return (
+    <section className="rounded-[22px] border border-[#F6D7DB] bg-[#FFF5F6] px-4 py-3 text-sm text-[#B14A58] shadow-[0_8px_24px_rgba(20,41,82,0.04)]">
+      {message}
     </section>
   )
 }

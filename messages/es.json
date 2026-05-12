@@ -23,6 +23,8 @@
   },
   "dashboard": {
     "loading": "Cargando dashboard...",
+    "managerNotLinked": "Este edificio aun no tiene manager vinculado.",
+    "managerNotLinkedShort": "Sin manager",
     "nextTask": "Próxima tarea",
     "noLocation": "Sin ubicación",
     "showing": "Mostrando:",

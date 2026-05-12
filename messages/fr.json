@@ -23,6 +23,8 @@
   },
   "dashboard": {
     "loading": "Chargement du tableau de bord...",
+    "managerNotLinked": "Cet immeuble n'a pas encore de gestionnaire lie.",
+    "managerNotLinkedShort": "Sans manager",
     "nextTask": "Prochaine tâche",
     "noLocation": "Sans emplacement",
     "showing": "Affichage :",

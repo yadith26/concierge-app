@@ -1,6 +1,6 @@
 'use client'
 
-import { BellDot, MessageSquareMore } from 'lucide-react'
+import { AlertTriangle, BellDot, MessageSquareMore } from 'lucide-react'
 
 import AppHeader from '@/components/layout/AppHeader'
 import ManagerBuildingChip from '@/components/layout/ManagerBuildingChip'
@@ -29,6 +29,8 @@ type ConciergeDashboardHeaderProps = {
   buildingId: string
   buildingName: string
   buildings: BuildingOption[]
+  showManagerNotLinkedMessage?: boolean
+  managerNotLinkedMessage?: string
   todayTasksCount: number
   urgentCount: number
   overdueCount: number
@@ -55,6 +57,8 @@ export default function ConciergeDashboardHeader({
   buildingId,
   buildingName,
   buildings,
+  showManagerNotLinkedMessage = false,
+  managerNotLinkedMessage = '',
   todayTasksCount,
   urgentCount,
   overdueCount,
@@ -62,6 +66,10 @@ export default function ConciergeDashboardHeader({
   onOpenUrgentTasks,
   onOpenOverdueTasks,
 }: ConciergeDashboardHeaderProps) {
+  const buildingShellClass = showManagerNotLinkedMessage
+    ? 'flex w-full items-center justify-between gap-3 rounded-[28px] border border-[#D9E0EA] bg-white/92 px-4 py-3 text-[#142952] shadow-[0_8px_24px_rgba(20,41,82,0.08)] backdrop-blur-sm'
+    : 'inline-flex max-w-full items-center gap-3 rounded-[28px] border border-[#D9E0EA] bg-white/92 px-4 py-3 text-[#142952] shadow-[0_8px_24px_rgba(20,41,82,0.08)] backdrop-blur-sm'
+
   return (
     <AppHeader
       compact={compact}
@@ -114,20 +122,32 @@ export default function ConciergeDashboardHeader({
       headerContent={
         buildingId && !isHomeView ? (
           <>
-            <ManagerBuildingChip
-              buildingId={buildingId}
-              buildingName={buildingName}
-              buildings={buildings}
-              getBuildingHref={(nextBuildingId) =>
-                `/dashboard?buildingId=${nextBuildingId}`
-              }
-              label="Edificio actual"
-              mainHref="/dashboard"
-              mainLabel="Mis edificios"
-              mainDescription="Volver a la vista general"
-              size="compact"
-              singleBuildingMode="static"
-            />
+            <div className={buildingShellClass}>
+              <div className={showManagerNotLinkedMessage ? 'min-w-0 flex-1' : 'min-w-0'}>
+                <ManagerBuildingChip
+                  buildingId={buildingId}
+                  buildingName={buildingName}
+                  buildings={buildings}
+                  getBuildingHref={(nextBuildingId) =>
+                    `/dashboard?buildingId=${nextBuildingId}`
+                  }
+                  label="Edificio actual"
+                  mainHref="/dashboard"
+                  mainLabel="Mis edificios"
+                  mainDescription="Volver a la vista general"
+                  size="compact"
+                  singleBuildingMode="static"
+                  appearance="embedded"
+                />
+              </div>
+
+              {showManagerNotLinkedMessage ? (
+                <div className="flex shrink-0 items-center gap-2 text-[13px] font-semibold leading-none text-[#C94C5F]">
+                  <AlertTriangle size={14} className="shrink-0" />
+                  <span>{managerNotLinkedMessage}</span>
+                </div>
+              ) : null}
+            </div>
 
             <div className="mt-3 flex flex-wrap items-center gap-2">
               <button

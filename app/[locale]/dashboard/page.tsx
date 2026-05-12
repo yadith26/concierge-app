@@ -195,15 +195,25 @@ export default function DashboardPage() {
         tone: 'violet',
         onClick: openQuickPhotoCamera,
       },
-      {
-        key: 'call-manager',
-        label: 'Llamar\nmanager',
-        icon: <PhoneCall size={24} />,
-        tone: 'green',
-        onClick: () => void openConversation(),
-      },
+      ...(managerContact
+        ? [
+            {
+              key: 'call-manager',
+              label: 'Llamar\nmanager',
+              icon: <PhoneCall size={24} />,
+              tone: 'green' as const,
+              onClick: () => void openConversation(),
+            },
+          ]
+        : []),
     ],
-    [openConversation, openCreateModal, openDictateTask, openQuickPhotoCamera]
+    [
+      managerContact,
+      openConversation,
+      openCreateModal,
+      openDictateTask,
+      openQuickPhotoCamera,
+    ]
   )
 
   if (loading) {
@@ -240,6 +250,8 @@ export default function DashboardPage() {
             buildingId={buildingId}
             buildingName={buildingName}
             buildings={buildings}
+            showManagerNotLinkedMessage={!isHomeView && !managerContact}
+            managerNotLinkedMessage={t('managerNotLinkedShort')}
             todayTasksCount={todayTasks.length}
             urgentCount={urgentCount}
             overdueCount={overdueTasks.length}

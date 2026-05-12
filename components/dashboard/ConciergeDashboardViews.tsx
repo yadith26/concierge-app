@@ -125,7 +125,11 @@ export function ConciergeDashboardBuildingView({
         onToggleExpand={onToggleExpandTask}
       />
 
-      <DashboardQuickActions title={copy.quickActions} actions={quickActions} />
+      <DashboardQuickActions
+        title={copy.quickActions}
+        actions={quickActions}
+        columns={quickActions.length === 3 ? 3 : 4}
+      />
 
       <DashboardWideListCard
         title={copy.todayTasks}

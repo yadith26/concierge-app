@@ -23,6 +23,8 @@
   },
   "dashboard": {
     "loading": "Загрузка панели...",
+    "managerNotLinked": "У этого здания пока нет привязанного менеджера.",
+    "managerNotLinkedShort": "Без менеджера",
     "nextTask": "Следующая задача",
     "noLocation": "Без локации",
     "showing": "Показано:",

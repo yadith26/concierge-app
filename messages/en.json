@@ -23,6 +23,8 @@
   },
   "dashboard": {
     "loading": "Loading dashboard...",
+    "managerNotLinked": "This building does not have a linked manager yet.",
+    "managerNotLinkedShort": "No manager",
     "nextTask": "Next task",
     "noLocation": "No location",
     "showing": "Showing:",
