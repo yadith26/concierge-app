@@ -7,6 +7,7 @@ import {
   useState,
   type ChangeEvent,
 } from 'react'
+import { useTranslations } from 'next-intl'
 
 import { normalizeApartmentKey } from '@/lib/locations/normalizeApartment'
 import { parseSmartTaskInput } from '@/lib/tasks/taskSmartParser'
@@ -31,24 +32,9 @@ type DictationStartResponse = {
   stream: MediaStream
 }
 
-type SpeechRecognitionResultLike = {
-  transcript?: string
-}
-
-type SpeechRecognitionAlternativeListLike =
-  ArrayLike<SpeechRecognitionResultLike>
-
-type SpeechRecognitionResultLikeWithFinal =
-  SpeechRecognitionAlternativeListLike & {
-    isFinal?: boolean
-  }
-
-type SpeechRecognitionResultListLike =
-  ArrayLike<SpeechRecognitionResultLikeWithFinal>
-
-type SpeechRecognitionEventLike = Event & {
+type SpeechRecognitionEventLike = {
   error?: string
-  results?: SpeechRecognitionResultListLike
+  results?: ArrayLike<ArrayLike<{ transcript?: string }> & { isFinal?: boolean }>
 }
 
 type SpeechRecognitionLike = {
@@ -56,14 +42,12 @@ type SpeechRecognitionLike = {
   continuous?: boolean
   interimResults: boolean
   maxAlternatives: number
-  onresult: ((event: SpeechRecognitionEventLike) => void) | null
-  onerror: ((event: SpeechRecognitionEventLike) => void) | null
-  onend: (() => void) | null
+  onresult: ((event: unknown) => void) | null
+  onerror: ((event?: unknown) => void) | null
+  onend: ((event?: unknown) => void) | null
   start: () => void
   stop: () => void
 }
-
-type SpeechRecognitionConstructor = new () => SpeechRecognitionLike
 
 const MAX_RECORDING_MS = 45000
 
@@ -71,6 +55,7 @@ export function useDashboardCreateActions({
   locale,
   openCreateModal,
 }: UseDashboardCreateActionsParams) {
+  const t = useTranslations('dashboardDictation')
   const [requestTaskDraft, setRequestTaskDraft] = useState<TaskDraft | null>(null)
   const [requestSourceId, setRequestSourceId] = useState<string | null>(null)
   const [quickPhotoFile, setQuickPhotoFile] = useState<File | null>(null)
@@ -117,85 +102,14 @@ export function useDashboardCreateActions({
 
   const getDictationMessage = useCallback(
     (type: DictationErrorType) => {
-      const isEnglish = locale.startsWith('en')
-      const isFrench = locale.startsWith('fr')
-      const isRussian = locale.startsWith('ru')
-
-      if (isEnglish) {
-        if (type === 'unsupported') {
-          return 'Audio recording is not available in this browser.'
-        }
-        if (type === 'permission') {
-          return 'We could not access the microphone. Allow microphone permission and try again.'
-        }
-        if (type === 'recording') {
-          return 'We could not record your voice right now.'
-        }
-        if (type === 'transcription') {
-          return 'We could not transcribe the audio right now.'
-        }
-        if (type === 'empty') {
-          return 'We did not hear enough audio. Try again and speak a little closer to the microphone.'
-        }
-        return 'We could not start voice dictation right now.'
-      }
-
-      if (isFrench) {
-        if (type === 'unsupported') {
-          return 'L enregistrement audio n est pas disponible dans ce navigateur.'
-        }
-        if (type === 'permission') {
-          return 'Impossible d acceder au microphone. Autorise le micro puis reessaie.'
-        }
-        if (type === 'recording') {
-          return 'Impossible d enregistrer ta voix pour le moment.'
-        }
-        if (type === 'transcription') {
-          return 'Impossible de transcrire l audio pour le moment.'
-        }
-        if (type === 'empty') {
-          return 'Nous n avons pas assez entendu ta voix. Reessaie en parlant plus pres du microphone.'
-        }
-        return 'La dictee vocale n a pas pu demarrer pour le moment.'
-      }
-
-      if (isRussian) {
-        if (type === 'unsupported') {
-          return 'Zapis audio nedostupna v etom brauzere.'
-        }
-        if (type === 'permission') {
-          return 'Ne udalos poluchit dostup k mikrofonu. Razreshi dostup i poprobui snova.'
-        }
-        if (type === 'recording') {
-          return 'Ne udalos zapisat golos pryamo seichas.'
-        }
-        if (type === 'transcription') {
-          return 'Ne udalos raspoznat audio pryamo seichas.'
-        }
-        if (type === 'empty') {
-          return 'My pochti ne uslyshali golos. Poprobui eshche raz i govori blizhe k mikrofonu.'
-        }
-        return 'Ne udalos zapustit golosovoi vvod.'
-      }
-
-      if (type === 'unsupported') {
-        return 'Tu navegador no permite grabar audio aqui.'
-      }
-      if (type === 'permission') {
-        return 'No pudimos usar el microfono. Activa el permiso del microfono y vuelve a intentarlo.'
-      }
-      if (type === 'recording') {
-        return 'No pudimos grabar tu voz en este momento.'
-      }
-      if (type === 'transcription') {
-        return 'No pudimos transcribir el audio en este momento.'
-      }
-      if (type === 'empty') {
-        return 'No escuchamos suficiente audio. Intentalo otra vez hablando mas cerca del microfono.'
-      }
-      return 'No se pudo iniciar el dictado en este momento.'
+      if (type === 'unsupported') return t('errors.unsupported')
+      if (type === 'permission') return t('errors.permission')
+      if (type === 'recording') return t('errors.recording')
+      if (type === 'transcription') return t('errors.transcription')
+      if (type === 'empty') return t('errors.empty')
+      return t('errors.generic')
     },
-    [locale]
+    [t]
   )
 
   const resetCreateContext = useCallback(() => {
@@ -239,8 +153,8 @@ export function useDashboardCreateActions({
 
   const startBrowserSpeechRecognition = useCallback(() => {
     const browserWindow = window as Window & {
-      SpeechRecognition?: SpeechRecognitionConstructor
-      webkitSpeechRecognition?: SpeechRecognitionConstructor
+      SpeechRecognition?: new () => unknown
+      webkitSpeechRecognition?: new () => unknown
     }
 
     const SpeechRecognition =
@@ -250,7 +164,7 @@ export function useDashboardCreateActions({
       return false
     }
 
-    const recognition = new SpeechRecognition()
+    const recognition = new SpeechRecognition() as SpeechRecognitionLike
     recognitionRef.current = recognition
     speechResolvedRef.current = false
 
@@ -262,15 +176,17 @@ export function useDashboardCreateActions({
     setDictationError(null)
     setIsListening(true)
 
-    recognition.onresult = (event: SpeechRecognitionEventLike) => {
-      if (!event.results || speechResolvedRef.current) return
+    recognition.onresult = (event: unknown) => {
+      const speechEvent = event as SpeechRecognitionEventLike
+      if (!speechEvent.results || speechResolvedRef.current) return
 
       let transcript = ''
       let hasFinalResult = false
 
-      for (let index = 0; index < event.results.length; index += 1) {
-        hasFinalResult = hasFinalResult || Boolean(event.results[index]?.isFinal)
-        transcript += event.results[index]?.[0]?.transcript || ''
+      for (let index = 0; index < speechEvent.results.length; index += 1) {
+        hasFinalResult =
+          hasFinalResult || Boolean(speechEvent.results[index]?.isFinal)
+        transcript += speechEvent.results[index]?.[0]?.transcript || ''
       }
 
       const value = transcript.trim()
@@ -283,12 +199,16 @@ export function useDashboardCreateActions({
       openDraftFromTranscript(value)
     }
 
-    recognition.onerror = (event: SpeechRecognitionEventLike) => {
+    recognition.onerror = (event: unknown) => {
+      const speechEvent = event as SpeechRecognitionEventLike
       speechResolvedRef.current = true
       recognitionRef.current = null
       setIsListening(false)
 
-      if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+      if (
+        speechEvent.error === 'not-allowed' ||
+        speechEvent.error === 'service-not-allowed'
+      ) {
         setDictationError(getDictationMessage('permission'))
       }
     }

@@ -269,7 +269,7 @@ export function ConciergeDashboardBuildingView({
           meta:
             area.count === 1
               ? copy.singleHotAreaTask
-              : copy.hotAreaTasks.replace('{count}', String(area.count)),
+              : copy.hotAreaTasks(area.count),
           tone:
             area.count >= 3
               ? ('red' as const)
@@ -307,10 +307,12 @@ export function ConciergeDashboardBuildingView({
           title: task.title,
           subtitle: task.apartment_or_area || noLocationLabel,
           meta: task.completed_at
-            ? `${copy.completedAtLabel} ${new Intl.DateTimeFormat(locale, {
+            ? copy.completedAtLabel(
+                new Intl.DateTimeFormat(locale, {
                 hour: 'numeric',
                 minute: '2-digit',
-              }).format(new Date(task.completed_at))}`
+              }).format(new Date(task.completed_at))
+              )
             : '',
           tone: 'green' as const,
           icon: (

@@ -27,10 +27,22 @@ type TaskTitleFieldProps = {
   onQuickSubmit: () => Promise<void>
 }
 
+type SpeechRecognitionLike = {
+  lang: string
+  interimResults: boolean
+  continuous: boolean
+  maxAlternatives: number
+  onresult: ((event: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null
+  onerror: (() => void) | null
+  onend: (() => void) | null
+  start: () => void
+  stop: () => void
+}
+
 declare global {
   interface Window {
-    SpeechRecognition?: any
-    webkitSpeechRecognition?: any
+    SpeechRecognition?: new () => SpeechRecognitionLike
+    webkitSpeechRecognition?: new () => SpeechRecognitionLike
   }
 }
 
@@ -47,7 +59,7 @@ export default function TaskTitleField({
   const t = useTranslations('taskTitleField')
   const locale = useLocale()
   const [isListening, setIsListening] = useState(false)
-  const recognitionRef = useRef<any>(null)
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null)
 
   const getSpeechLang = () => {
     if (locale.startsWith('en')) return 'en-US'
@@ -66,7 +78,7 @@ export default function TaskTitleField({
       window.SpeechRecognition || window.webkitSpeechRecognition
 
     if (!SpeechRecognition) {
-      alert('Tu navegador no soporta dictado.')
+      alert(t('dictationUnsupported'))
       return
     }
 
@@ -86,15 +98,14 @@ export default function TaskTitleField({
 
     setIsListening(true)
 
-    recognition.onresult = (event: any) => {
+    recognition.onresult = (event) => {
       let transcript = ''
 
-      for (let i = 0; i < event.results.length; i += 1) {
-        transcript += event.results[i][0].transcript
+      for (let index = 0; index < event.results.length; index += 1) {
+        transcript += event.results[index][0].transcript
       }
 
-      const value = transcript.trim()
-      handleTitleValue(value)
+      handleTitleValue(transcript.trim())
     }
 
     recognition.onerror = () => {
@@ -131,7 +142,9 @@ export default function TaskTitleField({
             e.preventDefault()
             await onQuickSubmit()
           }}
-          placeholder={isListening ? 'Escuchando...' : placeholder || t('placeholder')}
+          placeholder={
+            isListening ? t('listening') : placeholder || t('placeholder')
+          }
           className="min-w-0 flex-1 bg-transparent px-1 py-2 text-base text-[#142952] outline-none placeholder:text-[#8C9AB3]"
         />
 
@@ -143,7 +156,7 @@ export default function TaskTitleField({
               ? 'bg-[#E85757] text-white shadow-[0_8px_20px_rgba(232,87,87,0.28)]'
               : 'bg-[#EEF4FF] text-[#4D66DA]'
           }`}
-          aria-label={isListening ? 'Detener dictado' : 'Dictar título'}
+          aria-label={isListening ? t('stopDictation') : t('startDictation')}
         >
           {isListening ? (
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#E85757] opacity-40" />
@@ -154,7 +167,7 @@ export default function TaskTitleField({
 
       {isListening ? (
         <p className="mt-2 text-[12px] font-medium text-[#E85757]">
-          Escuchando... toca el micrófono para detener.
+          {t('listeningHint')}
         </p>
       ) : null}
 

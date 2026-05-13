@@ -34,7 +34,7 @@ export async function recordTaskStatusHistory(params: {
   })
 
   if (error) {
-    console.warn('No se pudo registrar task_status_history:', error)
+    console.warn('Could not record task_status_history:', error)
   }
 }
 
@@ -48,7 +48,7 @@ export async function fetchTaskStatusHistory(taskIds: string[]) {
     .order('created_at', { ascending: false })
 
   if (error) {
-    console.warn('No se pudo leer task_status_history:', error)
+    console.warn('Could not read task_status_history:', error)
     return [] as TaskStatusHistoryEntry[]
   }
 

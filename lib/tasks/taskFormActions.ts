@@ -80,7 +80,7 @@ export async function updateTaskFromForm(
     .eq('id', params.taskId)
 
   if (updateError) {
-    throw new Error('No se pudo actualizar la tarea.')
+    throw new Error('Could not update the task.')
   }
 
   if (params.category === 'pest') {
@@ -151,7 +151,7 @@ export async function createTaskFromForm(
     .single()
 
   if (insertError || !insertedTask) {
-    throw new Error('No se pudo guardar la tarea.')
+    throw new Error('Could not save the task.')
   }
 
   if (params.sourceRequestId) {

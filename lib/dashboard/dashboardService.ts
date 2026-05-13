@@ -126,7 +126,7 @@ function buildConciergeHome({
     title: task.title,
     apartmentOrArea: task.apartment_or_area || null,
     buildingId: task.building_id || '',
-    buildingName: buildingNames.get(task.building_id || '') || 'Sin edificio',
+    buildingName: buildingNames.get(task.building_id || '') || 'No building',
     taskDate: task.task_date,
     taskTime: task.task_time || null,
     priority: task.priority,
@@ -190,7 +190,7 @@ export async function getDashboardData(
 
   if (userError || !user) {
     throw new Error(
-      userError?.message || 'No se pudo obtener el usuario autenticado'
+      userError?.message || 'Could not get the authenticated user'
     )
   }
 
@@ -202,7 +202,7 @@ export async function getDashboardData(
 
   if (profileError || !profile) {
     throw new Error(
-      profileError?.message || 'No se pudo obtener el perfil del usuario'
+      profileError?.message || 'Could not get the user profile'
     )
   }
 
@@ -214,7 +214,7 @@ export async function getDashboardData(
 
   if (membershipError) {
     throw new Error(
-      membershipError.message || 'No se pudo obtener el edificio del usuario'
+      membershipError.message || 'Could not get the user building'
     )
   }
 
@@ -230,7 +230,7 @@ export async function getDashboardData(
   ) as { id: string; name: string; address: string | null }[]
 
   if (!buildings.length) {
-    throw new Error('No se pudo obtener el edificio del usuario')
+    throw new Error('Could not get the user building')
   }
 
   const building =
@@ -248,7 +248,7 @@ export async function getDashboardData(
       )
 
     if (allTasksError) {
-      throw new Error(allTasksError.message || 'No se pudieron obtener las tareas')
+      throw new Error(allTasksError.message || 'Could not fetch tasks')
     }
 
     const allTasks = ((allTasksData as EditableTask[]) || []).map(normalizeTask)
@@ -293,12 +293,12 @@ export async function getDashboardData(
   ])
 
   if (tasksError) {
-    throw new Error(tasksError.message || 'No se pudieron obtener las tareas')
+    throw new Error(tasksError.message || 'Could not fetch tasks')
   }
 
   if (managerMembershipError) {
     throw new Error(
-      managerMembershipError.message || 'No se pudo obtener el manager del edificio'
+      managerMembershipError.message || 'Could not get the building manager'
     )
   }
 
@@ -316,7 +316,7 @@ export async function getDashboardData(
 
     if (managerProfileError) {
       throw new Error(
-        managerProfileError.message || 'No se pudo obtener el perfil del manager'
+        managerProfileError.message || 'Could not get the manager profile'
       )
     }
 
@@ -353,6 +353,6 @@ export async function deleteDashboardTask(taskId: string) {
   const { error } = await supabase.from('tasks').delete().eq('id', taskId)
 
   if (error) {
-    throw new Error(error.message || 'No se pudo eliminar la tarea')
+    throw new Error(error.message || 'Could not delete the task')
   }
 }

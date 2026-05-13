@@ -1,6 +1,7 @@
 'use client'
 
 import { MailOpen, MessageSquareMore } from 'lucide-react'
+import { useLocale, useTranslations } from 'next-intl'
 import type { BuildingMessage } from '@/lib/messages/messageService'
 
 type DashboardMessagesModalProps = {
@@ -18,6 +19,9 @@ export default function DashboardMessagesModal({
   onClose,
   onMarkAsRead,
 }: DashboardMessagesModalProps) {
+  const t = useTranslations('dashboardMessagesModal')
+  const locale = useLocale()
+
   if (!open) return null
 
   return (
@@ -29,11 +33,11 @@ export default function DashboardMessagesModal({
               <MessageSquareMore size={20} />
             </span>
             <div className="min-w-0">
-              <h3 className="text-xl font-bold text-[#142952]">Mensajes</h3>
+              <h3 className="text-xl font-bold text-[#142952]">{t('title')}</h3>
               <p className="mt-1 text-sm text-[#6E7F9D]">
                 {unreadCount > 0
-                  ? `${unreadCount} mensajes sin leer`
-                  : 'Todos tus mensajes estan leidos'}
+                  ? t('unreadCount', { count: unreadCount })
+                  : t('allRead')}
               </p>
             </div>
           </div>
@@ -43,14 +47,14 @@ export default function DashboardMessagesModal({
             onClick={onClose}
             className="rounded-full bg-[#F3F6FB] px-3 py-2 text-sm font-semibold text-[#6E7F9D]"
           >
-            Cerrar
+            {t('close')}
           </button>
         </div>
 
         <div className="mt-5 max-h-[420px] space-y-3 overflow-y-auto pr-1">
           {messages.length === 0 ? (
             <div className="rounded-[24px] border border-[#E7EDF5] bg-[#FBFCFE] px-4 py-5 text-sm text-[#7B8BA8]">
-              No tienes mensajes todavia.
+              {t('empty')}
             </div>
           ) : null}
 
@@ -69,7 +73,7 @@ export default function DashboardMessagesModal({
                     {message.sender_name}
                   </p>
                   <p className="mt-1 text-xs text-[#7B8BA8]">
-                    {new Intl.DateTimeFormat('es', {
+                    {new Intl.DateTimeFormat(locale, {
                       month: 'short',
                       day: 'numeric',
                       hour: 'numeric',
@@ -85,7 +89,7 @@ export default function DashboardMessagesModal({
                     className="inline-flex shrink-0 items-center gap-1 rounded-full bg-white px-3 py-2 text-xs font-semibold text-[#2F66C8] shadow-sm"
                   >
                     <MailOpen size={14} />
-                    Leido
+                    {t('markAsRead')}
                   </button>
                 ) : null}
               </div>

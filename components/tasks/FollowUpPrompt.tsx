@@ -1,6 +1,7 @@
 'use client'
 
 import { ShieldCheck } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 type FollowUpPromptProps = {
   open: boolean
@@ -15,6 +16,8 @@ export default function FollowUpPrompt({
   onConfirm,
   onSkip,
 }: FollowUpPromptProps) {
+  const t = useTranslations('followUpPrompt')
+
   if (!open) return null
 
   return (
@@ -27,17 +30,13 @@ export default function FollowUpPrompt({
             </div>
 
             <div>
-              <h3 className="text-xl font-bold text-[#142952]">
-                Programar seguimiento
-              </h3>
-              <p className="mt-1 text-sm text-[#6E7F9D]">
-                Este tratamiento requiere una segunda visita en 15 días.
-              </p>
+              <h3 className="text-xl font-bold text-[#142952]">{t('title')}</h3>
+              <p className="mt-1 text-sm text-[#6E7F9D]">{t('subtitle')}</p>
             </div>
           </div>
 
           <div className="mt-5 rounded-2xl bg-[#F8FAFE] px-4 py-4 text-sm text-[#5E6E8C]">
-            ¿Deseas crear ahora la tarea de seguimiento para este tratamiento?
+            {t('description')}
           </div>
 
           <div className="mt-6 flex gap-3">
@@ -47,7 +46,7 @@ export default function FollowUpPrompt({
               disabled={loading}
               className="flex-1 rounded-2xl border border-[#E7EDF5] bg-white px-4 py-3 text-base font-semibold text-[#5E6E8C] transition hover:bg-[#F8FAFE] disabled:opacity-60"
             >
-              Omitir
+              {t('skip')}
             </button>
 
             <button
@@ -56,7 +55,7 @@ export default function FollowUpPrompt({
               disabled={loading}
               className="flex-1 rounded-2xl bg-[#2F66C8] px-4 py-3 text-base font-semibold text-white shadow-[0_12px_30px_rgba(47,102,200,0.22)] transition hover:bg-[#2859B2] disabled:opacity-60"
             >
-              {loading ? 'Creando...' : 'Crear seguimiento'}
+              {loading ? t('creating') : t('confirm')}
             </button>
           </div>
         </div>

@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import {
   AlertTriangle,
   Building2,
@@ -39,6 +40,7 @@ export default function ConciergeHomeOverview({
   onOpenBuilding,
   onOpenTask,
 }: ConciergeHomeOverviewProps) {
+  const t = useTranslations('dashboardHomeOverview')
   const [activeSummaryKey, setActiveSummaryKey] = useState<
     'today' | 'urgent' | 'overdue' | null
   >(null)
@@ -48,26 +50,26 @@ export default function ConciergeHomeOverview({
       {
         key: 'today' as const,
         icon: <CalendarCheck2 size={15} />,
-        label: 'Hoy',
+        label: t('summary.today'),
         value: summary.today,
         tone: 'bg-[#EEF4FF] text-[#2F66C8]',
       },
       {
         key: 'urgent' as const,
         icon: <AlertTriangle size={15} />,
-        label: 'Urgentes',
+        label: t('summary.urgent'),
         value: summary.urgent,
         tone: 'bg-[#FFF3E0] text-[#B7791F]',
       },
       {
         key: 'overdue' as const,
         icon: <Clock3 size={15} />,
-        label: 'Atrasadas',
+        label: t('summary.overdue'),
         value: summary.overdue,
         tone: 'bg-[#FFF1F1] text-[#C53030]',
       },
     ],
-    [summary.overdue, summary.today, summary.urgent]
+    [summary.overdue, summary.today, summary.urgent, t]
   )
 
   const activeSummaryTasks = useMemo(() => {
@@ -100,10 +102,10 @@ export default function ConciergeHomeOverview({
 
             <div className="min-w-0">
               <h2 className="text-[22px] font-bold tracking-tight text-[#142952]">
-                Resumen del dia
+                {t('title')}
               </h2>
               <p className="mt-1 text-[13px] text-[#6E7F9D]">
-                Lo operativo que necesita tu atencion.
+                {t('subtitle')}
               </p>
             </div>
           </div>
@@ -153,8 +155,8 @@ export default function ConciergeHomeOverview({
                   {activeSummaryTasks.length}{' '}
                   {pluralize(
                     activeSummaryTasks.length,
-                    'tarea en tus edificios',
-                    'tareas en tus edificios'
+                    t('taskCount.single'),
+                    t('taskCount.plural')
                   )}
                 </p>
               </div>
@@ -164,7 +166,7 @@ export default function ConciergeHomeOverview({
                 onClick={() => setActiveSummaryKey(null)}
                 className="rounded-full bg-[#F3F6FB] px-3 py-1.5 text-xs font-bold text-[#5E6E8C]"
               >
-                Cerrar
+                {t('close')}
               </button>
             </div>
 
@@ -182,7 +184,7 @@ export default function ConciergeHomeOverview({
               </div>
             ) : (
               <div className="px-4 py-5 text-sm text-[#6E7F9D]">
-                No hay tareas en esta vista.
+                {t('emptySummary')}
               </div>
             )}
           </div>
@@ -192,10 +194,10 @@ export default function ConciergeHomeOverview({
       <section className="space-y-4">
         <div>
           <h2 className="text-[24px] font-bold tracking-tight text-[#142952]">
-            Mis edificios
+            {t('buildingsTitle')}
           </h2>
           <p className="mt-1 text-sm text-[#6E7F9D]">
-            Tareas pendientes por edificio asignado.
+            {t('buildingsSubtitle')}
           </p>
         </div>
 
@@ -216,7 +218,7 @@ export default function ConciergeHomeOverview({
                   {building.name}
                 </h3>
                 <p className="mt-1 truncate text-sm text-[#6E7F9D]">
-                  {building.address || 'Sin direccion registrada'}
+                  {building.address || t('noAddress')}
                 </p>
               </div>
 
@@ -239,7 +241,7 @@ export default function ConciergeHomeOverview({
               {building.todayCount > 0 ? (
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-[#EAF8EF] px-3 py-1.5 text-xs font-bold text-[#177B52]">
                   <CalendarCheck2 size={13} />
-                  {building.todayCount} hoy
+                  {t('todayCount', { count: building.todayCount })}
                 </span>
               ) : null}
             </div>
@@ -252,10 +254,10 @@ export default function ConciergeHomeOverview({
               <Building2 size={22} />
             </div>
             <h3 className="mt-3 text-[16px] font-bold text-[#142952]">
-              Selecciona un edificio
+              {t('selectBuildingTitle')}
             </h3>
             <p className="mt-1 text-sm leading-6 text-[#6E7F9D]">
-              Para continuar con tareas, inventario, tratamientos y agenda.
+              {t('selectBuildingDescription')}
             </p>
           </div>
         ) : null}
@@ -279,7 +281,8 @@ function HomeSummaryTaskRow({
   ) => void
   onOpenBuilding: (buildingId: string) => void
 }) {
-  const meta = [task.apartmentOrArea || 'Sin ubicacion', task.buildingName]
+  const t = useTranslations('dashboardHomeOverview')
+  const meta = [task.apartmentOrArea || t('noLocation'), task.buildingName]
   const timeOrDate = task.taskTime?.trim()
     ? task.taskTime.slice(0, 5)
     : formatShortDate(task.taskDate)

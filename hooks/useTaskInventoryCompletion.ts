@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useMemo, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { useInventoryPhotos } from '@/hooks/useInventoryPhotos'
 import {
   rankMatchingInventoryItems,
@@ -47,6 +48,7 @@ export function useTaskInventoryCompletion({
   buildingId,
   profileId,
 }: UseTaskInventoryCompletionParams) {
+  const t = useTranslations('taskInventoryFlow')
   const {
     photos,
     existingPhotos,
@@ -219,13 +221,13 @@ export function useTaskInventoryCompletion({
       return
     }
 
-    setInventoryMessage('No se pudo completar la tarea.')
+    setInventoryMessage(t('completeTaskError'))
     setPromptOpen(false)
-  }, [resetFlow, runCompletion])
+  }, [resetFlow, runCompletion, t])
 
   const openInventoryForm = useCallback(async (forceCreateNew = false) => {
     if (!buildingId) {
-      setInventoryMessage('No encontramos el edificio para actualizar inventario.')
+      setInventoryMessage(t('buildingNotFoundForUpdate'))
       return
     }
 
@@ -248,9 +250,7 @@ export function useTaskInventoryCompletion({
         if (rankedMatches.length > 0) {
           setAvailableInventoryItems(inventoryItems)
           setInventorySelectionMode('increase')
-          setInventorySelectionInfo(
-            'Encontré items parecidos en inventario. Si quieres, puedes sumarlos aquí antes de crear uno nuevo.'
-          )
+          setInventorySelectionInfo(t('foundSimilarItemsInfo'))
           setInventoryMessage('')
           setPromptOpen(false)
           setInventoryModalOpen(false)
@@ -274,7 +274,7 @@ export function useTaskInventoryCompletion({
       setInventoryMessage(
         error instanceof Error
           ? error.message
-          : 'No se pudieron cargar las opciones de inventario.'
+          : t('loadInventoryOptionsError')
       )
     }
   }, [
@@ -286,11 +286,12 @@ export function useTaskInventoryCompletion({
     pendingTask?.category,
     pendingTask?.description,
     pendingTask?.title,
+    t,
   ])
 
   const openExistingInventorySelector = useCallback(async () => {
     if (!buildingId) {
-      setInventoryMessage('No encontramos el edificio para revisar inventario.')
+      setInventoryMessage(t('buildingNotFoundForReview'))
       return
     }
 
@@ -312,15 +313,15 @@ export function useTaskInventoryCompletion({
       setInventoryMessage(
         error instanceof Error
           ? error.message
-          : 'No se pudo cargar el inventario disponible.'
+          : t('loadAvailableInventoryError')
       )
     }
-  }, [buildingId, pendingTask?.category])
+  }, [buildingId, pendingTask?.category, t])
 
   const saveInventoryAndComplete = useCallback(
     async (payload: SaveInventoryPayload) => {
       if (!buildingId || !profileId || !pendingTask) {
-        setInventoryMessage('Faltan datos para actualizar el inventario.')
+        setInventoryMessage(t('missingInventoryData'))
         return
       }
 
@@ -335,7 +336,7 @@ export function useTaskInventoryCompletion({
           const didComplete = await runCompletion()
 
           if (!didComplete) {
-            setInventoryMessage('No se pudo completar la tarea.')
+            setInventoryMessage(t('completeTaskError'))
             return
           }
 
@@ -359,10 +360,10 @@ export function useTaskInventoryCompletion({
       } catch (error) {
         setInventoryMessage(
           alreadyCompleted
-            ? 'La tarea ya se completo, pero no se pudo guardar el inventario.'
+            ? t('taskCompletedInventorySaveError')
             : error instanceof Error
               ? error.message
-              : 'No se pudo guardar el inventario.'
+              : t('saveInventoryError')
         )
       } finally {
         setSavingInventory(false)
@@ -376,6 +377,7 @@ export function useTaskInventoryCompletion({
       resetFlow,
       runCompletion,
       taskCompletedInFlow,
+      t,
     ]
   )
 
@@ -442,7 +444,7 @@ export function useTaskInventoryCompletion({
           const didComplete = await runCompletion()
 
           if (!didComplete) {
-            setInventoryMessage('No se pudo completar la tarea.')
+            setInventoryMessage(t('completeTaskError'))
             return
           }
 
@@ -472,10 +474,10 @@ export function useTaskInventoryCompletion({
           alreadyCompleted
             ? error instanceof Error
               ? error.message
-              : 'La tarea ya se completo, pero no se pudo descontar el inventario.'
+              : t('taskCompletedInventoryConsumeError')
             : error instanceof Error
               ? error.message
-              : 'No se pudo completar el flujo de inventario.'
+              : t('inventoryFlowError')
         )
       } finally {
         setSavingInventory(false)
@@ -490,6 +492,7 @@ export function useTaskInventoryCompletion({
       resetFlow,
       runCompletion,
       taskCompletedInFlow,
+      t,
     ]
   )
 
@@ -525,22 +528,22 @@ export function useTaskInventoryCompletion({
 
   const confirmExistingInventoryIncrease = useCallback(async () => {
     if (!selectedInventoryItem) {
-      setInventoryMessage('No encontramos el item seleccionado.')
+      setInventoryMessage(t('selectedItemNotFound'))
       return
     }
 
     await completeUsingExistingInventoryItem(selectedInventoryItem)
-  }, [completeUsingExistingInventoryItem, selectedInventoryItem])
+  }, [completeUsingExistingInventoryItem, selectedInventoryItem, t])
 
   const confirmInventoryUsage = useCallback(async () => {
     if (!selectedInventoryItem) {
-      setInventoryMessage('No encontramos el item seleccionado.')
+      setInventoryMessage(t('selectedItemNotFound'))
       return
     }
 
     const parsedQuantity = Number(inventoryUsageQuantity || 0)
     if (!Number.isFinite(parsedQuantity) || parsedQuantity <= 0) {
-      setInventoryMessage('La cantidad usada no es valida.')
+      setInventoryMessage(t('invalidUsedQuantity'))
       return
     }
 
@@ -549,6 +552,7 @@ export function useTaskInventoryCompletion({
     completeUsingExistingInventoryItem,
     inventoryUsageQuantity,
     selectedInventoryItem,
+    t,
   ])
 
   const closeInventoryUsage = useCallback(() => {

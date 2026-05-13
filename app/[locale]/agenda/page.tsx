@@ -425,9 +425,9 @@ export default function AgendaPage() {
 
           {!undoDelete && undoComplete ? (
             <UndoDeleteToast
-              title="Tarea completada"
+              title={t('undoCompleteTitle')}
               taskTitle={undoComplete.taskTitle}
-              actionLabel="Deshacer"
+              actionLabel={t('undo')}
               onUndo={() => {
                 void undoCompletedTask()
               }}

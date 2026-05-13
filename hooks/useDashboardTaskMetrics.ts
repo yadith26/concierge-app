@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo } from 'react'
+import { useTranslations } from 'next-intl'
 
 import {
   filterDashboardTasks,
@@ -22,6 +23,7 @@ export function useDashboardTaskMetrics({
   tasks,
   statusFilter,
 }: UseDashboardTaskMetricsParams) {
+  const t = useTranslations('dashboardFilterLabels')
   const { pendingCount, urgentCount, completedCount } = useMemo(
     () => getDashboardTaskCounts(tasks),
     [tasks]
@@ -67,6 +69,10 @@ export function useDashboardTaskMetrics({
     upcomingTasks,
     nextTask,
     todayUrgentCount,
-    activeFilterLabel: getActiveDashboardFilterLabel(statusFilter),
+    activeFilterLabel: getActiveDashboardFilterLabel(statusFilter, {
+      urgent: t('urgent'),
+      pending: t('pending'),
+      completed: t('completed'),
+    }),
   }
 }

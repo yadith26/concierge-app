@@ -1,9 +1,7 @@
-import type {
-  PestTarget,
-  TaskCategory,
-} from '@/lib/tasks/taskTypes'
-
+import type { PestTarget, TaskCategory } from '@/lib/tasks/taskTypes'
 import type { TaskApartmentInput } from '@/lib/tasks/taskApartments'
+
+type TFunction = (key: string) => string
 
 type ValidateTaskFormParams = {
   title: string
@@ -14,7 +12,8 @@ type ValidateTaskFormParams = {
   profileId: string
   category: TaskCategory | ''
   pestTargets: PestTarget[]
-  selectedApartments: TaskApartmentInput[] // 🔥 IMPORTANTE
+  selectedApartments: TaskApartmentInput[]
+  t?: TFunction
 }
 
 type ValidateTaskFormResult =
@@ -37,55 +36,60 @@ export function validateTaskForm({
   category,
   pestTargets,
   selectedApartments,
+  t,
 }: ValidateTaskFormParams): ValidateTaskFormResult {
   const finalTitle = cleanedTitle?.trim() || title.trim()
 
   if (!finalTitle) {
     return {
       ok: false,
-      message: 'El título es obligatorio.',
+      message: t?.('titleRequired') || 'Title is required.',
     }
   }
 
   if (!taskDate) {
     return {
       ok: false,
-      message: 'La fecha es obligatoria.',
+      message: t?.('dateRequired') || 'Date is required.',
     }
   }
 
   if (taskDate < today) {
     return {
       ok: false,
-      message: 'La fecha no puede ser anterior a hoy.',
+      message: t?.('dateBeforeToday') || 'Date cannot be earlier than today.',
     }
   }
 
   if (!buildingId || !profileId) {
     return {
       ok: false,
-      message: 'Falta información del usuario o edificio.',
+      message:
+        t?.('missingUserOrBuilding') ||
+        'User or building information is missing.',
     }
   }
 
   if (!category) {
     return {
       ok: false,
-      message: 'Debes seleccionar una categoria.',
+      message: t?.('categoryRequired') || 'You must select a category.',
     }
   }
 
   if (category === 'pest' && pestTargets.length === 0) {
     return {
       ok: false,
-      message: 'Debes seleccionar al menos una plaga.',
+      message: t?.('pestRequired') || 'You must select at least one pest.',
     }
   }
 
   if (category === 'pest' && selectedApartments.length === 0) {
     return {
       ok: false,
-      message: 'Debes agregar al menos un apartamento.',
+      message:
+        t?.('apartmentRequired') ||
+        'You must add at least one apartment.',
     }
   }
 

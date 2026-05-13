@@ -131,14 +131,14 @@ export function usePestPage(selectedBuildingId?: string | null) {
         if (error instanceof Error) {
           alert(error.message)
         } else {
-          alert('Ocurrió un error actualizando el estado')
+          alert(t('pestPage.statusUpdateError'))
         }
 
         setTasks(previousTasks)
         return false
       }
     },
-    [tasks, buildingId, profileId, fetchTreatmentsData]
+    [tasks, buildingId, profileId, fetchTreatmentsData, t]
   )
 
   const deleteScheduledTask = useCallback(

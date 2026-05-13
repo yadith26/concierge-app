@@ -6,6 +6,7 @@ import {
   useState,
   type ChangeEvent,
 } from 'react'
+import { useTranslations } from 'next-intl'
 import type { ExistingInventoryPhoto } from '@/lib/inventory/inventoryTypes'
 import { revokePhotoPreviews } from '@/lib/tasks/taskPhotoActions'
 
@@ -28,6 +29,7 @@ type UseInventoryPhotosReturn = {
 }
 
 export function useInventoryPhotos(): UseInventoryPhotosReturn {
+  const t = useTranslations('taskPhotosValidation')
   const [photos, setPhotos] = useState<SelectedInventoryPhoto[]>([])
   const [existingPhotos, setExistingPhotos] = useState<ExistingInventoryPhoto[]>([])
   const [removedPhotoIds, setRemovedPhotoIds] = useState<string[]>([])
@@ -60,7 +62,7 @@ export function useInventoryPhotos(): UseInventoryPhotosReturn {
         e.target.value = ''
         return {
           ok: false,
-          message: 'Solo se permiten imagenes.',
+          message: t('onlyImagesAllowed'),
         }
       }
 
@@ -74,7 +76,7 @@ export function useInventoryPhotos(): UseInventoryPhotosReturn {
 
       return { ok: true }
     },
-    []
+    [t]
   )
 
   const removeNewPhoto = useCallback((index: number) => {

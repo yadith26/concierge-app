@@ -1,5 +1,7 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
 type TaskInventoryPromptModalProps = {
   open: boolean
   taskTitle: string
@@ -21,6 +23,8 @@ export default function TaskInventoryPromptModal({
   onAddToInventory,
   onUseExistingItem,
 }: TaskInventoryPromptModalProps) {
+  const t = useTranslations('taskInventoryPromptModal')
+
   if (!open) return null
 
   const isReplacement = taskCategory === 'change'
@@ -38,12 +42,12 @@ export default function TaskInventoryPromptModal({
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8C9AB3]">
-                Inventario
+                {t('eyebrow')}
               </p>
               <h2 className="mt-2 text-2xl font-bold text-[#142952]">
                 {isStandardInventoryUse
-                  ? '¿Usaste inventario?'
-                  : 'Actualizar inventario?'}
+                  ? t('usedInventoryTitle')
+                  : t('updateInventoryTitle')}
               </h2>
             </div>
 
@@ -52,36 +56,34 @@ export default function TaskInventoryPromptModal({
               onClick={onClose}
               className="rounded-2xl border border-[#E2E8F0] px-4 py-2 text-sm font-semibold text-[#6E7F9D] hover:bg-[#F8FAFE]"
             >
-              Cerrar
+              {t('close')}
             </button>
           </div>
 
           <p className="mt-4 text-[15px] leading-7 text-[#5E6E8C]">
-            {isReplacement ? (
-              <>
-                La tarea <span className="font-semibold text-[#142952]">{taskTitle}</span>{' '}
-                ya esta lista para completarse. Si este reemplazo usa algo del
-                inventario, puedes descontarlo ahora o registrar un item nuevo.
-              </>
-            ) : isDelivery ? (
-              <>
-                La tarea <span className="font-semibold text-[#142952]">{taskTitle}</span>{' '}
-                ya esta lista para completarse. Si quieres, tambien podemos agregar
-                lo entregado al inventario antes de cerrar la accion.
-              </>
-            ) : isStandardInventoryUse ? (
-              <>
-                La tarea <span className="font-semibold text-[#142952]">{taskTitle}</span>{' '}
-                ya esta lista para completarse. Si usaste algo del inventario,
-                puedes descontarlo ahora y dejar el historial actualizado.
-              </>
-            ) : (
-              <>
-                La tarea <span className="font-semibold text-[#142952]">{taskTitle}</span>{' '}
-                ya esta lista para completarse. Si quieres, tambien podemos registrar este
-                item en inventario antes de cerrar la accion.
-              </>
-            )}
+            {isReplacement
+              ? t.rich('replacementDescription', {
+                  taskTitle: () => (
+                    <span className="font-semibold text-[#142952]">{taskTitle}</span>
+                  ),
+                })
+              : isDelivery
+                ? t.rich('deliveryDescription', {
+                    taskTitle: () => (
+                      <span className="font-semibold text-[#142952]">{taskTitle}</span>
+                    ),
+                  })
+                : isStandardInventoryUse
+                  ? t.rich('usageDescription', {
+                      taskTitle: () => (
+                        <span className="font-semibold text-[#142952]">{taskTitle}</span>
+                      ),
+                    })
+                  : t.rich('genericDescription', {
+                      taskTitle: () => (
+                        <span className="font-semibold text-[#142952]">{taskTitle}</span>
+                      ),
+                    })}
           </p>
 
           {message ? (
@@ -100,7 +102,7 @@ export default function TaskInventoryPromptModal({
               onClick={onSkip}
               className="rounded-[24px] border border-[#D9E0EA] px-4 py-4 text-sm font-semibold text-[#5E6E8C] hover:bg-[#F8FAFE]"
             >
-              Completar sin inventario
+              {t('completeWithoutInventory')}
             </button>
 
             {isReplacement && onUseExistingItem ? (
@@ -109,7 +111,7 @@ export default function TaskInventoryPromptModal({
                 onClick={onUseExistingItem}
                 className="rounded-[24px] border border-[#D9E0EA] bg-white px-4 py-4 text-sm font-semibold text-[#2F66C8] hover:bg-[#F8FAFE]"
               >
-                Usar item existente
+                {t('useExistingItem')}
               </button>
             ) : null}
 
@@ -119,7 +121,7 @@ export default function TaskInventoryPromptModal({
                 onClick={onUseExistingItem}
                 className="rounded-[24px] border border-[#D9E0EA] bg-white px-4 py-4 text-sm font-semibold text-[#2F66C8] hover:bg-[#F8FAFE]"
               >
-                Descontar item existente
+                {t('consumeExistingItem')}
               </button>
             ) : null}
 
@@ -130,10 +132,10 @@ export default function TaskInventoryPromptModal({
                 className="rounded-[24px] bg-[#2F66C8] px-4 py-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(47,102,200,0.25)] hover:bg-[#2859B2]"
               >
                 {isReplacement
-                  ? 'Crear item nuevo'
+                  ? t('createNewItem')
                   : isDelivery
-                    ? 'Agregar al inventario'
-                    : 'Completar y agregar'}
+                    ? t('addToInventory')
+                    : t('completeAndAdd')}
               </button>
             ) : null}
           </div>

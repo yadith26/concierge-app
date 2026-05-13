@@ -19,11 +19,12 @@
     "today": "Hoy",
     "hello": "Hola",
     "user": "Usuario",
-    "goToProfile": "Ir al perfil"
+    "goToProfile": "Ir al perfil",
+    "headerBackgroundAlt": "Fondo del encabezado"
   },
   "dashboard": {
     "loading": "Cargando dashboard...",
-    "managerNotLinked": "Este edificio aun no tiene manager vinculado.",
+    "managerNotLinked": "Este edificio aún no tiene manager vinculado.",
     "managerNotLinkedShort": "Sin manager",
     "nextTask": "Próxima tarea",
     "noLocation": "Sin ubicación",
@@ -69,6 +70,68 @@
       "managerDescription": "Puedes enviar un evento o mensaje al conserje",
       "button": "Crear tarea para este día",
       "noPendingTasks": "No hay tareas"
+    },
+    "commonClose": "Cerrar",
+    "conciergeCopy": {
+      "subtitle": "Vamos a tener un gran día",
+      "spotlight": "Lo más importante ahora",
+      "spotlightToday": "Lo que sigue hoy",
+      "spotlightNext": "Próxima tarea",
+      "spotlightOverdue": "Atención inmediata",
+      "spotlightUrgentToday": "Urgente hoy",
+      "spotlightUrgentOverdue": "Urgente atrasada",
+      "spotlightUrgentNext": "Urgente programada",
+      "completeTask": "Completar tarea",
+      "alerts": "Alertas inteligentes",
+      "overdueTasks": "Tareas atrasadas",
+      "urgentTasks": "Urgentes",
+      "todayTasks": "Tareas de hoy",
+      "upcomingTasks": "Próximas tareas",
+      "quickActions": "Atajos rápidos",
+      "quickActionNewTask": "Nueva tarea",
+      "quickActionTasks": "Ver tareas",
+      "quickActionInventory": "Abrir inventario",
+      "quickActionAgenda": "Abrir agenda",
+      "activeProblems": "Problemas activos",
+      "noActiveProblems": "No hay problemas activos.",
+      "smartReminders": "Recordatorios clave",
+      "noSmartReminders": "Todo bajo control por ahora.",
+      "hotAreas": "Zonas que más se repiten",
+      "noHotAreas": "Todavía no hay zonas destacadas.",
+      "singleHotAreaTask": "1 tarea",
+      "hotAreaTasks": "{count} tareas",
+      "quickHistory": "Historial rápido del día",
+      "noHistoryToday": "Aún no hay tareas completadas hoy.",
+      "completedAtLabel": "Completada a las {time}",
+      "viewAll": "Ver todas",
+      "noTasks": "No hay tareas por ahora.",
+      "noTodayTasks": "No hay tareas para hoy.",
+      "noUpcomingTasks": "No hay próximas tareas.",
+      "noOverdueTasks": "No hay tareas atrasadas.",
+      "noUrgentTasks": "No hay tareas urgentes.",
+      "todayWord": "Hoy",
+      "tomorrowWord": "Mañana"
+    },
+    "quickActions": {
+      "newTask": "Nueva\ntarea",
+      "dictateTask": "Dictar\ntarea",
+      "quickPhoto": "Foto\nrápida",
+      "callManager": "Llamar\nmanager"
+    },
+    "toasts": {
+      "taskDeletedTitle": "Tarea eliminada",
+      "taskCompletedTitle": "Tarea completada",
+      "dictationProblemTitle": "Problema de dictado",
+      "undo": "Deshacer"
+    },
+    "conversation": {
+      "title": "Mensajes del manager",
+      "defaultSubtitle": "Revisa y responde las conversaciones del edificio."
+    },
+    "dictationOverlay": {
+      "recording": "Grabando audio...",
+      "transcribing": "Transcribiendo...",
+      "hint": "Habla ahora, se detendrá automáticamente"
     }
   },
   "taskCard": {
@@ -91,6 +154,11 @@
       "seguimiento": "Seguimiento",
       "preventivo": "Preventivo"
     },
+    "taskVisitSummary": {
+      "initial": "{count} inicial{count, plural, one {} other {es}}",
+      "followUp": "{count} seguimiento{count, plural, one {} other {s}}",
+      "preventive": "{count} preventivo{count, plural, one {} other {s}}"
+    },
     "pestTarget": {
       "cucarachas": "Cucarachas",
       "roedores": "Roedores",
@@ -109,7 +177,7 @@
     }
   },
   "taskCardExpanded": {
-    "fullTitle": "Titulo completo",
+    "fullTitle": "Título completo",
     "description": "Descripción",
     "noNote": "Sin nota",
     "category": "Categoría",
@@ -130,8 +198,8 @@
   "taskStatusReasonModal": {
     "eyebrow": "Tareas",
     "title": "Volver a pendiente",
-    "description": "Esta tarea ya estaba completada. Antes de devolverla a pendiente, cuentanos por que cambio de estado.",
-    "label": "Por que vuelve a pendiente?",
+    "description": "Esta tarea ya estaba completada. Antes de devolverla a pendiente, cuéntanos por qué cambió de estado.",
+    "label": "¿Por qué vuelve a pendiente?",
     "placeholder": "Ej: falto una pieza, quedo incompleta, el problema reaparecio, se marco completada por error...",
     "required": "Escribe el motivo antes de cambiar el estado.",
     "failed": "No se pudo cambiar el estado. Intentalo de nuevo.",
@@ -224,12 +292,18 @@
   },
   "taskCategoryPriorityFields": {
     "category": "Categoría *",
-    "priority": "Prioridad *"
+    "priority": "Prioridad *",
+    "selectCategory": "Selecciona categoría"
   },
   "taskTitleField": {
     "label": "Título *",
     "placeholder": "Ej: arreglar apartamento 3 salidero de agua mañana a las 9 urgente",
-    "pestPlaceholder": "Ej: fumigar apto 12 por cucarachas mañana a las 10"
+    "pestPlaceholder": "Ej: fumigar apto 12 por cucarachas mañana a las 10",
+    "dictationUnsupported": "El dictado por voz no está disponible en este dispositivo.",
+    "listening": "Escuchando...",
+    "startDictation": "Iniciar dictado",
+    "stopDictation": "Detener dictado",
+    "listeningHint": "Habla ahora y el título se completará automáticamente."
   },
   "taskFollowUpFlow": {
     "alreadyExists": "Ya existe un seguimiento pendiente para este tratamiento.",
@@ -289,7 +363,9 @@
     "title": "Tareas",
     "newTask": "Nueva tarea",
     "building": "Edificio",
-    "noBuilding": "Sin edificio"
+    "noBuilding": "Sin edificio",
+    "undoCompleteTitle": "Tarea completada",
+    "undo": "Deshacer"
   },
   "tasksFilterBar": {
     "searchPlaceholder": "Buscar tareas...",
@@ -328,7 +404,9 @@
     "noDate": "Sin seleccionar",
     "today": "Hoy",
     "newTask": "Nueva tarea",
-    "goToToday": "Ir a hoy"
+    "goToToday": "Ir a hoy",
+    "undoCompleteTitle": "Tarea completada",
+    "undo": "Deshacer"
   },
   "agendaCalendar": {
     "export": "Exportar a Excel",
@@ -384,46 +462,49 @@
   },
   "inventoryManualAdjust": {
     "eyebrow": "Inventario",
-    "title": "Descontar item manualmente",
+    "title": "Descontar ítem manualmente",
     "close": "Cerrar",
     "summaryTitle": "Vas a descontar {quantity} de {item}",
-    "summaryHint": "Antes de guardar, cuentanos que hiciste con este item para dejar el historial mas claro.",
+    "summaryHint": "Antes de guardar, cuéntanos qué hiciste con este ítem para dejar el historial más claro.",
     "quantityLabel": "Cantidad a descontar",
     "quantityHintMaterial": "Para materiales puedes usar cantidades parciales, por ejemplo 0.5.",
-    "quantityHintUnit": "Para este item usa cantidades enteras.",
-    "reasonLabel": "Que hiciste con este item?",
-    "reasonPlaceholder": "Ej: instalado en Apto 12, usado para reparar Lobby, descartado por dano, prestado al cuarto de mantenimiento...",
+    "quantityHintUnit": "Para este ítem usa cantidades enteras.",
+    "reasonLabel": "¿Qué hiciste con este ítem?",
+    "reasonPlaceholder": "Ej: instalado en Apto 12, usado para reparar Lobby, descartado por daño, prestado al cuarto de mantenimiento...",
     "cancel": "Cancelar",
     "confirm": "Guardar ajuste",
-    "saving": "Guardando..."
+    "saving": "Guardando...",
+    "reasonRequired": "Explica qué hiciste con este ítem.",
+    "invalidQuantity": "Escribe una cantidad válida para descontar.",
+    "wholeUnitsOnly": "Este ítem solo permite cantidades enteras.",
+    "quantityExceedsAvailable": "No puedes descontar más de lo disponible."
   },
   "inventoryFilters": {
-  "searchPlaceholder": "Buscar en inventario...",
-  "filters": "Filtros",
-  "filtersDescription": "Ajusta la vista del inventario",
-  "closeFilters": "Cerrar filtros",
-  "noActiveFilters": "Sin filtros activos",
-  "activeFilters": "{count} filtros activos",
-  "categories": {
-    "all": "Todas las categorías"
+    "searchPlaceholder": "Buscar en inventario...",
+    "filters": "Filtros",
+    "filtersDescription": "Ajusta la vista del inventario",
+    "closeFilters": "Cerrar filtros",
+    "noActiveFilters": "Sin filtros activos",
+    "activeFilters": "{count} filtros activos",
+    "categories": {
+      "all": "Todas las categorías"
+    },
+    "conditions": {
+      "all": "Todos",
+      "new": "Nuevo",
+      "used": "Usado",
+      "damaged": "Dañado"
+    },
+    "locations": {
+      "all": "Todas las ubicaciones"
+    },
+    "lowStock": "Solo stock bajo ({count})",
+    "view": {
+      "grouped": "Categorías",
+      "list": "Lista"
+    },
+    "clearFilters": "Limpiar filtros"
   },
-  "conditions": {
-    "all": "Todos",
-    "new": "Nuevo",
-    "used": "Usado",
-    "damaged": "Dañado"
-  },
-  "locations": {
-    "all": "Todas las ubicaciones"
-  },
-  "lowStock": "Solo stock bajo ({count})",
-  "view": {
-    "grouped": "Categorías",
-    "list": "Lista"
-  },
-  "clearFilters": "Limpiar filtros"
-},  
-
   "inventoryForm": {
     "newItem": "Nuevo ítem",
     "editItem": "Editar ítem",
@@ -459,7 +540,7 @@
     "newItem": "Nuevo ítem"
   },
   "inventoryCategoryCard": {
-    "itemsCount": "{count, plural, one {# item} other {# items}}",
+    "itemsCount": "{count, plural, one {# ítem} other {# ítems}}",
     "totalUnits": "{count} en total",
     "emptyCategory": "No hay ítems en esta categoría todavía.",
     "addItemToCategory": "Agregar ítem a esta categoría",
@@ -479,7 +560,7 @@
     "lowStock": "Stock bajo",
     "currentQuantity": "Cantidad actual",
     "minimumStock": "Stock mínimo",
-    "itemType": "Item",
+    "itemType": "Ítem",
     "location": "Ubicación",
     "condition": "Estado",
     "notes": "Notas",
@@ -514,25 +595,25 @@
     "editTitle": "Editar ítem",
     "createTitle": "Nuevo ítem",
     "close": "Cerrar",
-    "name": "Nombre del articulo *",
+    "name": "Nombre del artículo *",
     "namePlaceholder": "Ej: Cocina Mabe 24\"",
     "listening": "Escuchando...",
     "listeningHint": "Escuchando... toca el micrófono para detener.",
-    "startNameDictation": "Dictar nombre del item",
+    "startNameDictation": "Dictar nombre del ítem",
     "stopNameDictation": "Detener dictado del nombre",
     "dictationUnsupported": "Tu navegador no soporta dictado.",
-    "existingSuggestionTitle": "Ya existe un item parecido",
-    "existingSuggestionTitleWithCount": "Encontramos {count} items parecidos",
-    "existingSuggestionText": "{item} ya esta en inventario con {quantity} unidades en {location}. Si es el mismo articulo, conviene aumentar su cantidad en vez de crear otro.",
+    "existingSuggestionTitle": "Ya existe un ítem parecido",
+    "existingSuggestionTitleWithCount": "Encontramos {count} ítems parecidos",
+    "existingSuggestionText": "{item} ya está en inventario con {quantity} unidades en {location}. Si es el mismo artículo, conviene aumentar su cantidad en vez de crear otro.",
     "existingSuggestionListText": "Toca para revisarlos antes de crear uno nuevo.",
     "existingSuggestionAction": "Aumentar cantidad al existente",
     "existingSuggestionShortAction": "Sumar",
-    "existingSuggestionNoLocation": "sin ubicacion",
+    "existingSuggestionNoLocation": "sin ubicación",
     "existingSuggestionRecommended": "Sugerido",
     "existingSuggestionUnits": "disponibles",
     "searchName": "Buscar producto...",
     "addName": "Agregar producto",
-    "suggestedItem": "Item sugerido",
+    "suggestedItem": "Ítem sugerido",
     "noSuggestion": "Sin sugerencia",
     "category": "Categoría *",
     "selectCategory": "Seleccionar categoría",
@@ -560,13 +641,14 @@
       "new": "Nuevo",
       "used": "Usado",
       "damaged": "Dañado"
-    }
+    },
+    "selectCondition": "Seleccionar estado"
   },
   "inventoryConfirmModal": {
     "eyebrow": "Inventario",
     "title": "Confirmar suma de stock",
-    "manualDescription": "Vas a sumar {quantity} a este item existente. Puedes cambiar de idea antes de guardar.",
-    "deliveryDescription": "Vas a sumar {quantity} a este item existente para completar la entrega.",
+    "manualDescription": "Vas a sumar {quantity} a este ítem existente. Puedes cambiar de idea antes de guardar.",
+    "deliveryDescription": "Vas a sumar {quantity} a este ítem existente para completar la entrega.",
     "locationLabel": "Ubicacion: {location}",
     "cancel": "Cancelar",
     "confirm": "Confirmar suma",
@@ -585,7 +667,8 @@
       "invalidStock": "El stock mínimo debe ser un número válido.",
       "updateFailed": "No se pudo actualizar el ítem.",
       "createFailed": "No se pudo crear el ítem.",
-      "saveError": "Ocurrió un error guardando el ítem."
+      "saveError": "Ocurrió un error guardando el ítem.",
+      "measurementUnitMigrationRequired": "Corre inventory_measurement_units.sql para guardar unidades de medida en inventario."
     },
     "history": {
       "created": "Ítem creado en inventario",
@@ -623,7 +706,7 @@
     "columns": {
       "name": "Nombre",
       "category": "Categoría",
-      "itemType": "Item",
+      "itemType": "Ítem",
       "unitOfMeasure": "Unidad",
       "quantity": "Cantidad",
       "minimumStock": "Stock mínimo",
@@ -635,14 +718,14 @@
       "updatedAt": "Actualizado el"
     },
     "history": {
-        "itemId": "ID ítem",
-        "itemName": "Ítem",
-        "action": "Acción",
-        "source": "Origen",
-        "unit": "Unidad",
-        "before": "Cantidad antes",
-        "change": "Cambio",
-        "after": "Cantidad después",
+      "itemId": "ID ítem",
+      "itemName": "Ítem",
+      "action": "Acción",
+      "source": "Origen",
+      "unit": "Unidad",
+      "before": "Cantidad antes",
+      "change": "Cambio",
+      "after": "Cantidad después",
       "note": "Nota",
       "date": "Fecha"
     },
@@ -663,7 +746,7 @@
       "categories": "CATEGORÍAS",
       "categoriesLine1": "Categorías activas",
       "categoriesLine2": "En esta vista",
-      "itemsColumn": "Items"
+      "itemsColumn": "Ítems"
     },
     "noData": "No hay datos para exportar",
     "noHistory": "No hay historial disponible"
@@ -782,7 +865,7 @@
     "actions": {
       "saving": "Guardando...",
       "saveChanges": "Guardar cambios",
-      "signOut": "Cerrar sesion"
+      "signOut": "Cerrar sesión"
     },
     "messages": {
       "userError": "Error identificando usuario",
@@ -894,5 +977,181 @@
       "other": "Otro"
     },
     "goToToday": "Ir a hoy"
+  },
+  "dashboardHomeOverview": {
+    "title": "Resumen del día",
+    "subtitle": "Lo operativo que necesita tu atención.",
+    "summary": {
+      "today": "Hoy",
+      "urgent": "Urgentes",
+      "overdue": "Atrasadas"
+    },
+    "taskCount": {
+      "single": "{count} pendiente",
+      "plural": "{count} pendientes"
+    },
+    "close": "Cerrar",
+    "emptySummary": "No hay novedades por ahora.",
+    "buildingsTitle": "Mis edificios",
+    "buildingsSubtitle": "Tareas pendientes por edificio asignado.",
+    "noAddress": "Sin dirección",
+    "todayCount": "{count} hoy",
+    "selectBuildingTitle": "Selecciona un edificio",
+    "selectBuildingDescription": "Para continuar con tareas, inventario, tratamientos y agenda.",
+    "noLocation": "Sin ubicación"
+  },
+  "dashboardMessagesModal": {
+    "title": "Mensajes del manager",
+    "unreadCount": "{count} sin leer",
+    "allRead": "Todo al día",
+    "close": "Cerrar",
+    "empty": "No hay mensajes recientes.",
+    "markAsRead": "Marcar como leido"
+  },
+  "dashboardConversation": {
+    "loadError": "No se pudo cargar la conversación.",
+    "missingManager": "No encontramos el manager del edificio.",
+    "sendError": "No se pudo enviar el mensaje."
+  },
+  "headerConversation": {
+    "openError": "No se pudo abrir la conversación.",
+    "sendError": "No se pudo enviar el mensaje."
+  },
+  "dashboardDictation": {
+    "errors": {
+      "unsupported": "Tu navegador no permite grabar audio aquí.",
+      "permission": "No pudimos usar el micrófono. Activa el permiso del micrófono y vuelve a intentarlo.",
+      "recording": "No pudimos grabar tu voz en este momento.",
+      "transcription": "No pudimos transcribir el audio en este momento.",
+      "empty": "No escuchamos suficiente audio. Inténtalo otra vez hablando más cerca del micrófono.",
+      "generic": "No se pudo iniciar el dictado en este momento."
+    }
+  },
+  "dashboardFloatingAddButton": {
+    "addTask": "Agregar tarea"
+  },
+  "dashboardFilterLabels": {
+    "urgent": "Urgentes",
+    "pending": "Pendientes",
+    "completed": "Completadas"
+  },
+  "taskApartments": {
+    "missingApartment": "Escribe un apartamento o area antes de agregarlo.",
+    "multipleApartmentsNotAllowed": "Agrega un solo apartamento a la vez.",
+    "missingVisitType": "Selecciona el tipo de visita para este apartamento.",
+    "alreadyAdded": "Este apartamento ya fue agregado."
+  },
+  "followUpPrompt": {
+    "title": "Crear seguimiento",
+    "subtitle": "Programa el seguimiento ahora mismo.",
+    "description": "Se creará una tarea de seguimiento para este tratamiento con la fecha sugerida.",
+    "skip": "Ahora no",
+    "confirm": "Crear seguimiento",
+    "creating": "Creando seguimiento..."
+  },
+  "inventoryMatchReasons": {
+    "name": "Coincide por nombre",
+    "item": "Coincide por ítem",
+    "sameCategory": "Misma categoría",
+    "variant": "Misma variante",
+    "sharedTokens": "Palabras en común"
+  },
+  "taskValidation": {
+    "titleRequired": "El título es obligatorio.",
+    "dateRequired": "La fecha es obligatoria.",
+    "dateBeforeToday": "La fecha no puede ser anterior a hoy.",
+    "missingUserOrBuilding": "Falta información del usuario o edificio.",
+    "categoryRequired": "Debes seleccionar una categoría.",
+    "pestRequired": "Debes seleccionar al menos una plaga.",
+    "apartmentRequired": "Debes agregar al menos un apartamento."
+  },
+  "taskFormFallback": {
+    "createError": "No se pudo guardar la tarea.",
+    "updateError": "No se pudo actualizar la tarea."
+  },
+  "inventoryPageMessages": {
+    "couldNotDiscountItem": "No se pudo descontar el ítem.",
+    "couldNotSaveManualAdjustment": "No se pudo guardar el ajuste manual."
+  },
+  "taskInventoryFlow": {
+    "foundSimilarItemsInfo": "Encontré ítems parecidos en inventario. Si quieres, puedes sumarlos aquí antes de crear uno nuevo.",
+    "completeTaskError": "No se pudo completar la tarea.",
+    "loadInventoryOptionsError": "No se pudieron cargar las opciones de inventario.",
+    "loadAvailableInventoryError": "No se pudo cargar el inventario disponible.",
+    "saveInventoryError": "No se pudo guardar el inventario.",
+    "inventoryFlowError": "No se pudo completar el flujo de inventario.",
+    "selectedItemNotFound": "No encontramos el ítem seleccionado.",
+    "buildingNotFoundForUpdate": "No encontramos el edificio para actualizar inventario.",
+    "buildingNotFoundForReview": "No encontramos el edificio para revisar inventario.",
+    "missingInventoryData": "Faltan datos para actualizar el inventario.",
+    "taskCompletedInventorySaveError": "La tarea ya se completó, pero no se pudo guardar el inventario.",
+    "invalidUsedQuantity": "La cantidad usada no es válida.",
+    "taskCompletedInventoryConsumeError": "La tarea ya se completó, pero no se pudo descontar el inventario."
+  },
+  "taskInventoryPromptModal": {
+    "eyebrow": "Inventario",
+    "usedInventoryTitle": "Usaste inventario?",
+    "updateInventoryTitle": "¿Actualizar inventario?",
+    "close": "Cerrar",
+    "replacementDescription": "La tarea <taskTitle></taskTitle> ya está lista para completarse. Si este reemplazo usa algo del inventario, puedes descontarlo ahora o registrar un ítem nuevo.",
+    "deliveryDescription": "La tarea <taskTitle></taskTitle> ya está lista para completarse. Si quieres, también podemos agregar lo entregado al inventario antes de cerrar la acción.",
+    "usageDescription": "La tarea <taskTitle></taskTitle> ya está lista para completarse. Si usaste algo del inventario, puedes descontarlo ahora y dejar el historial actualizado.",
+    "genericDescription": "La tarea <taskTitle></taskTitle> ya está lista para completarse. Si quieres, también podemos registrar este ítem en inventario antes de cerrar la acción.",
+    "completeWithoutInventory": "Completar sin inventario",
+    "useExistingItem": "Usar ítem existente",
+    "consumeExistingItem": "Descontar ítem existente",
+    "createNewItem": "Crear ítem nuevo",
+    "addToInventory": "Agregar al inventario",
+    "completeAndAdd": "Completar y agregar"
+  },
+  "taskInventoryUsageModal": {
+    "eyebrow": "Inventario",
+    "title": "Confirmar uso",
+    "close": "Cerrar",
+    "description": "Vas a usar <itemName></itemName> para completar <taskTitle></taskTitle>.",
+    "quantityLabel": "Cantidad usada ({unit})",
+    "materialHint": "Para materiales puedes usar cantidades parciales, por ejemplo 0.25 o 0.5.",
+    "unitHint": "Este ítem se descuenta por unidad completa.",
+    "locationLabel": "Donde se uso",
+    "locationPlaceholder": "Ej: Apto 15, Lobby, Pasillo",
+    "confirm": "Descontar del inventario"
+  },
+  "taskInventorySelectModal": {
+    "eyebrow": "Inventario",
+    "chooseIncreaseTitle": "Escoge donde sumar stock",
+    "chooseConsumeTitle": "Escoge el ítem a descontar",
+    "close": "Cerrar",
+    "singleUnit": "1 unidad",
+    "deliveryDescription": "Para completar <taskTitle></taskTitle>, elige a qué ítem existente quieres sumar <quantity></quantity>.",
+    "usageDescription": "Para completar <taskTitle></taskTitle>, elige qué{itemLabel} del inventario se usará. Descontaremos <quantity></quantity>.",
+    "genericItemLabel": " ítem",
+    "suggested": "Sugerido",
+    "lowStock": "Stock bajo",
+    "available": "{count} disponibles",
+    "increase": "Sumar",
+    "use": "Usar",
+    "noMatchesDelivery": "No encontramos ítems parecidos en inventario para esta entrega.",
+    "noMatchesReplacement": "No encontramos ítems compatibles en inventario para este reemplazo.",
+    "noMatchesTask": "No encontramos ítems compatibles en inventario para esta tarea.",
+    "createNewAnyway": "Crear ítem nuevo de todas formas",
+    "createNew": "Crear ítem nuevo"
+  },
+  "dashboardTodaySummary": {
+    "today": "Hoy",
+    "pendingTasks": "{count} tareas pendientes",
+    "urgentTasks": "{count} urgentes",
+    "overdueTasks": "{count} atrasadas"
+  },
+  "taskPhotosValidation": {
+    "onlyImagesAllowed": "Solo se permiten imagenes."
+  },
+  "pestPage": {
+    "statusUpdateError": "Ocurrio un error actualizando el estado"
+  },
+  "inventoryVariantSelectorModal": {
+    "description": "Escoge si quieres aumentar una variante existente o crear una nueva.",
+    "availableNow": "ahora",
+    "increase": "Aumentar",
+    "createNewVariant": "Crear variante nueva"
   }
 }

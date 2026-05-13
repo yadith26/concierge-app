@@ -104,6 +104,8 @@ export function useTaskFormSubmit({
   setMessage,
 }: UseTaskFormSubmitParams): UseTaskFormSubmitReturn {
   const warrantyT = useTranslations('taskWarrantyAlerts')
+  const validationT = useTranslations('taskValidation')
+  const fallbackT = useTranslations('taskFormFallback')
   const [saving, setSaving] = useState(false)
 
   const isEditMode = !!taskToEdit
@@ -231,6 +233,7 @@ export function useTaskFormSubmit({
       category,
       pestTargets,
       selectedApartments: apartmentsToSave,
+      t: validationT,
     })
 
     if (!validation.ok) {
@@ -350,13 +353,13 @@ export function useTaskFormSubmit({
 
       await finalizeClose()
     } catch (err) {
-      console.error('Error guardando tarea:', err)
+      console.error('Error saving task:', err)
       setMessage(
         err instanceof Error
           ? err.message
           : isEditMode
-            ? 'No se pudo actualizar la tarea.'
-            : 'No se pudo guardar la tarea.'
+            ? fallbackT('updateError')
+            : fallbackT('createError')
       )
     } finally {
       setSaving(false)

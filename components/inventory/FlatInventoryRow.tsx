@@ -35,13 +35,13 @@ export default function FlatInventoryRow({
         isLowStock ? 'border-[#F5C9CE]' : 'border-[#E7EDF5]'
       } cursor-pointer`}
     >
-      <div className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-start sm:justify-between">
+      <div className="px-4 py-4">
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <h3 className="line-clamp-2 break-words text-[15px] font-bold leading-tight text-[#142952]">
-              {item.name}
-            </h3>
+          <h3 className="break-words text-[15px] font-bold leading-tight text-[#142952]">
+            {item.name}
+          </h3>
 
+          <div className="mt-2 flex flex-wrap items-center gap-2">
             {item.item_type && (
               <span className="inline-flex items-center rounded-full bg-[#EEF4FF] px-2.5 py-1 text-[11px] font-semibold text-[#2F66C8]">
                 {item.item_type}
@@ -82,7 +82,7 @@ export default function FlatInventoryRow({
           </div>
         </div>
 
-        <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:shrink-0 sm:justify-end">
+        <div className="mt-4 grid w-full grid-cols-[40px_minmax(0,1fr)_40px_40px] items-center gap-3 sm:mt-3 sm:w-auto sm:grid-cols-[40px_auto_40px_40px] sm:justify-end">
           <button
             type="button"
             onClick={(event) => {
@@ -94,6 +94,10 @@ export default function FlatInventoryRow({
           >
             <Minus size={18} />
           </button>
+
+          <div className="min-w-0 text-center text-[14px] font-bold leading-tight text-[#142952] sm:min-w-[96px] sm:text-right">
+            {formatInventoryQuantityWithUnit(item.quantity, item.unit_of_measure)}
+          </div>
 
           <button
             type="button"
@@ -107,19 +111,17 @@ export default function FlatInventoryRow({
             <Plus size={18} />
           </button>
 
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={(event) => {
-                event.stopPropagation()
-                onEdit()
-              }}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-[#142952]"
-              aria-label={t('editItem')}
-            >
-              <Pencil size={18} />
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation()
+              onEdit()
+            }}
+            className="flex h-10 w-10 items-center justify-center rounded-full text-[#142952]"
+            aria-label={t('editItem')}
+          >
+            <Pencil size={18} />
+          </button>
         </div>
       </div>
 

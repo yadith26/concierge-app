@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { supabase } from '@/lib/supabase'
 import { normalizeInventoryCategory } from '@/lib/inventory/inventoryCatalog'
 import {
@@ -71,6 +72,7 @@ export default function useInventoryItemActions({
   setAvailableLocations,
   setAvailableNames,
 }: UseInventoryItemActionsParams) {
+  const t = useTranslations('inventory')
   const openCreateModal = (
     category = '',
     location = '',
@@ -197,7 +199,7 @@ export default function useInventoryItemActions({
       })
 
       if (!success) {
-        setMessage('No se pudo aumentar la cantidad del item existente.')
+        setMessage('inventory.errors.useExistingIncreaseFailed')
         return false
       }
 
@@ -206,7 +208,7 @@ export default function useInventoryItemActions({
       return true
     } catch (error) {
       console.error('Error increasing existing inventory item:', error)
-      setMessage('No se pudo usar el item existente.')
+      setMessage('inventory.errors.useExistingFailed')
       return false
     } finally {
       setSaving(false)
@@ -230,7 +232,7 @@ export default function useInventoryItemActions({
     }
 
     if (!payload.condition) {
-      setMessage('Selecciona un estado.')
+      setMessage('inventoryFormModal.selectCondition')
       return
     }
 
@@ -281,9 +283,7 @@ export default function useInventoryItemActions({
             errorText.includes('unit_of_measure') &&
             (errorText.includes('column') || errorText.includes('schema cache'))
           ) {
-            setMessage(
-              'Corre inventory_measurement_units.sql para guardar unidades de medida en inventario.'
-            )
+            setMessage(t('errors.measurementUnitMigrationRequired'))
             return
           }
 

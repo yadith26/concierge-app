@@ -19,23 +19,9 @@ import {
 } from '@/lib/inventory/inventoryCatalog'
 import type { InventoryCondition, InventoryItem } from '@/lib/inventory/inventoryTypes'
 
-type SpeechRecognitionResultLike = {
-  transcript?: string
-}
-
-type SpeechRecognitionAlternativeListLike =
-  ArrayLike<SpeechRecognitionResultLike>
-
-type SpeechRecognitionResultLikeWithFinal =
-  SpeechRecognitionAlternativeListLike & {
-    isFinal?: boolean
-  }
-
-type SpeechRecognitionResultListLike =
-  ArrayLike<SpeechRecognitionResultLikeWithFinal>
-
-type SpeechRecognitionEventLike = Event & {
-  results?: SpeechRecognitionResultListLike
+type SpeechRecognitionEventLike = {
+  error?: string
+  results?: ArrayLike<ArrayLike<{ transcript?: string }> & { isFinal?: boolean }>
 }
 
 type SpeechRecognitionLike = {
@@ -43,14 +29,12 @@ type SpeechRecognitionLike = {
   continuous?: boolean
   interimResults: boolean
   maxAlternatives: number
-  onresult: ((event: SpeechRecognitionEventLike) => void) | null
-  onerror: (() => void) | null
-  onend: (() => void) | null
+  onresult: ((event: unknown) => void) | null
+  onerror: ((event?: unknown) => void) | null
+  onend: ((event?: unknown) => void) | null
   start: () => void
   stop: () => void
 }
-
-type SpeechRecognitionConstructor = new () => SpeechRecognitionLike
 
 type InventoryFormFieldsProps = {
   fields: {
@@ -110,6 +94,7 @@ export default function InventoryFormFields({
 }: InventoryFormFieldsProps) {
   const t = useTranslations('inventoryFormModal')
   const tGlobal = useTranslations()
+  const tReasons = useTranslations('inventoryMatchReasons')
   const locale = useLocale()
   const [isListeningName, setIsListeningName] = useState(false)
   const [showExistingMatches, setShowExistingMatches] = useState(false)
@@ -123,7 +108,7 @@ export default function InventoryFormFields({
   )
 
   const conditionOptions = [
-    { value: '', label: 'Selecciona estado' },
+    { value: '', label: t('selectCondition') },
     { value: 'new', label: t('conditions.new') },
     { value: 'used', label: t('conditions.used') },
     { value: 'damaged', label: t('conditions.damaged') },
@@ -148,8 +133,8 @@ export default function InventoryFormFields({
 
   const handleToggleNameDictation = () => {
     const browserWindow = window as Window & {
-      SpeechRecognition?: SpeechRecognitionConstructor
-      webkitSpeechRecognition?: SpeechRecognitionConstructor
+      SpeechRecognition?: new () => unknown
+      webkitSpeechRecognition?: new () => unknown
     }
 
     const SpeechRecognition =
@@ -166,7 +151,7 @@ export default function InventoryFormFields({
       return
     }
 
-    const recognition = new SpeechRecognition()
+    const recognition = new SpeechRecognition() as SpeechRecognitionLike
     recognitionRef.current = recognition
 
     recognition.lang = getSpeechLang()
@@ -176,9 +161,10 @@ export default function InventoryFormFields({
 
     setIsListeningName(true)
 
-    recognition.onresult = (event: SpeechRecognitionEventLike) => {
+    recognition.onresult = (event: unknown) => {
+      const speechEvent = event as SpeechRecognitionEventLike
       let transcript = ''
-      const results = event.results
+      const results = speechEvent.results
       if (!results) return
 
       for (let index = 0; index < results.length; index += 1) {
@@ -326,7 +312,7 @@ export default function InventoryFormFields({
                         </div>
 
                         <div className="mt-2 flex flex-wrap items-center gap-2">
-                          {getReasonLabels(match.reasons).map((reason) => (
+                          {getReasonLabels(match.reasons, tReasons).map((reason) => (
                             <span
                               key={`${match.item.id}-${reason}`}
                               className="inline-flex items-center rounded-full bg-[#FFF8E8] px-2.5 py-1 text-[11px] font-semibold text-[#B7791F]"
@@ -411,7 +397,7 @@ export default function InventoryFormFields({
             value={fields.condition}
             options={conditionOptions}
             onChange={(value) => setters.setCondition(value as InventoryCondition)}
-            placeholder="Selecciona estado"
+            placeholder={t('selectCondition')}
             buttonClassName="py-4 shadow-none"
           />
         </div>
@@ -477,7 +463,10 @@ export default function InventoryFormFields({
   )
 }
 
-function getReasonLabels(reasons: InventoryMatchReason[]) {
+function getReasonLabels(
+  reasons: InventoryMatchReason[],
+  t: (key: string) => string
+) {
   const labels = new Set<string>()
 
   if (
@@ -486,7 +475,7 @@ function getReasonLabels(reasons: InventoryMatchReason[]) {
     reasons.includes('preferred_name') ||
     reasons.includes('preferred_partial_name')
   ) {
-    labels.add('Coincide por nombre')
+    labels.add(t('name'))
   }
 
   if (
@@ -494,19 +483,19 @@ function getReasonLabels(reasons: InventoryMatchReason[]) {
     reasons.includes('contains_item_type') ||
     reasons.includes('preferred_item_type')
   ) {
-    labels.add('Coincide por item')
+    labels.add(t('item'))
   }
 
   if (reasons.includes('same_category')) {
-    labels.add('Misma categoria')
+    labels.add(t('sameCategory'))
   }
 
   if (reasons.includes('exact_variant') || reasons.includes('contains_variant')) {
-    labels.add('Coincide por variante')
+    labels.add(t('variant'))
   }
 
   if (reasons.includes('shared_tokens')) {
-    labels.add('Palabras parecidas')
+    labels.add(t('sharedTokens'))
   }
 
   return Array.from(labels).slice(0, 2)

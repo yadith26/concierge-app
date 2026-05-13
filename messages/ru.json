@@ -16,10 +16,11 @@
     "agenda": "Календарь"
   },
   "appHeader": {
-    "today": "Сегодня",
+    "today": "Segodnya",
     "hello": "Привет",
     "user": "Пользователь",
-    "goToProfile": "Перейти в профиль"
+    "goToProfile": "Перейти в профиль",
+    "headerBackgroundAlt": "Fon shapkI"
   },
   "dashboard": {
     "loading": "Загрузка панели...",
@@ -69,6 +70,68 @@
       "emptyTomorrowDescription": "Задачи не запланированы.",
       "emptyCompletedTitle": "Выполненные задачи",
       "emptyCompletedDescription": "Нет выполненных задач."
+    },
+    "commonClose": "Zakryt",
+    "conciergeCopy": {
+      "subtitle": "Segodnya budet otlichny den",
+      "spotlight": "Samoe vazhnoe seichas",
+      "spotlightToday": "Chto dalshe segodnya",
+      "spotlightNext": "Sleduyushchaya zadacha",
+      "spotlightOverdue": "Nuzhno srochnoe vnimanie",
+      "spotlightUrgentToday": "Srochno segodnya",
+      "spotlightUrgentOverdue": "Prosrochennaya srochnaya",
+      "spotlightUrgentNext": "Zaplanovannaya srochnaya",
+      "completeTask": "Zavershit zadachu",
+      "alerts": "Umnye upozhdeniya",
+      "overdueTasks": "Prosrochennye zadachi",
+      "urgentTasks": "Srochnye",
+      "todayTasks": "Zadachi na segodnya",
+      "upcomingTasks": "Blizhaishie zadachi",
+      "quickActions": "Bystrye deistviya",
+      "quickActionNewTask": "Novaya zadacha",
+      "quickActionTasks": "Otkryt zadachi",
+      "quickActionInventory": "Otkryt inventar",
+      "quickActionAgenda": "Otkryt kalendar",
+      "activeProblems": "Aktivnye problemy",
+      "noActiveProblems": "Net aktivnyh problem.",
+      "smartReminders": "Vazhnye napominaniya",
+      "noSmartReminders": "Poka vse pod kontrolem.",
+      "hotAreas": "Chashche vsego povtoryayutsya",
+      "noHotAreas": "Poka net vydayushchihsya zon.",
+      "singleHotAreaTask": "1 zadacha",
+      "hotAreaTasks": "{count} zadach",
+      "quickHistory": "Bystraya istoriya dnya",
+      "noHistoryToday": "Segodnya eshche net zavershennyh zadach.",
+      "completedAtLabel": "Zaversheno v {time}",
+      "viewAll": "Smotret vse",
+      "noTasks": "Seichas net zadach.",
+      "noTodayTasks": "Na segodnya net zadach.",
+      "noUpcomingTasks": "Net blizhaishih zadach.",
+      "noOverdueTasks": "Net prosrochennyh zadach.",
+      "noUrgentTasks": "Net srochnyh zadach.",
+      "todayWord": "Segodnya",
+      "tomorrowWord": "Zavtra"
+    },
+    "quickActions": {
+      "newTask": "Novaya\nzadacha",
+      "dictateTask": "Diktovat\nzadachu",
+      "quickPhoto": "Bystroe\nfoto",
+      "callManager": "Pozvonit\nmanageru"
+    },
+    "toasts": {
+      "taskDeletedTitle": "Zadacha udalena",
+      "taskCompletedTitle": "Zadacha zavershena",
+      "dictationProblemTitle": "Problema s diktovkoi",
+      "undo": "Otmenit"
+    },
+    "conversation": {
+      "title": "Soobshcheniya managera",
+      "defaultSubtitle": "Prosmotrite i otvette na razgovory po zdaniyu."
+    },
+    "dictationOverlay": {
+      "recording": "Idet zapis audio...",
+      "transcribing": "Idet raspoznavanie...",
+      "hint": "Govorite seichas, ostanovka proizoidet avtomaticheski"
     }
   },
   "taskCard": {
@@ -90,6 +153,11 @@
       "nuevo": "Первичный",
       "seguimiento": "Повторный",
       "preventivo": "Профилактический"
+    },
+    "taskVisitSummary": {
+      "initial": "{count, plural, one {# первичный} few {# первичных} many {# первичных}}",
+      "followUp": "{count, plural, one {# повторный} few {# повторных} many {# повторных}}",
+      "preventive": "{count, plural, one {# профилактический} few {# профилактических} many {# профилактических}}"
     },
     "pestTarget": {
       "cucarachas": "Тараканы",
@@ -224,12 +292,18 @@
   },
   "taskCategoryPriorityFields": {
     "category": "Категория *",
-    "priority": "Приоритет *"
+    "priority": "Приоритет *",
+    "selectCategory": "Vyberite kategoriyu"
   },
   "taskTitleField": {
     "label": "Название *",
     "placeholder": "Напр.: срочно устранить протечку воды в квартире 3 завтра в 9",
-    "pestPlaceholder": "Напр.: обработать квартиру 12 от тараканов завтра в 10"
+    "pestPlaceholder": "Напр.: обработать квартиру 12 от тараканов завтра в 10",
+    "dictationUnsupported": "Golosovoi vvod nedostupen na etom ustroistve.",
+    "listening": "Slushaem...",
+    "startDictation": "Nachat diktovku",
+    "stopDictation": "Ostanovit diktovku",
+    "listeningHint": "Govorite seichas, i zagolovok zapolnitsya avtomaticheski."
   },
   "taskFollowUpFlow": {
     "alreadyExists": "Для этой обработки уже есть ожидающее задание на повторный визит.",
@@ -289,7 +363,9 @@
     "title": "Задачи",
     "newTask": "Новая задача",
     "building": "Здание",
-    "noBuilding": "Без здания"
+    "noBuilding": "Без здания",
+    "undoCompleteTitle": "Zadacha zavershena",
+    "undo": "Otmenit"
   },
   "tasksFilterBar": {
     "searchPlaceholder": "Поиск задач...",
@@ -328,7 +404,9 @@
     "noDate": "Не выбрано",
     "today": "Сегодня",
     "newTask": "Новая задача",
-    "goToToday": "К сегодня"
+    "goToToday": "К сегодня",
+    "undoCompleteTitle": "Zadacha zavershena",
+    "undo": "Otmenit"
   },
   "agendaCalendar": {
     "export": "Экспорт в Excel",
@@ -395,7 +473,11 @@
     "reasonPlaceholder": "Например: установлен в кв. 12, использован для ремонта лобби, выброшен, передан в комнату обслуживания...",
     "cancel": "Отмена",
     "confirm": "Сохранить изменение",
-    "saving": "Сохранение..."
+    "saving": "Сохранение...",
+    "reasonRequired": "Obyasnite, chto vy sdelali s etim predmetom.",
+    "invalidQuantity": "Vvedite korrektnoe kolichestvo dlya spisaniya.",
+    "wholeUnitsOnly": "Etot predmet dopuskaet tolko celye kolichestva.",
+    "quantityExceedsAvailable": "Nelzya spisat bolshe, chem dostupno."
   },
   "inventoryFilters": {
     "searchPlaceholder": "Поиск по инвентарю...",
@@ -554,7 +636,8 @@
       "new": "Новый",
       "used": "Б/у",
       "damaged": "Повреждённый"
-    }
+    },
+    "selectCondition": "Vyberite sostoyanie"
   },
   "inventoryConfirmModal": {
     "eyebrow": "Инвентарь",
@@ -579,7 +662,8 @@
       "invalidStock": "Минимальный запас должен быть корректным.",
       "updateFailed": "Не удалось обновить элемент.",
       "createFailed": "Не удалось создать элемент.",
-      "saveError": "Ошибка при сохранении элемента."
+      "saveError": "Ошибка при сохранении элемента.",
+      "measurementUnitMigrationRequired": "Zapusti inventory_measurement_units.sql, chtoby sokhranyat edinitsy izmereniya v inventare."
     },
     "history": {
       "created": "Элемент добавлен в инвентарь",
@@ -858,5 +942,181 @@
       "other": "Другое"
     },
     "goToToday": "К сегодня"
+  },
+  "dashboardHomeOverview": {
+    "title": "Svodka dnya",
+    "subtitle": "Operativnye voprosy, kotorye trebuyut vnimaniya.",
+    "summary": {
+      "today": "Segodnya",
+      "urgent": "Srochnye",
+      "overdue": "Prosrochennye"
+    },
+    "taskCount": {
+      "single": "{count} v ozhidanii",
+      "plural": "{count} v ozhidanii"
+    },
+    "close": "Zakryt",
+    "emptySummary": "Poka net novostei.",
+    "buildingsTitle": "Moi zdaniya",
+    "buildingsSubtitle": "Nezavershennye zadachi po kazhdomu zdaniyu.",
+    "noAddress": "Bez adresa",
+    "todayCount": "{count} segodnya",
+    "selectBuildingTitle": "Vyberite zdanie",
+    "selectBuildingDescription": "Chtoby prodolzhit s zadachami, inventarem, obrabotkami i kalendarem.",
+    "noLocation": "Bez lokacii"
+  },
+  "dashboardMessagesModal": {
+    "title": "Soobshcheniya managera",
+    "unreadCount": "{count} neprochitannyh",
+    "allRead": "Vse prochitano",
+    "close": "Zakryt",
+    "empty": "Net poslednih soobshchenii.",
+    "markAsRead": "Otmetit kak prochitannoe"
+  },
+  "dashboardConversation": {
+    "loadError": "Ne udalos zagruzit perepisku.",
+    "missingManager": "My ne nashli menedzhera etogo zdaniya.",
+    "sendError": "Ne udalos otpravit soobshchenie."
+  },
+  "headerConversation": {
+    "openError": "Ne udalos otkryt perepisku.",
+    "sendError": "Ne udalos otpravit soobshchenie."
+  },
+  "dashboardDictation": {
+    "errors": {
+      "unsupported": "Zapis audio nedostupna v etom brauzere.",
+      "permission": "Ne udalos poluchit dostup k mikrofonu. Razreshi dostup i poprobui snova.",
+      "recording": "Ne udalos zapisat golos pryamo seichas.",
+      "transcription": "Ne udalos raspoznat audio pryamo seichas.",
+      "empty": "My pochti ne uslyshali golos. Poprobui eshche raz i govori blizhe k mikrofonu.",
+      "generic": "Ne udalos zapustit golosovoi vvod."
+    }
+  },
+  "dashboardFloatingAddButton": {
+    "addTask": "Dobavit zadachu"
+  },
+  "dashboardFilterLabels": {
+    "urgent": "Srochnye",
+    "pending": "V ozhidanii",
+    "completed": "Zavershennye"
+  },
+  "taskApartments": {
+    "missingApartment": "Ukazhite kvartiru ili zonu pered dobavleniem.",
+    "multipleApartmentsNotAllowed": "Dobavlyayte po odnoi kvartire za raz.",
+    "missingVisitType": "Vyberite tip vizita dlya etoi kvartiry.",
+    "alreadyAdded": "Eta kvartira uzhe dobavlena."
+  },
+  "followUpPrompt": {
+    "title": "Sozdat povtornyi vizit",
+    "subtitle": "Zaplaniruite ego seichas.",
+    "description": "Dlya etoi obrabotki budet sozdana zadacha povtornogo vizita s rekomendovannoi datoi.",
+    "skip": "Ne seichas",
+    "confirm": "Sozdat povtor",
+    "creating": "Sozdaem povtor..."
+  },
+  "inventoryMatchReasons": {
+    "name": "Sovpadenie po nazvaniyu",
+    "item": "Sovpadenie po predmetu",
+    "sameCategory": "Ta zhe kategoriya",
+    "variant": "Tot zhe variant",
+    "sharedTokens": "Obshchie slova"
+  },
+  "taskValidation": {
+    "titleRequired": "Trebuetsya zagolovok.",
+    "dateRequired": "Trebuetsya data.",
+    "dateBeforeToday": "Data ne mozhet byt ranshe segodnyashnego dnya.",
+    "missingUserOrBuilding": "Ne hvataet dannyh o polzovatele ili zdanii.",
+    "categoryRequired": "Nuzhno vybrat kategoriyu.",
+    "pestRequired": "Nuzhno vybrat hotya by odnu vreditelskuyu problemu.",
+    "apartmentRequired": "Nuzhno dobavit hotya by odnu kvartiru."
+  },
+  "taskFormFallback": {
+    "createError": "Ne udalos sokhranit zadachu.",
+    "updateError": "Ne udalos obnovit zadachu."
+  },
+  "inventoryPageMessages": {
+    "couldNotDiscountItem": "Ne udalos spisat predmet.",
+    "couldNotSaveManualAdjustment": "Ne udalos sohranit ruchnuyu korrektirovku."
+  },
+  "taskInventoryFlow": {
+    "foundSimilarItemsInfo": "My nashli pohozhie pozicii v inventare. Pri zhelanii mozhno uvelichit odnu iz nih pered sozdaniem novoi.",
+    "completeTaskError": "Ne udalos zavershit zadachu.",
+    "loadInventoryOptionsError": "Ne udalos zagruzit parametry inventarya.",
+    "loadAvailableInventoryError": "Ne udalos zagruzit dostupnyi inventar.",
+    "saveInventoryError": "Ne udalos sohranit inventar.",
+    "inventoryFlowError": "Ne udalos zavershit inventarnyi potok.",
+    "selectedItemNotFound": "Ne udalos nayti vybrannyi predmet.",
+    "buildingNotFoundForUpdate": "Ne udalos nayti zdanie dlya obnovleniya inventarya.",
+    "buildingNotFoundForReview": "Ne udalos nayti zdanie dlya proverki inventarya.",
+    "missingInventoryData": "Ne hvataet dannyh dlya obnovleniya inventarya.",
+    "taskCompletedInventorySaveError": "Zadacha uzhe zavershena, no inventar ne udalos sohranit.",
+    "invalidUsedQuantity": "Ukazano nevernoe ispolzovannoe kolichestvo.",
+    "taskCompletedInventoryConsumeError": "Zadacha uzhe zavershena, no inventar ne udalos spisat."
+  },
+  "taskInventoryPromptModal": {
+    "eyebrow": "Inventar",
+    "usedInventoryTitle": "Vy ispolzovali inventar?",
+    "updateInventoryTitle": "Obnovit inventar?",
+    "close": "Zakryt",
+    "replacementDescription": "Zadacha <taskTitle></taskTitle> gotova k zaversheniyu. Esli dlya etoi zameny ispolzovan inventar, ego mozhno spisat seichas ili sozdat novyi predmet.",
+    "deliveryDescription": "Zadacha <taskTitle></taskTitle> gotova k zaversheniyu. Pri zhelanii my takzhe mozhem dobavit dostavlennyi predmet v inventar pered zakrytiem deistviya.",
+    "usageDescription": "Zadacha <taskTitle></taskTitle> gotova k zaversheniyu. Esli vy ispolzovali inventar, ego mozhno spisat seichas i sohranit aktualnuyu istoriyu.",
+    "genericDescription": "Zadacha <taskTitle></taskTitle> gotova k zaversheniyu. Pri zhelanii my takzhe mozhem zaregistrirovat etot predmet v inventare pered zakrytiem deistviya.",
+    "completeWithoutInventory": "Zavershit bez inventarya",
+    "useExistingItem": "Ispolzovat sushchestvuyushchii predmet",
+    "consumeExistingItem": "Spisat sushchestvuyushchii predmet",
+    "createNewItem": "Sozdat novyi predmet",
+    "addToInventory": "Dobavit v inventar",
+    "completeAndAdd": "Zavershit i dobavit"
+  },
+  "taskInventoryUsageModal": {
+    "eyebrow": "Inventar",
+    "title": "Podtverdit ispolzovanie",
+    "close": "Zakryt",
+    "description": "Vy sobiraetes ispolzovat <itemName></itemName> dlya zaversheniya <taskTitle></taskTitle>.",
+    "quantityLabel": "Ispolzovannoe kolichestvo ({unit})",
+    "materialHint": "Dlya materialov mozhno ispolzovat drobnye kolichestva, naprimer 0.25 ili 0.5.",
+    "unitHint": "Etot predmet spisyvaetsya tolko celymi edinicami.",
+    "locationLabel": "Gde ispolzovano",
+    "locationPlaceholder": "Naprimyer: Apt 15, Lobby, Koridor",
+    "confirm": "Spisat iz inventarya"
+  },
+  "taskInventorySelectModal": {
+    "eyebrow": "Inventar",
+    "chooseIncreaseTitle": "Vyberite, kuda dobavit stock",
+    "chooseConsumeTitle": "Vyberite predmet dlya spisaniya",
+    "close": "Zakryt",
+    "singleUnit": "1 edinica",
+    "deliveryDescription": "Chtoby zavershit <taskTitle></taskTitle>, vyberite sushchestvuyushchii predmet, k kotoromu nuzhno dobavit <quantity></quantity>.",
+    "usageDescription": "Chtoby zavershit <taskTitle></taskTitle>, vyberite, kakoi{itemLabel} iz inventarya budet ispolzovan. My spishem <quantity></quantity>.",
+    "genericItemLabel": " predmet",
+    "suggested": "Rekomenduem",
+    "lowStock": "Nizkii ostatok",
+    "available": "{count} dostupno",
+    "increase": "Dobavit",
+    "use": "Ispolzovat",
+    "noMatchesDelivery": "My ne nashli pohozhih predmetov v inventare dlya etoi dostavki.",
+    "noMatchesReplacement": "My ne nashli sovmestimykh predmetov v inventare dlya etoi zameny.",
+    "noMatchesTask": "My ne nashli sovmestimykh predmetov v inventare dlya etoi zadachi.",
+    "createNewAnyway": "Vse ravno sozdat novyi predmet",
+    "createNew": "Sozdat novyi predmet"
+  },
+  "dashboardTodaySummary": {
+    "today": "Segodnya",
+    "pendingTasks": "{count} zadach v ozhidanii",
+    "urgentTasks": "{count} srochnyh",
+    "overdueTasks": "{count} prosrochennyh"
+  },
+  "taskPhotosValidation": {
+    "onlyImagesAllowed": "Razresheny tolko izobrazheniya."
+  },
+  "pestPage": {
+    "statusUpdateError": "Proizoshla oshibka pri obnovlenii statusa"
+  },
+  "inventoryVariantSelectorModal": {
+    "description": "Vyberite, hotite li vy uvelichit sushchestvuyushchii variant ili sozdat novyi.",
+    "availableNow": "seichas",
+    "increase": "Uvelichit",
+    "createNewVariant": "Sozdat novyi variant"
   }
 }

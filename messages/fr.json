@@ -16,10 +16,11 @@
     "agenda": "Agenda"
   },
   "appHeader": {
-    "today": "Aujourd’hui",
+    "today": "Aujourd'hui",
     "hello": "Bonjour",
     "user": "Utilisateur",
-    "goToProfile": "Aller au profil"
+    "goToProfile": "Aller au profil",
+    "headerBackgroundAlt": "Arriere-plan de l'en-tete"
   },
   "dashboard": {
     "loading": "Chargement du tableau de bord...",
@@ -69,6 +70,68 @@
       "emptyTomorrowDescription": "Aucune tâche prévue.",
       "emptyCompletedTitle": "Tâches complétées",
       "emptyCompletedDescription": "Aucune tâche complétée à afficher."
+    },
+    "commonClose": "Fermer",
+    "conciergeCopy": {
+      "subtitle": "Nous allons passer une tres bonne journee",
+      "spotlight": "Le plus important maintenant",
+      "spotlightToday": "Ce qui suit aujourd'hui",
+      "spotlightNext": "Prochaine tache",
+      "spotlightOverdue": "Attention immediate",
+      "spotlightUrgentToday": "Urgent aujourd'hui",
+      "spotlightUrgentOverdue": "Urgent en retard",
+      "spotlightUrgentNext": "Urgent programme",
+      "completeTask": "Terminer la tache",
+      "alerts": "Alertes intelligentes",
+      "overdueTasks": "Taches en retard",
+      "urgentTasks": "Urgentes",
+      "todayTasks": "Taches du jour",
+      "upcomingTasks": "Prochaines taches",
+      "quickActions": "Raccourcis rapides",
+      "quickActionNewTask": "Nouvelle tache",
+      "quickActionTasks": "Voir les taches",
+      "quickActionInventory": "Ouvrir l'inventaire",
+      "quickActionAgenda": "Ouvrir l'agenda",
+      "activeProblems": "Problemes actifs",
+      "noActiveProblems": "Aucun probleme actif.",
+      "smartReminders": "Rappels cles",
+      "noSmartReminders": "Tout est sous controle pour le moment.",
+      "hotAreas": "Zones les plus frequentes",
+      "noHotAreas": "Aucune zone mise en avant pour le moment.",
+      "singleHotAreaTask": "1 tache",
+      "hotAreaTasks": "{count} taches",
+      "quickHistory": "Historique rapide du jour",
+      "noHistoryToday": "Aucune tache terminee aujourd'hui.",
+      "completedAtLabel": "Terminee a {time}",
+      "viewAll": "Voir tout",
+      "noTasks": "Aucune tache pour le moment.",
+      "noTodayTasks": "Aucune tache pour aujourd'hui.",
+      "noUpcomingTasks": "Aucune tache a venir.",
+      "noOverdueTasks": "Aucune tache en retard.",
+      "noUrgentTasks": "Aucune tache urgente.",
+      "todayWord": "Aujourd'hui",
+      "tomorrowWord": "Demain"
+    },
+    "quickActions": {
+      "newTask": "Nouvelle\ntache",
+      "dictateTask": "Dicter\ntache",
+      "quickPhoto": "Photo\nrapide",
+      "callManager": "Appeler\nmanager"
+    },
+    "toasts": {
+      "taskDeletedTitle": "Tache supprimee",
+      "taskCompletedTitle": "Tache terminee",
+      "dictationProblemTitle": "Probleme de dictee",
+      "undo": "Annuler"
+    },
+    "conversation": {
+      "title": "Messages du manager",
+      "defaultSubtitle": "Consultez et repondez aux conversations du batiment."
+    },
+    "dictationOverlay": {
+      "recording": "Enregistrement audio...",
+      "transcribing": "Transcription en cours...",
+      "hint": "Parlez maintenant, cela s'arretera automatiquement"
     }
   },
   "taskCard": {
@@ -90,6 +153,11 @@
       "nuevo": "Initial",
       "seguimiento": "Suivi",
       "preventivo": "Préventif"
+    },
+    "taskVisitSummary": {
+      "initial": "{count} initial{count, plural, one {} other {s}}",
+      "followUp": "{count} suivi{count, plural, one {} other {s}}",
+      "preventive": "{count} préventif{count, plural, one {} other {s}}"
     },
     "pestTarget": {
       "cucarachas": "Coquerelles",
@@ -224,12 +292,18 @@
   },
   "taskCategoryPriorityFields": {
     "category": "Catégorie *",
-    "priority": "Priorité *"
+    "priority": "Priorité *",
+    "selectCategory": "Selectionnez une categorie"
   },
   "taskTitleField": {
     "label": "Titre *",
     "placeholder": "Ex. : réparer l’appartement 3 fuite d’eau demain à 9 h urgent",
-    "pestPlaceholder": "Ex. : traiter l'appartement 12 pour des coquerelles demain à 10 h"
+    "pestPlaceholder": "Ex. : traiter l'appartement 12 pour des coquerelles demain à 10 h",
+    "dictationUnsupported": "La dictee vocale n'est pas disponible sur cet appareil.",
+    "listening": "Ecoute...",
+    "startDictation": "Commencer la dictee",
+    "stopDictation": "Arreter la dictee",
+    "listeningHint": "Parlez maintenant et le titre sera rempli automatiquement."
   },
   "taskFollowUpFlow": {
     "alreadyExists": "Un suivi en attente existe déjà pour ce traitement.",
@@ -289,7 +363,9 @@
     "title": "Tâches",
     "newTask": "Nouvelle tâche",
     "building": "Bâtiment",
-    "noBuilding": "Aucun bâtiment"
+    "noBuilding": "Aucun bâtiment",
+    "undoCompleteTitle": "Tache terminee",
+    "undo": "Annuler"
   },
   "tasksFilterBar": {
     "searchPlaceholder": "Rechercher des tâches...",
@@ -328,7 +404,9 @@
     "noDate": "Non sélectionnée",
     "today": "Aujourd’hui",
     "newTask": "Nouvelle tâche",
-    "goToToday": "Aller a aujourd'hui"
+    "goToToday": "Aller a aujourd'hui",
+    "undoCompleteTitle": "Tache terminee",
+    "undo": "Annuler"
   },
   "agendaCalendar": {
     "export": "Exporter en Excel",
@@ -395,7 +473,11 @@
     "reasonPlaceholder": "Ex: installe dans l'appartement 12, utilise pour reparer le lobby, jete car abime, prete au local technique...",
     "cancel": "Annuler",
     "confirm": "Enregistrer l'ajustement",
-    "saving": "Enregistrement..."
+    "saving": "Enregistrement...",
+    "reasonRequired": "Expliquez ce que vous avez fait avec cet article.",
+    "invalidQuantity": "Entrez une quantite valide a retirer.",
+    "wholeUnitsOnly": "Cet article accepte seulement des quantites entieres.",
+    "quantityExceedsAvailable": "Vous ne pouvez pas retirer plus que la quantite disponible."
   },
   "inventoryFilters": {
     "searchPlaceholder": "Rechercher dans l’inventaire...",
@@ -554,7 +636,8 @@
       "new": "Neuf",
       "used": "Usagé",
       "damaged": "Endommagé"
-    }
+    },
+    "selectCondition": "Selectionner l'etat"
   },
   "inventoryConfirmModal": {
     "eyebrow": "Inventaire",
@@ -579,7 +662,8 @@
       "invalidStock": "Le stock minimum doit être valide.",
       "updateFailed": "Impossible de mettre à jour l’item.",
       "createFailed": "Impossible de créer l’item.",
-      "saveError": "Erreur lors de l’enregistrement de l’item."
+      "saveError": "Erreur lors de l’enregistrement de l’item.",
+      "measurementUnitMigrationRequired": "Execute inventory_measurement_units.sql pour enregistrer les unites de mesure dans l inventaire."
     },
     "history": {
       "created": "Item ajouté à l’inventaire",
@@ -888,5 +972,181 @@
       "other": "Autre"
     },
     "goToToday": "Aller a aujourd'hui"
+  },
+  "dashboardHomeOverview": {
+    "title": "Resume de la journee",
+    "subtitle": "Ce qui demande votre attention.",
+    "summary": {
+      "today": "Aujourd'hui",
+      "urgent": "Urgentes",
+      "overdue": "En retard"
+    },
+    "taskCount": {
+      "single": "{count} en attente",
+      "plural": "{count} en attente"
+    },
+    "close": "Fermer",
+    "emptySummary": "Aucune nouveaute pour le moment.",
+    "buildingsTitle": "Mes batiments",
+    "buildingsSubtitle": "Taches en attente par batiment assigne.",
+    "noAddress": "Sans adresse",
+    "todayCount": "{count} aujourd'hui",
+    "selectBuildingTitle": "Selectionnez un batiment",
+    "selectBuildingDescription": "Pour continuer avec les taches, l'inventaire, les traitements et l'agenda.",
+    "noLocation": "Sans emplacement"
+  },
+  "dashboardMessagesModal": {
+    "title": "Messages du manager",
+    "unreadCount": "{count} non lus",
+    "allRead": "Tout est a jour",
+    "close": "Fermer",
+    "empty": "Aucun message recent.",
+    "markAsRead": "Marquer comme lu"
+  },
+  "dashboardConversation": {
+    "loadError": "Impossible de charger la conversation.",
+    "missingManager": "Nous n avons pas trouve le manager de l immeuble.",
+    "sendError": "Impossible d envoyer le message."
+  },
+  "headerConversation": {
+    "openError": "Impossible d ouvrir la conversation.",
+    "sendError": "Impossible d envoyer le message."
+  },
+  "dashboardDictation": {
+    "errors": {
+      "unsupported": "L enregistrement audio n est pas disponible dans ce navigateur.",
+      "permission": "Impossible d acceder au microphone. Autorise le micro puis reessaie.",
+      "recording": "Impossible d enregistrer ta voix pour le moment.",
+      "transcription": "Impossible de transcrire l audio pour le moment.",
+      "empty": "Nous n avons pas assez entendu ta voix. Reessaie en parlant plus pres du microphone.",
+      "generic": "La dictee vocale n a pas pu demarrer pour le moment."
+    }
+  },
+  "dashboardFloatingAddButton": {
+    "addTask": "Ajouter une tache"
+  },
+  "dashboardFilterLabels": {
+    "urgent": "Urgentes",
+    "pending": "En attente",
+    "completed": "Terminees"
+  },
+  "taskApartments": {
+    "missingApartment": "Saisissez un appartement ou une zone avant de l'ajouter.",
+    "multipleApartmentsNotAllowed": "Ajoutez un seul appartement a la fois.",
+    "missingVisitType": "Selectionnez le type de visite pour cet appartement.",
+    "alreadyAdded": "Cet appartement a deja ete ajoute."
+  },
+  "followUpPrompt": {
+    "title": "Creer un suivi",
+    "subtitle": "Planifiez le suivi maintenant.",
+    "description": "Une tache de suivi sera creee pour ce traitement avec la date suggeree.",
+    "skip": "Pas maintenant",
+    "confirm": "Creer le suivi",
+    "creating": "Creation du suivi..."
+  },
+  "inventoryMatchReasons": {
+    "name": "Correspond au nom",
+    "item": "Correspond a l'article",
+    "sameCategory": "Meme categorie",
+    "variant": "Meme variante",
+    "sharedTokens": "Mots en commun"
+  },
+  "taskValidation": {
+    "titleRequired": "Le titre est obligatoire.",
+    "dateRequired": "La date est obligatoire.",
+    "dateBeforeToday": "La date ne peut pas etre anterieure a aujourd'hui.",
+    "missingUserOrBuilding": "Les informations de l'utilisateur ou du batiment sont manquantes.",
+    "categoryRequired": "Vous devez selectionner une categorie.",
+    "pestRequired": "Vous devez selectionner au moins une nuisance.",
+    "apartmentRequired": "Vous devez ajouter au moins un appartement."
+  },
+  "taskFormFallback": {
+    "createError": "Impossible d enregistrer la tache.",
+    "updateError": "Impossible de mettre a jour la tache."
+  },
+  "inventoryPageMessages": {
+    "couldNotDiscountItem": "Impossible de retirer cet article.",
+    "couldNotSaveManualAdjustment": "Impossible d'enregistrer l'ajustement manuel."
+  },
+  "taskInventoryFlow": {
+    "foundSimilarItemsInfo": "Nous avons trouve des articles similaires dans l'inventaire. Si vous voulez, vous pouvez les augmenter avant d'en creer un nouveau.",
+    "completeTaskError": "Impossible de terminer la tache.",
+    "loadInventoryOptionsError": "Impossible de charger les options d'inventaire.",
+    "loadAvailableInventoryError": "Impossible de charger l'inventaire disponible.",
+    "saveInventoryError": "Impossible d'enregistrer l'inventaire.",
+    "inventoryFlowError": "Impossible de terminer le flux d'inventaire.",
+    "selectedItemNotFound": "Impossible de trouver l'article selectionne.",
+    "buildingNotFoundForUpdate": "Impossible de trouver le batiment pour mettre a jour l'inventaire.",
+    "buildingNotFoundForReview": "Impossible de trouver le batiment pour verifier l'inventaire.",
+    "missingInventoryData": "Il manque des donnees pour mettre a jour l'inventaire.",
+    "taskCompletedInventorySaveError": "La tache est deja terminee, mais l'inventaire n'a pas pu etre enregistre.",
+    "invalidUsedQuantity": "La quantite utilisee n'est pas valide.",
+    "taskCompletedInventoryConsumeError": "La tache est deja terminee, mais l'inventaire n'a pas pu etre deduit."
+  },
+  "taskInventoryPromptModal": {
+    "eyebrow": "Inventaire",
+    "usedInventoryTitle": "Avez-vous utilise l'inventaire ?",
+    "updateInventoryTitle": "Mettre a jour l'inventaire ?",
+    "close": "Fermer",
+    "replacementDescription": "La tache <taskTitle></taskTitle> est prete a etre terminee. Si ce remplacement utilise un article d'inventaire, vous pouvez le deduire maintenant ou creer un nouvel article.",
+    "deliveryDescription": "La tache <taskTitle></taskTitle> est prete a etre terminee. Si vous voulez, nous pouvons aussi ajouter l'article livre a l'inventaire avant de fermer l'action.",
+    "usageDescription": "La tache <taskTitle></taskTitle> est prete a etre terminee. Si vous avez utilise un article d'inventaire, vous pouvez le deduire maintenant et garder l'historique a jour.",
+    "genericDescription": "La tache <taskTitle></taskTitle> est prete a etre terminee. Si vous voulez, nous pouvons aussi enregistrer cet article dans l'inventaire avant de fermer l'action.",
+    "completeWithoutInventory": "Terminer sans inventaire",
+    "useExistingItem": "Utiliser un article existant",
+    "consumeExistingItem": "Deduirer un article existant",
+    "createNewItem": "Creer un nouvel article",
+    "addToInventory": "Ajouter a l'inventaire",
+    "completeAndAdd": "Terminer et ajouter"
+  },
+  "taskInventoryUsageModal": {
+    "eyebrow": "Inventaire",
+    "title": "Confirmer l'utilisation",
+    "close": "Fermer",
+    "description": "Vous allez utiliser <itemName></itemName> pour terminer <taskTitle></taskTitle>.",
+    "quantityLabel": "Quantite utilisee ({unit})",
+    "materialHint": "Pour les materiaux, vous pouvez utiliser des quantites partielles, par exemple 0.25 ou 0.5.",
+    "unitHint": "Cet article se deduit par unite complete.",
+    "locationLabel": "Ou il a ete utilise",
+    "locationPlaceholder": "Ex : Apt 15, Hall, Couloir",
+    "confirm": "Deduirer de l'inventaire"
+  },
+  "taskInventorySelectModal": {
+    "eyebrow": "Inventaire",
+    "chooseIncreaseTitle": "Choisissez ou ajouter du stock",
+    "chooseConsumeTitle": "Choisissez l'article a deduire",
+    "close": "Fermer",
+    "singleUnit": "1 unite",
+    "deliveryDescription": "Pour terminer <taskTitle></taskTitle>, choisissez l'article existant auquel ajouter <quantity></quantity>.",
+    "usageDescription": "Pour terminer <taskTitle></taskTitle>, choisissez quel{itemLabel} de l'inventaire sera utilise. Nous deduirons <quantity></quantity>.",
+    "genericItemLabel": " article",
+    "suggested": "Suggere",
+    "lowStock": "Stock bas",
+    "available": "{count} disponibles",
+    "increase": "Ajouter",
+    "use": "Utiliser",
+    "noMatchesDelivery": "Aucun article similaire trouve dans l'inventaire pour cette livraison.",
+    "noMatchesReplacement": "Aucun article compatible trouve dans l'inventaire pour ce remplacement.",
+    "noMatchesTask": "Aucun article compatible trouve dans l'inventaire pour cette tache.",
+    "createNewAnyway": "Creer quand meme un nouvel article",
+    "createNew": "Creer un nouvel article"
+  },
+  "dashboardTodaySummary": {
+    "today": "Aujourd'hui",
+    "pendingTasks": "{count} taches en attente",
+    "urgentTasks": "{count} urgentes",
+    "overdueTasks": "{count} en retard"
+  },
+  "taskPhotosValidation": {
+    "onlyImagesAllowed": "Seules les images sont autorisees."
+  },
+  "pestPage": {
+    "statusUpdateError": "Une erreur est survenue lors de la mise a jour du statut"
+  },
+  "inventoryVariantSelectorModal": {
+    "description": "Choisissez si vous voulez augmenter une variante existante ou en creer une nouvelle.",
+    "availableNow": "maintenant",
+    "increase": "Augmenter",
+    "createNewVariant": "Creer une nouvelle variante"
   }
 }

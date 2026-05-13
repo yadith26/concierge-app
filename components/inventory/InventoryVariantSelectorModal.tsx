@@ -28,6 +28,7 @@ export default function InventoryVariantSelectorModal({
   onClose,
 }: InventoryVariantSelectorModalProps) {
   const tGlobal = useTranslations()
+  const t = useTranslations('inventoryVariantSelectorModal')
 
   if (!open) return null
 
@@ -38,8 +39,7 @@ export default function InventoryVariantSelectorModal({
           <div className="mb-4">
             <h3 className="text-[19px] font-bold text-[#142952]">{groupLabel}</h3>
             <p className="mt-1 text-[15px] text-[#6E7F9D]">
-              Escoge si quieres aumentar una variante existente o crear una
-              nueva.
+              {t('description')}
             </p>
           </div>
 
@@ -62,12 +62,12 @@ export default function InventoryVariantSelectorModal({
                     {formatInventoryQuantityWithUnit(
                       variant.quantity,
                       variant.unit_of_measure
-                    )} ahora
+                    )} {t('availableNow')}
                   </p>
                 </div>
 
                 <span className="rounded-full bg-[#EEF4FF] px-3 py-1 text-[11px] font-semibold text-[#2F66C8]">
-                  Aumentar
+                  {t('increase')}
                 </span>
               </button>
             ))}
@@ -84,7 +84,7 @@ export default function InventoryVariantSelectorModal({
             }}
             className="mt-4 w-full rounded-2xl bg-[#2F66C8] px-4 py-4 text-[15px] font-semibold text-white"
           >
-            Crear variante nueva
+            {t('createNewVariant')}
           </button>
 
           <button

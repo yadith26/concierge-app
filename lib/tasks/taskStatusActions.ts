@@ -210,7 +210,7 @@ export async function updateTaskStatusWithTreatment({
             building_id: buildingId,
             task_id: freshTask.id,
             created_by: profileId,
-            apartment_or_area: freshTask.apartment_or_area?.trim() || 'Sin especificar',
+            apartment_or_area: freshTask.apartment_or_area?.trim() || 'Unspecified',
             apartment_key: freshTask.apartment_key?.trim() || null,
             pest_target: target,
             treatment_visit_type: freshTask.treatment_visit_type,

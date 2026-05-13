@@ -9,13 +9,12 @@ import {
   Package,
   Repeat,
 } from 'lucide-react'
-import type {
-  Task,
-  TaskApartment,
-  TaskCategory,
-} from '@/lib/tasks/taskTypes'
+import type { Task, TaskApartment, TaskCategory } from '@/lib/tasks/taskTypes'
 
-type TranslationValues = Record<string, string | number | boolean | null | undefined>
+type TranslationValues = Record<
+  string,
+  string | number | boolean | Date | null | undefined
+>
 type TFunction = (key: string, values?: TranslationValues) => string
 
 function safeT(
@@ -36,7 +35,7 @@ function safeT(
 export function getCategoryMeta(category: TaskCategory, t?: TFunction) {
   if (category === 'cleaning') {
     return {
-      label: safeT(t, 'taskLabels.category.cleaning', 'Limpieza'),
+      label: safeT(t, 'taskLabels.category.cleaning', 'Cleaning'),
       icon: Sparkles,
       chip: 'bg-[#EEF4FF] text-[#60739A]',
       iconWrap: 'bg-[#E5EDF8] text-[#60739A]',
@@ -45,7 +44,7 @@ export function getCategoryMeta(category: TaskCategory, t?: TFunction) {
 
   if (category === 'repair') {
     return {
-      label: safeT(t, 'taskLabels.category.repair', 'Reparación'),
+      label: safeT(t, 'taskLabels.category.repair', 'Repair'),
       icon: Wrench,
       chip: 'bg-[#EEF4FF] text-[#60739A]',
       iconWrap: 'bg-[#E5EDF8] text-[#60739A]',
@@ -54,7 +53,7 @@ export function getCategoryMeta(category: TaskCategory, t?: TFunction) {
 
   if (category === 'pest') {
     return {
-      label: safeT(t, 'taskLabels.category.pest', 'Plagas'),
+      label: safeT(t, 'taskLabels.category.pest', 'Pest control'),
       icon: Bug,
       chip: 'bg-[#FFF3E8] text-[#AD6A00]',
       iconWrap: 'bg-[#FDE6CF] text-[#AD6A00]',
@@ -63,7 +62,7 @@ export function getCategoryMeta(category: TaskCategory, t?: TFunction) {
 
   if (category === 'paint') {
     return {
-      label: safeT(t, 'taskLabels.category.paint', 'Pintura'),
+      label: safeT(t, 'taskLabels.category.paint', 'Painting'),
       icon: Paintbrush,
       chip: 'bg-[#F3EEFF] text-[#7A5AC7]',
       iconWrap: 'bg-[#E8DEFF] text-[#7A5AC7]',
@@ -72,7 +71,7 @@ export function getCategoryMeta(category: TaskCategory, t?: TFunction) {
 
   if (category === 'visit') {
     return {
-      label: safeT(t, 'taskLabels.category.visit', 'Visita'),
+      label: safeT(t, 'taskLabels.category.visit', 'Visit'),
       icon: Users,
       chip: 'bg-[#EEF4FF] text-[#2F66C8]',
       iconWrap: 'bg-[#DCE7FF] text-[#2F66C8]',
@@ -81,7 +80,7 @@ export function getCategoryMeta(category: TaskCategory, t?: TFunction) {
 
   if (category === 'change') {
     return {
-      label: safeT(t, 'taskLabels.category.change', 'Reemplazo'),
+      label: safeT(t, 'taskLabels.category.change', 'Replacement'),
       icon: Repeat,
       chip: 'bg-[#EEF4FF] text-[#2F66C8]',
       iconWrap: 'bg-[#DCE7FF] text-[#2F66C8]',
@@ -90,7 +89,7 @@ export function getCategoryMeta(category: TaskCategory, t?: TFunction) {
 
   if (category === 'delivery') {
     return {
-      label: safeT(t, 'taskLabels.category.delivery', 'Entrega'),
+      label: safeT(t, 'taskLabels.category.delivery', 'Delivery'),
       icon: Package,
       chip: 'bg-[#EEF4FF] text-[#2F66C8]',
       iconWrap: 'bg-[#DCE7FF] text-[#2F66C8]',
@@ -99,7 +98,7 @@ export function getCategoryMeta(category: TaskCategory, t?: TFunction) {
 
   if (category === 'inspection') {
     return {
-      label: safeT(t, 'taskLabels.category.inspection', 'Inspección'),
+      label: safeT(t, 'taskLabels.category.inspection', 'Inspection'),
       icon: ClipboardCheck,
       chip: 'bg-[#EAF7F0] text-[#177B52]',
       iconWrap: 'bg-[#D8F0E4] text-[#177B52]',
@@ -107,17 +106,14 @@ export function getCategoryMeta(category: TaskCategory, t?: TFunction) {
   }
 
   return {
-    label: safeT(t, 'taskLabels.category.other', 'Otro'),
+    label: safeT(t, 'taskLabels.category.other', 'Other'),
     icon: MoreHorizontal,
     chip: 'bg-[#F1F4F8] text-[#6E7F9D]',
     iconWrap: 'bg-[#E7ECF3] text-[#6E7F9D]',
   }
 }
 
-export function buildVisitSummary(
-  taskApartments: TaskApartment[],
-  t?: TFunction
-) {
+export function buildVisitSummary(taskApartments: TaskApartment[], t?: TFunction) {
   const initialCount = taskApartments.filter(
     (item) => item.visit_type === 'nuevo'
   ).length
@@ -135,7 +131,7 @@ export function buildVisitSummary(
       safeT(
         t,
         'taskVisitSummary.initial',
-        `${initialCount} inicial${initialCount === 1 ? '' : 'es'}`,
+        `${initialCount} initial${initialCount === 1 ? '' : 's'}`,
         { count: initialCount }
       )
     )
@@ -146,7 +142,7 @@ export function buildVisitSummary(
       safeT(
         t,
         'taskVisitSummary.followUp',
-        `${followUpCount} seguimiento${followUpCount === 1 ? '' : 's'}`,
+        `${followUpCount} follow-up${followUpCount === 1 ? '' : 's'}`,
         { count: followUpCount }
       )
     )
@@ -157,7 +153,7 @@ export function buildVisitSummary(
       safeT(
         t,
         'taskVisitSummary.preventive',
-        `${preventiveCount} preventivo${preventiveCount === 1 ? '' : 's'}`,
+        `${preventiveCount} preventive${preventiveCount === 1 ? '' : 's'}`,
         { count: preventiveCount }
       )
     )
@@ -165,7 +161,7 @@ export function buildVisitSummary(
 
   return parts.length > 0
     ? parts.join(' · ')
-    : safeT(t, 'taskCardExpanded.unspecified', 'Sin especificar')
+    : safeT(t, 'taskCardExpanded.unspecified', 'Unspecified')
 }
 
 export function getSoonLabel(task: Task, t?: TFunction) {
@@ -186,9 +182,9 @@ export function getSoonLabel(task: Task, t?: TFunction) {
   const diffMinutes = Math.round(diffMs / 60000)
 
   if (diffMinutes < 0) return null
-  if (diffMinutes <= 15) return safeT(t, 'taskSoonLabel.now', 'Ahora')
+  if (diffMinutes <= 15) return safeT(t, 'taskSoonLabel.now', 'Now')
   if (diffMinutes <= 60) {
-    return safeT(t, 'taskSoonLabel.inMinutes', `En ${diffMinutes} min`, {
+    return safeT(t, 'taskSoonLabel.inMinutes', `In ${diffMinutes} min`, {
       count: diffMinutes,
     })
   }

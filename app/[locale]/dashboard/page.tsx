@@ -157,7 +157,7 @@ export default function DashboardPage() {
     failedMessage: reopenReasonT('failed'),
   })
 
-  const copy = useMemo(() => getConciergeDashboardCopy(locale), [locale])
+  const copy = useMemo(() => getConciergeDashboardCopy(t), [t])
 
   const {
     spotlightTask,
@@ -183,21 +183,21 @@ export default function DashboardPage() {
     () => [
       {
         key: 'new-task',
-        label: 'Nueva\ntarea',
+        label: t('quickActions.newTask'),
         icon: <Plus size={24} />,
         tone: 'blue',
         onClick: openCreateModal,
       },
       {
         key: 'dictate-task',
-        label: 'Dictar\ntarea',
+        label: t('quickActions.dictateTask'),
         icon: <Mic size={24} />,
         tone: 'green',
         onClick: openDictateTask,
       },
       {
         key: 'quick-photo',
-        label: 'Foto\nrápida',
+        label: t('quickActions.quickPhoto'),
         icon: <Camera size={24} />,
         tone: 'violet',
         onClick: openQuickPhotoCamera,
@@ -206,7 +206,7 @@ export default function DashboardPage() {
         ? [
             {
               key: 'call-manager',
-              label: 'Llamar\nmanager',
+              label: t('quickActions.callManager'),
               icon: <PhoneCall size={24} />,
               tone: 'green' as const,
               onClick: () => void openConversation(),
@@ -220,6 +220,7 @@ export default function DashboardPage() {
       openCreateModal,
       openDictateTask,
       openQuickPhotoCamera,
+      t,
     ]
   )
 
@@ -342,18 +343,18 @@ export default function DashboardPage() {
 
           {undoDelete ? (
             <DashboardUndoToast
-              title="Tarea eliminada"
+              title={t('toasts.taskDeletedTitle')}
               subtitle={undoDelete.task.title}
-              actionLabel="Deshacer"
+              actionLabel={t('toasts.undo')}
               onAction={undoDeleteTask}
             />
           ) : null}
 
           {!undoDelete && undoComplete ? (
             <DashboardUndoToast
-              title="Tarea completada"
+              title={t('toasts.taskCompletedTitle')}
               subtitle={undoComplete.taskTitle}
-              actionLabel="Deshacer"
+              actionLabel={t('toasts.undo')}
               onAction={() => {
                 void undoCompletedTask()
               }}
@@ -362,9 +363,9 @@ export default function DashboardPage() {
 
           {!undoDelete && !undoComplete && dictationError ? (
             <DashboardUndoToast
-              title="Problema con dictado"
+              title={t('toasts.dictationProblemTitle')}
               subtitle={dictationError}
-              actionLabel="Cerrar"
+              actionLabel={t('commonClose')}
               onAction={clearDictationError}
             />
           ) : null}
@@ -394,8 +395,10 @@ export default function DashboardPage() {
 
       <ConversationModal
         open={messagesModalOpen}
-        title="Conversacion"
-        subtitle={managerContact ? managerContact.name : 'Manager del edificio'}
+        title={t('conversation.title')}
+        subtitle={
+          managerContact ? managerContact.name : t('conversation.defaultSubtitle')
+        }
         currentUserId={profileId}
         messages={conversationMessages}
         value={conversationDraft}
@@ -479,11 +482,13 @@ export default function DashboardPage() {
             </div>
 
             <p className="text-[16px] font-semibold text-[#142952]">
-              {isListening ? 'Grabando audio...' : 'Transcribiendo...'}
+              {isListening
+                ? t('dictationOverlay.recording')
+                : t('dictationOverlay.transcribing')}
             </p>
 
             <p className="text-center text-[13px] text-[#6E7F9D]">
-              Habla ahora, se detendrá automáticamente
+              {t('dictationOverlay.hint')}
             </p>
           </div>
         </div>

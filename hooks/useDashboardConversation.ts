@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useMemo, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import {
   fetchConversationMessages,
   markBuildingMessageAsRead,
@@ -55,6 +56,7 @@ export function useDashboardConversation({
   messages,
   setMessages,
 }: UseDashboardConversationParams) {
+  const t = useTranslations('dashboardConversation')
   const [messagesModalOpen, setMessagesModalOpen] = useState(false)
   const [conversationMessages, setConversationMessages] = useState<
     BuildingMessage[]
@@ -93,12 +95,12 @@ export function useDashboardConversation({
         )
       )
     } catch (error) {
-      console.error('Error cargando conversacion:', error)
-      setConversationError('No se pudo cargar la conversacion.')
+      console.error('Error loading conversation:', error)
+      setConversationError(t('loadError'))
     } finally {
       setConversationLoading(false)
     }
-  }, [buildingId, managerContact, profileId, setMessages])
+  }, [buildingId, managerContact, profileId, setMessages, t])
 
   const openConversation = useCallback(async () => {
     setMessagesModalOpen(true)
@@ -107,7 +109,7 @@ export function useDashboardConversation({
 
   const sendConversationMessage = useCallback(async () => {
     if (!buildingId || !profileId || !managerContact) {
-      setConversationError('No encontramos el manager del edificio.')
+      setConversationError(t('missingManager'))
       return
     }
 
@@ -132,9 +134,9 @@ export function useDashboardConversation({
       setConversationDraft('')
       await loadConversation()
     } catch (error) {
-      console.error('Error enviando mensaje:', error)
+      console.error('Error sending message:', error)
       setConversationError(
-        error instanceof Error ? error.message : 'No se pudo enviar el mensaje.'
+        error instanceof Error ? error.message : t('sendError')
       )
     } finally {
       setConversationSending(false)
@@ -145,6 +147,7 @@ export function useDashboardConversation({
     loadConversation,
     managerContact,
     profileId,
+    t,
   ])
 
   const markMessageRead = useCallback(
@@ -162,7 +165,7 @@ export function useDashboardConversation({
       try {
         await markBuildingMessageAsRead(messageId)
       } catch (error) {
-        console.error('Error marcando mensaje como leido:', error)
+        console.error('Error marking message as read:', error)
         setMessages(previousMessages)
       }
     },

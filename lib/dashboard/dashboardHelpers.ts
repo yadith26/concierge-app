@@ -246,10 +246,11 @@ export function getNextDashboardTask({
 }
 
 export function getActiveDashboardFilterLabel(
-  statusFilter: DashboardStatusFilter
+  statusFilter: DashboardStatusFilter,
+  labels: Partial<Record<Exclude<DashboardStatusFilter, 'all'>, string>>
 ) {
-  if (statusFilter === 'urgent') return 'Urgentes'
-  if (statusFilter === 'pending') return 'Pendientes'
-  if (statusFilter === 'completed') return 'Completadas'
+  if (statusFilter === 'urgent') return labels.urgent || null
+  if (statusFilter === 'pending') return labels.pending || null
+  if (statusFilter === 'completed') return labels.completed || null
   return null
 }

@@ -406,7 +406,7 @@ export async function createFollowUpTask({
 
     const followUpTitle = sourceTask.title.toLowerCase().includes('seguimiento')
       ? sourceTask.title
-      : `Seguimiento - ${sourceTask.title}`
+      : `Follow-up - ${sourceTask.title}`
 
     const apartmentSummary = summarizeTaskApartments([apartment])
 
@@ -433,7 +433,7 @@ export async function createFollowUpTask({
       .single()
 
     if (error || !data) {
-      throw error || new Error('No se pudo crear la tarea de seguimiento')
+      throw error || new Error('Could not create the follow-up task')
     }
 
     const { error: apartmentsError } = await supabase

@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useMemo, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { normalizeApartmentKey } from '@/lib/locations/normalizeApartment'
 import type { TreatmentVisitType } from '@/lib/tasks/taskTypes'
 import type { TaskApartmentInput } from '@/lib/tasks/taskApartments'
@@ -16,6 +17,7 @@ export function useTaskApartments({
   initialDraftApartmentValue = '',
   initialDraftApartmentVisitType = '',
 }: UseTaskApartmentsParams = {}) {
+  const t = useTranslations('taskApartments')
   const [selectedApartments, setSelectedApartments] =
     useState<TaskApartmentInput[]>(initialApartments)
   const [draftApartmentValue, setDraftApartmentValue] = useState(
@@ -44,22 +46,21 @@ export function useTaskApartments({
     if (!finalDraftApartment) {
       return {
         ok: false,
-        message: 'Debes indicar un apartamento o área.',
+        message: t('missingApartment'),
       }
     }
 
     if (finalDraftApartment.includes(',')) {
       return {
         ok: false,
-        message:
-          'No escribas varios apartamentos en el mismo campo. Agrega uno y luego pulsa "Agregar apartamento".',
+        message: t('multipleApartmentsNotAllowed'),
       }
     }
 
     if (!draftApartmentVisitType) {
       return {
         ok: false,
-        message: 'Debes escoger el tipo de visita para ese apartamento.',
+        message: t('missingVisitType'),
       }
     }
 
@@ -72,7 +73,7 @@ export function useTaskApartments({
     if (alreadyExists) {
       return {
         ok: false,
-        message: 'Ese apartamento ya fue agregado.',
+        message: t('alreadyAdded'),
       }
     }
 
@@ -89,7 +90,7 @@ export function useTaskApartments({
     setDraftApartmentVisitType('')
 
     return { ok: true }
-  }, [draftApartmentVisitType, finalDraftApartment, selectedApartments])
+  }, [draftApartmentVisitType, finalDraftApartment, selectedApartments, t])
 
   const handleRemoveApartment = useCallback((index: number) => {
     setSelectedApartments((prev) => prev.filter((_, i) => i !== index))

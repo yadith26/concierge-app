@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import type { InventoryItem } from '@/lib/inventory/inventoryTypes'
 import { getInventoryUnitLabel } from '@/lib/inventory/inventoryUi'
 
@@ -32,6 +33,8 @@ export default function TaskInventoryUsageModal({
   onChangeLocation,
   onConfirm,
 }: TaskInventoryUsageModalProps) {
+  const t = useTranslations('taskInventoryUsageModal')
+
   if (!open || !item) return null
 
   const measurementUnitLabel = getInventoryUnitLabel(item.unit_of_measure, 2)
@@ -43,10 +46,10 @@ export default function TaskInventoryUsageModal({
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8C9AB3]">
-                Inventario
+                {t('eyebrow')}
               </p>
               <h2 className="mt-2 text-[22px] font-bold text-[#142952]">
-                Confirmar uso
+                {t('title')}
               </h2>
             </div>
 
@@ -55,19 +58,25 @@ export default function TaskInventoryUsageModal({
               onClick={onClose}
               className="rounded-2xl border border-[#E2E8F0] px-4 py-2 text-sm font-semibold text-[#6E7F9D] hover:bg-[#F8FAFE]"
             >
-              Cerrar
+              {t('close')}
             </button>
           </div>
 
           <p className="mt-4 text-[15px] leading-7 text-[#5E6E8C]">
-            Vas a usar <span className="font-semibold text-[#142952]">{item.name}</span> para
-            completar <span className="font-semibold text-[#142952]"> {taskTitle}</span>.
+            {t.rich('description', {
+              itemName: () => (
+                <span className="font-semibold text-[#142952]">{item.name}</span>
+              ),
+              taskTitle: () => (
+                <span className="font-semibold text-[#142952]"> {taskTitle}</span>
+              ),
+            })}
           </p>
 
           <div className="mt-5 space-y-4">
             <div>
               <label className="mb-2 block text-sm font-semibold text-[#5E6E8C]">
-                Cantidad usada ({measurementUnitLabel})
+                {t('quantityLabel', { unit: measurementUnitLabel })}
               </label>
               <input
                 type="number"
@@ -79,21 +88,19 @@ export default function TaskInventoryUsageModal({
                 className="w-full rounded-2xl border border-[#E7EDF5] bg-white px-4 py-4 text-base text-[#142952] outline-none placeholder:text-[#8C9AB3] disabled:bg-[#F8FAFE] disabled:text-[#6E7F9D]"
               />
               <p className="mt-2 text-xs text-[#7B8BA8]">
-                {isMaterial
-                  ? 'Para materiales puedes usar cantidades parciales, por ejemplo 0.25 o 0.5.'
-                  : 'Este item se descuenta por unidad completa.'}
+                {isMaterial ? t('materialHint') : t('unitHint')}
               </p>
             </div>
 
             <div>
               <label className="mb-2 block text-sm font-semibold text-[#5E6E8C]">
-                Donde se uso
+                {t('locationLabel')}
               </label>
               <input
                 type="text"
                 value={location}
                 onChange={(e) => onChangeLocation(e.target.value)}
-                placeholder="Ej: Apto 15, Lobby, Pasillo"
+                placeholder={t('locationPlaceholder')}
                 disabled={saving}
                 className="w-full rounded-2xl border border-[#E7EDF5] bg-white px-4 py-4 text-base text-[#142952] outline-none placeholder:text-[#8C9AB3]"
               />
@@ -112,7 +119,7 @@ export default function TaskInventoryUsageModal({
             disabled={saving}
             className="mt-5 w-full rounded-[24px] bg-[#2F66C8] px-4 py-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(47,102,200,0.25)] hover:bg-[#2859B2] disabled:opacity-60"
           >
-            Descontar del inventario
+            {t('confirm')}
           </button>
         </div>
       </div>

@@ -1,6 +1,7 @@
 'use client'
 
 import { MapPin, Package, TriangleAlert } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import type { InventoryItem } from '@/lib/inventory/inventoryTypes'
 import type { InventoryMatchReason } from '@/lib/inventory/findMatchingInventoryItem'
 import {
@@ -9,7 +10,6 @@ import {
   getInventoryLocationLabel,
   isLowStockItem,
 } from '@/lib/inventory/inventoryUi'
-import { useTranslations } from 'next-intl'
 
 type TaskInventorySelectModalProps = {
   open: boolean
@@ -43,6 +43,8 @@ export default function TaskInventorySelectModal({
   onSelectItem,
 }: TaskInventorySelectModalProps) {
   const tGlobal = useTranslations()
+  const t = useTranslations('taskInventorySelectModal')
+  const tReasons = useTranslations('inventoryMatchReasons')
   const isDelivery = taskCategory === 'delivery'
   const isReplacement = taskCategory === 'change'
   const allowCreateNew = isDelivery || isReplacement
@@ -56,12 +58,10 @@ export default function TaskInventorySelectModal({
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8C9AB3]">
-                Inventario
+                {t('eyebrow')}
               </p>
               <h2 className="mt-2 text-[22px] font-bold text-[#142952]">
-                {isDelivery
-                  ? 'Escoge donde sumar stock'
-                  : 'Escoge el item a descontar'}
+                {isDelivery ? t('chooseIncreaseTitle') : t('chooseConsumeTitle')}
               </h2>
             </div>
 
@@ -70,24 +70,29 @@ export default function TaskInventorySelectModal({
               onClick={onClose}
               className="rounded-2xl border border-[#E2E8F0] px-4 py-2 text-sm font-semibold text-[#6E7F9D] hover:bg-[#F8FAFE]"
             >
-              Cerrar
+              {t('close')}
             </button>
           </div>
 
           <p className="mt-4 text-[15px] leading-7 text-[#5E6E8C]">
-            {isDelivery ? (
-              <>
-                Para completar <span className="font-semibold text-[#142952]">{taskTitle}</span>,
-                elige a que item existente quieres sumar{' '}
-                <span className="font-semibold text-[#142952]">1 unidad</span>.
-              </>
-            ) : (
-              <>
-                Para completar <span className="font-semibold text-[#142952]">{taskTitle}</span>,
-                elige que {itemLabel ? ` ${itemLabel.toLowerCase()}` : ' item'} del inventario se
-                usará. Descontaremos <span className="font-semibold text-[#142952]">1 unidad</span>.
-              </>
-            )}
+            {isDelivery
+              ? t.rich('deliveryDescription', {
+                  taskTitle: () => (
+                    <span className="font-semibold text-[#142952]">{taskTitle}</span>
+                  ),
+                  quantity: () => (
+                    <span className="font-semibold text-[#142952]">{t('singleUnit')}</span>
+                  ),
+                })
+              : t.rich('usageDescription', {
+                  taskTitle: () => (
+                    <span className="font-semibold text-[#142952]">{taskTitle}</span>
+                  ),
+                  itemLabel: itemLabel ? ` ${itemLabel.toLowerCase()}` : t('genericItemLabel'),
+                  quantity: () => (
+                    <span className="font-semibold text-[#142952]">{t('singleUnit')}</span>
+                  ),
+                })}
           </p>
 
           {message ? (
@@ -108,7 +113,7 @@ export default function TaskInventorySelectModal({
                 const conditionMeta = getConditionMeta(item.condition, tGlobal)
                 const isLowStock = isLowStockItem(item.quantity, item.minimum_stock)
                 const itemTypeLabel = getInventoryItemTypeLabel(item)
-                const reasons = getReasonLabels(reasonMap?.[item.id] || [])
+                const reasons = getReasonLabels(reasonMap?.[item.id] || [], tReasons)
 
                 return (
                   <button
@@ -127,7 +132,7 @@ export default function TaskInventorySelectModal({
 
                           {suggestedItemId === item.id ? (
                             <span className="inline-flex items-center rounded-full bg-[#E8F6ED] px-2.5 py-1 text-[11px] font-semibold text-[#2D8C57]">
-                              Sugerido
+                              {t('suggested')}
                             </span>
                           ) : null}
 
@@ -146,7 +151,7 @@ export default function TaskInventorySelectModal({
                           {isLowStock ? (
                             <span className="inline-flex items-center gap-1 rounded-full bg-[#FFF4F5] px-2.5 py-1 text-[11px] font-semibold text-[#D64555]">
                               <TriangleAlert className="h-3.5 w-3.5" />
-                              Stock bajo
+                              {t('lowStock')}
                             </span>
                           ) : null}
                         </div>
@@ -154,7 +159,7 @@ export default function TaskInventorySelectModal({
                         <div className="mt-2 flex flex-wrap items-center gap-3 text-[14px] text-[#7B8BA8]">
                           <span className="inline-flex items-center gap-1.5">
                             <Package className="h-4 w-4" />
-                            {item.quantity} disponibles
+                            {t('available', { count: item.quantity })}
                           </span>
 
                           <span className="inline-flex items-center gap-1.5">
@@ -181,7 +186,7 @@ export default function TaskInventorySelectModal({
                       </div>
 
                       <span className="shrink-0 rounded-full bg-[#EEF4FF] px-3 py-1 text-[11px] font-semibold text-[#2F66C8]">
-                        {isDelivery ? 'Sumar' : 'Usar'}
+                        {isDelivery ? t('increase') : t('use')}
                       </span>
                     </div>
                   </button>
@@ -190,10 +195,10 @@ export default function TaskInventorySelectModal({
             ) : (
               <div className="rounded-2xl bg-[#F9FBFE] px-4 py-4 text-[15px] text-[#5E6E8C]">
                 {isDelivery
-                  ? 'No encontramos items parecidos en inventario para esta entrega.'
+                  ? t('noMatchesDelivery')
                   : isReplacement
-                    ? 'No encontramos items compatibles en inventario para este reemplazo.'
-                    : 'No encontramos items compatibles en inventario para esta tarea.'}
+                    ? t('noMatchesReplacement')
+                    : t('noMatchesTask')}
               </div>
             )}
           </div>
@@ -205,8 +210,8 @@ export default function TaskInventorySelectModal({
               className="mt-4 w-full rounded-[24px] bg-[#2F66C8] px-4 py-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(47,102,200,0.25)] hover:bg-[#2859B2]"
             >
               {isDelivery && items.length > 0
-                ? 'Crear item nuevo de todas formas'
-                : 'Crear item nuevo'}
+                ? t('createNewAnyway')
+                : t('createNew')}
             </button>
           ) : null}
         </div>
@@ -215,7 +220,10 @@ export default function TaskInventorySelectModal({
   )
 }
 
-function getReasonLabels(reasons: InventoryMatchReason[]) {
+function getReasonLabels(
+  reasons: InventoryMatchReason[],
+  t: (key: string) => string
+) {
   const labels = new Set<string>()
 
   if (
@@ -224,7 +232,7 @@ function getReasonLabels(reasons: InventoryMatchReason[]) {
     reasons.includes('preferred_name') ||
     reasons.includes('preferred_partial_name')
   ) {
-    labels.add('Coincide por nombre')
+    labels.add(t('name'))
   }
 
   if (
@@ -232,19 +240,19 @@ function getReasonLabels(reasons: InventoryMatchReason[]) {
     reasons.includes('contains_item_type') ||
     reasons.includes('preferred_item_type')
   ) {
-    labels.add('Coincide por item')
+    labels.add(t('item'))
   }
 
   if (reasons.includes('same_category')) {
-    labels.add('Misma categoria')
+    labels.add(t('sameCategory'))
   }
 
   if (reasons.includes('exact_variant') || reasons.includes('contains_variant')) {
-    labels.add('Coincide por variante')
+    labels.add(t('variant'))
   }
 
   if (reasons.includes('shared_tokens')) {
-    labels.add('Palabras parecidas')
+    labels.add(t('sharedTokens'))
   }
 
   return Array.from(labels).slice(0, 2)

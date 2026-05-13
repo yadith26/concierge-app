@@ -6,6 +6,7 @@ import {
   useState,
   type ChangeEvent,
 } from 'react'
+import { useTranslations } from 'next-intl'
 import { revokePhotoPreviews } from '@/lib/tasks/taskPhotoActions'
 import type { ExistingTaskPhoto } from '@/lib/tasks/taskTypes'
 
@@ -35,6 +36,7 @@ type UseTaskPhotosReturn = {
 export function useTaskPhotos({
   initialExistingPhotos = [],
 }: UseTaskPhotosParams = {}): UseTaskPhotosReturn {
+  const t = useTranslations('taskPhotosValidation')
   const [photos, setPhotos] = useState<SelectedPhoto[]>([])
   const [existingPhotos, setExistingPhotos] =
     useState<ExistingTaskPhoto[]>(initialExistingPhotos)
@@ -75,7 +77,7 @@ export function useTaskPhotos({
         e.target.value = ''
         return {
           ok: false,
-          message: 'Solo se permiten imágenes.',
+          message: t('onlyImagesAllowed'),
         }
       }
 
@@ -89,7 +91,7 @@ export function useTaskPhotos({
 
       return { ok: true }
     },
-    []
+    [t]
   )
 
   const removeNewPhoto = useCallback((index: number) => {

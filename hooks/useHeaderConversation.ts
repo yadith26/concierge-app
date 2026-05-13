@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { supabase } from '@/lib/supabase'
 import { getSafeAuthUser } from '@/lib/auth/getSafeAuthUser'
 import {
@@ -89,7 +90,7 @@ async function getProfileName(profileId: string) {
     return ''
   }
 
-  return [data.first_name, data.last_name].filter(Boolean).join(' ') || 'Usuario'
+  return [data.first_name, data.last_name].filter(Boolean).join(' ') || 'User'
 }
 
 async function resolveConciergeBuilding(userId: string) {
@@ -101,7 +102,7 @@ async function resolveConciergeBuilding(userId: string) {
     .limit(1)
 
   if (error) {
-    throw new Error(error.message || 'No se pudo obtener el edificio del conserje.')
+    throw new Error(error.message || 'Could not get the concierge building.')
   }
 
   return ((data as Array<{ building_id: string }>) || [])[0]?.building_id || ''
@@ -116,7 +117,7 @@ async function resolveManagerBuilding(userId: string) {
     .limit(1)
 
   if (error) {
-    throw new Error(error.message || 'No se pudo obtener el edificio del manager.')
+    throw new Error(error.message || 'Could not get the manager building.')
   }
 
   return ((data as Array<{ building_id: string }>) || [])[0]?.building_id || ''
@@ -131,7 +132,7 @@ async function resolveManagerContact(buildingId: string) {
     .limit(1)
 
   if (error) {
-    throw new Error(error.message || 'No se pudo obtener el manager del edificio.')
+    throw new Error(error.message || 'Could not get the building manager.')
   }
 
   const managerId = ((data as Array<{ user_id: string }>) || [])[0]?.user_id || ''
@@ -153,7 +154,7 @@ async function resolveConciergeContact(buildingId: string) {
     .limit(1)
 
   if (error) {
-    throw new Error(error.message || 'No se pudo obtener el conserje del edificio.')
+    throw new Error(error.message || 'Could not get the building concierge.')
   }
 
   let conciergeId = ((data as Array<{ user_id: string }>) || [])[0]?.user_id || ''
@@ -192,6 +193,7 @@ async function resolveContactForBuilding({
 export default function useHeaderConversation({
   preferredBuildingId,
 }: UseHeaderConversationOptions = {}): UseHeaderConversationResult {
+  const t = useTranslations('headerConversation')
   const [currentUserId, setCurrentUserId] = useState('')
   const [currentRole, setCurrentRole] = useState<Role | null>(null)
   const [activeBuildingId, setActiveBuildingId] = useState('')
@@ -267,13 +269,13 @@ export default function useHeaderConversation({
         setError(
           conversationError instanceof Error
             ? conversationError.message
-            : 'No se pudo abrir la conversacion.'
+            : t('openError')
         )
       } finally {
         setLoadingConversation(false)
       }
     },
-    [refreshUnreadCount]
+    [refreshUnreadCount, t]
   )
 
   const loadContext = useCallback(async () => {
@@ -465,12 +467,12 @@ export default function useHeaderConversation({
       setError(
         sendError instanceof Error
           ? sendError.message
-          : 'No se pudo enviar el mensaje.'
+          : t('sendError')
       )
     } finally {
       setSending(false)
     }
-  }, [activeBuildingId, contact, currentRole, currentUserId, loadConversation, value])
+  }, [activeBuildingId, contact, currentRole, currentUserId, loadConversation, t, value])
 
   return useMemo(
     () => ({

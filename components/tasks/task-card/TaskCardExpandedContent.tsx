@@ -145,7 +145,16 @@ export default function TaskCardExpandedContent({
                 label={t('visitType')}
                 value={
                   taskApartments.length > 0
-                    ? buildVisitSummary(taskApartments)
+                    ? buildVisitSummary(
+                        taskApartments,
+                        labelT as unknown as (
+                          key: string,
+                          values?: Record<
+                            string,
+                            string | number | boolean | Date | null | undefined
+                          >
+                        ) => string
+                      )
                     : labelT(getVisitTypeKey(task.treatment_visit_type ?? 'nuevo'))
                 }
               />

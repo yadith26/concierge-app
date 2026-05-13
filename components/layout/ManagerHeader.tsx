@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import type { ReactNode } from 'react'
 import HeaderProfileButton from '@/components/layout/HeaderProfileButton'
 
@@ -40,8 +40,9 @@ export default function ManagerHeader({
   rightSlot,
 }: ManagerHeaderProps) {
   const locale = useLocale()
+  const t = useTranslations('appHeader')
   const bottomRadiusClass = flatBottom ? 'rounded-b-none' : 'rounded-b-[36px]'
-  const todayLabel = locale === 'es' ? 'Hoy' : 'Today'
+  const todayLabel = t('today')
   const todayFormatted = new Intl.DateTimeFormat(locale, {
     day: 'numeric',
     month: 'long',
@@ -57,7 +58,7 @@ export default function ManagerHeader({
         <div className={`absolute inset-0 overflow-hidden ${bottomRadiusClass}`}>
           <Image
             src="/login-illustration-background1.png"
-            alt="Fondo Montreal"
+            alt={t('headerBackgroundAlt')}
             fill
             priority
             sizes="448px"

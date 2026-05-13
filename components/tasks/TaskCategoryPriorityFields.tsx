@@ -75,7 +75,7 @@ export default function TaskCategoryPriorityFields({
                   {t(selectedCategory.labelKey)}
                 </>
               ) : (
-                <span className="text-[#8C9AB3]">Selecciona categoria</span>
+                <span className="text-[#8C9AB3]">{uiT('selectCategory')}</span>
               )}
             </span>
 

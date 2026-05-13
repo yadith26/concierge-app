@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { useCompactHeader } from '@/hooks/useCompactHeader'
 import useInventoryFiltersState from '@/hooks/useInventoryFiltersState'
 import useInventoryItemActions from '@/hooks/useInventoryItemActions'
@@ -20,6 +21,8 @@ import type {
 import type { BuildingSummary } from '@/lib/buildings/buildingMembershipService'
 
 export default function useInventoryPage(selectedBuildingId?: string | null) {
+  const manualAdjustT = useTranslations('inventoryManualAdjust')
+  const t = useTranslations('inventoryPageMessages')
   const { scrollRef, compactHeader } = useCompactHeader<HTMLElement>(18)
   const {
     photos,
@@ -218,14 +221,14 @@ export default function useInventoryPage(selectedBuildingId?: string | null) {
     if (!manualAdjustItem) return
 
     if (!manualAdjustReason.trim()) {
-      setMessage('Explica qué hiciste con este ítem.')
+      setMessage(manualAdjustT('reasonRequired'))
       return
     }
 
     const requestedQuantity = Number(manualAdjustQuantity)
 
     if (!Number.isFinite(requestedQuantity) || requestedQuantity <= 0) {
-      setMessage('Escribe una cantidad válida para descontar.')
+      setMessage(manualAdjustT('invalidQuantity'))
       return
     }
 
@@ -233,12 +236,12 @@ export default function useInventoryPage(selectedBuildingId?: string | null) {
       !isMaterialInventoryCategory(manualAdjustItem.category) &&
       !Number.isInteger(requestedQuantity)
     ) {
-      setMessage('Este item solo permite cantidades enteras.')
+      setMessage(manualAdjustT('wholeUnitsOnly'))
       return
     }
 
     if (requestedQuantity > Number(manualAdjustItem.quantity ?? 0)) {
-      setMessage('No puedes descontar más de lo disponible.')
+      setMessage(manualAdjustT('quantityExceedsAvailable'))
       return
     }
 
@@ -252,14 +255,14 @@ export default function useInventoryPage(selectedBuildingId?: string | null) {
       })
 
       if (!success) {
-        setMessage('No se pudo descontar el ítem.')
+        setMessage(t('couldNotDiscountItem'))
         return
       }
 
       closeManualAdjustModal()
     } catch (error) {
       console.error('Error confirming manual inventory adjustment:', error)
-      setMessage('No se pudo guardar el ajuste manual.')
+      setMessage(t('couldNotSaveManualAdjustment'))
     } finally {
       setManualAdjustSaving(false)
     }
@@ -269,6 +272,8 @@ export default function useInventoryPage(selectedBuildingId?: string | null) {
     manualAdjustQuantity,
     manualAdjustReason,
     quickAdjustStock,
+    manualAdjustT,
+    t,
   ])
 
   return {

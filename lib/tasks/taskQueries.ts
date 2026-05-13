@@ -20,7 +20,7 @@ export async function getCurrentUserId(): Promise<string> {
   } = await getSafeAuthUser()
 
   if (error || !user) {
-    throw new Error('No se pudo obtener el usuario autenticado')
+    throw new Error('Could not get the authenticated user')
   }
 
   return user.id
@@ -34,7 +34,7 @@ export async function getProfileIdByUserId(userId: string): Promise<string> {
     .single()
 
   if (error || !data) {
-    throw new Error('No se pudo obtener el perfil del usuario')
+    throw new Error('Could not get the user profile')
   }
 
   return data.id
@@ -50,7 +50,7 @@ export async function getBuildingByConciergeId(
   const { building } = await resolveConciergeBuildingContext(preferredBuildingId)
 
   if (!building) {
-    throw new Error('No se pudo obtener el edificio del concierge')
+    throw new Error('Could not get the concierge building')
   }
 
   return {
@@ -68,7 +68,7 @@ export async function fetchTasksByBuildingId(
     .eq('building_id', buildingId)
 
   if (error) {
-    throw new Error('No se pudieron obtener las tareas')
+    throw new Error('Could not fetch tasks')
   }
 
   return ((data as Task[]) || []).map(normalizeTask)
@@ -81,7 +81,7 @@ export async function fetchTasksPageData(
     await resolveConciergeBuildingContext(preferredBuildingId)
 
   if (!building) {
-    throw new Error('No se pudo obtener el edificio del concierge')
+    throw new Error('Could not get the concierge building')
   }
 
   const tasks = await fetchTasksByBuildingId(building.id)

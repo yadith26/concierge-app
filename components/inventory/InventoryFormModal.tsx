@@ -82,6 +82,7 @@ export default function InventoryFormModal({
   onSave,
 }: InventoryFormModalProps) {
   const t = useTranslations('inventoryFormModal')
+  const tGlobal = useTranslations()
 
   const inventoryForm = useInventoryForm({
     open,
@@ -111,6 +112,17 @@ export default function InventoryFormModal({
   useEffect(() => {
     onMessage('')
   }, [fields.name, fields.category, fields.itemType, fields.unitOfMeasure, onMessage])
+
+  const resolvedMessage =
+    message && message.includes('.')
+      ? (() => {
+          try {
+            return tGlobal(message)
+          } catch {
+            return message
+          }
+        })()
+      : message
 
   if (!open) return null
 
@@ -168,9 +180,9 @@ export default function InventoryFormModal({
                 onMessage={onMessage}
               />
 
-              {message && (
+              {resolvedMessage && (
                 <div className="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700">
-                  {message}
+                  {resolvedMessage}
                 </div>
               )}
             </div>

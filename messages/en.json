@@ -19,7 +19,8 @@
     "today": "Today",
     "hello": "Hello",
     "user": "User",
-    "goToProfile": "Go to profile"
+    "goToProfile": "Go to profile",
+    "headerBackgroundAlt": "Header background"
   },
   "dashboard": {
     "loading": "Loading dashboard...",
@@ -69,6 +70,68 @@
       "emptyTomorrowDescription": "Nothing scheduled yet.",
       "emptyCompletedTitle": "Completed tasks",
       "emptyCompletedDescription": "No completed tasks to show."
+    },
+    "commonClose": "Close",
+    "conciergeCopy": {
+      "subtitle": "We are going to have a great day",
+      "spotlight": "Most important right now",
+      "spotlightToday": "What is next today",
+      "spotlightNext": "Next task",
+      "spotlightOverdue": "Immediate attention",
+      "spotlightUrgentToday": "Urgent today",
+      "spotlightUrgentOverdue": "Urgent and overdue",
+      "spotlightUrgentNext": "Urgent scheduled",
+      "completeTask": "Complete task",
+      "alerts": "Smart alerts",
+      "overdueTasks": "Overdue tasks",
+      "urgentTasks": "Urgent",
+      "todayTasks": "Today's tasks",
+      "upcomingTasks": "Upcoming tasks",
+      "quickActions": "Quick actions",
+      "quickActionNewTask": "New task",
+      "quickActionTasks": "View tasks",
+      "quickActionInventory": "Open inventory",
+      "quickActionAgenda": "Open agenda",
+      "activeProblems": "Active problems",
+      "noActiveProblems": "There are no active problems.",
+      "smartReminders": "Key reminders",
+      "noSmartReminders": "Everything is under control for now.",
+      "hotAreas": "Areas repeating the most",
+      "noHotAreas": "There are no highlighted areas yet.",
+      "singleHotAreaTask": "1 task",
+      "hotAreaTasks": "{count} tasks",
+      "quickHistory": "Quick history of the day",
+      "noHistoryToday": "There are no completed tasks yet today.",
+      "completedAtLabel": "Completed at {time}",
+      "viewAll": "View all",
+      "noTasks": "There are no tasks right now.",
+      "noTodayTasks": "There are no tasks for today.",
+      "noUpcomingTasks": "There are no upcoming tasks.",
+      "noOverdueTasks": "There are no overdue tasks.",
+      "noUrgentTasks": "There are no urgent tasks.",
+      "todayWord": "Today",
+      "tomorrowWord": "Tomorrow"
+    },
+    "quickActions": {
+      "newTask": "New\ntask",
+      "dictateTask": "Dictate\ntask",
+      "quickPhoto": "Quick\nphoto",
+      "callManager": "Call\nmanager"
+    },
+    "toasts": {
+      "taskDeletedTitle": "Task deleted",
+      "taskCompletedTitle": "Task completed",
+      "dictationProblemTitle": "Dictation issue",
+      "undo": "Undo"
+    },
+    "conversation": {
+      "title": "Manager messages",
+      "defaultSubtitle": "Review and reply to the building conversations."
+    },
+    "dictationOverlay": {
+      "recording": "Recording audio...",
+      "transcribing": "Transcribing...",
+      "hint": "Speak now, it will stop automatically"
     }
   },
   "taskCard": {
@@ -90,6 +153,11 @@
       "nuevo": "Initial",
       "seguimiento": "Follow-up",
       "preventivo": "Preventive"
+    },
+    "taskVisitSummary": {
+      "initial": "{count} initial{count, plural, one {} other {s}}",
+      "followUp": "{count} follow-up{count, plural, one {} other {s}}",
+      "preventive": "{count} preventive{count, plural, one {} other {s}}"
     },
     "pestTarget": {
       "cucarachas": "Cockroaches",
@@ -224,12 +292,18 @@
   },
   "taskCategoryPriorityFields": {
     "category": "Category *",
-    "priority": "Priority *"
+    "priority": "Priority *",
+    "selectCategory": "Select category"
   },
   "taskTitleField": {
     "label": "Title *",
     "placeholder": "Ex: fix apartment 3 water leak tomorrow at 9 urgent",
-    "pestPlaceholder": "Ex: treat apt 12 for cockroaches tomorrow at 10"
+    "pestPlaceholder": "Ex: treat apt 12 for cockroaches tomorrow at 10",
+    "dictationUnsupported": "Voice dictation is not available on this device.",
+    "listening": "Listening...",
+    "startDictation": "Start dictation",
+    "stopDictation": "Stop dictation",
+    "listeningHint": "Speak now and the title will be filled automatically."
   },
   "taskFollowUpFlow": {
     "alreadyExists": "A pending follow-up already exists for this treatment.",
@@ -289,7 +363,9 @@
     "title": "Tasks",
     "newTask": "New task",
     "building": "Building",
-    "noBuilding": "No building"
+    "noBuilding": "No building",
+    "undoCompleteTitle": "Task completed",
+    "undo": "Undo"
   },
   "tasksFilterBar": {
     "searchPlaceholder": "Search tasks...",
@@ -328,7 +404,9 @@
     "noDate": "Not selected",
     "today": "Today",
     "newTask": "New task",
-    "goToToday": "Go to today"
+    "goToToday": "Go to today",
+    "undoCompleteTitle": "Task completed",
+    "undo": "Undo"
   },
   "agendaCalendar": {
     "export": "Export to Excel",
@@ -395,7 +473,11 @@
     "reasonPlaceholder": "Ex: installed in Unit 12, used for a lobby repair, discarded because it was damaged, loaned to the maintenance room...",
     "cancel": "Cancel",
     "confirm": "Save adjustment",
-    "saving": "Saving..."
+    "saving": "Saving...",
+    "reasonRequired": "Explain what you did with this item.",
+    "invalidQuantity": "Enter a valid quantity to remove.",
+    "wholeUnitsOnly": "This item only allows whole quantities.",
+    "quantityExceedsAvailable": "You cannot remove more than what is available."
   },
   "inventoryFilters": {
     "searchPlaceholder": "Search inventory...",
@@ -558,7 +640,8 @@
       "new": "New",
       "used": "Used",
       "damaged": "Damaged"
-    }
+    },
+    "selectCondition": "Select condition"
   },
   "inventoryConfirmModal": {
     "eyebrow": "Inventory",
@@ -583,7 +666,8 @@
       "invalidStock": "Minimum stock must be a valid number.",
       "updateFailed": "Failed to update item.",
       "createFailed": "Failed to create item.",
-      "saveError": "An error occurred while saving the item."
+      "saveError": "An error occurred while saving the item.",
+      "measurementUnitMigrationRequired": "Run inventory_measurement_units.sql to store measurement units in inventory."
     },
     "history": {
       "created": "Item created in inventory",
@@ -633,39 +717,39 @@
       "updatedAt": "Updated at"
     },
     "history": {
-        "itemId": "Item ID",
-        "itemName": "Item",
-        "action": "Action",
-        "source": "Source",
-        "unit": "Unit",
-        "before": "Quantity before",
-        "change": "Change",
-        "after": "Quantity after",
+      "itemId": "Item ID",
+      "itemName": "Item",
+      "action": "Action",
+      "source": "Source",
+      "unit": "Unit",
+      "before": "Quantity before",
+      "change": "Change",
+      "after": "Quantity after",
       "note": "Note",
       "date": "Date"
     },
-      "sheet": {
-        "inventory": "Inventory",
-        "history": "History"
-      },
-      "metrics": {
-        "totalItems": "REGISTERED ITEMS",
-        "totalItemsLine1": "Distinct items",
-        "totalItemsLine2": "In inventory",
-        "totalUnits": "TOTAL UNITS",
-        "totalUnitsLine1": "Available sum",
-        "totalUnitsLine2": "Current stock",
-        "lowStock": "LOW STOCK",
-        "lowStockLine1": "Items in alert",
-        "lowStockLine2": "Need restocking",
-        "categories": "CATEGORIES",
-        "categoriesLine1": "Active categories",
-        "categoriesLine2": "In this view",
-        "itemsColumn": "Items"
-      },
-      "noData": "There is no data to export",
-      "noHistory": "There is no history available"
+    "sheet": {
+      "inventory": "Inventory",
+      "history": "History"
     },
+    "metrics": {
+      "totalItems": "REGISTERED ITEMS",
+      "totalItemsLine1": "Distinct items",
+      "totalItemsLine2": "In inventory",
+      "totalUnits": "TOTAL UNITS",
+      "totalUnitsLine1": "Available sum",
+      "totalUnitsLine2": "Current stock",
+      "lowStock": "LOW STOCK",
+      "lowStockLine1": "Items in alert",
+      "lowStockLine2": "Need restocking",
+      "categories": "CATEGORIES",
+      "categoriesLine1": "Active categories",
+      "categoriesLine2": "In this view",
+      "itemsColumn": "Items"
+    },
+    "noData": "There is no data to export",
+    "noHistory": "There is no history available"
+  },
   "inventoryHelpers": {
     "emptyItems": "No items"
   },
@@ -905,5 +989,181 @@
       "other": "Other"
     },
     "goToToday": "Go to today"
+  },
+  "dashboardHomeOverview": {
+    "title": "Day summary",
+    "subtitle": "What operations need your attention.",
+    "summary": {
+      "today": "Today",
+      "urgent": "Urgent",
+      "overdue": "Overdue"
+    },
+    "taskCount": {
+      "single": "{count} pending",
+      "plural": "{count} pending"
+    },
+    "close": "Close",
+    "emptySummary": "No updates for now.",
+    "buildingsTitle": "My buildings",
+    "buildingsSubtitle": "Pending tasks by assigned building.",
+    "noAddress": "No address",
+    "todayCount": "{count} today",
+    "selectBuildingTitle": "Select a building",
+    "selectBuildingDescription": "To continue with tasks, inventory, treatments, and agenda.",
+    "noLocation": "No location"
+  },
+  "dashboardMessagesModal": {
+    "title": "Manager messages",
+    "unreadCount": "{count} unread",
+    "allRead": "All caught up",
+    "close": "Close",
+    "empty": "There are no recent messages.",
+    "markAsRead": "Mark as read"
+  },
+  "dashboardConversation": {
+    "loadError": "Could not load the conversation.",
+    "missingManager": "We could not find the building manager.",
+    "sendError": "Could not send the message."
+  },
+  "headerConversation": {
+    "openError": "Could not open the conversation.",
+    "sendError": "Could not send the message."
+  },
+  "dashboardDictation": {
+    "errors": {
+      "unsupported": "Audio recording is not available in this browser.",
+      "permission": "We could not access the microphone. Allow microphone permission and try again.",
+      "recording": "We could not record your voice right now.",
+      "transcription": "We could not transcribe the audio right now.",
+      "empty": "We did not hear enough audio. Try again and speak a little closer to the microphone.",
+      "generic": "We could not start voice dictation right now."
+    }
+  },
+  "dashboardFloatingAddButton": {
+    "addTask": "Add task"
+  },
+  "dashboardFilterLabels": {
+    "urgent": "Urgent",
+    "pending": "Pending",
+    "completed": "Completed"
+  },
+  "taskApartments": {
+    "missingApartment": "Enter an apartment or area before adding it.",
+    "multipleApartmentsNotAllowed": "Add one apartment at a time.",
+    "missingVisitType": "Select the visit type for this apartment.",
+    "alreadyAdded": "This apartment was already added."
+  },
+  "followUpPrompt": {
+    "title": "Create follow-up",
+    "subtitle": "Schedule the follow-up right now.",
+    "description": "A follow-up task will be created for this treatment using the suggested date.",
+    "skip": "Not now",
+    "confirm": "Create follow-up",
+    "creating": "Creating follow-up..."
+  },
+  "inventoryMatchReasons": {
+    "name": "Name match",
+    "item": "Item match",
+    "sameCategory": "Same category",
+    "variant": "Same variant",
+    "sharedTokens": "Shared words"
+  },
+  "taskValidation": {
+    "titleRequired": "Title is required.",
+    "dateRequired": "Date is required.",
+    "dateBeforeToday": "Date cannot be earlier than today.",
+    "missingUserOrBuilding": "User or building information is missing.",
+    "categoryRequired": "You must select a category.",
+    "pestRequired": "You must select at least one pest.",
+    "apartmentRequired": "You must add at least one apartment."
+  },
+  "taskFormFallback": {
+    "createError": "Could not save the task.",
+    "updateError": "Could not update the task."
+  },
+  "inventoryPageMessages": {
+    "couldNotDiscountItem": "Could not remove the item.",
+    "couldNotSaveManualAdjustment": "Could not save the manual adjustment."
+  },
+  "taskInventoryFlow": {
+    "foundSimilarItemsInfo": "We found similar items in inventory. If you want, you can add stock to one of them before creating a new item.",
+    "completeTaskError": "Could not complete the task.",
+    "loadInventoryOptionsError": "Could not load inventory options.",
+    "loadAvailableInventoryError": "Could not load the available inventory.",
+    "saveInventoryError": "Could not save the inventory item.",
+    "inventoryFlowError": "Could not complete the inventory flow.",
+    "selectedItemNotFound": "We could not find the selected item.",
+    "buildingNotFoundForUpdate": "We could not find the building to update inventory.",
+    "buildingNotFoundForReview": "We could not find the building to review inventory.",
+    "missingInventoryData": "Inventory data is missing.",
+    "taskCompletedInventorySaveError": "The task was already completed, but the inventory could not be saved.",
+    "invalidUsedQuantity": "The used quantity is not valid.",
+    "taskCompletedInventoryConsumeError": "The task was already completed, but the inventory could not be deducted."
+  },
+  "taskInventoryPromptModal": {
+    "eyebrow": "Inventory",
+    "usedInventoryTitle": "Did you use inventory?",
+    "updateInventoryTitle": "Update inventory?",
+    "close": "Close",
+    "replacementDescription": "Task <taskTitle></taskTitle> is ready to complete. If this replacement used something from inventory, you can subtract it now or register a new item.",
+    "deliveryDescription": "Task <taskTitle></taskTitle> is ready to complete. If you want, we can also add the delivered item to inventory before closing the action.",
+    "usageDescription": "Task <taskTitle></taskTitle> is ready to complete. If you used something from inventory, you can subtract it now and keep the history updated.",
+    "genericDescription": "Task <taskTitle></taskTitle> is ready to complete. If you want, we can also register this item in inventory before closing the action.",
+    "completeWithoutInventory": "Complete without inventory",
+    "useExistingItem": "Use existing item",
+    "consumeExistingItem": "Consume existing item",
+    "createNewItem": "Create new item",
+    "addToInventory": "Add to inventory",
+    "completeAndAdd": "Complete and add"
+  },
+  "taskInventoryUsageModal": {
+    "eyebrow": "Inventory",
+    "title": "Confirm usage",
+    "close": "Close",
+    "description": "You are about to use <itemName></itemName> to complete <taskTitle></taskTitle>.",
+    "quantityLabel": "Quantity used ({unit})",
+    "materialHint": "For materials you can use partial quantities, for example 0.25 or 0.5.",
+    "unitHint": "This item is consumed in whole units.",
+    "locationLabel": "Where it was used",
+    "locationPlaceholder": "Ex: Apt 15, Lobby, Hallway",
+    "confirm": "Subtract from inventory"
+  },
+  "taskInventorySelectModal": {
+    "eyebrow": "Inventory",
+    "chooseIncreaseTitle": "Choose where to add stock",
+    "chooseConsumeTitle": "Choose the item to subtract",
+    "close": "Close",
+    "singleUnit": "1 unit",
+    "deliveryDescription": "To complete <taskTitle></taskTitle>, choose which existing item should receive <quantity></quantity>.",
+    "usageDescription": "To complete <taskTitle></taskTitle>, choose which{itemLabel} from inventory will be used. We will subtract <quantity></quantity>.",
+    "genericItemLabel": " item",
+    "suggested": "Suggested",
+    "lowStock": "Low stock",
+    "available": "{count} available",
+    "increase": "Add",
+    "use": "Use",
+    "noMatchesDelivery": "We did not find similar inventory items for this delivery.",
+    "noMatchesReplacement": "We did not find compatible inventory items for this replacement.",
+    "noMatchesTask": "We did not find compatible inventory items for this task.",
+    "createNewAnyway": "Create a new item anyway",
+    "createNew": "Create new item"
+  },
+  "dashboardTodaySummary": {
+    "today": "Today",
+    "pendingTasks": "{count} pending tasks",
+    "urgentTasks": "{count} urgent",
+    "overdueTasks": "{count} overdue"
+  },
+  "taskPhotosValidation": {
+    "onlyImagesAllowed": "Only images are allowed."
+  },
+  "pestPage": {
+    "statusUpdateError": "An error occurred while updating the status"
+  },
+  "inventoryVariantSelectorModal": {
+    "description": "Choose whether you want to increase an existing variant or create a new one.",
+    "availableNow": "now",
+    "increase": "Increase",
+    "createNewVariant": "Create new variant"
   }
 }
