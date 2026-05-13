@@ -144,7 +144,10 @@
     "activeWarrantyDetected": "Active warranty detected",
     "activeWarrantyUntil": "with active warranty until",
     "checkBeforeScheduling": "Check before scheduling a new visit to avoid duplicates or unnecessary charges.",
-    "checkingActiveWarranty": "Checking active warranty..."
+    "checkingActiveWarranty": "Checking active warranty...",
+    "autoFollowUpAssignment": "Apartments with an active warranty will automatically be marked as follow-up.",
+    "duplicateScheduledForDate": "A pending treatment or follow-up already exists for this date in: {apartments}.",
+    "duplicateOpenCycle": "A pending treatment or follow-up for this pest already exists in: {apartments}."
   },
   "pestApartmentCard": {
     "history": "History",
@@ -225,7 +228,25 @@
   },
   "taskTitleField": {
     "label": "Title *",
-    "placeholder": "Ex: fix apartment 3 water leak tomorrow at 9 urgent"
+    "placeholder": "Ex: fix apartment 3 water leak tomorrow at 9 urgent",
+    "pestPlaceholder": "Ex: treat apt 12 for cockroaches tomorrow at 10"
+  },
+  "taskFollowUpFlow": {
+    "alreadyExists": "A pending follow-up already exists for this treatment.",
+    "createError": "Could not create the follow-up task.",
+    "createdPart": "{count} new follow-up tasks were created.",
+    "reprogrammedPart": "{count} existing follow-ups were rescheduled.",
+    "unchangedPart": "{count} apartments already had a follow-up and were left unchanged."
+  },
+  "taskFollowUpDecision": {
+    "title": "Follow-ups already scheduled",
+    "description": "These apartments already have a pending follow-up. Decide whether to keep the current date or reschedule it.",
+    "currentDate": "Current date:",
+    "suggestedDate": "Suggested new date:",
+    "cannotReprogram": "This follow-up cannot be rescheduled automatically from here.",
+    "keep": "Keep current date",
+    "reprogram": "Reschedule",
+    "reprogramming": "Rescheduling..."
   },
   "taskFormHeader": {
     "editTitle": "Edit task",

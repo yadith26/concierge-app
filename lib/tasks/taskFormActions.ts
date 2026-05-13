@@ -1,6 +1,10 @@
 import { supabase } from '@/lib/supabase'
 import { replaceTaskApartments, type TaskApartmentInput } from '@/lib/tasks/taskApartments'
-import { createFollowUpTask, type FollowUpSourceTask } from '@/lib/tasks/followUpHelpers'
+import {
+  createFollowUpTask,
+  type CreateFollowUpTaskResult,
+  type FollowUpSourceTask,
+} from '@/lib/tasks/followUpHelpers'
 import { deleteRemovedPhotos, uploadPhotosForTask } from '@/lib/tasks/taskPhotoActions'
 import {
   buildFollowUpSourceTask,
@@ -193,6 +197,6 @@ export async function createFollowUpFromSource(params: {
   sourceTask: FollowUpSourceTask
   buildingId: string
   profileId: string
-}) {
-  await createFollowUpTask(params)
+}): Promise<CreateFollowUpTaskResult> {
+  return createFollowUpTask(params)
 }

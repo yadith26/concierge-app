@@ -19,6 +19,7 @@ type SmartParsedInput = {
 type TaskTitleFieldProps = {
   title: string
   category: TaskCategory | ''
+  placeholder?: string
   smartParsed: SmartParsedInput
   onTitleChange: (value: string) => void
   onTryApplySmartParsing: (value: string) => SmartParsedInput
@@ -36,6 +37,7 @@ declare global {
 export default function TaskTitleField({
   title,
   category,
+  placeholder,
   smartParsed,
   onTitleChange,
   onTryApplySmartParsing,
@@ -129,7 +131,7 @@ export default function TaskTitleField({
             e.preventDefault()
             await onQuickSubmit()
           }}
-          placeholder={isListening ? 'Escuchando...' : t('placeholder')}
+          placeholder={isListening ? 'Escuchando...' : placeholder || t('placeholder')}
           className="min-w-0 flex-1 bg-transparent px-1 py-2 text-base text-[#142952] outline-none placeholder:text-[#8C9AB3]"
         />
 

@@ -1,6 +1,8 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import LocationField from '@/components/locations/LocationField'
+import FollowUpExistingDecisionModal from '@/components/tasks/FollowUpExistingDecisionModal'
 import FollowUpPrompt from '@/components/tasks/FollowUpPrompt'
 import TaskFormHeader from '@/components/tasks/TaskFormHeader'
 import TaskFormFooter from './TaskFormFooter'
@@ -30,6 +32,7 @@ type TaskFormModalProps = {
   sourceRequestId?: string | null
   defaultDate?: string
   defaultCategory?: TaskCategory | ''
+  onResultMessage?: (message: string) => void
 }
 
 export default function TaskFormModal({
@@ -44,7 +47,9 @@ export default function TaskFormModal({
   sourceRequestId = null,
   defaultDate,
   defaultCategory = '',
+  onResultMessage,
 }: TaskFormModalProps) {
+  const tTitle = useTranslations('taskTitleField')
   const {
     today,
     singleLocationFieldKey,
@@ -86,10 +91,14 @@ export default function TaskFormModal({
     tryApplySmartParsing,
     saving,
     showFollowUpPrompt,
+    showExistingDecision,
+    existingFollowUps,
     creatingFollowUp,
     handleClose,
     handleSubmit,
     handleCreateFollowUp,
+    handleKeepExistingFollowUps,
+    handleReprogramExistingFollowUps,
     handleSkipFollowUp,
     togglePestTarget,
   } = useTaskFormModal({
@@ -104,9 +113,16 @@ export default function TaskFormModal({
     sourceRequestId,
     defaultDate,
     defaultCategory,
+    onResultMessage,
   })
 
   if (!open) return null
+
+  const effectiveCategory = category || defaultCategory
+  const titlePlaceholder =
+    effectiveCategory === 'pest'
+      ? tTitle('pestPlaceholder')
+      : tTitle('placeholder')
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-900/35 backdrop-blur-[2px]">
@@ -122,6 +138,7 @@ export default function TaskFormModal({
               <TaskTitleField
                 title={title}
                 category={category}
+                placeholder={titlePlaceholder}
                 smartParsed={smartParsed}
                 onTitleChange={setTitle}
                 onTryApplySmartParsing={tryApplySmartParsing}
@@ -210,6 +227,18 @@ export default function TaskFormModal({
         loading={creatingFollowUp}
         onConfirm={handleCreateFollowUp}
         onSkip={handleSkipFollowUp}
+      />
+
+      <FollowUpExistingDecisionModal
+        open={showExistingDecision}
+        loading={creatingFollowUp}
+        items={existingFollowUps}
+        onKeep={() => {
+          void handleKeepExistingFollowUps()
+        }}
+        onReprogram={() => {
+          void handleReprogramExistingFollowUps()
+        }}
       />
     </div>
   )

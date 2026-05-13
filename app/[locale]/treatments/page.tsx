@@ -56,6 +56,7 @@ export default function TreatmentsPage() {
 
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedTask, setSelectedTask] = useState<EditableTask | null>(null)
+  const [resultMessage, setResultMessage] = useState('')
 
   const {
     tasks,
@@ -256,6 +257,12 @@ export default function TreatmentsPage() {
             className="min-h-0 flex-1 overflow-y-auto px-4 pb-28 pt-3"
           >
             <div className="space-y-3">
+              {resultMessage && (
+                <div className="rounded-[20px] border border-[#DCE7F5] bg-[#EEF4FF] px-4 py-3 text-sm font-medium text-[#2F66C8] shadow-[0_8px_24px_rgba(47,102,200,0.08)]">
+                  {resultMessage}
+                </div>
+              )}
+
               <TreatmentsFilters
                 activeTab={activeTab}
                 setActiveTab={handleChangeTab}
@@ -376,6 +383,7 @@ export default function TreatmentsPage() {
           setRequestTaskDraft(null)
           setRequestSourceId(null)
         }}
+        onResultMessage={setResultMessage}
         buildingId={buildingId}
         profileId={profileId}
         onCreated={async () => {
@@ -388,6 +396,7 @@ export default function TreatmentsPage() {
         taskToEdit={selectedTask}
         initialValues={selectedTask ? null : requestTaskDraft}
         sourceRequestId={requestSourceId}
+        defaultCategory="pest"
       />
 
       <TaskStatusReasonModal

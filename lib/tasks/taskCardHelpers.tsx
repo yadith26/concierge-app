@@ -15,13 +15,14 @@ import type {
   TaskCategory,
 } from '@/lib/tasks/taskTypes'
 
-type TFunction = (key: string, values?: any) => string
+type TranslationValues = Record<string, string | number | boolean | null | undefined>
+type TFunction = (key: string, values?: TranslationValues) => string
 
 function safeT(
   t: TFunction | undefined,
   key: string,
   fallback: string,
-  values?: any
+  values?: TranslationValues
 ) {
   if (!t) return fallback
 
@@ -163,7 +164,7 @@ export function buildVisitSummary(
   }
 
   return parts.length > 0
-    ? parts.join(', ')
+    ? parts.join(' · ')
     : safeT(t, 'taskCardExpanded.unspecified', 'Sin especificar')
 }
 

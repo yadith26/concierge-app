@@ -1,16 +1,26 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { createTaskFromForm, updateTaskFromForm } from '@/lib/tasks/taskFormActions'
 import { validateTaskForm } from '@/lib/tasks/validateTaskForm'
 import { useTaskFollowUpFlow } from '@/hooks/useTaskFollowUpFlow'
+import { normalizeApartmentKey } from '@/lib/locations/normalizeApartment'
+import {
+  findDuplicatePestApartmentsForDate,
+  findOpenPestCycleConflicts,
+} from '@/lib/tasks/pestDuplicateGuard'
+import { findExistingFollowUpDecisionItems } from '@/lib/tasks/followUpHelpers'
 import type {
   EditableTask,
   PestTarget,
   TaskCategory,
   TaskPriority,
 } from '@/lib/tasks/taskTypes'
-import type { FollowUpSourceTask } from '@/lib/tasks/followUpHelpers'
+import type {
+  ExistingFollowUpDecisionItem,
+  FollowUpSourceTask,
+} from '@/lib/tasks/followUpHelpers'
 import type { SelectedPhoto } from '@/hooks/useTaskPhotos'
 import type { TaskApartmentInput } from '@/lib/tasks/taskApartments'
 
@@ -32,6 +42,12 @@ type UseTaskFormSubmitParams = {
   finalLocation: string
   pestTargets: PestTarget[]
   selectedApartments: TaskApartmentInput[]
+  warrantyLoading: boolean
+  warrantyAlerts: Array<{
+    apartment_or_area: string
+    pestTarget: PestTarget
+    endDate: string
+  }>
   photos: SelectedPhoto[]
   existingPhotos?: EditableTask['task_photos']
   removedPhotoIds: string[]
@@ -40,18 +56,23 @@ type UseTaskFormSubmitParams = {
   resetFormState: () => void
   onClose: () => void
   onCreated?: () => Promise<void> | void
+  onResultMessage?: (message: string) => void
   setMessage: (message: string) => void
 }
 
 type UseTaskFormSubmitReturn = {
   saving: boolean
   showFollowUpPrompt: boolean
+  showExistingDecision: boolean
   followUpSourceTask: FollowUpSourceTask | null
+  existingFollowUps: ExistingFollowUpDecisionItem[]
   creatingFollowUp: boolean
   setShowFollowUpPrompt: (value: boolean) => void
   handleClose: () => void
   handleSubmit: (e?: React.FormEvent) => Promise<void>
   handleCreateFollowUp: () => Promise<void>
+  handleKeepExistingFollowUps: () => Promise<void>
+  handleReprogramExistingFollowUps: () => Promise<void>
   handleSkipFollowUp: () => Promise<void>
 }
 
@@ -69,6 +90,8 @@ export function useTaskFormSubmit({
   finalLocation,
   pestTargets,
   selectedApartments,
+  warrantyLoading,
+  warrantyAlerts,
   photos,
   existingPhotos,
   removedPhotoIds,
@@ -77,8 +100,10 @@ export function useTaskFormSubmit({
   resetFormState,
   onClose,
   onCreated,
+  onResultMessage,
   setMessage,
 }: UseTaskFormSubmitParams): UseTaskFormSubmitReturn {
+  const warrantyT = useTranslations('taskWarrantyAlerts')
   const [saving, setSaving] = useState(false)
 
   const isEditMode = !!taskToEdit
@@ -94,17 +119,23 @@ export function useTaskFormSubmit({
 
   const {
     showFollowUpPrompt,
+    showExistingDecision,
     setShowFollowUpPrompt,
     followUpSourceTask,
+    existingFollowUps,
     creatingFollowUp,
     handleCreateFollowUp,
+    handleKeepExistingFollowUps,
+    handleReprogramExistingFollowUps,
     handleSkipFollowUp,
     promptFollowUp,
+    promptExistingFollowUps,
   } = useTaskFollowUpFlow({
     buildingId,
     profileId,
     finalizeClose,
     setMessage,
+    onResultMessage,
   })
 
   const handleClose = () => {
@@ -118,6 +149,78 @@ export function useTaskFormSubmit({
     e?.preventDefault()
     setMessage('')
 
+    if (category === 'pest' && warrantyLoading) {
+      setMessage(warrantyT('checkingActiveWarranty'))
+      return
+    }
+
+    const apartmentsWithActiveWarranty = new Set(
+      warrantyAlerts.map((item) => normalizeApartmentKey(item.apartment_or_area))
+    )
+
+    const normalizedSelectedApartments =
+      category === 'pest'
+        ? selectedApartments.map((item) => {
+            const apartmentKey = item.apartment_key
+              ? normalizeApartmentKey(item.apartment_key)
+              : normalizeApartmentKey(item.apartment_or_area)
+
+            if (
+              apartmentsWithActiveWarranty.has(apartmentKey) &&
+              item.visit_type !== 'seguimiento'
+            ) {
+              return {
+                ...item,
+                visit_type: 'seguimiento' as const,
+              }
+            }
+
+            return item
+          })
+        : selectedApartments
+
+    let apartmentsToSave = normalizedSelectedApartments
+    let existingManualFollowUpItems: ExistingFollowUpDecisionItem[] = []
+
+    if (category === 'pest') {
+      const followUpApartments = normalizedSelectedApartments.filter(
+        (item) => item.visit_type === 'seguimiento'
+      )
+
+      if (followUpApartments.length > 0) {
+        existingManualFollowUpItems = await findExistingFollowUpDecisionItems({
+          buildingId,
+          apartments: followUpApartments,
+          pestTargets,
+          suggestedDate: taskDate,
+          suggestedTime: taskTime || null,
+        })
+
+        if (existingManualFollowUpItems.length > 0) {
+          const existingApartmentKeys = new Set(
+            existingManualFollowUpItems.map((item) =>
+              normalizeApartmentKey(item.apartment_or_area)
+            )
+          )
+
+          apartmentsToSave = normalizedSelectedApartments.filter((item) => {
+            const apartmentKey = item.apartment_key
+              ? normalizeApartmentKey(item.apartment_key)
+              : normalizeApartmentKey(item.apartment_or_area)
+
+            return !existingApartmentKeys.has(apartmentKey)
+          })
+        }
+      }
+    }
+
+    if (category === 'pest' && apartmentsToSave.length === 0) {
+      if (existingManualFollowUpItems.length > 0) {
+        promptExistingFollowUps(existingManualFollowUpItems)
+        return
+      }
+    }
+
     const validation = validateTaskForm({
       title,
       cleanedTitle: smartParsed.cleanedTitle,
@@ -127,12 +230,46 @@ export function useTaskFormSubmit({
       profileId,
       category,
       pestTargets,
-      selectedApartments,
+      selectedApartments: apartmentsToSave,
     })
 
     if (!validation.ok) {
       setMessage(validation.message)
       return
+    }
+
+    if (category === 'pest') {
+      const openCycleConflicts = await findOpenPestCycleConflicts({
+        buildingId,
+        selectedApartments: apartmentsToSave,
+        pestTargets,
+        excludeTaskId: taskToEdit?.id || null,
+      })
+
+      if (openCycleConflicts.length > 0) {
+        setMessage(
+          warrantyT('duplicateOpenCycle', {
+            apartments: openCycleConflicts.join(', '),
+          })
+        )
+        return
+      }
+
+      const duplicateApartments = await findDuplicatePestApartmentsForDate({
+        buildingId,
+        taskDate,
+        selectedApartments: apartmentsToSave,
+        excludeTaskId: taskToEdit?.id || null,
+      })
+
+      if (duplicateApartments.length > 0) {
+        setMessage(
+          warrantyT('duplicateScheduledForDate', {
+            apartments: duplicateApartments.join(', '),
+          })
+        )
+        return
+      }
     }
 
     const finalTitle = validation.finalTitle
@@ -157,12 +294,21 @@ export function useTaskFormSubmit({
           taskTime,
           finalLocation,
           pestTargets,
-          selectedApartments,
+          selectedApartments: apartmentsToSave,
           photos,
         })
 
         if (result.shouldPromptFollowUp && result.followUpSourceTask) {
-          promptFollowUp(result.followUpSourceTask)
+          promptFollowUp(
+            result.followUpSourceTask,
+            existingManualFollowUpItems
+          )
+          setSaving(false)
+          return
+        }
+
+        if (existingManualFollowUpItems.length > 0) {
+          promptExistingFollowUps(existingManualFollowUpItems)
           setSaving(false)
           return
         }
@@ -183,12 +329,21 @@ export function useTaskFormSubmit({
         taskTime,
         finalLocation,
         pestTargets,
-        selectedApartments,
+        selectedApartments: apartmentsToSave,
         photos,
       })
 
       if (result.shouldPromptFollowUp && result.followUpSourceTask) {
-        promptFollowUp(result.followUpSourceTask)
+        promptFollowUp(
+          result.followUpSourceTask,
+          existingManualFollowUpItems
+        )
+        setSaving(false)
+        return
+      }
+
+      if (existingManualFollowUpItems.length > 0) {
+        promptExistingFollowUps(existingManualFollowUpItems)
         setSaving(false)
         return
       }
@@ -211,12 +366,16 @@ export function useTaskFormSubmit({
   return {
     saving,
     showFollowUpPrompt,
+    showExistingDecision,
     followUpSourceTask,
+    existingFollowUps,
     creatingFollowUp,
     setShowFollowUpPrompt,
     handleClose,
     handleSubmit,
     handleCreateFollowUp,
+    handleKeepExistingFollowUps,
+    handleReprogramExistingFollowUps,
     handleSkipFollowUp,
   }
 }

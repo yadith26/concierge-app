@@ -144,7 +144,10 @@
     "activeWarrantyDetected": "Garantía activa detectada",
     "activeWarrantyUntil": "con garantía activa hasta",
     "checkBeforeScheduling": "Verifica antes de programar una nueva visita para evitar duplicados o cobros innecesarios.",
-    "checkingActiveWarranty": "Revisando garantía activa..."
+    "checkingActiveWarranty": "Revisando garantía activa...",
+    "autoFollowUpAssignment": "Los apartamentos con garantía activa se marcarán automáticamente como seguimiento.",
+    "duplicateScheduledForDate": "Ya existe una fumigación o seguimiento pendiente para esta fecha en: {apartments}.",
+    "duplicateOpenCycle": "Ya existe un tratamiento o seguimiento pendiente para esta plaga en: {apartments}."
   },
   "pestApartmentCard": {
     "history": "Historial",
@@ -225,7 +228,25 @@
   },
   "taskTitleField": {
     "label": "Título *",
-    "placeholder": "Ej: arreglar apartamento 3 salidero de agua mañana a las 9 urgente"
+    "placeholder": "Ej: arreglar apartamento 3 salidero de agua mañana a las 9 urgente",
+    "pestPlaceholder": "Ej: fumigar apto 12 por cucarachas mañana a las 10"
+  },
+  "taskFollowUpFlow": {
+    "alreadyExists": "Ya existe un seguimiento pendiente para este tratamiento.",
+    "createError": "No se pudo crear la tarea de seguimiento.",
+    "createdPart": "Se crearon {count} seguimientos nuevos.",
+    "reprogrammedPart": "Se reprogramaron {count} seguimientos existentes.",
+    "unchangedPart": "{count} apartamentos ya tenían seguimiento y se dejaron sin cambios."
+  },
+  "taskFollowUpDecision": {
+    "title": "Seguimientos ya programados",
+    "description": "Estos apartamentos ya tienen un seguimiento pendiente. Decide si quieres mantener la fecha actual o reprogramarla.",
+    "currentDate": "Fecha actual:",
+    "suggestedDate": "Nueva fecha sugerida:",
+    "cannotReprogram": "Este seguimiento no se puede reprogramar automáticamente desde aquí.",
+    "keep": "Mantener fecha actual",
+    "reprogram": "Reprogramar",
+    "reprogramming": "Reprogramando..."
   },
   "taskFormHeader": {
     "editTitle": "Editar tarea",

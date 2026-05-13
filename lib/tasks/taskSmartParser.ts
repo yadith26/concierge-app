@@ -545,7 +545,10 @@ function extractSmartApartments(
       apartments.push(`${rules.apartmentPrefix} ${parsed.value.toUpperCase()}`)
       cursor += parsed.consumed
 
-      if (!apartmentListConnectors.has(tokens[cursor] || '')) {
+      const nextToken = tokens[cursor] || ''
+      const nextParsed = parseSpokenApartmentToken(tokens, cursor, locale)
+
+      if (!apartmentListConnectors.has(nextToken) && !nextParsed) {
         break
       }
     }

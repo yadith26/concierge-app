@@ -58,6 +58,10 @@ export default function TaskWarrantyAlerts({
               <p className="mt-2 text-xs text-amber-700">
                 {warrantyT('checkBeforeScheduling')}
               </p>
+
+              <p className="mt-2 text-xs font-medium text-amber-800">
+                {warrantyT('autoFollowUpAssignment')}
+              </p>
             </div>
           </div>
         </div>

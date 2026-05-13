@@ -14,6 +14,8 @@ import type { TaskApartmentInput } from '@/lib/tasks/taskApartments'
 
 type UseTaskSmartParsingParams = {
   title: string
+  category: TaskCategory | ''
+  defaultCategory?: TaskCategory | ''
   setCategory: (value: TaskCategory | '') => void
   setPriority: (value: TaskPriority) => void
   setTaskDate: (value: string) => void
@@ -34,6 +36,8 @@ type SmartParsedResult = ReturnType<typeof parseSmartTaskInput>
 
 export function useTaskSmartParsing({
   title,
+  category,
+  defaultCategory = '',
   setCategory,
   setPriority,
   setTaskDate,
@@ -68,7 +72,10 @@ export function useTaskSmartParsing({
       setTaskTime(parsed.detectedTime)
     }
 
-    if (parsed.detectedCategory === 'pest') {
+    const effectiveCategory =
+      parsed.detectedCategory || category || defaultCategory
+
+    if (effectiveCategory === 'pest') {
       const detectedVisitType = parsed.detectedVisitType || 'nuevo'
       setDraftApartmentVisitType(detectedVisitType)
 

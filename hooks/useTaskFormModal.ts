@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, type ChangeEvent } from 'react'
+import { normalizeApartmentKey } from '@/lib/locations/normalizeApartment'
 import { getLocalDateInputValue } from '@/lib/dates/localDate'
 import { useTaskWarranty } from '@/hooks/useTaskWarranty'
 import { useTaskApartments } from '@/hooks/useTaskApartments'
@@ -28,6 +29,7 @@ type UseTaskFormModalParams = {
   sourceRequestId?: string | null
   defaultDate?: string
   defaultCategory?: TaskCategory | ''
+  onResultMessage?: (message: string) => void
 }
 
 function getLocationFieldKeys({
@@ -66,6 +68,7 @@ export function useTaskFormModal({
   sourceRequestId = null,
   defaultDate,
   defaultCategory = '',
+  onResultMessage,
 }: UseTaskFormModalParams) {
   const today = getLocalDateInputValue()
   const injectedPhotoRef = useRef<File | null>(null)
@@ -167,8 +170,45 @@ export function useTaskFormModal({
     pestTargets,
   })
 
+  useEffect(() => {
+    if (!open || category !== 'pest' || warrantyAlerts.length === 0) return
+
+    const apartmentsWithActiveWarranty = new Set(
+      warrantyAlerts.map((item) =>
+        normalizeApartmentKey(item.apartment_or_area)
+      )
+    )
+
+    setSelectedApartments((prev) => {
+      let changed = false
+
+      const next = prev.map((item) => {
+        const apartmentKey = item.apartment_key
+          ? normalizeApartmentKey(item.apartment_key)
+          : normalizeApartmentKey(item.apartment_or_area)
+
+        if (
+          apartmentsWithActiveWarranty.has(apartmentKey) &&
+          item.visit_type !== 'seguimiento'
+        ) {
+          changed = true
+          return {
+            ...item,
+            visit_type: 'seguimiento' as const,
+          }
+        }
+
+        return item
+      })
+
+      return changed ? next : prev
+    })
+  }, [open, category, warrantyAlerts, setSelectedApartments])
+
   const { smartParsed, tryApplySmartParsing } = useTaskSmartParsing({
     title,
+    category,
+    defaultCategory,
     setCategory,
     setPriority,
     setTaskDate,
@@ -205,10 +245,14 @@ export function useTaskFormModal({
   const {
     saving,
     showFollowUpPrompt,
+    showExistingDecision,
+    existingFollowUps,
     creatingFollowUp,
     handleClose,
     handleSubmit,
     handleCreateFollowUp,
+    handleKeepExistingFollowUps,
+    handleReprogramExistingFollowUps,
     handleSkipFollowUp,
   } = useTaskFormSubmit({
     buildingId,
@@ -232,7 +276,10 @@ export function useTaskFormModal({
     resetFormState,
     onClose,
     onCreated,
+    onResultMessage,
     setMessage,
+    warrantyLoading,
+    warrantyAlerts,
   })
 
   const togglePestTarget = (target: PestTarget) => {
@@ -283,10 +330,14 @@ export function useTaskFormModal({
     tryApplySmartParsing,
     saving,
     showFollowUpPrompt,
+    showExistingDecision,
+    existingFollowUps,
     creatingFollowUp,
     handleClose,
     handleSubmit,
     handleCreateFollowUp,
+    handleKeepExistingFollowUps,
+    handleReprogramExistingFollowUps,
     handleSkipFollowUp,
     selectedApartments,
     togglePestTarget,

@@ -144,7 +144,10 @@
     "activeWarrantyDetected": "Garantie active détectée",
     "activeWarrantyUntil": "avec garantie active jusqu’au",
     "checkBeforeScheduling": "Vérifiez avant de planifier une nouvelle visite pour éviter les doublons ou les frais inutiles.",
-    "checkingActiveWarranty": "Vérification de la garantie active..."
+    "checkingActiveWarranty": "Vérification de la garantie active...",
+    "autoFollowUpAssignment": "Les appartements avec une garantie active seront automatiquement marqués comme suivi.",
+    "duplicateScheduledForDate": "Un traitement ou un suivi en attente existe déjà à cette date pour : {apartments}.",
+    "duplicateOpenCycle": "Un traitement ou un suivi en attente pour cette infestation existe déjà pour : {apartments}."
   },
   "pestApartmentCard": {
     "history": "Historique",
@@ -225,7 +228,25 @@
   },
   "taskTitleField": {
     "label": "Titre *",
-    "placeholder": "Ex. : réparer l’appartement 3 fuite d’eau demain à 9 h urgent"
+    "placeholder": "Ex. : réparer l’appartement 3 fuite d’eau demain à 9 h urgent",
+    "pestPlaceholder": "Ex. : traiter l'appartement 12 pour des coquerelles demain à 10 h"
+  },
+  "taskFollowUpFlow": {
+    "alreadyExists": "Un suivi en attente existe déjà pour ce traitement.",
+    "createError": "Impossible de créer la tâche de suivi.",
+    "createdPart": "{count} nouvelles tâches de suivi ont été créées.",
+    "reprogrammedPart": "{count} suivis existants ont été replanifiés.",
+    "unchangedPart": "{count} appartements avaient déjà un suivi et ont été laissés inchangés."
+  },
+  "taskFollowUpDecision": {
+    "title": "Suivis déjà planifiés",
+    "description": "Ces appartements ont déjà un suivi en attente. Décidez si vous voulez conserver la date actuelle ou la replanifier.",
+    "currentDate": "Date actuelle :",
+    "suggestedDate": "Nouvelle date suggérée :",
+    "cannotReprogram": "Ce suivi ne peut pas être replanifié automatiquement depuis ici.",
+    "keep": "Garder la date actuelle",
+    "reprogram": "Replanifier",
+    "reprogramming": "Replanification..."
   },
   "taskFormHeader": {
     "editTitle": "Modifier la tâche",

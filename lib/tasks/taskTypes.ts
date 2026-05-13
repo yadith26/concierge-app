@@ -36,6 +36,7 @@ export type Task = {
   description: string | null
   apartment_or_area: string | null
   apartment_key?: string | null
+  follow_up_source_task_id?: string | null
   source_request_id?: string | null
   used_inventory_item_id?: string | null
   category: TaskCategory
@@ -60,6 +61,7 @@ export type EditableTask = {
   description: string | null
   apartment_or_area: string | null
   apartment_key?: string | null
+  follow_up_source_task_id?: string | null
   source_request_id?: string | null
   used_inventory_item_id?: string | null
   category: TaskCategory
@@ -80,6 +82,7 @@ export type TaskDraft = {
   description?: string | null
   apartment_or_area?: string | null
   apartment_key?: string | null
+  follow_up_source_task_id?: string | null
   category?: TaskCategory
   priority?: TaskPriority
   task_date?: string
