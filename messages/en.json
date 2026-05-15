@@ -23,7 +23,7 @@
     "headerBackgroundAlt": "Header background"
   },
   "dashboard": {
-    "loading": "Loading dashboard...",
+    "loading": "Loading home...",
     "managerNotLinked": "This building does not have a linked manager yet.",
     "managerNotLinkedShort": "No manager",
     "headerPills": {
@@ -78,7 +78,7 @@
     },
     "commonClose": "Close",
     "conciergeCopy": {
-      "subtitle": "We are going to have a great day",
+      "subtitle": "Here is your summary for today",
       "spotlight": "Most important right now",
       "spotlightToday": "What is next today",
       "spotlightNext": "Next task",

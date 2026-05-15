@@ -13,6 +13,7 @@ import TasksEmptyState from '@/components/tasks/TasksEmptyState'
 import TasksPageSections from '@/components/tasks/TasksPageSections'
 import TaskStatusSummaryCard from '@/components/tasks/TaskStatusSummaryCard'
 import BottomNav from '@/components/layout/BottomNav'
+import ConciergePageShell from '@/components/layout/ConciergePageShell'
 import PageHeader from '@/components/layout/PageHeader'
 import ManagerBuildingChip from '@/components/layout/ManagerBuildingChip'
 import ConversationModal from '@/components/messages/ConversationModal'
@@ -21,13 +22,13 @@ import OwnerRequestsModal from '@/components/owner-requests/OwnerRequestsModal'
 import { useTasksPage } from '@/hooks/useTasksPage'
 import { useTaskInventoryCompletion } from '@/hooks/useTaskInventoryCompletion'
 import { useTaskReopenReason } from '@/hooks/useTaskReopenReason'
+import { useConciergeTaskActions } from '@/hooks/useConciergeTaskActions'
 import useHeaderConversation from '@/hooks/useHeaderConversation'
 import useOwnerRequestsInbox from '@/hooks/useOwnerRequestsInbox'
 import { useSyncConciergeBuildingUrl } from '@/hooks/useSyncConciergeBuildingUrl'
 import { buildTaskDraftFromMessage } from '@/lib/messages/messageTaskDraft'
 import type { TaskDraft } from '@/lib/tasks/taskTypes'
 import { exportTasksToExcel } from '@/lib/tasks/exportTasksToExcel'
-import { requiresInventoryFlow } from '@/lib/inventory/taskInventoryCategories'
 
 export default function TasksPage() {
   const tGlobal = useTranslations()
@@ -44,13 +45,6 @@ export default function TasksPage() {
   })
   const [requestTaskDraft, setRequestTaskDraft] = useState<TaskDraft | null>(null)
   const [requestSourceId, setRequestSourceId] = useState<string | null>(null)
-  const [undoComplete, setUndoComplete] = useState<{
-    taskId: string
-    taskTitle: string
-    previousStatus: 'pending' | 'in_progress'
-    timeoutId: ReturnType<typeof setTimeout>
-  } | null>(null)
-
   const {
     loading,
     tasks,
@@ -94,6 +88,18 @@ export default function TasksPage() {
   const reopenReason = useTaskReopenReason({
     requiredMessage: reopenReasonT('required'),
     failedMessage: reopenReasonT('failed'),
+  })
+  const {
+    undoComplete,
+    completeTaskById,
+    swipeCompleteTaskById,
+    setPendingTaskById,
+    undoCompletedTask,
+  } = useConciergeTaskActions({
+    tasks,
+    updateTaskStatus,
+    taskInventory,
+    reopenReason,
   })
 
   const ownerRequests = useOwnerRequestsInbox(buildingId)
@@ -157,14 +163,6 @@ export default function TasksPage() {
   }, [loading, setCompactHeader, setCategoryOpen])
 
   useEffect(() => {
-    return () => {
-      if (undoComplete) {
-        clearTimeout(undoComplete.timeoutId)
-      }
-    }
-  }, [undoComplete])
-
-  useEffect(() => {
     if (!selectedTaskId) return
     if (!filteredTasks.some((task) => task.id === selectedTaskId)) return
 
@@ -207,103 +205,13 @@ export default function TasksPage() {
     upcomingTasks,
   ])
 
-  const handleCompleteTask = async (taskId: string) => {
-    const task = tasks.find((item) => item.id === taskId)
-    if (!task) return
-
-    if (!requiresInventoryFlow(task.category)) {
-      if (undoComplete) {
-        clearTimeout(undoComplete.timeoutId)
-      }
-
-      const didComplete = await updateTaskStatus(task.id, 'completed')
-      if (!didComplete) return
-
-      const timeoutId = setTimeout(() => {
-        setUndoComplete((current) =>
-          current?.taskId === task.id ? null : current
-        )
-      }, 5000)
-
-      setUndoComplete({
-        taskId: task.id,
-        taskTitle: task.title,
-        previousStatus: task.status === 'in_progress' ? 'in_progress' : 'pending',
-        timeoutId,
-      })
-      return
-    }
-
-    await taskInventory.requestCompletion(task, updateTaskStatus)
-  }
-
-  const handleSwipeCompleteTask = async (taskId: string) => {
-    const task = tasks.find((item) => item.id === taskId)
-    if (!task) return
-
-    if (requiresInventoryFlow(task.category)) {
-      await taskInventory.requestCompletion(task, updateTaskStatus)
-      return
-    }
-
-    if (undoComplete) {
-      clearTimeout(undoComplete.timeoutId)
-    }
-
-    const didComplete = await updateTaskStatus(task.id, 'completed')
-    if (!didComplete) return
-
-    const timeoutId = setTimeout(() => {
-      setUndoComplete((current) =>
-        current?.taskId === task.id ? null : current
-      )
-    }, 5000)
-
-    setUndoComplete({
-      taskId: task.id,
-      taskTitle: task.title,
-      previousStatus: task.status === 'in_progress' ? 'in_progress' : 'pending',
-      timeoutId,
-    })
-  }
-
-  const undoCompletedTask = async () => {
-    if (!undoComplete) return
-
-    clearTimeout(undoComplete.timeoutId)
-    const { taskId, previousStatus } = undoComplete
-    setUndoComplete(null)
-    await updateTaskStatus(taskId, previousStatus)
-  }
-
-  const handleSetPendingTask = (taskId: string) => {
-    const task = tasks.find((item) => item.id === taskId)
-    if (!task) return
-
-    if (task.status === 'completed') {
-      reopenReason.requestReopen({
-        taskTitle: task.title,
-        onConfirm: (reason) => updateTaskStatus(task.id, 'pending', reason),
-      })
-      return
-    }
-
-    void updateTaskStatus(taskId, 'pending')
-  }
-  if (loading) {
-    return (
-      <main className="h-screen overflow-hidden bg-[#F6F8FC]">
-        <div className="mx-auto flex h-screen w-full max-w-md items-center justify-center bg-[#F6F8FC]">
-          <p className="text-[#6E7F9D]">{t('loading')}</p>
-        </div>
-      </main>
-    )
-  }
-
   return (
     <>
-      <main className="h-screen overflow-hidden bg-[#F6F8FC]">
-        <div className="relative mx-auto flex h-screen w-full max-w-md flex-col overflow-hidden bg-[#F6F8FC]">
+      <ConciergePageShell
+        loading={loading}
+        loadingLabel={t('loading')}
+        bottomNav={<BottomNav active="tasks" buildingId={buildingId} />}
+      >
           <PageHeader
             compact={compactHeader}
             title={t('title')}
@@ -446,10 +354,10 @@ export default function TasksPage() {
                 completedTasks={completedTasks}
                 showingOnlyOverdue={showingOnlyOverdue}
                 showingOnlyCompleted={showingOnlyCompleted}
-                onComplete={handleCompleteTask}
-                onSwipeComplete={handleSwipeCompleteTask}
+                onComplete={completeTaskById}
+                onSwipeComplete={swipeCompleteTaskById}
                 onSetInProgress={(id) => updateTaskStatus(id, 'in_progress')}
-                onSetPending={handleSetPendingTask}
+                onSetPending={setPendingTaskById}
                 onDelete={queueDeleteTask}
                 onEdit={openEditModal}
               />
@@ -457,8 +365,6 @@ export default function TasksPage() {
               {filteredTasks.length === 0 && <TasksEmptyState />}
             </div>
           </section>
-
-          <BottomNav active="tasks" buildingId={buildingId} />
 
           {undoDelete ? (
             <UndoDeleteToast
@@ -477,8 +383,7 @@ export default function TasksPage() {
               }}
             />
           ) : null}
-        </div>
-      </main>
+      </ConciergePageShell>
 
       <ConversationModal
         open={headerConversation.modalOpen}

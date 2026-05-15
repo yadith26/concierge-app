@@ -23,7 +23,7 @@
     "headerBackgroundAlt": "Fondo del encabezado"
   },
   "dashboard": {
-    "loading": "Cargando dashboard...",
+    "loading": "Cargando inicio...",
     "managerNotLinked": "Este edificio aún no tiene manager vinculado.",
     "managerNotLinkedShort": "Sin manager",
     "headerPills": {
@@ -78,7 +78,7 @@
     },
     "commonClose": "Cerrar",
     "conciergeCopy": {
-      "subtitle": "Vamos a tener un gran día",
+      "subtitle": "Este es tu resumen de hoy",
       "spotlight": "Lo más importante ahora",
       "spotlightToday": "Lo que sigue hoy",
       "spotlightNext": "Próxima tarea",

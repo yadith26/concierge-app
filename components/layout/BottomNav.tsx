@@ -8,6 +8,7 @@ import {
   Calendar,
   Package,
   Shield,
+  type LucideIcon,
 } from 'lucide-react'
 
 type BottomNavProps = {
@@ -25,68 +26,70 @@ export default function BottomNav({ active, buildingId }: BottomNavProps) {
   return (
     <nav className="shrink-0 border-t border-[#E3EAF3] bg-white/95 px-4 py-3 backdrop-blur">
       <div className="flex items-center justify-around">
-
-        <Link
+        <BottomNavItem
+          active={active === 'dashboard'}
           href={withBuilding('/dashboard')}
-          className={`flex min-w-[64px] flex-col items-center gap-1 ${
-            active === 'dashboard'
-              ? 'text-[#2F66C8]'
-              : 'text-[#7B8BA8]'
-          }`}
-        >
-          <House size={24} />
-          <span className="text-xs">{t('home')}</span>
-        </Link>
-
-        <Link
+          icon={House}
+          label={t('home')}
+        />
+        <BottomNavItem
+          active={active === 'tasks'}
           href={withBuilding('/tasks')}
-          className={`flex min-w-[64px] flex-col items-center gap-1 ${
-            active === 'tasks'
-              ? 'text-[#2F66C8]'
-              : 'text-[#7B8BA8]'
-          }`}
-        >
-          <ClipboardList size={24} />
-          <span className="text-xs">{t('tasks')}</span>
-        </Link>
-
-        <Link
+          icon={ClipboardList}
+          label={t('tasks')}
+        />
+        <BottomNavItem
+          active={active === 'inventory'}
           href={withBuilding('/inventory')}
-          className={`flex min-w-[64px] flex-col items-center gap-1 ${
-            active === 'inventory'
-              ? 'text-[#2F66C8]'
-              : 'text-[#7B8BA8]'
-          }`}
-        >
-          <Package size={24} />
-          <span className="text-xs">{t('inventory')}</span>
-        </Link>
-
-        <Link
+          icon={Package}
+          label={t('inventory')}
+        />
+        <BottomNavItem
+          active={active === 'treatments'}
           href={withBuilding('/treatments')}
-          className={`flex min-w-[64px] flex-col items-center gap-1 ${
-            active === 'treatments'
-              ? 'text-[#2F66C8]'
-              : 'text-[#7B8BA8]'
-          }`}
-        >
-          <Shield size={24} />
-          <span className="text-xs">{t('treatments')}</span>
-        </Link>
-
-        <Link
+          icon={Shield}
+          label={t('treatments')}
+        />
+        <BottomNavItem
+          active={active === 'agenda'}
           href={withBuilding('/agenda')}
-          className={`flex min-w-[64px] flex-col items-center gap-1 ${
-            active === 'agenda'
-              ? 'text-[#2F66C8]'
-              : 'text-[#7B8BA8]'
-          }`}
-        >
-          <Calendar size={24} />
-          <span className="text-xs">{t('agenda')}</span>
-        </Link>
-
+          icon={Calendar}
+          label={t('agenda')}
+        />
       </div>
     </nav>
+  )
+}
+
+function BottomNavItem({
+  active,
+  href,
+  icon: Icon,
+  label,
+}: {
+  active: boolean
+  href: string
+  icon: LucideIcon
+  label: string
+}) {
+  return (
+    <Link
+      href={href}
+      className={`relative flex min-w-[64px] flex-col items-center gap-1 transition ${
+        active ? 'text-[#315DFF]' : 'text-[#7B8BA8]'
+      }`}
+    >
+      {active ? (
+        <span className="absolute -top-2 h-0.5 w-7 rounded-full bg-[#315DFF]" />
+      ) : null}
+      <Icon
+        size={24}
+        strokeWidth={active ? 2.75 : 2}
+        className={active ? 'drop-shadow-[0_3px_6px_rgba(49,93,255,0.14)]' : ''}
+      />
+      <span className={`text-xs ${active ? 'font-bold' : 'font-medium'}`}>
+        {label}
+      </span>
+    </Link>
   )
 }

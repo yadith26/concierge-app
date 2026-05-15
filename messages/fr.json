@@ -22,11 +22,11 @@
     "goToProfile": "Aller au profil",
     "headerBackgroundAlt": "Arriere-plan de l'en-tete",
     "dashboard": {
-      "subtitle": "Nous allons passer une très belle journée"
+      "subtitle": "Voici votre résumé du jour"
     }
   },
   "dashboard": {
-    "loading": "Chargement du tableau de bord...",
+    "loading": "Chargement de l'accueil...",
     "managerNotLinked": "Cet immeuble n'a pas encore de gestionnaire lie.",
     "managerNotLinkedShort": "Sans manager",
     "nextTask": "Prochaine tâche",
@@ -81,7 +81,7 @@
     },
     "commonClose": "Fermer",
     "conciergeCopy": {
-      "subtitle": "Nous allons passer une très belle journée",
+      "subtitle": "Voici votre résumé du jour",
       "spotlight": "Le plus important maintenant",
       "spotlightToday": "Ce qui suit aujourd'hui",
       "spotlightNext": "Prochaine tache",
@@ -821,7 +821,12 @@
   "inventoryHistoryAction": {
     "created": "Item créé",
     "edited": "Item modifié",
-    "stockAdjustment": "Ajustement du stock"
+    "stockAdjustment": "Ajustement du stock",
+    "updated": "Article mis ? jour",
+    "entry": "Entr?e de stock",
+    "exit": "Sortie de stock",
+    "installed": "Install?",
+    "manualAdjustment": "Ajustement manuel"
   },
   "treatmentsPage": {
     "loading": "Chargement des traitements...",
@@ -1450,5 +1455,11 @@
     },
     "totalRow": "TOTAL",
     "noStatusHistory": "Aucun changement de statut enregistré pour le moment."
+  },
+  "inventoryHistorySource": {
+    "task": "T?che",
+    "manual": "Manuel",
+    "manager": "Gestionnaire",
+    "system": "Syst?me"
   }
 }

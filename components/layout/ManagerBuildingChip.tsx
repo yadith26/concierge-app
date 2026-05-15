@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Building2, ChevronDown, Grid3X3 } from 'lucide-react'
 import { useLocale } from 'next-intl'
 
@@ -22,6 +22,7 @@ type ManagerBuildingChipProps = {
   size?: 'default' | 'compact'
   singleBuildingMode?: 'link' | 'static'
   appearance?: 'default' | 'embedded'
+  onOpenChange?: (open: boolean) => void
 }
 
 export default function ManagerBuildingChip({
@@ -36,11 +37,19 @@ export default function ManagerBuildingChip({
   size = 'default',
   singleBuildingMode = 'link',
   appearance = 'default',
+  onOpenChange,
 }: ManagerBuildingChipProps) {
   const locale = useLocale()
   const [open, setOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement | null>(null)
   const hasMenu = buildings.length > 1
+  const updateOpen = useCallback(
+    (nextOpen: boolean) => {
+      setOpen(nextOpen)
+      onOpenChange?.(nextOpen)
+    },
+    [onOpenChange]
+  )
   const localizedMainHref = mainHref.startsWith(`/${locale}/`)
     ? mainHref
     : `/${locale}${mainHref.startsWith('/') ? mainHref : `/${mainHref}`}`
@@ -51,12 +60,12 @@ export default function ManagerBuildingChip({
       : `/${locale}${href.startsWith('/') ? href : `/${href}`}`
 
   const handleOpenMain = () => {
-    setOpen(false)
+    updateOpen(false)
     window.location.assign(localizedMainHref)
   }
 
   const handleOpenBuilding = (nextBuildingId: string) => {
-    setOpen(false)
+    updateOpen(false)
     window.location.assign(toLocalizedHref(getBuildingHref(nextBuildingId)))
   }
 
@@ -68,13 +77,13 @@ export default function ManagerBuildingChip({
         menuRef.current &&
         !menuRef.current.contains(event.target as Node)
       ) {
-        setOpen(false)
+        updateOpen(false)
       }
     }
 
     document.addEventListener('pointerdown', handlePointerDown)
     return () => document.removeEventListener('pointerdown', handlePointerDown)
-  }, [open])
+  }, [open, updateOpen])
 
   const shellClass =
     appearance === 'embedded'
@@ -93,13 +102,13 @@ export default function ManagerBuildingChip({
       >
         {size === 'compact' ? (
           <>
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F3F6FB] text-[#8C9AB3]">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F3F6FB] text-[#8C9AB3]">
               <Building2 size={15} />
             </span>
 
-            <span className="text-[15px] text-[#6E7F9D]">{label}</span>
+            <span className="text-[13px] text-[#6E7F9D]">{label}</span>
 
-            <span className="max-w-[190px] truncate text-[15px] font-semibold text-[#142952]">
+            <span className="max-w-[190px] truncate text-[14px] font-semibold text-[#142952]">
               {buildingName}
             </span>
           </>
@@ -138,7 +147,7 @@ export default function ManagerBuildingChip({
     <div ref={menuRef} className="relative inline-block min-w-0 max-w-full">
       <button
         type="button"
-        onClick={() => setOpen((current) => !current)}
+        onClick={() => updateOpen(!open)}
         className={`inline-flex max-w-full items-center text-left transition ${shellClass} ${
           appearance === 'embedded'
             ? ''
@@ -155,7 +164,7 @@ export default function ManagerBuildingChip({
       </button>
 
       {open ? (
-        <div className="absolute left-0 z-[120] mt-2 w-max min-w-full max-w-[min(20rem,calc(100vw-3.5rem))] overflow-hidden rounded-[22px] border border-[#E7EDF5] bg-white p-1.5 shadow-[0_18px_40px_rgba(20,41,82,0.14)]">
+        <div className="absolute left-0 z-[220] mt-2 w-max min-w-full max-w-[min(20rem,calc(100vw-3.5rem))] overflow-hidden rounded-[22px] border border-[#E7EDF5] bg-white p-1.5 shadow-[0_18px_40px_rgba(20,41,82,0.14)]">
           <div className="px-3 pb-1.5 pt-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8C9AB3]">
             Edificios
           </div>

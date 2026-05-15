@@ -14,6 +14,7 @@ import {
   type DashboardQuickAction,
 } from '@/components/dashboard/ConciergeDashboardViews'
 import BottomNav from '@/components/layout/BottomNav'
+import ConciergePageShell from '@/components/layout/ConciergePageShell'
 import ConversationModal from '@/components/messages/ConversationModal'
 import GlobalMessagesInboxModal from '@/components/messages/GlobalMessagesInboxModal'
 import OwnerRequestsModal from '@/components/owner-requests/OwnerRequestsModal'
@@ -26,7 +27,7 @@ import { useDashboardCreateActions } from '@/hooks/useDashboardCreateActions'
 import { useDashboardInsights } from '@/hooks/useDashboardInsights'
 import { useDashboardNavigation } from '@/hooks/useDashboardNavigation'
 import { useDashboardPage } from '@/hooks/useDashboardPage'
-import { useDashboardTaskCompletion } from '@/hooks/useDashboardTaskCompletion'
+import { useConciergeTaskActions } from '@/hooks/useConciergeTaskActions'
 import { useTaskReopenReason } from '@/hooks/useTaskReopenReason'
 import { useSyncConciergeBuildingUrl } from '@/hooks/useSyncConciergeBuildingUrl'
 import { useTaskInventoryCompletion } from '@/hooks/useTaskInventoryCompletion'
@@ -142,19 +143,20 @@ export default function DashboardPage() {
     selectedBuildingId,
   })
 
-  const {
-    undoComplete,
-    requestTaskCompletion,
-    requestTaskSwipeCompletion,
-    undoCompletedTask,
-  } = useDashboardTaskCompletion({
-    tasks,
-    updateTaskStatus,
-    taskInventory,
-  })
   const reopenReason = useTaskReopenReason({
     requiredMessage: reopenReasonT('required'),
     failedMessage: reopenReasonT('failed'),
+  })
+  const {
+    undoComplete,
+    completeTask,
+    setPendingTaskById,
+    undoCompletedTask,
+  } = useConciergeTaskActions({
+    tasks,
+    updateTaskStatus,
+    taskInventory,
+    reopenReason,
   })
 
   const copy = useMemo(() => getConciergeDashboardCopy(t), [t])
@@ -224,32 +226,20 @@ export default function DashboardPage() {
     ]
   )
 
-  const handleSetPendingTask = (task: (typeof tasks)[number]) => {
-    if (task.status === 'completed') {
-      reopenReason.requestReopen({
-        taskTitle: task.title,
-        onConfirm: (reason) => updateTaskStatus(task.id, 'pending', reason),
-      })
-      return
-    }
-
-    void updateTaskStatus(task.id, 'pending')
-  }
-
-  if (loading) {
-    return (
-      <main className="h-screen overflow-hidden bg-[#F6F8FC]">
-        <div className="mx-auto flex h-screen w-full max-w-md items-center justify-center bg-[#F6F8FC]">
-          <p className="text-[#6E7F9D]">{t('loading')}</p>
-        </div>
-      </main>
-    )
-  }
-
   return (
     <>
-      <main className="h-screen overflow-hidden bg-[#F6F8FC]">
-        <div className="relative mx-auto flex h-screen w-full max-w-md flex-col overflow-hidden bg-[#F6F8FC]">
+      <ConciergePageShell
+        loading={loading}
+        loadingLabel={t('loading')}
+        bottomNav={
+          showBottomNav ? (
+            <BottomNav
+              active="dashboard"
+              buildingId={isHomeView ? undefined : buildingId}
+            />
+          ) : null
+        }
+      >
           <ConciergeDashboardHeader
             compact={isHomeView ? false : compactHeader}
             isHomeView={isHomeView}
@@ -314,10 +304,10 @@ export default function DashboardPage() {
                 onToggleHotArea={(itemKey) =>
                   setExpandedHotAreaKey((prev) => (prev === itemKey ? null : itemKey))
                 }
-                onCompleteTask={(task) => void requestTaskCompletion(task)}
-                onSwipeCompleteTask={(task) => void requestTaskSwipeCompletion(task)}
+                onCompleteTask={(task) => void completeTask(task)}
+                onSwipeCompleteTask={(task) => void completeTask(task)}
                 onOpenTask={openEditModal}
-                onSetPendingTask={handleSetPendingTask}
+                onSetPendingTask={(task) => setPendingTaskById(task.id)}
                 onSetInProgressTask={(task) =>
                   void updateTaskStatus(task.id, 'in_progress')
                 }
@@ -329,13 +319,6 @@ export default function DashboardPage() {
               />
             )}
           </section>
-
-          {showBottomNav ? (
-            <BottomNav
-              active="dashboard"
-              buildingId={isHomeView ? undefined : buildingId}
-            />
-          ) : null}
 
           {!isHomeView ? (
             <DashboardFloatingAddButton onClick={openCreateModal} />
@@ -369,8 +352,7 @@ export default function DashboardPage() {
               onAction={clearDictationError}
             />
           ) : null}
-        </div>
-      </main>
+      </ConciergePageShell>
 
       <TaskFormModal
         open={modalOpen}

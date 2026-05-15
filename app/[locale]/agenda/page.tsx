@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { Plus, CalendarDays, MessageSquareMore, BellDot } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import BottomNav from '@/components/layout/BottomNav'
+import ConciergePageShell from '@/components/layout/ConciergePageShell'
 import PageHeader from '@/components/layout/PageHeader'
 import ManagerBuildingChip from '@/components/layout/ManagerBuildingChip'
 import TaskFormModal from '@/components/tasks/TaskFormModal'
@@ -22,12 +23,12 @@ import { useAgendaSwipe } from '@/hooks/useAgendaSwipe'
 import { useCompactHeader } from '@/hooks/useCompactHeader'
 import { useTaskInventoryCompletion } from '@/hooks/useTaskInventoryCompletion'
 import { useTaskReopenReason } from '@/hooks/useTaskReopenReason'
+import { useConciergeTaskActions } from '@/hooks/useConciergeTaskActions'
 import useHeaderConversation from '@/hooks/useHeaderConversation'
 import useOwnerRequestsInbox from '@/hooks/useOwnerRequestsInbox'
 import { useSyncConciergeBuildingUrl } from '@/hooks/useSyncConciergeBuildingUrl'
 import { buildTaskDraftFromMessage } from '@/lib/messages/messageTaskDraft'
 import type { TaskDraft } from '@/lib/tasks/taskTypes'
-import { requiresInventoryFlow } from '@/lib/inventory/taskInventoryCategories'
 
 export default function AgendaPage() {
   const t = useTranslations('agendaPage')
@@ -42,13 +43,6 @@ export default function AgendaPage() {
   })
   const [requestTaskDraft, setRequestTaskDraft] = useState<TaskDraft | null>(null)
   const [requestSourceId, setRequestSourceId] = useState<string | null>(null)
-  const [undoComplete, setUndoComplete] = useState<{
-    taskId: string
-    taskTitle: string
-    previousStatus: 'pending' | 'in_progress'
-    timeoutId: ReturnType<typeof setTimeout>
-  } | null>(null)
-
   const {
     loading,
     selectedDate,
@@ -90,6 +84,18 @@ export default function AgendaPage() {
     requiredMessage: reopenReasonT('required'),
     failedMessage: reopenReasonT('failed'),
   })
+  const {
+    undoComplete,
+    completeTaskById,
+    swipeCompleteTaskById,
+    setPendingTaskById,
+    undoCompletedTask,
+  } = useConciergeTaskActions({
+    tasks: tasksForDay,
+    updateTaskStatus,
+    taskInventory,
+    reopenReason,
+  })
 
   const ownerRequests = useOwnerRequestsInbox(buildingId)
   const { scrollRef, compactHeader } = useCompactHeader<HTMLElement>(18)
@@ -110,14 +116,6 @@ export default function AgendaPage() {
   useEffect(() => {
     fetchData()
   }, [fetchData])
-
-  useEffect(() => {
-    return () => {
-      if (undoComplete) {
-        clearTimeout(undoComplete.timeoutId)
-      }
-    }
-  }, [undoComplete])
 
   const handleSelectDateAndScroll = (date: string) => {
     handleSelectDate(date)
@@ -141,104 +139,14 @@ export default function AgendaPage() {
     })
   }
 
-  const handleCompleteTask = async (taskId: string) => {
-    const task = tasksForDay.find((item) => item.id === taskId)
-    if (!task) return
-
-    if (!requiresInventoryFlow(task.category)) {
-      if (undoComplete) {
-        clearTimeout(undoComplete.timeoutId)
-      }
-
-      const didComplete = await updateTaskStatus(task.id, 'completed')
-      if (!didComplete) return
-
-      const timeoutId = setTimeout(() => {
-        setUndoComplete((current) =>
-          current?.taskId === task.id ? null : current
-        )
-      }, 5000)
-
-      setUndoComplete({
-        taskId: task.id,
-        taskTitle: task.title,
-        previousStatus: task.status === 'in_progress' ? 'in_progress' : 'pending',
-        timeoutId,
-      })
-      return
-    }
-
-    await taskInventory.requestCompletion(task, updateTaskStatus)
-  }
-
-  const handleSwipeCompleteTask = async (taskId: string) => {
-    const task = tasksForDay.find((item) => item.id === taskId)
-    if (!task) return
-
-    if (requiresInventoryFlow(task.category)) {
-      await taskInventory.requestCompletion(task, updateTaskStatus)
-      return
-    }
-
-    if (undoComplete) {
-      clearTimeout(undoComplete.timeoutId)
-    }
-
-    const didComplete = await updateTaskStatus(task.id, 'completed')
-    if (!didComplete) return
-
-    const timeoutId = setTimeout(() => {
-      setUndoComplete((current) =>
-        current?.taskId === task.id ? null : current
-      )
-    }, 5000)
-
-    setUndoComplete({
-      taskId: task.id,
-      taskTitle: task.title,
-      previousStatus: task.status === 'in_progress' ? 'in_progress' : 'pending',
-      timeoutId,
-    })
-  }
-
-  const undoCompletedTask = async () => {
-    if (!undoComplete) return
-
-    clearTimeout(undoComplete.timeoutId)
-    const { taskId, previousStatus } = undoComplete
-    setUndoComplete(null)
-    await updateTaskStatus(taskId, previousStatus)
-  }
-
-  const handleSetPendingTask = (taskId: string) => {
-    const task = tasksForDay.find((item) => item.id === taskId)
-    if (!task) return
-
-    if (task.status === 'completed') {
-      reopenReason.requestReopen({
-        taskTitle: task.title,
-        onConfirm: (reason) => updateTaskStatus(task.id, 'pending', reason),
-      })
-      return
-    }
-
-    void updateTaskStatus(taskId, 'pending')
-  }
-
-  if (loading) {
-    return (
-      <main className="h-screen overflow-hidden bg-[#F6F8FC]">
-        <div className="mx-auto flex h-screen w-full max-w-md items-center justify-center bg-[#F6F8FC]">
-          <p className="text-[#6E7F9D]">{t('loading')}</p>
-        </div>
-      </main>
-    )
-  }
 
   return (
     <>
-      <main className="h-screen overflow-hidden bg-[#F6F8FC]">
-        <div className="relative mx-auto flex h-screen w-full max-w-md flex-col overflow-hidden bg-[#F6F8FC]">
+      <ConciergePageShell
+        loading={loading}
+        loadingLabel={t('loading')}
+        bottomNav={<BottomNav active="agenda" buildingId={buildingId} />}
+      >
           <PageHeader
             compact={compactHeader}
             title={t('title')}
@@ -402,12 +310,12 @@ export default function AgendaPage() {
                   groupedTasks={groupedTasks}
                   expandedTaskId={expandedTaskId}
                   setExpandedTaskId={setExpandedTaskId}
-                  onComplete={handleCompleteTask}
-                  onSwipeComplete={handleSwipeCompleteTask}
+                  onComplete={completeTaskById}
+                  onSwipeComplete={swipeCompleteTaskById}
                   onSetInProgress={(taskId) =>
                     updateTaskStatus(taskId, 'in_progress')
                   }
-                  onSetPending={handleSetPendingTask}
+                  onSetPending={setPendingTaskById}
                   onDelete={deleteTask}
                   onEdit={openEditModal}
                   onCreateTask={openCreateModal}
@@ -435,9 +343,7 @@ export default function AgendaPage() {
             />
           ) : null}
 
-          <BottomNav active="agenda" buildingId={buildingId} />
-        </div>
-      </main>
+      </ConciergePageShell>
 
       <ConversationModal
         open={headerConversation.modalOpen}

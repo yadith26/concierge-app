@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import { BellDot, Download, MessageSquareMore, Plus } from 'lucide-react'
 import BottomNav from '@/components/layout/BottomNav'
+import ConciergePageShell from '@/components/layout/ConciergePageShell'
 import PageHeader from '@/components/layout/PageHeader'
 import ManagerBuildingChip from '@/components/layout/ManagerBuildingChip'
 import InventoryConfirmExistingItemModal from '@/components/inventory/InventoryConfirmExistingItemModal'
@@ -145,20 +146,13 @@ export default function InventoryPage() {
     viewMode,
   })
 
-  if (loading) {
-    return (
-      <main className="h-screen overflow-hidden bg-[#F6F8FC]">
-        <div className="mx-auto flex h-screen w-full max-w-md items-center justify-center bg-[#F6F8FC]">
-          <p className="text-[#6E7F9D]">{pageT('loading')}</p>
-        </div>
-      </main>
-    )
-  }
-
   return (
     <>
-      <main className="h-screen overflow-hidden bg-[#F6F8FC]">
-        <div className="relative mx-auto flex h-screen w-full max-w-md flex-col overflow-hidden bg-[#F6F8FC]">
+      <ConciergePageShell
+        loading={loading}
+        loadingLabel={pageT('loading')}
+        bottomNav={<BottomNav active="inventory" buildingId={buildingId} />}
+      >
           <PageHeader
             compact={compactHeader}
             title={pageT('title')}
@@ -303,10 +297,7 @@ export default function InventoryPage() {
               />
             </div>
           </section>
-
-          <BottomNav active="inventory" buildingId={buildingId} />
-        </div>
-      </main>
+      </ConciergePageShell>
 
       <ConversationModal
         open={headerConversation.modalOpen}

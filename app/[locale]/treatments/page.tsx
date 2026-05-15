@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { Download, Plus, MessageSquareMore, BellDot } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import BottomNav from '@/components/layout/BottomNav'
+import ConciergePageShell from '@/components/layout/ConciergePageShell'
 import PageHeader from '@/components/layout/PageHeader'
 import ManagerBuildingChip from '@/components/layout/ManagerBuildingChip'
 import PestHistorySection from '@/components/treatments/PestHistorySection'
@@ -132,20 +133,13 @@ export default function TreatmentsPage() {
     void updateTaskStatus(task.id, 'pending')
   }
 
-  if (loading) {
-    return (
-      <main className="h-screen min-h-0 overflow-hidden bg-[#F6F8FC]">
-        <div className="mx-auto flex h-screen w-full max-w-md items-center justify-center bg-[#F6F8FC]">
-          <p className="text-[#6E7F9D]">{t('loading')}</p>
-        </div>
-      </main>
-    )
-  }
-
   return (
     <>
-      <main className="h-screen min-h-0 overflow-hidden bg-[#F6F8FC]">
-        <div className="relative mx-auto flex h-screen min-h-0 w-full max-w-md flex-col overflow-hidden bg-[#F6F8FC]">
+      <ConciergePageShell
+        loading={loading}
+        loadingLabel={t('loading')}
+        bottomNav={<BottomNav active="treatments" buildingId={buildingId} />}
+      >
           <PageHeader
             compact={compactHeader}
             title={t('title')}
@@ -318,10 +312,7 @@ export default function TreatmentsPage() {
               )}
             </div>
           </section>
-
-          <BottomNav active="treatments" buildingId={buildingId} />
-        </div>
-      </main>
+      </ConciergePageShell>
 
       <ConversationModal
         open={headerConversation.modalOpen}

@@ -9,6 +9,7 @@ type AppHeaderProps = {
   compact?: boolean
   title?: string
   subtitle?: string
+  showGreetingWave?: boolean
   showGreeting?: boolean
   userName?: string
   showDate?: boolean
@@ -29,6 +30,7 @@ export default function AppHeader({
   compact = false,
   title,
   subtitle,
+  showGreetingWave = false,
   showGreeting = false,
   userName = '',
   showDate = true,
@@ -54,19 +56,19 @@ export default function AppHeader({
     title || (showGreeting ? `${t('hello')}, ${userName || t('user')}` : '')
 
   const showLargeText = !!mainTitle || !!subtitle
-  const expandedHeight = headerContent ? 'h-[300px]' : 'h-[190px]'
+  const expandedHeight = headerContent ? 'h-[286px]' : 'h-[172px]'
 
   return (
-    <header className="relative shrink-0 bg-[#F6F8FC]">
+    <header className="relative shrink-0 bg-[#F6F8FC] px-3 pt-3">
       <div
-        className={`relative transition-all duration-300 ${
-          compact ? 'h-[72px]' : expandedHeight
+        className={`relative overflow-visible rounded-[22px] border border-white/70 bg-white/75 shadow-[0_12px_34px_rgba(20,41,82,0.06)] transition-all duration-300 ${
+          compact ? 'h-[76px]' : expandedHeight
         }`}
       >
-        <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden rounded-[22px]">
           <Image
             src="/login-illustration-background1.png"
-            alt="Fondo Montreal"
+            alt={t('headerBackgroundAlt')}
             fill
             priority
             sizes="448px"
@@ -92,16 +94,7 @@ export default function AppHeader({
                   compact ? 'scale-95 gap-2' : 'scale-100 gap-3'
                 }`}
               >
-                <div className="grid grid-cols-3 gap-1">
-                  <div className="h-3 w-3 rounded-[3px] bg-[#142952]" />
-                  <div className="h-3 w-3 rounded-[3px] bg-[#142952]" />
-                  <div className="h-3 w-3 rounded-[3px] bg-[#142952]" />
-                  <div className="h-3 w-3 rounded-[3px] bg-[#142952]" />
-                  <div className="h-3 w-3 rounded-[3px] bg-[#142952]" />
-                  <div className="h-3 w-3 rounded-[3px] bg-[#142952]" />
-                  <div className="h-3 w-3 rounded-[3px] bg-[#142952]" />
-                  <div className="h-3 w-3 rounded-[3px] bg-[#142952]" />
-                </div>
+                <LogoMark />
 
                 <span className="text-sm font-medium text-[#5E6E8C]">
                   {todayText}
@@ -111,18 +104,29 @@ export default function AppHeader({
 
             {showLargeText && (
               <div
-                className={`overflow-hidden transition-all duration-300 ${
+                className={`transition-all duration-300 ${
                   compact
-                    ? 'mt-0 max-h-0 opacity-0'
-                    : 'mt-3 max-h-24 opacity-100'
+                    ? 'mt-0 max-h-0 overflow-hidden opacity-0'
+                    : 'mt-0 max-h-32 overflow-visible opacity-100'
                 }`}
               >
-                <h1 className="line-clamp-2 text-[36px] font-bold leading-[0.95] tracking-tight text-[#142952]">
+                {!showDate ? (
+                  <div className="mb-2">
+                    <LogoMark small />
+                  </div>
+                ) : null}
+
+                <h1 className="line-clamp-2 text-[28px] font-bold leading-[1.05] tracking-tight text-[#142952]">
                   {mainTitle}
+                  {showGreetingWave ? (
+                    <span className="ml-1 inline-block text-[22px] align-baseline" aria-hidden="true">
+                      {'\u{1F44B}'}
+                    </span>
+                  ) : null}
                 </h1>
 
                 {subtitle ? (
-                  <p className="mt-2 line-clamp-2 text-[15px] font-semibold leading-5 text-[#425979]">
+                  <p className="mt-1 w-[calc(100vw-5.5rem)] max-w-[360px] whitespace-nowrap pr-2 text-[15px] font-semibold leading-[1.2] text-[#425979]">
                     {subtitle}
                   </p>
                 ) : null}
@@ -138,7 +142,7 @@ export default function AppHeader({
                 className={`relative shrink-0 rounded-[22px] border border-[#D9E0EA] bg-white/85 text-[#6E7F9D] shadow-[0_8px_24px_rgba(20,41,82,0.08)] backdrop-blur-sm transition-all duration-300 hover:bg-white ${
                   compact
                     ? 'flex h-11 w-11 items-center justify-center'
-                    : 'flex h-14 w-14 items-center justify-center'
+                    : 'flex h-12 w-12 items-center justify-center'
                 }`}
                 aria-label={secondaryAction.label}
               >
@@ -155,7 +159,7 @@ export default function AppHeader({
 
             <HeaderProfileButton
               avatarKey={avatarKey}
-              compact={compact}
+              compact={compact || !!headerContent}
               href={rightIconLink}
               profilePhotoUrl={profilePhotoUrl}
             />
@@ -167,7 +171,7 @@ export default function AppHeader({
             className={`relative z-20 px-5 transition-all duration-300 ${
               compact
                 ? 'pointer-events-none max-h-0 translate-y-3 overflow-hidden opacity-0'
-                : 'mt-3 max-h-[120px] translate-y-0 opacity-100'
+                : 'mt-3 max-h-[158px] translate-y-0 opacity-100'
             }`}
           >
             {headerContent}
@@ -175,5 +179,19 @@ export default function AppHeader({
         ) : null}
       </div>
     </header>
+  )
+}
+
+function LogoMark({ small = false }: { small?: boolean }) {
+  const squareClass = small
+    ? 'h-2.5 w-2.5 rounded-[3px]'
+    : 'h-3 w-3 rounded-[3px]'
+
+  return (
+    <div className="grid w-max grid-cols-3 gap-1" aria-hidden="true">
+      {Array.from({ length: 8 }).map((_, index) => (
+        <div key={index} className={`${squareClass} bg-[#142952]`} />
+      ))}
+    </div>
   )
 }

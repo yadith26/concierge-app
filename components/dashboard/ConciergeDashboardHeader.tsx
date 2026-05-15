@@ -1,7 +1,14 @@
 'use client'
 
+import { useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { AlertTriangle, BellDot, MessageSquareMore } from 'lucide-react'
+import {
+  AlertTriangle,
+  BellDot,
+  Clock3,
+  ListTodo,
+  MessageSquareMore,
+} from 'lucide-react'
 
 import AppHeader from '@/components/layout/AppHeader'
 import ManagerBuildingChip from '@/components/layout/ManagerBuildingChip'
@@ -69,17 +76,22 @@ export default function ConciergeDashboardHeader({
 }: ConciergeDashboardHeaderProps) {
   const headerT = useTranslations('conciergeHeader')
   const dashboardT = useTranslations('dashboard')
-  const buildingShellClass = showManagerNotLinkedMessage
-    ? 'flex w-full items-center justify-between gap-3 rounded-[28px] border border-[#D9E0EA] bg-white/92 px-4 py-3 text-[#142952] shadow-[0_8px_24px_rgba(20,41,82,0.08)] backdrop-blur-sm'
-    : 'inline-flex max-w-full items-center gap-3 rounded-[28px] border border-[#D9E0EA] bg-white/92 px-4 py-3 text-[#142952] shadow-[0_8px_24px_rgba(20,41,82,0.08)] backdrop-blur-sm'
+  const [buildingMenuOpen, setBuildingMenuOpen] = useState(false)
+  const secondaryStatusLabel =
+    overdueCount > 0
+      ? dashboardT('headerPills.overdue', { count: overdueCount })
+      : dashboardT('headerPills.urgent', { count: urgentCount })
+  const handleOpenSecondaryStatus =
+    overdueCount > 0 ? onOpenOverdueTasks : onOpenUrgentTasks
 
   return (
     <AppHeader
       compact={compact}
       showGreeting
+      showGreetingWave
       userName={userName}
       showDate
-      subtitle={!isHomeView ? subtitle : undefined}
+      subtitle={subtitle}
       rightIconLink="/setup-profile"
       avatarKey={avatarKey}
       profilePhotoUrl={profilePhotoUrl}
@@ -105,7 +117,7 @@ export default function ConciergeDashboardHeader({
             } ${
               compact
                 ? 'flex h-11 w-11 items-center justify-center rounded-[22px]'
-                : 'flex h-14 w-14 items-center justify-center rounded-[22px]'
+                : 'flex h-12 w-12 items-center justify-center rounded-[20px]'
             }`}
             aria-label={headerT('openManagerEvents')}
           >
@@ -124,9 +136,9 @@ export default function ConciergeDashboardHeader({
       }
       headerContent={
         buildingId && !isHomeView ? (
-          <>
-            <div className={buildingShellClass}>
-              <div className={showManagerNotLinkedMessage ? 'min-w-0 flex-1' : 'min-w-0'}>
+          <div className="space-y-3">
+            <div className="relative z-30 flex w-full items-center justify-between gap-3 rounded-[20px] border border-[#E5ECF6] bg-white/94 px-4 py-2.5 text-[#142952] shadow-[0_10px_24px_rgba(20,41,82,0.07)] backdrop-blur-sm">
+              <div className="min-w-0 flex-1">
                 <ManagerBuildingChip
                   buildingId={buildingId}
                   buildingName={buildingName}
@@ -141,47 +153,48 @@ export default function ConciergeDashboardHeader({
                   size="compact"
                   singleBuildingMode="static"
                   appearance="embedded"
+                  onOpenChange={setBuildingMenuOpen}
                 />
               </div>
 
               {showManagerNotLinkedMessage ? (
-                <div className="flex shrink-0 items-center gap-2 text-[13px] font-semibold leading-none text-[#C94C5F]">
+                <div className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#FFF4F5] px-2.5 py-1 text-[11px] font-bold leading-none text-[#C94C5F]">
                   <AlertTriangle size={14} className="shrink-0" />
-                  <span>{managerNotLinkedMessage}</span>
+                  <span className="max-w-[120px] truncate">{managerNotLinkedMessage}</span>
                 </div>
               ) : null}
             </div>
 
-            <div className="mt-3 flex flex-wrap items-center gap-2">
+            <div
+              className={`relative z-10 grid grid-cols-2 overflow-hidden rounded-[20px] border border-[#E5ECF6] bg-white/94 text-[#142952] shadow-[0_10px_24px_rgba(20,41,82,0.07)] backdrop-blur-sm transition-all duration-200 ${
+                buildingMenuOpen
+                  ? 'pointer-events-none -translate-y-2 opacity-0'
+                  : 'translate-y-0 opacity-100'
+              }`}
+            >
               <button
                 type="button"
                 onClick={onOpenTodayTasks}
-                className="rounded-full bg-white/80 px-3 py-1.5 text-[13px] font-bold text-[#142952] shadow-[0_6px_16px_rgba(20,41,82,0.06)] active:scale-[0.97]"
+                className="flex items-center justify-center gap-3 px-4 py-3 text-[15px] font-bold active:scale-[0.98]"
               >
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#EEF4FF] text-[#2F66C8]">
+                  <ListTodo size={17} />
+                </span>
                 {dashboardT('headerPills.pending', { count: todayTasksCount })}
               </button>
 
-              {urgentCount > 0 ? (
-                <button
-                  type="button"
-                  onClick={onOpenUrgentTasks}
-                  className="rounded-full bg-[#FFF4F5]/90 px-3 py-1.5 text-[13px] font-bold text-[#D64555] shadow-[0_6px_16px_rgba(214,69,85,0.08)] active:scale-[0.97]"
-                >
-                  {dashboardT('headerPills.urgent', { count: urgentCount })}
-                </button>
-              ) : null}
-
-              {overdueCount > 0 ? (
-                <button
-                  type="button"
-                  onClick={onOpenOverdueTasks}
-                  className="rounded-full bg-[#FFF8E8]/90 px-3 py-1.5 text-[13px] font-bold text-[#D9811E] shadow-[0_6px_16px_rgba(217,129,30,0.08)] active:scale-[0.97]"
-                >
-                  {dashboardT('headerPills.overdue', { count: overdueCount })}
-                </button>
-              ) : null}
+              <button
+                type="button"
+                onClick={handleOpenSecondaryStatus}
+                className="flex items-center justify-center gap-3 border-l border-[#D9E2F0] px-4 py-3 text-[15px] font-bold active:scale-[0.98]"
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#FFF4E8] text-[#F08A24]">
+                  <Clock3 size={17} />
+                </span>
+                {secondaryStatusLabel}
+              </button>
             </div>
-          </>
+          </div>
         ) : null
       }
     />
