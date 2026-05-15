@@ -26,6 +26,11 @@
     "loading": "Cargando dashboard...",
     "managerNotLinked": "Este edificio aún no tiene manager vinculado.",
     "managerNotLinkedShort": "Sin manager",
+    "headerPills": {
+      "pending": "{count} pendientes",
+      "urgent": "{count} urgente{count, plural, one {} other {s}}",
+      "overdue": "{count} atrasada{count, plural, one {} other {s}}"
+    },
     "nextTask": "Próxima tarea",
     "noLocation": "Sin ubicación",
     "showing": "Mostrando:",
@@ -185,6 +190,7 @@
     "noLocation": "Sin ubicación",
     "dateAndTime": "Fecha y hora",
     "completedOn": "Completada el",
+    "createdAt": "Registro",
     "pests": "Plagas",
     "unspecified": "Sin especificar",
     "visitType": "Tipo de visita",
@@ -270,7 +276,34 @@
       "activeWarranty": "Garantía activa",
       "warrantyUntil": "Garantía hasta",
       "status": "Estado",
-      "notes": "Notas"
+      "notes": "Notas",
+      "treatmentDate": "Fecha tratamiento",
+      "createdAt": "Creado el"
+    },
+    "reportTitle": "REPORTE DE TRATAMIENTOS",
+    "reportSubtitle": "Resumen de tratamientos de {buildingName}",
+    "generatedOn": "Generado el:",
+    "building": "Edificio:",
+    "generatedBy": "Generado por:",
+    "concierge": "Conserje",
+    "noBuilding": "Sin edificio",
+    "detailSheetName": "Detalle tratamientos",
+    "sections": {
+      "summary": "1. RESUMEN DE TRATAMIENTOS"
+    },
+    "metrics": {
+      "totalTreatments": "TOTAL TRATAMIENTOS",
+      "totalTreatmentsLine1": "Visitas registradas",
+      "totalTreatmentsLine2": "En este reporte",
+      "apartments": "APTOS / ÁREAS",
+      "apartmentsLine1": "Lugares únicos",
+      "apartmentsLine2": "Incluidos aquí",
+      "followUps": "SEGUIMIENTOS",
+      "followUpsLine1": "Programados o realizados",
+      "followUpsLine2": "Tipo de visita",
+      "activeWarranties": "GARANTÍAS ACTIVAS",
+      "activeWarrantiesLine1": "Protecciones vigentes",
+      "activeWarrantiesLine2": "Por apto/área"
     }
   },
   "taskPestSection": {
@@ -288,7 +321,8 @@
     "priority": "Prioridad",
     "apartmentAddedAutomatically": "Apto agregado automáticamente",
     "pressEnterToSave": "Puedes presionar Enter para guardar rápido",
-    "useCleanTitle": "Usar título limpio"
+    "useCleanTitle": "Usar título limpio",
+    "areaAddedAutomatically": "Área agregada automáticamente: {area}"
   },
   "taskCategoryPriorityFields": {
     "category": "Categoría *",
@@ -364,6 +398,11 @@
     "newTask": "Nueva tarea",
     "building": "Edificio",
     "noBuilding": "Sin edificio",
+    "pendingSummary": {
+      "title": "Pendientes",
+      "showing": "Mostrando tareas pendientes",
+      "tapToView": "Toca para verlas"
+    },
     "undoCompleteTitle": "Tarea completada",
     "undo": "Deshacer"
   },
@@ -375,7 +414,8 @@
     "overdue": "Atrasadas",
     "pending": "Pendientes",
     "inProgress": "En progreso",
-    "completed": "Completadas"
+    "completed": "Completadas",
+    "export": "Exportar"
   },
   "tasksEmptyState": {
     "defaultMessage": "No hay tareas para mostrar"
@@ -454,6 +494,7 @@
   "inventoryPage": {
     "loading": "Cargando inventario...",
     "title": "Inventario",
+    "noBuilding": "Sin edificio",
     "exportInventory": "Exportar inventario",
     "mergeCategories": "Unificar categorías",
     "newItem": "Nuevo ítem",
@@ -486,6 +527,9 @@
     "closeFilters": "Cerrar filtros",
     "noActiveFilters": "Sin filtros activos",
     "activeFilters": "{count} filtros activos",
+    "category": "Categoría",
+    "condition": "Estado",
+    "location": "Ubicación",
     "categories": {
       "all": "Todas las categorías"
     },
@@ -542,6 +586,7 @@
   "inventoryCategoryCard": {
     "itemsCount": "{count, plural, one {# ítem} other {# ítems}}",
     "totalUnits": "{count} en total",
+    "variantsCount": "{count, plural, one {# variante} other {# variantes}}",
     "emptyCategory": "No hay ítems en esta categoría todavía.",
     "addItemToCategory": "Agregar ítem a esta categoría",
     "expandCategory": "Expandir categoría",
@@ -570,6 +615,62 @@
     "removeOne": "Restar una unidad",
     "addOne": "Sumar una unidad",
     "editItem": "Editar ítem"
+  },
+  "inventoryTaxonomy": {
+    "categories": {
+      "appliances": "Electrodomésticos",
+      "materials": "Materiales",
+      "tools": "Herramientas",
+      "parts": "Piezas",
+      "cleaning": "Limpieza",
+      "other": "Otros"
+    },
+    "itemTypes": {
+      "fridge": "Refrigerador",
+      "stove": "Estufa",
+      "microwave": "Microondas",
+      "airConditioner": "Aire acondicionado",
+      "washer": "Lavadora",
+      "whiteCement": "Cemento blanco",
+      "tileAdhesive": "Cemento cola",
+      "whitePaint": "Pintura blanca",
+      "primer": "Primer",
+      "plaster": "Yeso",
+      "drywall": "Drywall",
+      "drill": "Taladro",
+      "ladder": "Escalera",
+      "screwdriver": "Destornillador",
+      "hammer": "Martillo",
+      "lightBulb": "Bombillo",
+      "faucet": "Grifo",
+      "switch": "Interruptor",
+      "lock": "Cerradura",
+      "detergent": "Detergente",
+      "disinfectant": "Desinfectante",
+      "mop": "Mopa",
+      "trashBags": "Bolsas de basura",
+      "paint": "Pintura"
+    },
+    "units": {
+      "unit": "{count, plural, one {unidad} other {unidades}}",
+      "gallon": "{count, plural, one {galón} other {galones}}",
+      "can": "{count, plural, one {lata} other {latas}}",
+      "bag": "{count, plural, one {saco} other {sacos}}",
+      "box": "{count, plural, one {caja} other {cajas}}",
+      "pouch": "{count, plural, one {bolsa} other {bolsas}}",
+      "roll": "{count, plural, one {rollo} other {rollos}}",
+      "tube": "{count, plural, one {tubo} other {tubos}}",
+      "bottle": "{count, plural, one {botella} other {botellas}}",
+      "liter": "{count, plural, one {litro} other {litros}}",
+      "kg": "kg",
+      "lb": "lb"
+    },
+    "locations": {
+      "storage": "Depósito",
+      "maintenanceRoom": "Cuarto de mantenimiento",
+      "garage": "Garage",
+      "lobby": "Lobby"
+    }
   },
   "mergeCategoriesModal": {
     "title": "Unificar categorías",
@@ -731,7 +832,8 @@
     },
     "sheet": {
       "inventory": "Inventario",
-      "history": "Historial"
+      "history": "Historial",
+      "summary": "Resumen de inventario"
     },
     "metrics": {
       "totalItems": "ITEMS REGISTRADOS",
@@ -749,7 +851,17 @@
       "itemsColumn": "Ítems"
     },
     "noData": "No hay datos para exportar",
-    "noHistory": "No hay historial disponible"
+    "noHistory": "No hay historial disponible",
+    "unknownItem": "Ítem desconocido",
+    "reportTitle": "REPORTE DE INVENTARIO",
+    "buildingLabel": "Edificio:",
+    "concierge": "Conserje",
+    "noBuilding": "Sin edificio",
+    "filePrefix": "reporte-inventario",
+    "sections": {
+      "summaryByCategory": "1. RESUMEN POR CATEGORÍA",
+      "currentStock": "2. STOCK ACTUAL"
+    }
   },
   "inventoryHelpers": {
     "emptyItems": "Sin ítems"
@@ -843,6 +955,18 @@
     },
     "avatar": {
       "changeAvatar": "Cambiar avatar",
+      "changePhoto": "Cambiar foto",
+      "hideOptions": "Ocultar opciones",
+      "takePhoto": "Tomar foto",
+      "uploadPhoto": "Subir foto",
+      "removePhoto": "Quitar foto y usar avatar",
+      "orChooseAvatar": "O elige un avatar",
+      "account": "Cuenta",
+      "buildingsCount": "{count, plural, one {# edificio} other {# edificios}}",
+      "roles": {
+        "manager": "Manager",
+        "concierge": "Conserje"
+      },
       "hideAvatars": "Ocultar avatares",
       "chooseAvatar": "Elegir avatar",
       "yourProfile": "Tu perfil",
@@ -873,8 +997,44 @@
       "buildingSaveError": "Error guardando edificio",
       "success": "Cambios guardados correctamente"
     },
+    "managerBuildings": {
+      "title": "Administrar edificios",
+      "description": "Crea, conecta, edita o desvincula edificios desde la sección Edificios.",
+      "cta": "Ir a administrar edificios"
+    },
+    "buildingsCard": {
+      "myBuildings": "Mis edificios",
+      "myBuildingsDescription": "Selecciona un edificio para editarlo o quitarlo de tu cuenta.",
+      "noAddress": "Sin dirección",
+      "unlinkConfirm": "¿Quieres quitar \"{building}\" de tu cuenta? No se borrarán sus tareas ni historial.",
+      "unlinking": "Desvinculando...",
+      "unlink": "Desvincular",
+      "noBuildings": "Todavía no tienes edificios conectados. Crea uno nuevo o conéctate con un código.",
+      "addOrEdit": "Agregar o editar edificio",
+      "editCurrent": "Editar",
+      "createAnother": "Crear",
+      "createBuilding": "Crear",
+      "join": "Unirme",
+      "joinWithCode": "Unirme",
+      "sharedCode": "Código compartido del edificio",
+      "sharedCodeHelp": "Pide este código a la otra persona conectada al edificio.",
+      "codeToShare": "Código para compartir",
+      "shareHelp": "Comparte este código para conectar otro {role} al mismo edificio.",
+      "copy": "Copiar",
+      "share": "Compartir",
+      "email": "Email",
+      "textMessage": "Mensaje de texto",
+      "noCodeYet": "Este edificio todavía no tiene código. Presiona Guardar cambios para generarlo.",
+      "shareTitle": "Código de edificio",
+      "shareMessage": "Usa este código para conectarte al edificio {building}: {code}",
+      "roles": {
+        "manager": "manager",
+        "concierge": "conserje"
+      }
+    },
     "emailAccess": {
       "title": "Correo de acceso",
+      "editEmail": "Editar correo",
       "currentEmail": "Correo actual",
       "newEmail": "Nuevo correo",
       "help": "Te enviaremos un enlace de confirmacion. El correo de acceso cambia despues de confirmar.",
@@ -1015,7 +1175,41 @@
   },
   "headerConversation": {
     "openError": "No se pudo abrir la conversación.",
-    "sendError": "No se pudo enviar el mensaje."
+    "sendError": "No se pudo enviar el mensaje.",
+    "errors": {
+      "conciergeBuilding": "No se pudo obtener el edificio del conserje.",
+      "managerBuilding": "No se pudo obtener el edificio del manager.",
+      "buildingManager": "No se pudo obtener el manager del edificio.",
+      "buildingConcierge": "No se pudo obtener el conserje del edificio."
+    }
+  },
+  "conciergeHeader": {
+    "openMessages": "Abrir mensajes",
+    "openManagerEvents": "Abrir eventos del manager",
+    "currentBuilding": "Edificio actual",
+    "allBuildings": "Mis edificios",
+    "backToOverview": "Volver a la vista general",
+    "messagesTitle": "Mensajes",
+    "noAssignedContact": "Sin contacto asignado"
+  },
+  "dashboardInboxSection": {
+    "title": "Mensajes",
+    "unreadCount": "{count} sin leer",
+    "allRead": "Todos tus mensajes están leídos",
+    "markAsRead": "Leído"
+  },
+  "globalMessagesInboxModal": {
+    "eyebrow": "Bandeja global",
+    "title": "Mensajes",
+    "close": "Cerrar mensajes",
+    "loading": "Cargando conversaciones...",
+    "empty": "Aún no tienes conversaciones recientes.",
+    "footer": "Cada conversación se mantiene separada por edificio.",
+    "relative": {
+      "now": "Ahora",
+      "minutes": "{count} min",
+      "hours": "{count} h"
+    }
   },
   "dashboardDictation": {
     "errors": {
@@ -1153,5 +1347,97 @@
     "availableNow": "ahora",
     "increase": "Aumentar",
     "createNewVariant": "Crear variante nueva"
+  },
+  "taskCardMeta": {
+    "note": "Nota",
+    "pests": "{count} plaga{count, plural, one {} other {s}}",
+    "apartments": "{count} apto{count, plural, one {} other {s}}"
+  },
+  "conversationModal": {
+    "closeConversation": "Cerrar conversación",
+    "loading": "Cargando conversación...",
+    "empty": "Aún no hay mensajes en esta conversación.",
+    "defaultUser": "Usuario",
+    "urgent": "Urgente",
+    "important": "Importante",
+    "selectedReaction": "Reacción seleccionada",
+    "placeholder": "Escribe tu mensaje aquí",
+    "send": "Enviar mensaje",
+    "saveAsTask": "Crear tarea desde mensaje",
+    "reactions": {
+      "like": "Me gusta",
+      "laugh": "Risa",
+      "done": "Visto"
+    }
+  },
+  "taskNotesField": {
+    "label": "Notas",
+    "placeholder": "Detalles adicionales..."
+  },
+  "tasksExport": {
+    "reportTitle": "REPORTE DE TAREAS",
+    "filePrefix": "reporte-tareas",
+    "reportSubtitle": "Resumen operativo de {buildingName}",
+    "generatedOn": "Generado el:",
+    "building": "Edificio:",
+    "generatedBy": "Generado por:",
+    "concierge": "Conserje",
+    "noBuilding": "Sin edificio",
+    "sections": {
+      "summaryByCategory": "1. RESUMEN DE TAREAS POR CATEGORÍA",
+      "taskDetails": "2. DETALLE DE TAREAS"
+    },
+    "metrics": {
+      "completedPercentTitle": "% TAREAS COMPLETADAS",
+      "completedPercentLine1": "Completadas: {count}",
+      "completedPercentLine2": "Asignadas: {count}",
+      "pendingTitle": "TAREAS PENDIENTES",
+      "pendingLine1": "Pendientes: {count}",
+      "pendingLine2": "En este reporte",
+      "overdueTitle": "TAREAS ATRASADAS",
+      "overdueLine1": "Atrasadas: {count}",
+      "overdueLine2": "Requieren atención",
+      "urgentTitle": "URGENTES",
+      "urgentLine1": "Alta prioridad: {count}",
+      "urgentLine2": "Sin completar"
+    },
+    "summaryColumns": {
+      "category": "Categoría",
+      "totalAssigned": "Total asignadas",
+      "completed": "Completadas",
+      "pending": "Pendientes",
+      "overdue": "Atrasadas",
+      "urgent": "Urgentes",
+      "percentCompleted": "% completado"
+    },
+    "detailColumns": {
+      "createdAt": "Creada el",
+      "taskDate": "Fecha tarea",
+      "time": "Hora",
+      "title": "Título",
+      "location": "Ubicación",
+      "category": "Categoría",
+      "priority": "Prioridad",
+      "status": "Estado",
+      "completedAt": "Completada el",
+      "reasonReturnedPending": "Motivo vuelta a pendiente",
+      "notes": "Notas"
+    },
+    "sheets": {
+      "summary": "Resumen general",
+      "completed": "Completadas",
+      "overdue": "Atrasadas",
+      "urgent": "Urgentes",
+      "statusHistory": "Historial de estado"
+    },
+    "historyColumns": {
+      "date": "Fecha",
+      "task": "Tarea",
+      "previousStatus": "Estado anterior",
+      "newStatus": "Estado nuevo",
+      "reason": "Motivo"
+    },
+    "totalRow": "TOTAL",
+    "noStatusHistory": "Aún no hay cambios de estado registrados."
   }
 }

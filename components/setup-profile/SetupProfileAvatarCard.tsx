@@ -12,11 +12,11 @@ import {
 import { avatarOptions } from '@/lib/profile/avatarOptions'
 
 type Props = {
-  t: (key: string) => string
+  t: (key: string, values?: Record<string, string | number>) => string
   firstName: string
   lastName: string
   userEmail: string | null
-  buildingName: string
+  buildingLabel: string
   buildingsCount: number
   profileRole: 'concierge' | 'manager'
   avatarKey: string
@@ -35,7 +35,7 @@ export default function SetupProfileAvatarCard({
   firstName,
   lastName,
   userEmail,
-  buildingName,
+  buildingLabel,
   buildingsCount,
   profileRole,
   avatarKey,
@@ -52,16 +52,14 @@ export default function SetupProfileAvatarCard({
   const displayName =
     [firstName, lastName].filter(Boolean).join(' ') ||
     t('setupProfile.avatar.yourProfile')
-  const roleLabel = profileRole === 'manager' ? 'Manager' : 'Conserje'
-  const buildingCountLabel =
-    buildingsCount === 1 ? '1 edificio' : `${buildingsCount} edificios`
+  const roleLabel = t(`setupProfile.avatar.roles.${profileRole}`)
 
   return (
     <div
       ref={avatarPickerRef}
       className="rounded-[28px] border border-[#E7EDF5] bg-white p-5 shadow-[0_8px_24px_rgba(20,41,82,0.05)]"
     >
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
         <button
           type="button"
           onClick={() => setAvatarPickerOpen((prev) => !prev)}
@@ -81,41 +79,41 @@ export default function SetupProfileAvatarCard({
 
         <div className="min-w-0 flex-1 text-left">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8C9AB3]">
-            Cuenta
+            {t('setupProfile.avatar.account')}
           </p>
-          <h2 className="mt-1 truncate text-[22px] font-bold tracking-tight text-[#142952]">
+          <h2 className="mt-1 break-words text-[22px] font-bold tracking-tight text-[#142952]">
             {displayName}
           </h2>
-          <p className="mt-1 truncate text-sm font-medium text-[#6E7F9D]">
+          <p className="mt-1 break-words text-sm font-medium leading-5 text-[#6E7F9D]">
             {roleLabel}
           </p>
           <div className="mt-3 space-y-2 text-sm text-[#6E7F9D]">
             <p className="flex min-w-0 items-center gap-2">
               <Mail size={15} className="shrink-0 text-[#8C9AB3]" />
-              <span className="truncate">
+              <span className="break-all">
                 {userEmail || t('setupProfile.personalInfo.noEmail')}
               </span>
             </p>
             <p className="flex min-w-0 items-center gap-2">
               <Building2 size={15} className="shrink-0 text-[#8C9AB3]" />
-              <span className="truncate">
-                {buildingName || t('setupProfile.avatar.noBuildingAssigned')}
+              <span className="break-words leading-5">
+                {buildingLabel || t('setupProfile.avatar.noBuildingAssigned')}
               </span>
             </p>
           </div>
-          <div className="mt-3 flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-[#EEF4FF] px-3 py-1.5 text-xs font-semibold text-[#2F66C8]">
-              {buildingCountLabel}
+          <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
+            <span className="rounded-full bg-[#EEF4FF] px-3 py-1.5 text-center text-xs font-semibold text-[#2F66C8] sm:text-left">
+              {t('setupProfile.avatar.buildingsCount', { count: buildingsCount })}
             </span>
             <button
               type="button"
               onClick={() => setAvatarPickerOpen((prev) => !prev)}
-              className="rounded-full bg-[#F6F8FC] px-3 py-1.5 text-xs font-semibold text-[#2F66C8]"
+              className="rounded-full bg-[#F6F8FC] px-3 py-1.5 text-center text-xs font-semibold leading-5 text-[#2F66C8]"
             >
               {avatarPickerOpen
-                ? 'Ocultar opciones'
+                ? t('setupProfile.avatar.hideOptions')
                 : hasProfilePhoto
-                  ? 'Cambiar foto'
+                  ? t('setupProfile.avatar.changePhoto')
                   : t('setupProfile.avatar.changeAvatar')}
             </button>
           </div>
@@ -127,7 +125,7 @@ export default function SetupProfileAvatarCard({
           <div className="mb-5 grid grid-cols-2 gap-3">
             <label className="flex cursor-pointer items-center justify-center gap-2 rounded-2xl border border-[#E7EDF5] bg-[#F9FBFE] px-3 py-3 text-sm font-semibold text-[#2F66C8] transition hover:bg-[#F3F7FD]">
               <Camera size={16} />
-              Tomar foto
+              {t('setupProfile.avatar.takePhoto')}
               <input
                 type="file"
                 accept="image/*"
@@ -139,7 +137,7 @@ export default function SetupProfileAvatarCard({
 
             <label className="flex cursor-pointer items-center justify-center gap-2 rounded-2xl border border-[#E7EDF5] bg-white px-3 py-3 text-sm font-semibold text-[#142952] transition hover:bg-[#F8FAFE]">
               <ImageIcon size={16} />
-              Subir foto
+              {t('setupProfile.avatar.uploadPhoto')}
               <input
                 type="file"
                 accept="image/*"
@@ -156,13 +154,13 @@ export default function SetupProfileAvatarCard({
               className="mb-5 inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-[#F1D3D3] bg-[#FFF8F8] px-3 py-3 text-sm font-semibold text-[#C53030] transition hover:bg-[#FFF1F1]"
             >
               <Trash2 size={15} />
-              Quitar foto y usar avatar
+              {t('setupProfile.avatar.removePhoto')}
             </button>
           ) : null}
 
           <div className="mb-3 flex items-center gap-2 text-sm text-[#6E7F9D]">
             <Sparkles size={16} />
-            O elige un avatar
+            {t('setupProfile.avatar.orChooseAvatar')}
           </div>
 
           <div className="grid grid-cols-4 gap-3">

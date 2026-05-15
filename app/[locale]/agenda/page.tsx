@@ -33,6 +33,7 @@ export default function AgendaPage() {
   const t = useTranslations('agendaPage')
   const reopenReasonT = useTranslations('taskStatusReasonModal')
   const nextTaskT = useTranslations('agendaNextTask')
+  const headerT = useTranslations('conciergeHeader')
   const locale = useLocale()
   const searchParams = useSearchParams()
   const selectedBuildingId = searchParams.get('buildingId')
@@ -246,7 +247,7 @@ export default function AgendaPage() {
               headerConversation.canOpenConversation
                 ? {
                     icon: <MessageSquareMore size={compactHeader ? 20 : 24} />,
-                    label: 'Abrir mensajes',
+                    label: headerT('openMessages'),
                     count: headerConversation.unreadCount,
                     onClick: () => {
                       void headerConversation.openInbox()
@@ -270,7 +271,7 @@ export default function AgendaPage() {
                       ? 'flex h-11 w-11 items-center justify-center rounded-[22px]'
                       : 'flex h-14 w-14 items-center justify-center rounded-[22px]'
                   }`}
-                  aria-label="Abrir eventos del manager"
+                  aria-label={headerT('openManagerEvents')}
                 >
                   <BellDot size={compactHeader ? 20 : 22} />
                   {ownerRequests.openCount > 0 ? (
@@ -301,10 +302,10 @@ export default function AgendaPage() {
               getBuildingHref={(nextBuildingId) =>
                 `/agenda?buildingId=${nextBuildingId}`
               }
-              label="Edificio actual"
+              label={headerT('currentBuilding')}
               mainHref="/dashboard"
-              mainLabel="Mis edificios"
-              mainDescription="Volver a la vista general"
+              mainLabel={headerT('allBuildings')}
+              mainDescription={headerT('backToOverview')}
               size="compact"
               singleBuildingMode="static"
             />
@@ -440,8 +441,8 @@ export default function AgendaPage() {
 
       <ConversationModal
         open={headerConversation.modalOpen}
-        title="Mensajes"
-        subtitle={headerConversation.contactName || 'Sin contacto asignado'}
+        title={headerT('messagesTitle')}
+        subtitle={headerConversation.contactName || headerT('noAssignedContact')}
         currentUserId={headerConversation.currentUserId}
         messages={headerConversation.messages}
         value={headerConversation.value}

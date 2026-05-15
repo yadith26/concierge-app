@@ -15,6 +15,8 @@ type SmartParsedData = {
   detectedDate?: string | null
   detectedTime?: string | null
   detectedLocation?: string | null
+  detectedAreas?: string[]
+  detectedApartments?: string[]
   cleanedTitle?: string | null
   shouldAutoSubmit?: boolean
 }
@@ -91,11 +93,16 @@ export default function TaskSmartParsingHints({
               </span>
             )}
 
-            {smartParsed.detectedLocation && category === 'pest' && (
+            {smartParsed.detectedLocation && category === 'pest' ? (
               <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-[#B86A22]">
-                {t('apartmentAddedAutomatically')}
+                {smartParsed.detectedApartments?.length &&
+                !(smartParsed.detectedAreas?.length)
+                  ? t('apartmentAddedAutomatically')
+                  : t('areaAddedAutomatically', {
+                      area: smartParsed.detectedLocation,
+                    })}
               </span>
-            )}
+            ) : null}
           </div>
 
           {smartParsed.shouldAutoSubmit && (

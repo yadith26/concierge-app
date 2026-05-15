@@ -5,7 +5,7 @@ import { Building2, Check, Link2, Plus, Trash2 } from 'lucide-react'
 import type { BuildingSummary } from '@/lib/buildings/buildingMembershipService'
 
 type Props = {
-  t: (key: string) => string
+  t: (key: string, values?: Record<string, string | number>) => string
   buildings: BuildingSummary[]
   selectedBuildingId: string | null
   buildingName: string
@@ -44,8 +44,11 @@ export default function SetupProfileBuildingCard({
   onDisconnectBuilding,
 }: Props) {
   const [shareOptionsOpen, setShareOptionsOpen] = useState(false)
-  const roleLabel = profileRole === 'manager' ? 'manager' : 'conserje'
-  const shareMessage = `Usa este codigo para conectarte al edificio ${buildingName || 'en Conciergo'}: ${buildingInviteCode}`
+  const roleLabel = t(`setupProfile.buildingsCard.roles.${profileRole}`)
+  const shareMessage = t('setupProfile.buildingsCard.shareMessage', {
+    building: buildingName || 'Conciergo',
+    code: buildingInviteCode,
+  })
   const encodedShareMessage = encodeURIComponent(shareMessage)
 
   const copyInviteCode = async () => {
@@ -59,7 +62,7 @@ export default function SetupProfileBuildingCard({
 
     if (navigator.share) {
       await navigator.share({
-        title: 'Codigo de edificio',
+        title: t('setupProfile.buildingsCard.shareTitle'),
         text: shareMessage,
       })
       return
@@ -75,10 +78,10 @@ export default function SetupProfileBuildingCard({
           <div>
             <div className="flex items-center gap-2 text-sm text-[#6E7F9D]">
               <Building2 size={16} />
-              Mis edificios
+              {t('setupProfile.buildingsCard.myBuildings')}
             </div>
             <p className="mt-1 text-xs leading-5 text-[#8C9AB3]">
-              Selecciona un edificio para editarlo o quitarlo de tu cuenta.
+              {t('setupProfile.buildingsCard.myBuildingsDescription')}
             </p>
           </div>
           <span className="rounded-full bg-[#EEF4FF] px-3 py-1.5 text-xs font-semibold text-[#2F66C8]">
@@ -120,7 +123,7 @@ export default function SetupProfileBuildingCard({
                         {building.name}
                       </span>
                       <span className="mt-0.5 block truncate text-xs font-medium text-[#8C9AB3]">
-                        {building.address || 'Sin direccion'}
+                        {building.address || t('setupProfile.buildingsCard.noAddress')}
                       </span>
                     </span>
                   </button>
@@ -129,7 +132,9 @@ export default function SetupProfileBuildingCard({
                     type="button"
                     onClick={() => {
                       const confirmed = window.confirm(
-                        `Quieres quitar "${building.name}" de tu cuenta? No se borraran sus tareas ni historial.`
+                        t('setupProfile.buildingsCard.unlinkConfirm', {
+                          building: building.name,
+                        })
                       )
 
                       if (confirmed) {
@@ -141,8 +146,8 @@ export default function SetupProfileBuildingCard({
                   >
                     <Trash2 size={14} />
                     {disconnectingBuildingId === building.id
-                      ? 'Desvinculando...'
-                      : 'Desvincular'}
+                      ? t('setupProfile.buildingsCard.unlinking')
+                      : t('setupProfile.buildingsCard.unlink')}
                   </button>
                 </div>
               )
@@ -150,8 +155,7 @@ export default function SetupProfileBuildingCard({
           </div>
         ) : (
           <div className="rounded-[22px] border border-dashed border-[#D9E0EA] bg-[#F9FBFE] px-4 py-5 text-sm leading-6 text-[#6E7F9D]">
-            Todavia no tienes edificios conectados. Crea uno nuevo o conectate
-            con un codigo.
+            {t('setupProfile.buildingsCard.noBuildings')}
           </div>
         )}
       </div>
@@ -159,57 +163,63 @@ export default function SetupProfileBuildingCard({
       <div className="rounded-[28px] border border-[#E7EDF5] bg-white p-5 shadow-[0_8px_24px_rgba(20,41,82,0.05)]">
         <div className="mb-4 flex items-center gap-2 text-sm text-[#6E7F9D]">
           <Plus size={16} />
-          Agregar o editar edificio
+          {t('setupProfile.buildingsCard.addOrEdit')}
         </div>
 
       <div
         className={`mb-4 grid gap-3 ${
-          hasBuilding ? 'grid-cols-3' : 'grid-cols-2'
+          hasBuilding
+            ? 'grid-cols-1 md:grid-cols-2 xl:grid-cols-3'
+            : 'grid-cols-1 md:grid-cols-2'
         }`}
       >
         {hasBuilding ? (
           <button
             type="button"
             onClick={() => setBuildingConnectionMode('edit')}
-            className={`rounded-2xl border px-3 py-3 text-left text-sm font-semibold transition ${
+            className={`rounded-2xl border px-2.5 py-2.5 text-center text-xs font-semibold leading-4 transition sm:px-3 sm:py-3 sm:text-sm sm:leading-5 ${
               buildingConnectionMode === 'edit'
                 ? 'border-[#2F66C8] bg-[#EEF4FF] text-[#142952]'
                 : 'border-[#E2E8F0] bg-white text-[#6E7F9D]'
             }`}
           >
-            Editar actual
+            {t('setupProfile.buildingsCard.editCurrent')}
           </button>
         ) : null}
 
           <button
             type="button"
             onClick={() => setBuildingConnectionMode('create')}
-            className={`rounded-2xl border px-3 py-3 text-left text-sm font-semibold transition ${
+            className={`rounded-2xl border px-2.5 py-2.5 text-center text-xs font-semibold leading-4 transition sm:px-3 sm:py-3 sm:text-sm sm:leading-5 ${
               buildingConnectionMode === 'create'
                 ? 'border-[#2F66C8] bg-[#EEF4FF] text-[#142952]'
                 : 'border-[#E2E8F0] bg-white text-[#6E7F9D]'
             }`}
           >
-            {hasBuilding ? 'Crear otro' : 'Crear edificio'}
+            {hasBuilding
+              ? t('setupProfile.buildingsCard.createAnother')
+              : t('setupProfile.buildingsCard.createBuilding')}
           </button>
 
           <button
             type="button"
             onClick={() => setBuildingConnectionMode('join')}
-            className={`rounded-2xl border px-3 py-3 text-left text-sm font-semibold transition ${
+            className={`rounded-2xl border px-2.5 py-2.5 text-center text-xs font-semibold leading-4 transition sm:px-3 sm:py-3 sm:text-sm sm:leading-5 ${
               buildingConnectionMode === 'join'
                 ? 'border-[#2F66C8] bg-[#EEF4FF] text-[#142952]'
                 : 'border-[#E2E8F0] bg-white text-[#6E7F9D]'
             }`}
           >
-            {hasBuilding ? 'Unirme' : 'Unirme con codigo'}
+            {hasBuilding
+              ? t('setupProfile.buildingsCard.join')
+              : t('setupProfile.buildingsCard.joinWithCode')}
           </button>
       </div>
 
       {buildingConnectionMode === 'join' ? (
         <div>
           <label className="mb-2 block text-sm text-[#6E7F9D]">
-            Codigo compartido del edificio
+            {t('setupProfile.buildingsCard.sharedCode')}
           </label>
           <input
             value={joinInviteCode}
@@ -218,7 +228,7 @@ export default function SetupProfileBuildingCard({
             className="w-full rounded-xl border border-[#E2E8F0] px-4 py-3 uppercase text-[#142952] outline-none placeholder:text-[#94A3B8] focus:border-[#B8C8E6]"
           />
           <p className="mt-3 text-xs leading-5 text-[#6E7F9D]">
-            Pide este codigo a la otra persona conectada al edificio.
+            {t('setupProfile.buildingsCard.sharedCodeHelp')}
           </p>
         </div>
       ) : (
@@ -241,7 +251,7 @@ export default function SetupProfileBuildingCard({
             <div className="mt-4 rounded-2xl border border-[#DCE7F5] bg-[#F8FAFE] p-4">
               <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#142952]">
                 <Link2 size={16} />
-                Codigo para compartir
+                {t('setupProfile.buildingsCard.codeToShare')}
               </div>
               {buildingInviteCode ? (
                 <>
@@ -253,8 +263,9 @@ export default function SetupProfileBuildingCard({
                     {buildingInviteCode}
                   </button>
                   <p className="mt-2 text-xs leading-5 text-[#6E7F9D]">
-                    Comparte este codigo para conectar otro {roleLabel} al
-                    mismo edificio.
+                    {t('setupProfile.buildingsCard.shareHelp', {
+                      role: roleLabel,
+                    })}
                   </p>
 
                   {shareOptionsOpen ? (
@@ -264,7 +275,7 @@ export default function SetupProfileBuildingCard({
                         onClick={copyInviteCode}
                         className="rounded-xl border border-[#DCE7F5] bg-white px-3 py-2 text-sm font-semibold text-[#2F66C8]"
                       >
-                        Copiar
+                        {t('setupProfile.buildingsCard.copy')}
                       </button>
 
                       <button
@@ -272,7 +283,7 @@ export default function SetupProfileBuildingCard({
                         onClick={shareInviteCode}
                         className="rounded-xl border border-[#DCE7F5] bg-white px-3 py-2 text-sm font-semibold text-[#2F66C8]"
                       >
-                        Compartir
+                        {t('setupProfile.buildingsCard.share')}
                       </button>
 
                       <a
@@ -288,22 +299,21 @@ export default function SetupProfileBuildingCard({
                         href={`mailto:?subject=Codigo de edificio&body=${encodedShareMessage}`}
                         className="rounded-xl border border-[#DCE7F5] bg-white px-3 py-2 text-center text-sm font-semibold text-[#2F66C8]"
                       >
-                        Email
+                        {t('setupProfile.buildingsCard.email')}
                       </a>
 
                       <a
                         href={`sms:?&body=${encodedShareMessage}`}
                         className="col-span-2 rounded-xl border border-[#DCE7F5] bg-white px-3 py-2 text-center text-sm font-semibold text-[#2F66C8]"
                       >
-                        Mensaje de texto
+                        {t('setupProfile.buildingsCard.textMessage')}
                       </a>
                     </div>
                   ) : null}
                 </>
               ) : (
                 <p className="text-xs leading-5 text-[#6E7F9D]">
-                  Este edificio todavia no tiene codigo. Presiona Guardar
-                  cambios para generarlo.
+                  {t('setupProfile.buildingsCard.noCodeYet')}
                 </p>
               )}
             </div>

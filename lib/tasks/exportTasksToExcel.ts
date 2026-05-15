@@ -1,16 +1,29 @@
 'use client'
 
 import ExcelJS from 'exceljs'
-import { saveAs } from 'file-saver'
+import {saveAs} from 'file-saver'
 import {
   buildLatestPendingReasonMap,
   fetchTaskStatusHistory,
   type TaskStatusHistoryEntry,
 } from '@/lib/tasks/taskStatusHistory'
-import type { EditableTask } from '@/lib/tasks/taskTypes'
+import {getCategoryKey, getPriorityKey, getStatusKey} from '@/lib/tasks/taskLabels'
+import type {EditableTask} from '@/lib/tasks/taskTypes'
 
 type ExportableTask = EditableTask & {
   created_at?: string | null
+}
+
+type TranslateFn = (
+  key: string,
+  values?: Record<string, string | number | Date>
+) => string
+
+type ExportTasksToExcelParams = {
+  tasks: ExportableTask[]
+  buildingName: string
+  locale: string
+  t: TranslateFn
 }
 
 const COLORS = {
@@ -24,52 +37,46 @@ const COLORS = {
   amber: 'E88A00',
   amberLight: 'FFF7E6',
   text: '142952',
-  muted: '6E7F9D',
   border: 'D9E2EC',
   white: 'FFFFFF',
 }
 
-const categoryLabels: Record<string, string> = {
-  cleaning: 'Cleaning',
-  repair: 'Repair',
-  pest: 'Pest control',
-  paint: 'Painting',
-  inspection: 'Inspection',
-  visit: 'Visit',
-  delivery: 'Delivery',
-  other: 'Other',
+function safeT(
+  t: TranslateFn,
+  key: string,
+  fallback: string,
+  values?: Record<string, string | number | Date>
+) {
+  const maybeHas = (t as TranslateFn & {has?: (key: string) => boolean}).has
+  if (typeof maybeHas === 'function' && !maybeHas(key)) {
+    return fallback
+  }
+
+  try {
+    return t(key, values)
+  } catch {
+    return fallback
+  }
 }
 
-const priorityLabels: Record<string, string> = {
-  high: 'High',
-  medium: 'Medium',
-  low: 'Low',
-}
-
-const statusLabels: Record<string, string> = {
-  pending: 'Pending',
-  in_progress: 'In progress',
-  completed: 'Completed',
-}
-
-function formatDate(value?: string | null) {
+function formatDate(value: string | null | undefined, locale: string) {
   if (!value) return '-'
   const date = new Date(value.includes('T') ? value : `${value}T12:00:00`)
   if (Number.isNaN(date.getTime())) return value
 
-  return new Intl.DateTimeFormat('en-CA', {
+  return new Intl.DateTimeFormat(locale, {
     day: '2-digit',
     month: 'short',
     year: 'numeric',
   }).format(date)
 }
 
-function formatDateTime(value?: string | null) {
+function formatDateTime(value: string | null | undefined, locale: string) {
   if (!value) return '-'
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return value
 
-  return new Intl.DateTimeFormat('en-CA', {
+  return new Intl.DateTimeFormat(locale, {
     day: '2-digit',
     month: 'short',
     year: 'numeric',
@@ -94,24 +101,20 @@ function isOverdue(task: ExportableTask) {
 
 function safeFileName(value: string) {
   return value
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-zA-Z0-9-_ ]/g, '')
+    .replace(/[<>:"/\\|?*\u0000-\u001F]/g, '')
     .trim()
     .replace(/\s+/g, '-')
-    .toLowerCase()
 }
 
 function applySheetDefaults(sheet: ExcelJS.Worksheet) {
-  sheet.views = [{ showGridLines: false }]
+  sheet.views = [{showGridLines: false}]
   sheet.properties.defaultRowHeight = 22
 
-  if (!sheet.columns) return
-
-  sheet.columns.forEach((column) => {
-    column.alignment = { vertical: 'middle' }
+  sheet.columns?.forEach((column) => {
+    column.alignment = {vertical: 'middle'}
   })
 }
+
 function setCell(
   sheet: ExcelJS.Worksheet,
   cell: string,
@@ -130,7 +133,7 @@ function setCell(
     name: 'Aptos',
     size: options?.size ?? 11,
     bold: options?.bold ?? false,
-    color: { argb: options?.color ?? COLORS.text },
+    color: {argb: options?.color ?? COLORS.text},
   }
 
   current.alignment = {
@@ -143,64 +146,86 @@ function setCell(
     current.fill = {
       type: 'pattern',
       pattern: 'solid',
-      fgColor: { argb: options.bg },
+      fgColor: {argb: options.bg},
     }
   }
 }
 
-function styleTitle(sheet: ExcelJS.Worksheet, buildingName: string) {
-  
+function styleTitle(
+  sheet: ExcelJS.Worksheet,
+  buildingName: string,
+  locale: string,
+  t: TranslateFn
+) {
   sheet.mergeCells('B2:C3')
-setCell(sheet, 'B2', '▦ CONCIERGE\nAPP', {
-  bold: true,
-  size: 18,
-  color: COLORS.green,
-  align: 'center',
-})
-
-  sheet.mergeCells('D2:I2')
-  setCell(sheet, 'D2', 'TASK REPORT', {
+  setCell(sheet, 'B2', 'CONCIERGE\nAPP', {
     bold: true,
     size: 18,
-    color: COLORS.greenDark,
+    color: COLORS.green,
+    align: 'center',
   })
+
+  sheet.mergeCells('D2:I2')
+  setCell(
+    sheet,
+    'D2',
+    safeT(t, 'tasksExport.reportTitle', 'TASK REPORT'),
+    {
+      bold: true,
+      size: 18,
+      color: COLORS.greenDark,
+    }
+  )
 
   sheet.mergeCells('D3:I3')
-  setCell(sheet, 'D3', `Operational summary for building ${buildingName}`, {
+  setCell(
+    sheet,
+    'D3',
+    safeT(
+      t,
+      'tasksExport.reportSubtitle',
+      `Operational summary for building ${buildingName}`,
+      {buildingName}
+    ),
+    {
+      size: 11,
+      color: COLORS.text,
+    }
+  )
+
+  setCell(
+    sheet,
+    'J2',
+    safeT(t, 'tasksExport.generatedOn', 'Generated on:'),
+    {size: 11, color: COLORS.text}
+  )
+  setCell(sheet, 'K2', formatDate(new Date().toISOString(), locale), {
     size: 11,
     color: COLORS.text,
   })
 
-  setCell(sheet, 'J2', 'Generated on:', {
+  setCell(sheet, 'J3', safeT(t, 'tasksExport.building', 'Building:'), {
     size: 11,
     color: COLORS.text,
   })
-  setCell(sheet, 'K2', formatDate(new Date().toISOString()), {
-    size: 11,
-    color: COLORS.text,
-  })
+  setCell(
+    sheet,
+    'K3',
+    buildingName || safeT(t, 'tasksExport.noBuilding', 'No building'),
+    {
+      size: 11,
+      color: COLORS.text,
+    }
+  )
 
-  setCell(sheet, 'J3', 'Building:', {
+  setCell(sheet, 'J4', safeT(t, 'tasksExport.generatedBy', 'Generated by:'), {
     size: 11,
     color: COLORS.text,
   })
-  setCell(sheet, 'K3', buildingName || 'No building', {
+  setCell(sheet, 'K4', safeT(t, 'tasksExport.concierge', 'Concierge'), {
     size: 11,
     color: COLORS.text,
   })
-
-  setCell(sheet, 'J4', 'Generated by:', {
-    size: 11,
-    color: COLORS.text,
-  })
-  setCell(sheet, 'K4', 'Concierge', {
-    size: 11,
-    color: COLORS.text,
-  })
-
-  sheet.getRow(6).height = 18
-  sheet.getRow(7).height = 24
-  sheet.getRow(8).height = 24
 }
 
 function addMetricCard(
@@ -222,15 +247,15 @@ function addMetricCard(
     richText: [
       {
         text: `${title}\n`,
-        font: { bold: true, size: 10, color: { argb: color }, name: 'Aptos' },
+        font: {bold: true, size: 10, color: {argb: color}, name: 'Aptos'},
       },
       {
         text: `${value}\n`,
-        font: { bold: true, size: 20, color: { argb: color }, name: 'Aptos' },
+        font: {bold: true, size: 20, color: {argb: color}, name: 'Aptos'},
       },
       {
         text: `${subtitle1}\n${subtitle2}`,
-        font: { size: 10, color: { argb: COLORS.text }, name: 'Aptos' },
+        font: {size: 10, color: {argb: COLORS.text}, name: 'Aptos'},
       },
     ],
   }
@@ -244,14 +269,14 @@ function addMetricCard(
   cell.fill = {
     type: 'pattern',
     pattern: 'solid',
-    fgColor: { argb: bg },
+    fgColor: {argb: bg},
   }
 
   cell.border = {
-    top: { style: 'thin', color: { argb: COLORS.border } },
-    left: { style: 'thin', color: { argb: COLORS.border } },
-    bottom: { style: 'thin', color: { argb: COLORS.border } },
-    right: { style: 'thin', color: { argb: COLORS.border } },
+    top: {style: 'thin', color: {argb: COLORS.border}},
+    left: {style: 'thin', color: {argb: COLORS.border}},
+    bottom: {style: 'thin', color: {argb: COLORS.border}},
+    right: {style: 'thin', color: {argb: COLORS.border}},
   }
 }
 
@@ -270,12 +295,12 @@ function styleHeader(row: ExcelJS.Row) {
       name: 'Aptos',
       size: 10,
       bold: true,
-      color: { argb: COLORS.white },
+      color: {argb: COLORS.white},
     }
     cell.fill = {
       type: 'pattern',
       pattern: 'solid',
-      fgColor: { argb: COLORS.greenDark },
+      fgColor: {argb: COLORS.greenDark},
     }
     cell.alignment = {
       vertical: 'middle',
@@ -283,10 +308,10 @@ function styleHeader(row: ExcelJS.Row) {
       wrapText: true,
     }
     cell.border = {
-      top: { style: 'thin', color: { argb: COLORS.greenDark } },
-      left: { style: 'thin', color: { argb: COLORS.greenDark } },
-      bottom: { style: 'thin', color: { argb: COLORS.greenDark } },
-      right: { style: 'thin', color: { argb: COLORS.greenDark } },
+      top: {style: 'thin', color: {argb: COLORS.greenDark}},
+      left: {style: 'thin', color: {argb: COLORS.greenDark}},
+      bottom: {style: 'thin', color: {argb: COLORS.greenDark}},
+      right: {style: 'thin', color: {argb: COLORS.greenDark}},
     }
   })
 }
@@ -299,17 +324,17 @@ function styleTableBody(sheet: ExcelJS.Worksheet, startRow: number, endRow: numb
       cell.font = {
         name: 'Aptos',
         size: 10,
-        color: { argb: COLORS.text },
+        color: {argb: COLORS.text},
       }
       cell.alignment = {
         vertical: 'middle',
         wrapText: true,
       }
       cell.border = {
-        top: { style: 'thin', color: { argb: COLORS.border } },
-        left: { style: 'thin', color: { argb: COLORS.border } },
-        bottom: { style: 'thin', color: { argb: COLORS.border } },
-        right: { style: 'thin', color: { argb: COLORS.border } },
+        top: {style: 'thin', color: {argb: COLORS.border}},
+        left: {style: 'thin', color: {argb: COLORS.border}},
+        bottom: {style: 'thin', color: {argb: COLORS.border}},
+        right: {style: 'thin', color: {argb: COLORS.border}},
       }
     })
 
@@ -318,23 +343,53 @@ function styleTableBody(sheet: ExcelJS.Worksheet, startRow: number, endRow: numb
         cell.fill = {
           type: 'pattern',
           pattern: 'solid',
-          fgColor: { argb: 'FAFCFF' },
+          fgColor: {argb: 'FAFCFF'},
         }
       })
     }
   }
 }
 
-function buildSummaryByCategory(tasks: ExportableTask[]) {
+function translateCategory(category: string | null | undefined, t: TranslateFn) {
+  if (!category) return '-'
+
+  return safeT(
+    t,
+    `taskLabels.${getCategoryKey(category as EditableTask['category'])}`,
+    category
+  )
+}
+
+function translatePriority(priority: string | null | undefined, t: TranslateFn) {
+  if (!priority) return '-'
+
+  return safeT(
+    t,
+    `taskLabels.${getPriorityKey(priority as EditableTask['priority'])}`,
+    priority
+  )
+}
+
+function translateStatus(status: string | null | undefined, t: TranslateFn) {
+  if (!status) return '-'
+
+  return safeT(
+    t,
+    `taskLabels.${getStatusKey(status as EditableTask['status'])}`,
+    status
+  )
+}
+
+function buildSummaryByCategory(tasks: ExportableTask[], t: TranslateFn) {
   const map = new Map<
     string,
     {
-      categoria: string
+      category: string
       total: number
-      completadas: number
-      pendientes: number
-      atrasadas: number
-      urgentes: number
+      completed: number
+      pending: number
+      overdue: number
+      urgent: number
     }
   >()
 
@@ -343,12 +398,12 @@ function buildSummaryByCategory(tasks: ExportableTask[]) {
 
     if (!map.has(key)) {
       map.set(key, {
-        categoria: categoryLabels[key] || key,
+        category: translateCategory(key, t),
         total: 0,
-        completadas: 0,
-        pendientes: 0,
-        atrasadas: 0,
-        urgentes: 0,
+        completed: 0,
+        pending: 0,
+        overdue: 0,
+        urgent: 0,
       })
     }
 
@@ -356,76 +411,77 @@ function buildSummaryByCategory(tasks: ExportableTask[]) {
     if (!row) return
 
     row.total += 1
-    if (task.status === 'completed') row.completadas += 1
-    else row.pendientes += 1
-    if (isOverdue(task)) row.atrasadas += 1
-    if (task.priority === 'high' && task.status !== 'completed') row.urgentes += 1
+    if (task.status === 'completed') row.completed += 1
+    else row.pending += 1
+    if (isOverdue(task)) row.overdue += 1
+    if (task.priority === 'high' && task.status !== 'completed') row.urgent += 1
   })
 
-  return Array.from(map.values()).sort((a, b) =>
-    a.categoria.localeCompare(b.categoria, 'en')
-  )
+  return Array.from(map.values()).sort((a, b) => a.category.localeCompare(b.category))
 }
 
-function addSummaryTable(sheet: ExcelJS.Worksheet, tasks: ExportableTask[]) {
-  const rows = buildSummaryByCategory(tasks)
+function addSummaryTable(sheet: ExcelJS.Worksheet, tasks: ExportableTask[], t: TranslateFn) {
+  const rows = buildSummaryByCategory(tasks, t)
   const startRow = 12
 
-  addSectionTitle(sheet, 11, '1. TASK SUMMARY BY CATEGORY')
-
+  addSectionTitle(
+    sheet,
+    11,
+    safeT(t, 'tasksExport.sections.summaryByCategory', '1. TASK SUMMARY BY CATEGORY')
+  )
 
   sheet.getRow(startRow).values = [
     '',
-    'Category',
-    'Total assigned',
-    'Completed',
-    'Pending',
-    'Overdue',
-    'Urgent',
-    '% completed',
+    safeT(t, 'tasksExport.summaryColumns.category', 'Category'),
+    safeT(t, 'tasksExport.summaryColumns.totalAssigned', 'Total assigned'),
+    safeT(t, 'tasksExport.summaryColumns.completed', 'Completed'),
+    safeT(t, 'tasksExport.summaryColumns.pending', 'Pending'),
+    safeT(t, 'tasksExport.summaryColumns.overdue', 'Overdue'),
+    safeT(t, 'tasksExport.summaryColumns.urgent', 'Urgent'),
+    safeT(t, 'tasksExport.summaryColumns.percentCompleted', '% completed'),
   ]
 
   styleHeader(sheet.getRow(startRow))
 
   rows.forEach((item, index) => {
     const row = sheet.getRow(startRow + 1 + index)
-    const percent = item.total > 0 ? Math.round((item.completadas / item.total) * 100) : 0
+    const percent = item.total > 0 ? Math.round((item.completed / item.total) * 100) : 0
 
     row.values = [
       '',
-      item.categoria,
+      item.category,
       item.total,
-      item.completadas,
-      item.pendientes,
-      item.atrasadas,
-      item.urgentes,
+      item.completed,
+      item.pending,
+      item.overdue,
+      item.urgent,
       `${percent}%`,
     ]
   })
 
   const totalRow = sheet.getRow(startRow + 1 + rows.length)
   const total = rows.reduce((sum, row) => sum + row.total, 0)
-  const completed = rows.reduce((sum, row) => sum + row.completadas, 0)
+  const completed = rows.reduce((sum, row) => sum + row.completed, 0)
 
   totalRow.values = [
     '',
-    'TOTAL',
+    safeT(t, 'tasksExport.totalRow', 'TOTAL'),
     total,
     completed,
-    rows.reduce((sum, row) => sum + row.pendientes, 0),
-    rows.reduce((sum, row) => sum + row.atrasadas, 0),
-    rows.reduce((sum, row) => sum + row.urgentes, 0),
+    rows.reduce((sum, row) => sum + row.pending, 0),
+    rows.reduce((sum, row) => sum + row.overdue, 0),
+    rows.reduce((sum, row) => sum + row.urgent, 0),
     total > 0 ? `${Math.round((completed / total) * 100)}%` : '0%',
   ]
 
   styleTableBody(sheet, startRow + 1, startRow + 1 + rows.length)
 
   totalRow.eachCell((cell) => {
-    cell.font = { name: 'Aptos', bold: true, size: 10, color: { argb: COLORS.text } }
+    cell.font = {name: 'Aptos', bold: true, size: 10, color: {argb: COLORS.text}}
     cell.fill = {
       type: 'pattern',
       pattern: 'solid',
-      fgColor: { argb: COLORS.greenLight },
+      fgColor: {argb: COLORS.greenLight},
     }
   })
 }
@@ -433,26 +489,35 @@ function addSummaryTable(sheet: ExcelJS.Worksheet, tasks: ExportableTask[]) {
 function addDetailedTasksTable(
   sheet: ExcelJS.Worksheet,
   tasks: ExportableTask[],
-  latestPendingReasonMap: Map<string, string>
+  latestPendingReasonMap: Map<string, string>,
+  locale: string,
+  t: TranslateFn
 ) {
   const startRow = 23
 
-  addSectionTitle(sheet, 22, '2. TASK DETAILS')
-  
+  addSectionTitle(
+    sheet,
+    22,
+    safeT(t, 'tasksExport.sections.taskDetails', '2. TASK DETAILS')
+  )
 
   sheet.getRow(startRow).values = [
     '',
-      'Created at',
-      'Task date',
-      'Time',
-      'Title',
-      'Location',
-      'Category',
-      'Priority',
-      'Status',
-      'Completed at',
-      'Reason returned to pending',
-      'Notes',
+    safeT(t, 'tasksExport.detailColumns.createdAt', 'Created at'),
+    safeT(t, 'tasksExport.detailColumns.taskDate', 'Task date'),
+    safeT(t, 'tasksExport.detailColumns.time', 'Time'),
+    safeT(t, 'tasksExport.detailColumns.title', 'Title'),
+    safeT(t, 'tasksExport.detailColumns.location', 'Location'),
+    safeT(t, 'tasksExport.detailColumns.category', 'Category'),
+    safeT(t, 'tasksExport.detailColumns.priority', 'Priority'),
+    safeT(t, 'tasksExport.detailColumns.status', 'Status'),
+    safeT(t, 'tasksExport.detailColumns.completedAt', 'Completed at'),
+    safeT(
+      t,
+      'tasksExport.detailColumns.reasonReturnedPending',
+      'Reason returned to pending'
+    ),
+    safeT(t, 'tasksExport.detailColumns.notes', 'Notes'),
   ]
 
   styleHeader(sheet.getRow(startRow))
@@ -462,15 +527,15 @@ function addDetailedTasksTable(
 
     row.values = [
       '',
-      formatDateTime(task.created_at),
-      formatDate(task.task_date),
+      formatDateTime(task.created_at, locale),
+      formatDate(task.task_date, locale),
       formatTime(task.task_time),
       task.title,
       task.apartment_or_area || '-',
-      categoryLabels[task.category] || task.category || '-',
-      priorityLabels[task.priority] || task.priority,
-      statusLabels[task.status] || task.status,
-      formatDateTime(task.completed_at),
+      translateCategory(task.category, t),
+      translatePriority(task.priority, t),
+      translateStatus(task.status, t),
+      formatDateTime(task.completed_at, locale),
       latestPendingReasonMap.get(task.id) || '-',
       task.description || '-',
     ]
@@ -485,18 +550,18 @@ function addDetailedTasksTable(
 
 function setupColumns(sheet: ExcelJS.Worksheet) {
   sheet.columns = [
-    { width: 3 },
-    { width: 20 },
-    { width: 16 },
-    { width: 10 },
-    { width: 34 },
-    { width: 18 },
-    { width: 16 },
-    { width: 13 },
-    { width: 15 },
-    { width: 20 },
-    { width: 28 },
-    { width: 42 },
+    {width: 3},
+    {width: 20},
+    {width: 16},
+    {width: 10},
+    {width: 34},
+    {width: 18},
+    {width: 16},
+    {width: 13},
+    {width: 15},
+    {width: 20},
+    {width: 28},
+    {width: 42},
   ]
 }
 
@@ -504,46 +569,52 @@ function createDetailsSheet(
   workbook: ExcelJS.Workbook,
   name: string,
   tasks: ExportableTask[],
-  latestPendingReasonMap: Map<string, string>
+  latestPendingReasonMap: Map<string, string>,
+  locale: string,
+  t: TranslateFn
 ) {
   const sheet = workbook.addWorksheet(name)
   applySheetDefaults(sheet)
 
   sheet.columns = [
-    { width: 16 },
-    { width: 34 },
-    { width: 18 },
-    { width: 16 },
-    { width: 13 },
-    { width: 15 },
-    { width: 20 },
-    { width: 28 },
-    { width: 42 },
+    {width: 16},
+    {width: 34},
+    {width: 18},
+    {width: 16},
+    {width: 13},
+    {width: 15},
+    {width: 20},
+    {width: 28},
+    {width: 42},
   ]
-applySheetDefaults(sheet)
+
   sheet.getRow(1).values = [
-    'Task date',
-    'Title',
-    'Location',
-    'Category',
-    'Priority',
-    'Status',
-    'Completed at',
-    'Reason returned to pending',
-    'Notes',
+    safeT(t, 'tasksExport.detailColumns.taskDate', 'Task date'),
+    safeT(t, 'tasksExport.detailColumns.title', 'Title'),
+    safeT(t, 'tasksExport.detailColumns.location', 'Location'),
+    safeT(t, 'tasksExport.detailColumns.category', 'Category'),
+    safeT(t, 'tasksExport.detailColumns.priority', 'Priority'),
+    safeT(t, 'tasksExport.detailColumns.status', 'Status'),
+    safeT(t, 'tasksExport.detailColumns.completedAt', 'Completed at'),
+    safeT(
+      t,
+      'tasksExport.detailColumns.reasonReturnedPending',
+      'Reason returned to pending'
+    ),
+    safeT(t, 'tasksExport.detailColumns.notes', 'Notes'),
   ]
 
   styleHeader(sheet.getRow(1))
 
   tasks.forEach((task, index) => {
     sheet.getRow(index + 2).values = [
-      formatDate(task.task_date),
+      formatDate(task.task_date, locale),
       task.title,
       task.apartment_or_area || '-',
-      categoryLabels[task.category] || task.category || '-',
-      priorityLabels[task.priority] || task.priority,
-      statusLabels[task.status] || task.status,
-      formatDateTime(task.completed_at),
+      translateCategory(task.category, t),
+      translatePriority(task.priority, t),
+      translateStatus(task.status, t),
+      formatDateTime(task.completed_at, locale),
       latestPendingReasonMap.get(task.id) || '-',
       task.description || '-',
     ]
@@ -553,7 +624,6 @@ applySheetDefaults(sheet)
     styleTableBody(sheet, 2, tasks.length + 1)
   }
 
-sheet.views = [{ showGridLines: false }]
   sheet.autoFilter = {
     from: 'A1',
     to: `I${tasks.length + 1}`,
@@ -565,25 +635,29 @@ sheet.views = [{ showGridLines: false }]
 function createStatusHistorySheet(
   workbook: ExcelJS.Workbook,
   history: TaskStatusHistoryEntry[],
-  taskMap: Map<string, ExportableTask>
+  taskMap: Map<string, ExportableTask>,
+  locale: string,
+  t: TranslateFn
 ) {
-  const sheet = workbook.addWorksheet('Status history')
+  const sheet = workbook.addWorksheet(
+    safeT(t, 'tasksExport.sheets.statusHistory', 'Status history')
+  )
   applySheetDefaults(sheet)
 
   sheet.columns = [
-    { width: 22 },
-    { width: 32 },
-    { width: 16 },
-    { width: 16 },
-    { width: 40 },
+    {width: 22},
+    {width: 32},
+    {width: 16},
+    {width: 16},
+    {width: 40},
   ]
 
   sheet.getRow(1).values = [
-    'Date',
-    'Task',
-    'Previous status',
-    'New status',
-    'Reason',
+    safeT(t, 'tasksExport.historyColumns.date', 'Date'),
+    safeT(t, 'tasksExport.historyColumns.task', 'Task'),
+    safeT(t, 'tasksExport.historyColumns.previousStatus', 'Previous status'),
+    safeT(t, 'tasksExport.historyColumns.newStatus', 'New status'),
+    safeT(t, 'tasksExport.historyColumns.reason', 'Reason'),
   ]
 
   styleHeader(sheet.getRow(1))
@@ -592,16 +666,25 @@ function createStatusHistorySheet(
     const task = taskMap.get(entry.task_id)
 
     sheet.getRow(index + 2).values = [
-      formatDateTime(entry.created_at),
+      formatDateTime(entry.created_at, locale),
       task?.title || entry.task_id,
-      statusLabels[entry.from_status] || entry.from_status,
-      statusLabels[entry.to_status] || entry.to_status,
+      translateStatus(entry.from_status, t),
+      translateStatus(entry.to_status, t),
       entry.reason || '-',
     ]
   })
 
   if (history.length > 0) {
     styleTableBody(sheet, 2, history.length + 1)
+  } else {
+    sheet.getRow(2).values = [
+      safeT(t, 'tasksExport.noStatusHistory', 'No status changes recorded yet.'),
+      '',
+      '',
+      '',
+      '',
+    ]
+    styleTableBody(sheet, 2, 2)
   }
 
   sheet.autoFilter = {
@@ -610,10 +693,12 @@ function createStatusHistorySheet(
   }
 }
 
-export async function exportTasksToExcel(
-  tasks: ExportableTask[],
-  buildingName: string
-) {
+export async function exportTasksToExcel({
+  tasks,
+  buildingName,
+  locale,
+  t,
+}: ExportTasksToExcelParams) {
   if (!tasks.length) return
 
   const statusHistory = await fetchTaskStatusHistory(tasks.map((task) => task.id))
@@ -633,24 +718,25 @@ export async function exportTasksToExcel(
   const completedPercent =
     tasks.length > 0 ? Math.round((completedCount / tasks.length) * 100) : 0
 
-const sheet = workbook.addWorksheet('General summary')
-setupColumns(sheet)
-applySheetDefaults(sheet)
+  const sheet = workbook.addWorksheet(
+    safeT(t, 'tasksExport.sheets.summary', 'General summary')
+  )
+  setupColumns(sheet)
+  applySheetDefaults(sheet)
 
-  styleTitle(sheet, buildingName)
-
-  sheet.getRow(6).height = 22
-  sheet.getRow(7).height = 26
-  sheet.getRow(8).height = 26
-  sheet.getRow(9).height = 26
+  styleTitle(sheet, buildingName, locale, t)
 
   addMetricCard(
     sheet,
     'B6:C8',
-    '% TASKS COMPLETED',
+    safeT(t, 'tasksExport.metrics.completedPercentTitle', '% TASKS COMPLETED'),
     `${completedPercent}%`,
-    `Completed total: ${completedCount}`,
-    `Assigned total: ${tasks.length}`,
+    safeT(t, 'tasksExport.metrics.completedPercentLine1', 'Completed total: {count}', {
+      count: completedCount,
+    }),
+    safeT(t, 'tasksExport.metrics.completedPercentLine2', 'Assigned total: {count}', {
+      count: tasks.length,
+    }),
     COLORS.green,
     'F8FCFA'
   )
@@ -658,10 +744,12 @@ applySheetDefaults(sheet)
   addMetricCard(
     sheet,
     'D6:E8',
-    'PENDING TASKS',
+    safeT(t, 'tasksExport.metrics.pendingTitle', 'PENDING TASKS'),
     pendingCount,
-    `Pending: ${pendingCount}`,
-    `In this report`,
+    safeT(t, 'tasksExport.metrics.pendingLine1', 'Pending: {count}', {
+      count: pendingCount,
+    }),
+    safeT(t, 'tasksExport.metrics.pendingLine2', 'In this report'),
     COLORS.blue,
     COLORS.blueLight
   )
@@ -669,10 +757,12 @@ applySheetDefaults(sheet)
   addMetricCard(
     sheet,
     'F6:G8',
-    'OVERDUE TASKS',
+    safeT(t, 'tasksExport.metrics.overdueTitle', 'OVERDUE TASKS'),
     overdueCount,
-    `Overdue total: ${overdueCount}`,
-    `Need attention`,
+    safeT(t, 'tasksExport.metrics.overdueLine1', 'Overdue total: {count}', {
+      count: overdueCount,
+    }),
+    safeT(t, 'tasksExport.metrics.overdueLine2', 'Need attention'),
     COLORS.red,
     COLORS.redLight
   )
@@ -680,40 +770,47 @@ applySheetDefaults(sheet)
   addMetricCard(
     sheet,
     'H6:I8',
-    'URGENT',
+    safeT(t, 'tasksExport.metrics.urgentTitle', 'URGENT'),
     urgentCount,
-    `High priority: ${urgentCount}`,
-    `Not completed`,
+    safeT(t, 'tasksExport.metrics.urgentLine1', 'High priority: {count}', {
+      count: urgentCount,
+    }),
+    safeT(t, 'tasksExport.metrics.urgentLine2', 'Not completed'),
     COLORS.amber,
     COLORS.amberLight
   )
 
-  addSummaryTable(sheet, tasks)
-  addDetailedTasksTable(sheet, tasks, latestPendingReasonMap)
+  addSummaryTable(sheet, tasks, t)
+  addDetailedTasksTable(sheet, tasks, latestPendingReasonMap, locale, t)
 
-sheet.views = [{ showGridLines: false }]
   createDetailsSheet(
     workbook,
-    'Completed',
+    safeT(t, 'tasksExport.sheets.completed', 'Completed'),
     tasks.filter((task) => task.status === 'completed'),
-    latestPendingReasonMap
+    latestPendingReasonMap,
+    locale,
+    t
   )
 
   createDetailsSheet(
     workbook,
-    'Overdue',
+    safeT(t, 'tasksExport.sheets.overdue', 'Overdue'),
     tasks.filter((task) => isOverdue(task)),
-    latestPendingReasonMap
+    latestPendingReasonMap,
+    locale,
+    t
   )
 
   createDetailsSheet(
     workbook,
-    'Urgent',
+    safeT(t, 'tasksExport.sheets.urgent', 'Urgent'),
     tasks.filter((task) => task.priority === 'high' && task.status !== 'completed'),
-    latestPendingReasonMap
+    latestPendingReasonMap,
+    locale,
+    t
   )
 
-  createStatusHistorySheet(workbook, statusHistory, taskMap)
+  createStatusHistorySheet(workbook, statusHistory, taskMap, locale, t)
 
   const buffer = await workbook.xlsx.writeBuffer()
 
@@ -722,7 +819,10 @@ sheet.views = [{ showGridLines: false }]
   })
 
   const date = new Date().toISOString().split('T')[0]
-  const safeBuildingName = safeFileName(buildingName || 'building')
+  const safeBuildingName = safeFileName(
+    buildingName || safeT(t, 'tasksExport.noBuilding', 'building')
+  )
+  const filePrefix = safeFileName(safeT(t, 'tasksExport.filePrefix', 'tasks'))
 
-  saveAs(blob, `task-report-${safeBuildingName}-${date}.xlsx`)
+  saveAs(blob, `${filePrefix}-${safeBuildingName}-${date}.xlsx`)
 }

@@ -25,6 +25,7 @@ export function buildTaskDraftFromMessage({
   const parsed = parseSmartTaskInput(message.body, locale)
   const apartmentOrArea =
     parsed.detectedApartments[0] ||
+    parsed.detectedAreas[0] ||
     parsed.detectedLocation ||
     message.related_apartment ||
     null

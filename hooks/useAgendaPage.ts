@@ -10,6 +10,7 @@ import {
   normalizeTask,
   toEditableTask,
 } from '@/lib/tasks/taskHelpers'
+import { exportTasksToExcel } from '@/lib/tasks/exportTasksToExcel'
 import { updateTaskStatusWithTreatment } from '@/lib/tasks/taskStatusActions'
 import type { EditableTask } from '@/lib/tasks/taskTypes'
 import type {
@@ -31,7 +32,6 @@ import {
   getTasksForCurrentMonth,
   getTasksForDayByKey,
 } from '@/lib/agenda/agendaHelpers'
-import { exportMonthToExcel } from '@/lib/agenda/agendaExport'
 
 export function useAgendaPage(selectedBuildingId?: string | null) {
   const locale = useLocale()
@@ -296,9 +296,9 @@ export function useAgendaPage(selectedBuildingId?: string | null) {
   }
 
   const handleExportMonth = () => {
-    exportMonthToExcel({
-      tasksForCurrentMonth,
-      monthLabel,
+    void exportTasksToExcel({
+      tasks: tasksForCurrentMonth,
+      buildingName: buildingName || t('noBuilding'),
       locale,
       t,
     })

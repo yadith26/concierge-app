@@ -34,10 +34,15 @@ export default function TaskInventoryUsageModal({
   onConfirm,
 }: TaskInventoryUsageModalProps) {
   const t = useTranslations('taskInventoryUsageModal')
+  const tGlobal = useTranslations()
 
   if (!open || !item) return null
 
-  const measurementUnitLabel = getInventoryUnitLabel(item.unit_of_measure, 2)
+  const measurementUnitLabel = getInventoryUnitLabel(
+    item.unit_of_measure,
+    tGlobal,
+    2
+  )
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-900/35 backdrop-blur-[2px]">

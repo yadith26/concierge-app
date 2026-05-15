@@ -1,5 +1,6 @@
 'use client'
 
+import { useLocale, useTranslations } from 'next-intl'
 import { MailOpen, MessageSquareMore } from 'lucide-react'
 import type { BuildingMessage } from '@/lib/messages/messageService'
 
@@ -14,6 +15,9 @@ export default function DashboardInboxSection({
   unreadCount,
   onMarkAsRead,
 }: DashboardInboxSectionProps) {
+  const t = useTranslations('dashboardInboxSection')
+  const locale = useLocale()
+
   if (!messages.length) return null
 
   return (
@@ -22,11 +26,11 @@ export default function DashboardInboxSection({
         <div className="flex items-center gap-2 text-[#142952]">
           <MessageSquareMore size={20} className="text-[#2F66C8]" />
           <div>
-            <h2 className="text-base font-bold">Mensajes</h2>
+            <h2 className="text-base font-bold">{t('title')}</h2>
             <p className="text-xs text-[#7B8BA8]">
               {unreadCount > 0
-                ? `${unreadCount} sin leer`
-                : 'Todos tus mensajes estan leidos'}
+                ? t('unreadCount', { count: unreadCount })
+                : t('allRead')}
             </p>
           </div>
         </div>
@@ -48,7 +52,7 @@ export default function DashboardInboxSection({
                   {message.sender_name}
                 </p>
                 <p className="mt-1 text-xs text-[#7B8BA8]">
-                  {new Intl.DateTimeFormat('es', {
+                  {new Intl.DateTimeFormat(locale, {
                     month: 'short',
                     day: 'numeric',
                     hour: 'numeric',
@@ -64,7 +68,7 @@ export default function DashboardInboxSection({
                   className="inline-flex shrink-0 items-center gap-1 rounded-full bg-white px-3 py-2 text-xs font-semibold text-[#2F66C8] shadow-sm"
                 >
                   <MailOpen size={14} />
-                  Leido
+                  {t('markAsRead')}
                 </button>
               ) : null}
             </div>

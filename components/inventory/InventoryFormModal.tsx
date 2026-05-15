@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { X } from 'lucide-react'
 import InventoryFormFields from './InventoryFormFields'
 import TaskPhotosSection from '@/components/tasks/TaskPhotosSection'
@@ -83,12 +83,14 @@ export default function InventoryFormModal({
 }: InventoryFormModalProps) {
   const t = useTranslations('inventoryFormModal')
   const tGlobal = useTranslations()
+  const locale = useLocale()
 
   const inventoryForm = useInventoryForm({
     open,
     itemToEdit,
     initialCategory,
     initialLocation,
+    locale,
     items,
     availableNames,
     initialValues,

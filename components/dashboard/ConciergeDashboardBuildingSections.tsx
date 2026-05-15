@@ -1,6 +1,7 @@
 'use client'
 
 import type { ReactNode } from 'react'
+import { useTranslations } from 'next-intl'
 import {
   CalendarDays,
   Check,
@@ -65,6 +66,7 @@ export function DashboardSpotlightCard({
   onDelete: (task: EditableTask) => void
   onToggleExpand: (task: EditableTask) => void
 }) {
+  const tTaskCard = useTranslations('taskCard')
   const {
     rootRef,
     translateX,
@@ -115,6 +117,7 @@ export function DashboardSpotlightCard({
       <SwipeBackground
         translateX={translateX}
         completeLabel={copy.completeTask}
+        deleteLabel={tTaskCard('delete')}
         onComplete={() => {
           ;(onSwipeComplete || onComplete)(task)
           closeSwipe()
@@ -336,6 +339,8 @@ export function DashboardWideListCard({
     nestedTasks?: EditableTask[]
   }>
 }) {
+  const tTaskCard = useTranslations('taskCard')
+
   return (
     <section className="overflow-hidden rounded-[26px] border border-[#E7EDF5] bg-white shadow-[0_8px_24px_rgba(20,41,82,0.05)]">
       <div className="flex items-center justify-between gap-3 px-4 py-4">
@@ -375,7 +380,8 @@ export function DashboardWideListCard({
                   meta={item.meta}
                   tone={item.tone}
                   icon={item.icon}
-                  completeLabel="Completar"
+                  completeLabel={tTaskCard('complete')}
+                  deleteLabel={tTaskCard('delete')}
                   swipeEnabled={!disableTaskSwipe && item.task.status !== 'completed'}
                   onClick={() => onToggleTask(item.task!)}
                   onComplete={
@@ -551,6 +557,7 @@ function DashboardSwipeTaskRow({
   tone,
   icon,
   completeLabel,
+  deleteLabel,
   compact = false,
   swipeEnabled = true,
   onClick,
@@ -564,6 +571,7 @@ function DashboardSwipeTaskRow({
   tone: 'red' | 'amber' | 'green'
   icon: ReactNode
   completeLabel: string
+  deleteLabel: string
   compact?: boolean
   swipeEnabled?: boolean
   onClick: () => void
@@ -601,6 +609,7 @@ function DashboardSwipeTaskRow({
         <SwipeBackground
           translateX={translateX}
           completeLabel={completeLabel}
+          deleteLabel={deleteLabel}
           compact={compact}
           onComplete={
             onComplete || onSwipeComplete
@@ -737,12 +746,14 @@ function ExpandableTaskDetails({
 function SwipeBackground({
   translateX,
   completeLabel,
+  deleteLabel,
   compact = false,
   onComplete,
   onDelete,
 }: {
   translateX: number
   completeLabel: string
+  deleteLabel: string
   compact?: boolean
   onComplete?: () => void
   onDelete?: () => void
@@ -786,7 +797,7 @@ function SwipeBackground({
             className="flex w-[96px] items-center justify-center gap-2 text-white"
           >
             <Trash2 className="h-5 w-5" />
-            <span className="text-sm font-semibold">Eliminar</span>
+            <span className="text-sm font-semibold">{deleteLabel}</span>
           </button>
         ) : null}
       </div>

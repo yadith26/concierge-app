@@ -122,7 +122,7 @@ export default function AppHeader({
                 </h1>
 
                 {subtitle ? (
-                  <p className="mt-2 truncate text-[15px] font-semibold text-[#425979]">
+                  <p className="mt-2 line-clamp-2 text-[15px] font-semibold leading-5 text-[#425979]">
                     {subtitle}
                   </p>
                 ) : null}

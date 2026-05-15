@@ -101,15 +101,21 @@ export default function useInventoryViewModel({
     [items]
   )
 
+  const filteredHistory = useMemo(() => {
+    const filteredItemIds = new Set(filteredItems.map((item) => item.id))
+
+    return history.filter((entry) => filteredItemIds.has(entry.item_id))
+  }, [filteredItems, history])
+
   const handleExportInventory = useCallback(() => {
     exportInventoryToExcel({
       items: filteredItems,
-      history,
+      history: filteredHistory,
       buildingName,
       locale,
       t,
     })
-  }, [filteredItems, history, buildingName, locale, t])
+  }, [filteredItems, filteredHistory, buildingName, locale, t])
 
   const filteredLocations = useMemo(
     () => availableLocations.filter(Boolean),

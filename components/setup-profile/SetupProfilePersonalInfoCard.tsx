@@ -4,7 +4,7 @@ import { User, ChevronDown, Check } from 'lucide-react'
 import { languageOptions } from '@/hooks/useSetupProfilePage'
 
 type Props = {
-  t: (key: string) => string
+  t: (key: string, values?: Record<string, string | number>) => string
   firstName: string
   setFirstName: (value: string) => void
   lastName: string

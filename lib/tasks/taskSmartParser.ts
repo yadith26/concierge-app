@@ -17,6 +17,7 @@ export type SmartTaskParseResult = {
   detectedDate: string | null
   detectedTime: string | null
   detectedLocation: string | null
+  detectedAreas: string[]
   detectedApartments: string[]
   detectedPestTargets: PestTarget[]
   detectedVisitType: TreatmentVisitType | null
@@ -52,6 +53,10 @@ type ParserRules = {
     hallway: string[]
     mainEntrance: string[]
     garage: string[]
+    stairs: string[]
+    elevator: string[]
+    terrace: string[]
+    laundry: string[]
     area: string[]
     building: string[]
   }
@@ -557,6 +562,41 @@ function extractSmartApartments(
   return Array.from(new Set(apartments))
 }
 
+function extractSmartAreas(
+  text: string,
+  rules: ParserRules
+): string[] {
+  const original = text.trim()
+  const normalizedOriginal = normalizeSmartText(original)
+  const matches: string[] = []
+
+  const singleWordLocations: Array<[string[], string]> = [
+    [rules.locationWords.lobby, capitalize(rules.locationWords.lobby[0] || 'Lobby')],
+    [rules.locationWords.basement, capitalize(rules.locationWords.basement[0] || 'Basement')],
+    [rules.locationWords.hallway, capitalize(rules.locationWords.hallway[0] || 'Hallway')],
+    [rules.locationWords.mainEntrance, capitalize(rules.locationWords.mainEntrance[0] || 'Main entrance')],
+    [rules.locationWords.garage, capitalize(rules.locationWords.garage[0] || 'Garage')],
+    [rules.locationWords.stairs, capitalize(rules.locationWords.stairs[0] || 'Stairs')],
+    [rules.locationWords.elevator, capitalize(rules.locationWords.elevator[0] || 'Elevator')],
+    [rules.locationWords.terrace, capitalize(rules.locationWords.terrace[0] || 'Terrace')],
+    [rules.locationWords.laundry, capitalize(rules.locationWords.laundry[0] || 'Laundry')],
+  ]
+
+  for (const [words, label] of singleWordLocations) {
+    if (buildContainsRegex(words)?.test(normalizedOriginal)) {
+      matches.push(label)
+    }
+  }
+
+  const areaMatch = buildLocationPhraseMatch(original, rules.locationWords.area)
+  if (areaMatch) matches.push(areaMatch)
+
+  const buildingMatch = buildLocationPhraseMatch(original, rules.locationWords.building)
+  if (buildingMatch) matches.push(buildingMatch)
+
+  return Array.from(new Set(matches))
+}
+
 function extractSmartLocation(
   text: string,
   rules: ParserRules,
@@ -567,30 +607,8 @@ function extractSmartLocation(
     return apartments[0]
   }
 
-  const original = text.trim()
-  const normalizedOriginal = normalizeSmartText(original)
-
-  const singleWordLocations: Array<[string[], string]> = [
-    [rules.locationWords.lobby, capitalize(rules.locationWords.lobby[0] || 'Lobby')],
-    [rules.locationWords.basement, capitalize(rules.locationWords.basement[0] || 'Basement')],
-    [rules.locationWords.hallway, capitalize(rules.locationWords.hallway[0] || 'Hallway')],
-    [rules.locationWords.mainEntrance, capitalize(rules.locationWords.mainEntrance[0] || 'Main entrance')],
-    [rules.locationWords.garage, capitalize(rules.locationWords.garage[0] || 'Garage')],
-  ]
-
-  for (const [words, label] of singleWordLocations) {
-    if (buildContainsRegex(words)?.test(normalizedOriginal)) {
-      return label
-    }
-  }
-
-  const areaMatch = buildLocationPhraseMatch(original, rules.locationWords.area)
-  if (areaMatch) return areaMatch
-
-  const buildingMatch = buildLocationPhraseMatch(original, rules.locationWords.building)
-  if (buildingMatch) return buildingMatch
-
-  return null
+  const areas = extractSmartAreas(text, rules)
+  return areas[0] || null
 }
 
 function buildLocationPhraseMatch(text: string, keywords: string[]) {
@@ -788,6 +806,7 @@ export function parseSmartTaskInput(
   const detectedDate = extractSmartDate(input, rules)
   const detectedTime = extractSmartTime(input, rules, parserLocale)
   const detectedApartments = extractSmartApartments(input, rules, parserLocale)
+  const detectedAreas = extractSmartAreas(input, rules)
   const detectedLocation = extractSmartLocation(input, rules, parserLocale)
   const detectedPriority = extractSmartPriority(input, rules)
   const detectedVisitType = extractSmartVisitType(input, rules)
@@ -806,6 +825,7 @@ export function parseSmartTaskInput(
     detectedDate,
     detectedTime,
     detectedLocation,
+    detectedAreas,
     detectedApartments,
     detectedPestTargets,
     detectedVisitType,

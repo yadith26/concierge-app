@@ -4,7 +4,12 @@ import { useTranslations } from 'next-intl'
 import { Image as ImageIcon, MapPin, Minus, Package, Pencil, Plus, TriangleAlert } from 'lucide-react'
 import InventoryItemDetails from './InventoryItemDetails'
 import type { InventoryHistory, InventoryItem } from '@/lib/inventory/inventoryTypes'
-import { formatInventoryQuantityWithUnit } from '@/lib/inventory/inventoryUi'
+import {
+  formatInventoryQuantityWithUnit,
+  getInventoryItemTypeLabel,
+  getInventoryLocationLabel,
+  translateInventoryCategoryLabel,
+} from '@/lib/inventory/inventoryUi'
 
 type FlatInventoryRowProps = {
   item: InventoryItem
@@ -26,7 +31,10 @@ export default function FlatInventoryRow({
   history,
 }: FlatInventoryRowProps) {
   const t = useTranslations('flatInventoryRow')
+  const tGlobal = useTranslations()
   const isLowStock = item.quantity <= item.minimum_stock
+  const itemTypeLabel = getInventoryItemTypeLabel(item, tGlobal)
+  const categoryLabel = translateInventoryCategoryLabel(item.category, tGlobal)
 
   return (
     <div
@@ -42,17 +50,17 @@ export default function FlatInventoryRow({
           </h3>
 
           <div className="mt-2 flex flex-wrap items-center gap-2">
-            {item.item_type && (
+            {itemTypeLabel ? (
               <span className="inline-flex items-center rounded-full bg-[#EEF4FF] px-2.5 py-1 text-[11px] font-semibold text-[#2F66C8]">
-                {item.item_type}
+                {itemTypeLabel}
               </span>
-            )}
+            ) : null}
 
-            {item.category && (
+            {categoryLabel ? (
               <span className="inline-flex items-center rounded-full bg-[#F4F6FA] px-2.5 py-1 text-[11px] font-semibold text-[#5E6E8C]">
-                {item.category}
+                {categoryLabel}
               </span>
-            )}
+            ) : null}
 
             {isLowStock && (
               <span className="inline-flex items-center gap-1 rounded-full bg-[#FFF4F5] px-2.5 py-1 text-[11px] font-semibold text-[#D64555]">
@@ -65,12 +73,12 @@ export default function FlatInventoryRow({
           <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2 text-[15px] text-[#7B8BA8]">
             <span className="inline-flex items-center gap-1.5">
               <Package className="h-4 w-4" />
-              {formatInventoryQuantityWithUnit(item.quantity, item.unit_of_measure)}
+              {formatInventoryQuantityWithUnit(item.quantity, item.unit_of_measure, tGlobal)}
             </span>
 
             <span className="inline-flex items-center gap-1.5">
               <MapPin className="h-4 w-4" />
-              {item.location || t('noLocation')}
+              {getInventoryLocationLabel(item.location, t('noLocation'), tGlobal)}
             </span>
 
             {(item.inventory_item_photos?.length || 0) > 0 ? (
@@ -96,7 +104,7 @@ export default function FlatInventoryRow({
           </button>
 
           <div className="min-w-0 text-center text-[14px] font-bold leading-tight text-[#142952] sm:min-w-[96px] sm:text-right">
-            {formatInventoryQuantityWithUnit(item.quantity, item.unit_of_measure)}
+            {formatInventoryQuantityWithUnit(item.quantity, item.unit_of_measure, tGlobal)}
           </div>
 
           <button

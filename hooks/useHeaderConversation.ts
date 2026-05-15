@@ -54,6 +54,10 @@ type UseHeaderConversationResult = {
   sendMessage: () => Promise<void>
 }
 
+function isHeaderConversationErrorKey(message: string) {
+  return message.startsWith('errors.')
+}
+
 function parseMessageMetadata(text: string): {
   priority: MessagePriority
   relatedApartment: string | null
@@ -102,7 +106,7 @@ async function resolveConciergeBuilding(userId: string) {
     .limit(1)
 
   if (error) {
-    throw new Error(error.message || 'Could not get the concierge building.')
+    throw new Error(error.message || 'errors.conciergeBuilding')
   }
 
   return ((data as Array<{ building_id: string }>) || [])[0]?.building_id || ''
@@ -117,7 +121,7 @@ async function resolveManagerBuilding(userId: string) {
     .limit(1)
 
   if (error) {
-    throw new Error(error.message || 'Could not get the manager building.')
+    throw new Error(error.message || 'errors.managerBuilding')
   }
 
   return ((data as Array<{ building_id: string }>) || [])[0]?.building_id || ''
@@ -132,7 +136,7 @@ async function resolveManagerContact(buildingId: string) {
     .limit(1)
 
   if (error) {
-    throw new Error(error.message || 'Could not get the building manager.')
+    throw new Error(error.message || 'errors.buildingManager')
   }
 
   const managerId = ((data as Array<{ user_id: string }>) || [])[0]?.user_id || ''
@@ -154,7 +158,7 @@ async function resolveConciergeContact(buildingId: string) {
     .limit(1)
 
   if (error) {
-    throw new Error(error.message || 'Could not get the building concierge.')
+    throw new Error(error.message || 'errors.buildingConcierge')
   }
 
   let conciergeId = ((data as Array<{ user_id: string }>) || [])[0]?.user_id || ''
@@ -194,6 +198,11 @@ export default function useHeaderConversation({
   preferredBuildingId,
 }: UseHeaderConversationOptions = {}): UseHeaderConversationResult {
   const t = useTranslations('headerConversation')
+  const translateError = useCallback(
+    (message: string) =>
+      isHeaderConversationErrorKey(message) ? t(message) : message,
+    [t]
+  )
   const [currentUserId, setCurrentUserId] = useState('')
   const [currentRole, setCurrentRole] = useState<Role | null>(null)
   const [activeBuildingId, setActiveBuildingId] = useState('')
@@ -268,14 +277,14 @@ export default function useHeaderConversation({
       } catch (conversationError) {
         setError(
           conversationError instanceof Error
-            ? conversationError.message
+            ? translateError(conversationError.message)
             : t('openError')
         )
       } finally {
         setLoadingConversation(false)
       }
     },
-    [refreshUnreadCount, t]
+    [refreshUnreadCount, t, translateError]
   )
 
   const loadContext = useCallback(async () => {
@@ -354,10 +363,21 @@ export default function useHeaderConversation({
       setError('')
       setActiveBuildingId(buildingId)
 
-      const nextContact = await resolveContactForBuilding({
-        role: currentRole,
-        buildingId,
-      })
+      let nextContact: Contact | null = null
+
+      try {
+        nextContact = await resolveContactForBuilding({
+          role: currentRole,
+          buildingId,
+        })
+      } catch (resolveError) {
+        setError(
+          resolveError instanceof Error
+            ? translateError(resolveError.message)
+            : t('openError')
+        )
+        return
+      }
 
       if (!nextContact) {
         setContact(null)
@@ -382,7 +402,7 @@ export default function useHeaderConversation({
         )
       )
     },
-    [currentRole, currentUserId, loadConversation]
+    [currentRole, currentUserId, loadConversation, t, translateError]
   )
 
   const openInbox = useCallback(async () => {

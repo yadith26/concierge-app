@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import {
   Building2,
   Camera,
@@ -46,6 +47,9 @@ export default function TaskCardMeta({
   compact = false,
   minimal = false,
 }: TaskCardMetaProps) {
+  const t = useTranslations('taskCardMeta')
+  const labelT = useTranslations('taskLabels')
+
   return (
     <>
       <div className={`flex flex-wrap items-center ${compact ? 'gap-1.5' : 'gap-2'}`}>
@@ -78,7 +82,7 @@ export default function TaskCardMeta({
             compact ? 'px-2 py-0.5 text-[11px]' : 'px-2.5 py-1 text-xs'
           }`}>
             <NotebookPen className={compact ? 'h-3 w-3' : 'h-3.5 w-3.5'} />
-            Nota
+            {t('note')}
           </span>
         )}
 
@@ -87,7 +91,7 @@ export default function TaskCardMeta({
             compact ? 'px-2 py-0.5 text-[11px]' : 'px-2.5 py-1 text-xs'
           }`}>
             <Layers3 className={compact ? 'h-3 w-3' : 'h-3.5 w-3.5'} />
-            {pestCount} plaga{pestCount === 1 ? '' : 's'}
+            {t('pests', { count: pestCount })}
           </span>
         )}
 
@@ -96,7 +100,7 @@ export default function TaskCardMeta({
             compact ? 'px-2 py-0.5 text-[11px]' : 'px-2.5 py-1 text-xs'
           }`}>
             <Building2 className={compact ? 'h-3 w-3' : 'h-3.5 w-3.5'} />
-            {apartmentCount} apto{apartmentCount === 1 ? '' : 's'}
+            {t('apartments', { count: apartmentCount })}
           </span>
         )}
 
@@ -115,21 +119,23 @@ export default function TaskCardMeta({
           {initialCount > 0 && (
             <span className="inline-flex items-center gap-1 rounded-full bg-[#EEF4FF] px-2.5 py-1 text-xs font-semibold text-[#2F66C8]">
               <Shield className="h-3.5 w-3.5" />
-              {initialCount} inicial{initialCount === 1 ? '' : 'es'}
+              {labelT('taskVisitSummary.initial', { count: initialCount })}
             </span>
           )}
 
           {followUpCount > 0 && (
             <span className="inline-flex items-center gap-1 rounded-full bg-[#F3EEFF] px-2.5 py-1 text-xs font-semibold text-[#7A5AC7]">
               <Shield className="h-3.5 w-3.5" />
-              {followUpCount} seguimiento{followUpCount === 1 ? '' : 's'}
+              {labelT('taskVisitSummary.followUp', { count: followUpCount })}
             </span>
           )}
 
           {preventiveCount > 0 && (
             <span className="inline-flex items-center gap-1 rounded-full bg-[#EAF7F0] px-2.5 py-1 text-xs font-semibold text-[#177B52]">
               <Shield className="h-3.5 w-3.5" />
-              {preventiveCount} preventivo{preventiveCount === 1 ? '' : 's'}
+              {labelT('taskVisitSummary.preventive', {
+                count: preventiveCount,
+              })}
             </span>
           )}
         </div>

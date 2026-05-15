@@ -112,7 +112,7 @@ export default function TaskInventorySelectModal({
               items.map((item) => {
                 const conditionMeta = getConditionMeta(item.condition, tGlobal)
                 const isLowStock = isLowStockItem(item.quantity, item.minimum_stock)
-                const itemTypeLabel = getInventoryItemTypeLabel(item)
+                const itemTypeLabel = getInventoryItemTypeLabel(item, tGlobal)
                 const reasons = getReasonLabels(reasonMap?.[item.id] || [], tReasons)
 
                 return (

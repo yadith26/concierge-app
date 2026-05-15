@@ -32,11 +32,16 @@ export default function InventoryManualAdjustModal({
   onConfirm,
 }: InventoryManualAdjustModalProps) {
   const t = useTranslations('inventoryManualAdjust')
+  const tGlobal = useTranslations()
 
   if (!open || !item) return null
 
   const isMaterial = isMaterialInventoryCategory(item.category)
-  const measurementUnitLabel = getInventoryUnitLabel(item.unit_of_measure, 2)
+  const measurementUnitLabel = getInventoryUnitLabel(
+    item.unit_of_measure,
+    tGlobal,
+    2
+  )
 
   return (
     <div className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(15,23,42,0.42)] px-4 backdrop-blur-[2px]">

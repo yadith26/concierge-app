@@ -155,7 +155,7 @@ export default function ManagerBuildingChip({
       </button>
 
       {open ? (
-        <div className="absolute left-0 z-[90] mt-2 w-[min(17rem,calc(100vw-3.5rem))] overflow-hidden rounded-[22px] border border-[#E7EDF5] bg-white p-1.5 shadow-[0_18px_40px_rgba(20,41,82,0.14)]">
+        <div className="absolute left-0 z-[120] mt-2 w-max min-w-full max-w-[min(20rem,calc(100vw-3.5rem))] overflow-hidden rounded-[22px] border border-[#E7EDF5] bg-white p-1.5 shadow-[0_18px_40px_rgba(20,41,82,0.14)]">
           <div className="px-3 pb-1.5 pt-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8C9AB3]">
             Edificios
           </div>

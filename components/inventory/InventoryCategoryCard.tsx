@@ -20,6 +20,7 @@ import {
   formatInventoryQuantityWithUnit,
   getInventoryItemTypeLabel,
   getInventoryLocationLabel,
+  translateInventoryCategoryLabel,
 } from '@/lib/inventory/inventoryUi'
 
 type InventoryCategoryCardProps = {
@@ -76,7 +77,7 @@ export default function InventoryCategoryCard({
     const groups = new Map<string, InventoryTypeGroup>()
 
     items.forEach((item) => {
-      const label = getInventoryItemTypeLabel(item, item.name)
+      const label = getInventoryItemTypeLabel(item, tGlobal, item.name)
       const key = label.toLowerCase()
       const existing = groups.get(key)
 
@@ -93,7 +94,8 @@ export default function InventoryCategoryCard({
         variants: [item],
         locationSummary: getInventoryLocationLabel(
           item.location,
-          tGlobal('flatInventoryRow.noLocation')
+          tGlobal('flatInventoryRow.noLocation'),
+          tGlobal
         ),
       })
     })
@@ -125,13 +127,13 @@ export default function InventoryCategoryCard({
           </div>
 
           <h2 className="mt-2 text-[20px] font-bold tracking-tight text-[#142952]">
-            {category}
+            {translateInventoryCategoryLabel(category, tGlobal) || category}
           </h2>
 
           <div className="mt-2 flex flex-wrap items-center gap-3 text-[15px] text-[#7B8BA8]">
             <span className="inline-flex items-center gap-1.5">
               <Package className="h-4 w-4" />
-              {formatInventoryQuantity(totalUnits)} en total
+              {t('totalUnits', { count: formatInventoryQuantity(totalUnits) })}
             </span>
 
             <span className="inline-flex items-center gap-1.5">
@@ -197,17 +199,15 @@ export default function InventoryCategoryCard({
                             <span className="inline-flex items-center rounded-full bg-[#EEF4FF] px-2.5 py-1 text-[11px] font-semibold text-[#2F66C8]">
                               {formatInventoryQuantityWithUnit(
                                 group.totalUnits,
-                                group.variants[0]?.unit_of_measure || 'unidad'
+                                group.variants[0]?.unit_of_measure || 'unidad',
+                                tGlobal
                               )}
                             </span>
                           </div>
 
                           <div className="mt-2 flex flex-wrap items-center gap-3 text-[15px] text-[#7B8BA8]">
                             <span>
-                              {group.variants.length}{' '}
-                              {group.variants.length === 1
-                                ? 'variante'
-                                : 'variantes'}
+                              {t('variantsCount', { count: group.variants.length })}
                             </span>
                             <span className="inline-flex items-center gap-1.5">
                               <MapPin className="h-4 w-4" />

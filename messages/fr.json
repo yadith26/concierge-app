@@ -20,7 +20,10 @@
     "hello": "Bonjour",
     "user": "Utilisateur",
     "goToProfile": "Aller au profil",
-    "headerBackgroundAlt": "Arriere-plan de l'en-tete"
+    "headerBackgroundAlt": "Arriere-plan de l'en-tete",
+    "dashboard": {
+      "subtitle": "Nous allons passer une très belle journée"
+    }
   },
   "dashboard": {
     "loading": "Chargement du tableau de bord...",
@@ -29,6 +32,11 @@
     "nextTask": "Prochaine tâche",
     "noLocation": "Sans emplacement",
     "showing": "Affichage :",
+    "headerPills": {
+      "pending": "{count} en attente",
+      "urgent": "{count} urgente{count, plural, one {} other {s}}",
+      "overdue": "{count} en retard"
+    },
     "summaryCard": {
       "building": "Bâtiment",
       "noBuilding": "Sans bâtiment",
@@ -73,7 +81,7 @@
     },
     "commonClose": "Fermer",
     "conciergeCopy": {
-      "subtitle": "Nous allons passer une tres bonne journee",
+      "subtitle": "Nous allons passer une très belle journée",
       "spotlight": "Le plus important maintenant",
       "spotlightToday": "Ce qui suit aujourd'hui",
       "spotlightNext": "Prochaine tache",
@@ -83,13 +91,13 @@
       "spotlightUrgentNext": "Urgent programme",
       "completeTask": "Terminer la tache",
       "alerts": "Alertes intelligentes",
-      "overdueTasks": "Taches en retard",
+      "overdueTasks": "Tâches en retard",
       "urgentTasks": "Urgentes",
-      "todayTasks": "Taches du jour",
-      "upcomingTasks": "Prochaines taches",
+      "todayTasks": "Tâches du jour",
+      "upcomingTasks": "Prochaines tâches",
       "quickActions": "Raccourcis rapides",
       "quickActionNewTask": "Nouvelle tache",
-      "quickActionTasks": "Voir les taches",
+      "quickActionTasks": "Voir les tâches",
       "quickActionInventory": "Ouvrir l'inventaire",
       "quickActionAgenda": "Ouvrir l'agenda",
       "activeProblems": "Problemes actifs",
@@ -99,7 +107,7 @@
       "hotAreas": "Zones les plus frequentes",
       "noHotAreas": "Aucune zone mise en avant pour le moment.",
       "singleHotAreaTask": "1 tache",
-      "hotAreaTasks": "{count} taches",
+      "hotAreaTasks": "{count} tâches",
       "quickHistory": "Historique rapide du jour",
       "noHistoryToday": "Aucune tache terminee aujourd'hui.",
       "completedAtLabel": "Terminee a {time}",
@@ -185,6 +193,7 @@
     "noLocation": "Sans emplacement",
     "dateAndTime": "Date et heure",
     "completedOn": "Terminée le",
+    "createdAt": "Créé le",
     "pests": "Parasites",
     "unspecified": "Non précisé",
     "visitType": "Type de visite",
@@ -196,13 +205,13 @@
     "deleteTask": "Supprimer la tâche"
   },
   "taskStatusReasonModal": {
-    "eyebrow": "TÃ¢ches",
+    "eyebrow": "Tâches",
     "title": "Remettre en attente",
-    "description": "Cette tÃ¢che Ã©tait dÃ©jÃ  complÃ©tÃ©e. Avant de la remettre en attente, indique pourquoi le statut a changÃ©.",
+    "description": "Cette tâche était déjà complétée. Avant de la remettre en attente, indique pourquoi le statut a changé.",
     "label": "Pourquoi revient-elle en attente ?",
-    "placeholder": "Ex. : il manquait une piÃ¨ce, le travail est restÃ© inachevÃ©, le problÃ¨me est revenu, elle a Ã©tÃ© marquÃ©e complÃ©tÃ©e par erreur...",
+    "placeholder": "Ex. : il manquait une pièce, le travail est resté inachevé, le problème est revenu, elle a été marquée complétée par erreur...",
     "required": "Indique le motif avant de changer le statut.",
-    "failed": "Impossible de changer le statut. RÃ©essaie.",
+    "failed": "Impossible de changer le statut. Réessaie.",
     "cancel": "Annuler",
     "confirm": "Enregistrer le motif",
     "confirming": "Enregistrement...",
@@ -254,7 +263,7 @@
   },
   "treatmentExport": {
     "sheetName": "Résumé des traitements",
-    "filePrefix": "resume_traitements",
+    "filePrefix": "rapport-traitements",
     "active": "Actif",
     "closed": "Fermé",
     "columns": {
@@ -270,7 +279,34 @@
       "activeWarranty": "Garantie active",
       "warrantyUntil": "Garantie jusqu’au",
       "status": "Statut",
-      "notes": "Notes"
+      "notes": "Notes",
+      "treatmentDate": "Date du traitement",
+      "createdAt": "Créé le"
+    },
+    "reportTitle": "RAPPORT DES TRAITEMENTS",
+    "reportSubtitle": "Résumé des traitements de {buildingName}",
+    "generatedOn": "Généré le :",
+    "building": "Immeuble :",
+    "generatedBy": "Généré par :",
+    "concierge": "Concierge",
+    "noBuilding": "Aucun immeuble",
+    "detailSheetName": "Détail des traitements",
+    "sections": {
+      "summary": "1. RÉSUMÉ DES TRAITEMENTS"
+    },
+    "metrics": {
+      "totalTreatments": "TOTAL TRAITEMENTS",
+      "totalTreatmentsLine1": "Visites enregistrées",
+      "totalTreatmentsLine2": "Dans ce rapport",
+      "apartments": "APPARTEMENTS / ZONES",
+      "apartmentsLine1": "Lieux uniques",
+      "apartmentsLine2": "Inclus ici",
+      "followUps": "SUIVIS",
+      "followUpsLine1": "Planifiés ou réalisés",
+      "followUpsLine2": "Type de visite",
+      "activeWarranties": "GARANTIES ACTIVES",
+      "activeWarrantiesLine1": "Protections en cours",
+      "activeWarrantiesLine2": "Par appartement/zone"
     }
   },
   "taskPestSection": {
@@ -288,7 +324,8 @@
     "priority": "Priorité",
     "apartmentAddedAutomatically": "Appartement ajouté automatiquement",
     "pressEnterToSave": "Vous pouvez appuyer sur Entrée pour enregistrer rapidement",
-    "useCleanTitle": "Utiliser le titre nettoyé"
+    "useCleanTitle": "Utiliser le titre nettoyé",
+    "areaAddedAutomatically": "Zone ajoutée automatiquement : {area}"
   },
   "taskCategoryPriorityFields": {
     "category": "Catégorie *",
@@ -365,7 +402,13 @@
     "building": "Bâtiment",
     "noBuilding": "Aucun bâtiment",
     "undoCompleteTitle": "Tache terminee",
-    "undo": "Annuler"
+    "undo": "Annuler",
+    "pendingSummary": {
+      "title": "En attente",
+      "showing": "Affichage des tâches en attente",
+      "tapToView": "Appuyez pour ouvrir"
+    },
+    "pendingTasks": "{count} tâches en attente"
   },
   "tasksFilterBar": {
     "searchPlaceholder": "Rechercher des tâches...",
@@ -375,7 +418,8 @@
     "overdue": "En retard",
     "pending": "En attente",
     "inProgress": "En cours",
-    "completed": "Terminées"
+    "completed": "Terminées",
+    "export": "Exporter"
   },
   "tasksEmptyState": {
     "defaultMessage": "Il n’y a aucune tâche à afficher"
@@ -389,7 +433,7 @@
     "undo": "Annuler"
   },
   "tasksPageSections": {
-    "pendingTasks": "Taches en attente",
+    "pendingTasks": "Tâches en attente",
     "todayTasks": "Tâches d’aujourd’hui",
     "tomorrowTasks": "Tâches de demain",
     "upcomingTasks": "Tâches à venir",
@@ -454,6 +498,7 @@
   "inventoryPage": {
     "loading": "Chargement de l’inventaire...",
     "title": "Inventaire",
+    "noBuilding": "Aucun bâtiment",
     "exportInventory": "Exporter l’inventaire",
     "mergeCategories": "Fusionner les catégories",
     "newItem": "Nouvel item",
@@ -481,6 +526,14 @@
   },
   "inventoryFilters": {
     "searchPlaceholder": "Rechercher dans l’inventaire...",
+    "filters": "Filtres",
+    "filtersDescription": "Ajuster la vue de l’inventaire",
+    "closeFilters": "Fermer les filtres",
+    "noActiveFilters": "Aucun filtre actif",
+    "activeFilters": "{count} filtres actifs",
+    "category": "Catégorie",
+    "condition": "État",
+    "location": "Emplacement",
     "categories": {
       "all": "Toutes les categories"
     },
@@ -540,7 +593,12 @@
     "emptyCategory": "Il n’y a pas encore d’items dans cette catégorie.",
     "addItemToCategory": "Ajouter un item à cette catégorie",
     "expandCategory": "Développer la catégorie",
-    "collapseCategory": "Réduire la catégorie"
+    "collapseCategory": "Réduire la catégorie",
+    "variantsCount": "{count, plural, one {# variante} other {# variantes}}",
+    "addSelectorHelp": "Choisissez si vous voulez augmenter une variante existante ou en creer une nouvelle.",
+    "currentUnits": "{count} unites maintenant",
+    "increaseExisting": "Augmenter",
+    "createVariant": "Creer une nouvelle variante"
   },
   "flatInventoryRow": {
     "lowStock": "Stock bas",
@@ -670,16 +728,16 @@
       "updated": "Item mis à jour",
       "quickAdd": "Ajustement rapide +1",
       "quickRemove": "Ajustement rapide -1",
-      "fromTask": "Depuis la tÃ¢che : {task}",
-      "unitLabel": "UnitÃ© : {unit}",
+      "fromTask": "Depuis la tâche : {task}",
+      "unitLabel": "Unité : {unit}",
       "reasonLabel": "Motif :",
       "summary": {
-        "installed": "InstallÃ© {quantity}",
-        "used": "UtilisÃ© {quantity}",
-        "entry": "EntrÃ©e de {quantity}",
+        "installed": "Installé {quantity}",
+        "used": "Utilisé {quantity}",
+        "entry": "Entrée de {quantity}",
         "adjustment": "Ajustement manuel {quantity}",
-        "created": "CrÃ©Ã© avec {quantity}",
-        "updated": "Item mis Ã  jour"
+        "created": "Créé avec {quantity}",
+        "updated": "Article mis à jour"
       },
       "categoryChanged": "Catégorie changée de \"{from}\" à \"{to}\""
     },
@@ -694,14 +752,14 @@
     }
   },
   "inventoryExport": {
-    "generatedAt": "Date de gÃ©nÃ©ration :",
-    "generatedBy": "GÃ©nÃ©rÃ© par :",
-    "reportSubtitle": "RÃ©sumÃ© du stock et des mouvements du bÃ¢timent",
+    "generatedAt": "Date de génération :",
+    "generatedBy": "Généré par :",
+    "reportSubtitle": "Résumé du stock et des mouvements de l’immeuble",
     "totalRow": "TOTAL",
     "columns": {
       "name": "Nom",
       "category": "Catégorie",
-      "itemType": "Item",
+      "itemType": "Article",
       "unitOfMeasure": "Unité",
       "quantity": "Quantité",
       "minimumStock": "Stock minimum",
@@ -713,36 +771,49 @@
       "updatedAt": "Mis à jour le"
     },
     "history": {
-      "itemId": "ID item",
-      "itemName": "Item",
+      "itemId": "ID article",
+      "itemName": "Article",
       "action": "Action",
       "before": "Avant",
       "change": "Changement",
       "after": "Après",
       "note": "Note",
-      "date": "Date"
+      "date": "Date",
+      "source": "Source",
+      "unit": "Unité"
     },
     "sheet": {
       "inventory": "Inventaire",
-      "history": "Historique"
+      "history": "Historique",
+      "summary": "Résumé de l’inventaire"
     },
     "metrics": {
-      "totalItems": "ARTICLES ENREGISTRÃ‰S",
+      "totalItems": "ARTICLES ENREGISTRÉS",
       "totalItemsLine1": "Articles distincts",
-      "totalItemsLine2": "Dans l'inventaire",
-      "totalUnits": "UNITÃ‰S TOTALES",
+      "totalItemsLine2": "Dans l’inventaire",
+      "totalUnits": "UNITÉS TOTALES",
       "totalUnitsLine1": "Somme disponible",
       "totalUnitsLine2": "Stock actuel",
       "lowStock": "STOCK BAS",
       "lowStockLine1": "Articles en alerte",
-      "lowStockLine2": "RÃ©approvisionnement requis",
-      "categories": "CATÃ‰GORIES",
-      "categoriesLine1": "CatÃ©gories actives",
+      "lowStockLine2": "Réapprovisionnement requis",
+      "categories": "CATÉGORIES",
+      "categoriesLine1": "Catégories actives",
       "categoriesLine2": "Dans cette vue",
       "itemsColumn": "Articles"
     },
     "noData": "Aucune donnée à exporter",
-    "noHistory": "Aucun historique disponible"
+    "noHistory": "Aucun historique disponible",
+    "unknownItem": "Article inconnu",
+    "reportTitle": "RAPPORT D’INVENTAIRE",
+    "buildingLabel": "Immeuble :",
+    "concierge": "Concierge",
+    "noBuilding": "Aucun immeuble",
+    "filePrefix": "rapport-inventaire",
+    "sections": {
+      "summaryByCategory": "1. RÉSUMÉ PAR CATÉGORIE",
+      "currentStock": "2. STOCK ACTUEL"
+    }
   },
   "inventoryHelpers": {
     "emptyItems": "Aucun item"
@@ -821,27 +892,40 @@
     "header": {
       "editTitle": "Modifier le profil",
       "createTitle": "Configurer le profil",
-      "subtitle": "Gérez vos renseignements personnels"
+      "subtitle": "Gerez vos informations personnelles"
     },
     "avatar": {
-      "changeAvatar": "Changer l’avatar",
+      "changeAvatar": "Changer l'avatar",
+      "changePhoto": "Changer la photo",
+      "hideOptions": "Masquer les options",
+      "takePhoto": "Prendre une photo",
+      "uploadPhoto": "Importer une photo",
+      "removePhoto": "Retirer la photo et utiliser un avatar",
+      "orChooseAvatar": "Ou choisir un avatar",
+      "account": "Compte",
+      "buildingsCount": "{count, plural, one {# immeuble} other {# immeubles}}",
+      "roles": {
+        "manager": "Manager",
+        "concierge": "Concierge"
+      },
       "hideAvatars": "Masquer les avatars",
       "chooseAvatar": "Choisir un avatar",
       "yourProfile": "Votre profil",
-      "noBuildingAssigned": "Aucun bâtiment assigné",
+      "noBuildingAssigned": "Aucun immeuble assigne",
       "option": "Avatar"
     },
     "personalInfo": {
-      "title": "Renseignements personnels",
-      "firstName": "Prénom",
+      "title": "Informations personnelles",
+      "firstName": "Prenom",
       "lastName": "Nom",
       "email": "Courriel",
       "noEmail": "Aucun courriel",
-      "language": "Langue"
+      "language": "Langue",
+      "subtitle": "Gérez vos informations personnelles"
     },
     "buildingInfo": {
-      "title": "Bâtiment",
-      "buildingName": "Nom du bâtiment",
+      "title": "Immeuble",
+      "buildingName": "Nom de l'immeuble",
       "address": "Adresse"
     },
     "actions": {
@@ -850,13 +934,49 @@
       "signOut": "Se deconnecter"
     },
     "messages": {
-      "userError": "Erreur lors de l’identification de l’utilisateur",
-      "profileSaveError": "Erreur lors de l’enregistrement du profil",
-      "buildingSaveError": "Erreur lors de l’enregistrement du bâtiment",
-      "success": "Modifications enregistrées avec succès"
+      "userError": "Erreur lors de l'identification de l'utilisateur",
+      "profileSaveError": "Erreur lors de l'enregistrement du profil",
+      "buildingSaveError": "Erreur lors de l'enregistrement de l'immeuble",
+      "success": "Modifications enregistrees avec succes"
+    },
+    "managerBuildings": {
+      "title": "Gerer les immeubles",
+      "description": "Creez, connectez, modifiez ou dissociez des immeubles depuis la section Immeubles.",
+      "cta": "Aller gerer les immeubles"
+    },
+    "buildingsCard": {
+      "myBuildings": "Mes immeubles",
+      "myBuildingsDescription": "Selectionnez un immeuble pour le modifier ou le retirer de votre compte.",
+      "noAddress": "Sans adresse",
+      "unlinkConfirm": "Voulez-vous retirer \"{building}\" de votre compte ? Ses tâches et son historique ne seront pas supprimés.",
+      "unlinking": "Suppression du lien...",
+      "unlink": "Retirer",
+      "noBuildings": "Vous n'avez encore aucun immeuble connecte. Creez-en un nouveau ou rejoignez-en un avec un code.",
+      "addOrEdit": "Ajouter ou modifier un immeuble",
+      "editCurrent": "Modifier",
+      "createAnother": "Créer",
+      "createBuilding": "Créer",
+      "join": "Rejoindre",
+      "joinWithCode": "Rejoindre",
+      "sharedCode": "Code partage de l'immeuble",
+      "sharedCodeHelp": "Demandez ce code a l'autre personne connectee a l'immeuble.",
+      "codeToShare": "Code a partager",
+      "shareHelp": "Partagez ce code pour connecter un autre {role} au meme immeuble.",
+      "copy": "Copier",
+      "share": "Partager",
+      "email": "Email",
+      "textMessage": "Message texte",
+      "noCodeYet": "Cet immeuble n'a pas encore de code. Appuyez sur Enregistrer les changements pour le generer.",
+      "shareTitle": "Code de l'immeuble",
+      "shareMessage": "Utilisez ce code pour vous connecter a l'immeuble {building} : {code}",
+      "roles": {
+        "manager": "manager",
+        "concierge": "concierge"
+      }
     },
     "emailAccess": {
       "title": "Courriel d'acces",
+      "editEmail": "Modifier le courriel",
       "currentEmail": "Courriel actuel",
       "newEmail": "Nouveau courriel",
       "help": "Nous enverrons un lien de confirmation. Le courriel de connexion change apres confirmation.",
@@ -974,7 +1094,7 @@
     "goToToday": "Aller a aujourd'hui"
   },
   "dashboardHomeOverview": {
-    "title": "Resume de la journee",
+    "title": "Résumé de la journée",
     "subtitle": "Ce qui demande votre attention.",
     "summary": {
       "today": "Aujourd'hui",
@@ -988,11 +1108,11 @@
     "close": "Fermer",
     "emptySummary": "Aucune nouveaute pour le moment.",
     "buildingsTitle": "Mes batiments",
-    "buildingsSubtitle": "Taches en attente par batiment assigne.",
+    "buildingsSubtitle": "Tâches en attente par immeuble assigné.",
     "noAddress": "Sans adresse",
     "todayCount": "{count} aujourd'hui",
     "selectBuildingTitle": "Selectionnez un batiment",
-    "selectBuildingDescription": "Pour continuer avec les taches, l'inventaire, les traitements et l'agenda.",
+    "selectBuildingDescription": "Pour continuer avec les tâches, l’inventaire, les traitements et l’agenda.",
     "noLocation": "Sans emplacement"
   },
   "dashboardMessagesModal": {
@@ -1010,7 +1130,41 @@
   },
   "headerConversation": {
     "openError": "Impossible d ouvrir la conversation.",
-    "sendError": "Impossible d envoyer le message."
+    "sendError": "Impossible d envoyer le message.",
+    "errors": {
+      "conciergeBuilding": "Impossible de récupérer le bâtiment du concierge.",
+      "managerBuilding": "Impossible de récupérer le bâtiment du manager.",
+      "buildingManager": "Impossible de récupérer le manager du bâtiment.",
+      "buildingConcierge": "Impossible de récupérer le concierge du bâtiment."
+    }
+  },
+  "conciergeHeader": {
+    "openMessages": "Ouvrir les messages",
+    "openManagerEvents": "Ouvrir les événements du manager",
+    "currentBuilding": "Bâtiment actuel",
+    "allBuildings": "Mes bâtiments",
+    "backToOverview": "Retour à la vue générale",
+    "messagesTitle": "Messages",
+    "noAssignedContact": "Aucun contact assigné"
+  },
+  "dashboardInboxSection": {
+    "title": "Messages",
+    "unreadCount": "{count} non lus",
+    "allRead": "Tous vos messages sont lus",
+    "markAsRead": "Lu"
+  },
+  "globalMessagesInboxModal": {
+    "eyebrow": "Boîte globale",
+    "title": "Messages",
+    "close": "Fermer les messages",
+    "loading": "Chargement des conversations...",
+    "empty": "Vous n avez pas encore de conversations récentes.",
+    "footer": "Chaque conversation reste séparée par bâtiment.",
+    "relative": {
+      "now": "Maintenant",
+      "minutes": "{count} min",
+      "hours": "{count} h"
+    }
   },
   "dashboardDictation": {
     "errors": {
@@ -1148,5 +1302,153 @@
     "availableNow": "maintenant",
     "increase": "Augmenter",
     "createNewVariant": "Creer une nouvelle variante"
+  },
+  "inventoryTaxonomy": {
+    "categories": {
+      "appliances": "Electromenagers",
+      "materials": "Materiaux",
+      "tools": "Outils",
+      "parts": "Pieces",
+      "cleaning": "Nettoyage",
+      "other": "Autres"
+    },
+    "itemTypes": {
+      "fridge": "Refrigerateur",
+      "stove": "Cuisiniere",
+      "microwave": "Micro-ondes",
+      "airConditioner": "Climatiseur",
+      "washer": "Laveuse",
+      "whiteCement": "Ciment blanc",
+      "tileAdhesive": "Colle a carrelage",
+      "whitePaint": "Peinture blanche",
+      "primer": "Appret",
+      "plaster": "Platre",
+      "drywall": "Cloison seche",
+      "drill": "Perceuse",
+      "ladder": "Echelle",
+      "screwdriver": "Tournevis",
+      "hammer": "Marteau",
+      "lightBulb": "Ampoule",
+      "faucet": "Robinet",
+      "switch": "Interrupteur",
+      "lock": "Serrure",
+      "detergent": "Detergent",
+      "disinfectant": "Desinfectant",
+      "mop": "Vadrouille",
+      "trashBags": "Sacs-poubelle",
+      "paint": "Peinture"
+    },
+    "units": {
+      "unit": "{count, plural, one {unite} other {unites}}",
+      "gallon": "{count, plural, one {gallon} other {gallons}}",
+      "can": "{count, plural, one {boite} other {boites}}",
+      "bag": "{count, plural, one {sac} other {sacs}}",
+      "box": "{count, plural, one {caisse} other {caisses}}",
+      "pouch": "{count, plural, one {sachet} other {sachets}}",
+      "roll": "{count, plural, one {rouleau} other {rouleaux}}",
+      "tube": "{count, plural, one {tube} other {tubes}}",
+      "bottle": "{count, plural, one {bouteille} other {bouteilles}}",
+      "liter": "{count, plural, one {litre} other {litres}}",
+      "kg": "kg",
+      "lb": "lb"
+    },
+    "locations": {
+      "storage": "Dépôt",
+      "maintenanceRoom": "Local technique",
+      "garage": "Garage",
+      "lobby": "Hall d’entrée"
+    }
+  },
+  "taskCardMeta": {
+    "note": "Note",
+    "pests": "{count} nuisible{count, plural, one {} other {s}}",
+    "apartments": "{count} appartement{count, plural, one {} other {s}}"
+  },
+  "conversationModal": {
+    "closeConversation": "Fermer la conversation",
+    "loading": "Chargement de la conversation...",
+    "empty": "Il n'y a pas encore de messages dans cette conversation.",
+    "defaultUser": "Utilisateur",
+    "urgent": "Urgent",
+    "important": "Important",
+    "selectedReaction": "Réaction sélectionnée",
+    "placeholder": "Écris ton message ici",
+    "send": "Envoyer le message",
+    "saveAsTask": "Créer une tâche à partir du message",
+    "reactions": {
+      "like": "J’aime",
+      "laugh": "Rire",
+      "done": "Vu"
+    }
+  },
+  "taskNotesField": {
+    "label": "Notes",
+    "placeholder": "Détails supplémentaires..."
+  },
+  "tasksExport": {
+    "reportTitle": "RAPPORT DES TÂCHES",
+    "filePrefix": "rapport-tâches",
+    "reportSubtitle": "Résumé opérationnel de {buildingName}",
+    "generatedOn": "Généré le :",
+    "building": "Immeuble :",
+    "generatedBy": "Généré par :",
+    "concierge": "Concierge",
+    "noBuilding": "Aucun immeuble",
+    "sections": {
+      "summaryByCategory": "1. RÉSUMÉ DES TÂCHES PAR CATÉGORIE",
+      "taskDetails": "2. DÉTAIL DES TÂCHES"
+    },
+    "metrics": {
+      "completedPercentTitle": "% TÂCHES TERMINÉES",
+      "completedPercentLine1": "Terminées : {count}",
+      "completedPercentLine2": "Attribuées : {count}",
+      "pendingTitle": "TÂCHES EN ATTENTE",
+      "pendingLine1": "En attente : {count}",
+      "pendingLine2": "Dans ce rapport",
+      "overdueTitle": "TÂCHES EN RETARD",
+      "overdueLine1": "En retard : {count}",
+      "overdueLine2": "Demandent une attention",
+      "urgentTitle": "URGENTES",
+      "urgentLine1": "Haute priorité : {count}",
+      "urgentLine2": "Non terminées"
+    },
+    "summaryColumns": {
+      "category": "Catégorie",
+      "totalAssigned": "Total attribué",
+      "completed": "Terminées",
+      "pending": "En attente",
+      "overdue": "En retard",
+      "urgent": "Urgentes",
+      "percentCompleted": "% terminé"
+    },
+    "detailColumns": {
+      "createdAt": "Créée le",
+      "taskDate": "Date de tâche",
+      "time": "Heure",
+      "title": "Titre",
+      "location": "Emplacement",
+      "category": "Catégorie",
+      "priority": "Priorité",
+      "status": "Statut",
+      "completedAt": "Terminée le",
+      "reasonReturnedPending": "Motif du retour en attente",
+      "notes": "Notes"
+    },
+    "sheets": {
+      "summary": "Résumé général",
+      "completed": "Terminées",
+      "overdue": "En retard",
+      "urgent": "Urgentes",
+      "statusHistory": "Historique des statuts"
+    },
+    "historyColumns": {
+      "date": "Date",
+      "task": "Tâche",
+      "previousStatus": "Statut précédent",
+      "newStatus": "Nouveau statut",
+      "reason": "Motif"
+    },
+    "totalRow": "TOTAL",
+    "noStatusHistory": "Aucun changement de statut enregistré pour le moment."
   }
 }

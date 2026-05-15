@@ -11,7 +11,7 @@ type Props = {
   onChangeNewEmail: (value: string) => void
   onSubmitEmailChange: () => void
   saving: boolean
-  t: (key: string) => string
+  t: (key: string, values?: Record<string, string | number>) => string
 }
 
 export default function SetupProfileEmailCard({
@@ -28,7 +28,7 @@ export default function SetupProfileEmailCard({
 
   return (
     <div className="rounded-[28px] border border-[#E7EDF5] bg-white p-5 shadow-[0_8px_24px_rgba(20,41,82,0.05)]">
-      <div className="mb-4 flex items-center justify-between gap-3">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2 text-sm text-[#6E7F9D]">
           <Mail size={16} />
           {t('setupProfile.emailAccess.title')}
@@ -37,9 +37,9 @@ export default function SetupProfileEmailCard({
         <button
           type="button"
           onClick={() => setEditingEmail((current) => !current)}
-          className="inline-flex items-center gap-1 rounded-full bg-[#EEF4FF] px-3 py-1.5 text-xs font-bold text-[#2F66C8]"
+          className="inline-flex items-center justify-center gap-1 self-start rounded-full bg-[#EEF4FF] px-3 py-1.5 text-xs font-bold leading-5 text-[#2F66C8]"
         >
-          Editar correo
+          {t('setupProfile.emailAccess.editEmail')}
           <ChevronDown
             size={14}
             className={`transition ${editingEmail ? 'rotate-180' : ''}`}
@@ -51,7 +51,7 @@ export default function SetupProfileEmailCard({
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#8C9AB3]">
           {t('setupProfile.emailAccess.currentEmail')}
         </p>
-        <p className="mt-1 truncate text-sm font-semibold text-[#142952]">
+        <p className="mt-1 break-all text-sm font-semibold text-[#142952]">
           {currentEmail || t('setupProfile.personalInfo.noEmail')}
         </p>
       </div>

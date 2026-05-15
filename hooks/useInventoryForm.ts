@@ -6,7 +6,9 @@ import {
   inferInventoryItemFromName,
 } from '@/lib/inventory/inventorySmartParser'
 import {
+  getAllSuggestedInventoryItems,
   getDefaultMeasurementUnit,
+  getSuggestedItemsForCategory,
   isMaterialInventoryCategory,
 } from '@/lib/inventory/inventoryCatalog'
 import {
@@ -29,6 +31,7 @@ type UseInventoryFormParams = {
   itemToEdit: EditableInventoryItem | null
   initialCategory: string
   initialLocation: string
+  locale?: string
   items: InventoryItem[]
   availableNames?: string[]
   initialValues?: {
@@ -78,6 +81,7 @@ export function useInventoryForm({
   itemToEdit,
   initialCategory,
   initialLocation,
+  locale,
   items,
   availableNames,
   initialValues,
@@ -171,6 +175,29 @@ export function useInventoryForm({
       })
     }
   }, [open, state.category, state.unitOfMeasure])
+
+  useEffect(() => {
+    if (!open || itemToEdit) return
+
+    const currentItemType = state.itemType.trim()
+    if (!currentItemType) return
+
+    const categorySuggestions = getSuggestedItemsForCategory(state.category, locale)
+    const knownSuggestions = new Set([
+      ...getAllSuggestedInventoryItems('es'),
+      ...getAllSuggestedInventoryItems('en'),
+    ].map((item) => item.toLowerCase()))
+
+    const currentItemTypeKey = currentItemType.toLowerCase()
+    const belongsToCurrentCategory = categorySuggestions.some(
+      (item) => item.toLowerCase() === currentItemTypeKey
+    )
+
+    if (!belongsToCurrentCategory && knownSuggestions.has(currentItemTypeKey)) {
+      lastAutoItemTypeRef.current = ''
+      dispatch({ type: 'setItemType', value: '' })
+    }
+  }, [open, itemToEdit, locale, state.category, state.itemType])
 
   const normalizedCategories = useMemo(
     () => getUniqueCaseInsensitiveValues(availableCategories),

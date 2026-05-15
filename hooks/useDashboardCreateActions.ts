@@ -126,24 +126,27 @@ export function useDashboardCreateActions({
     (transcript: string) => {
       const parsed = parseSmartTaskInput(transcript, locale)
       const detectedVisitType = parsed.detectedVisitType || 'nuevo'
-      const detectedApartments = parsed.detectedApartments.map((apartment) => ({
-        apartment_or_area: apartment,
-        apartment_key: normalizeApartmentKey(apartment),
+      const detectedAreas = Array.isArray(parsed.detectedAreas)
+        ? parsed.detectedAreas
+        : []
+      const detectedSelections = [...parsed.detectedApartments, ...detectedAreas].map((entry) => ({
+        apartment_or_area: entry,
+        apartment_key: normalizeApartmentKey(entry),
         visit_type: detectedVisitType,
       }))
 
       setRequestTaskDraft({
         title: parsed.cleanedTitle || transcript,
         description: '',
-        apartment_or_area: parsed.detectedLocation || detectedApartments[0]?.apartment_or_area || '',
-        apartment_key: detectedApartments[0]?.apartment_key || null,
+        apartment_or_area: parsed.detectedLocation || detectedSelections[0]?.apartment_or_area || '',
+        apartment_key: detectedSelections[0]?.apartment_key || null,
         category: parsed.detectedCategory || 'other',
         priority: parsed.detectedPriority || 'medium',
         task_date: parsed.detectedDate || new Date().toLocaleDateString('en-CA'),
         task_time: parsed.detectedTime || '',
         pest_targets: parsed.detectedPestTargets,
         treatment_visit_type: parsed.detectedVisitType,
-        task_apartments: detectedApartments,
+        task_apartments: detectedSelections,
       })
 
       openCreateModal()

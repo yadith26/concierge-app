@@ -6,6 +6,11 @@ import type { InventoryHistory, InventoryItem } from '@/lib/inventory/inventoryT
 import {
   formatInventoryQuantity,
   formatInventoryQuantityWithUnit,
+  getInventoryHistoryNoteLabel,
+  getInventoryItemTypeLabel,
+  getInventoryLocationLabel,
+  getInventoryUnitLabel,
+  translateInventoryCategoryLabel,
   translateCondition,
   translateMovementType,
 } from '@/lib/inventory/inventoryUi'
@@ -41,6 +46,8 @@ const COLORS = {
   white: 'FFFFFF',
 }
 
+const PROTECTED_WORKSHEET_NAMES = new Set(['history'])
+
 function safeT(
   t: TranslateFn,
   key: string,
@@ -61,12 +68,29 @@ function safeT(
 
 function safeFileName(value: string) {
   return value
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-zA-Z0-9-_ ]/g, '')
+    .replace(/[<>:"/\\|?*\u0000-\u001F]/g, '')
     .trim()
     .replace(/\s+/g, '-')
-    .toLowerCase()
+}
+
+function safeWorksheetName(name: string, fallback: string) {
+  const normalized = (name || fallback)
+    .replace(/[:\\\\/?*\\[\\]]/g, ' ')
+    .trim()
+    .slice(0, 31)
+
+  if (!normalized) return fallback
+  if (PROTECTED_WORKSHEET_NAMES.has(normalized.toLowerCase())) {
+    return fallback
+  }
+
+  return normalized
+}
+
+function isUuid(value: string) {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+    value
+  )
 }
 
 function formatDate(value?: string | null, locale = 'es-CA') {
@@ -257,14 +281,16 @@ function addMetricCard(
   }
 }
 
-function buildSummaryByCategory(items: InventoryItem[]) {
+function buildSummaryByCategory(items: InventoryItem[], t: TranslateFn) {
   const map = new Map<
     string,
     { category: string; items: number; totalUnits: number; lowStock: number }
   >()
 
   for (const item of items) {
-    const category = item.category?.trim() || 'Sin categoria'
+    const category =
+      translateInventoryCategoryLabel(item.category, t) ||
+      safeT(t, 'inventoryExport.noCategory', 'No category')
     if (!map.has(category)) {
       map.set(category, { category, items: 0, totalUnits: 0, lowStock: 0 })
     }
@@ -279,13 +305,15 @@ function buildSummaryByCategory(items: InventoryItem[]) {
   }
 
   return Array.from(map.values()).sort((a, b) =>
-    a.category.localeCompare(b.category, 'es')
+    a.category.localeCompare(b.category)
   )
 }
 
 function styleTitle(
   sheet: ExcelJS.Worksheet,
   buildingName: string,
+  locale: string,
+  t: TranslateFn,
   generatedLabel: string,
   generatedByLabel: string,
   reportSubtitle: string
@@ -299,11 +327,16 @@ function styleTitle(
   })
 
   sheet.mergeCells('D2:I2')
-  setCell(sheet, 'D2', 'REPORTE DE INVENTARIO', {
-    bold: true,
-    size: 18,
-    color: COLORS.greenDark,
-  })
+  setCell(
+    sheet,
+    'D2',
+    safeT(t, 'inventoryExport.reportTitle', 'INVENTORY REPORT'),
+    {
+      bold: true,
+      size: 18,
+      color: COLORS.greenDark,
+    }
+  )
 
   sheet.mergeCells('D3:I3')
   setCell(sheet, 'D3', reportSubtitle, {
@@ -312,24 +345,40 @@ function styleTitle(
   })
 
   setCell(sheet, 'J2', generatedLabel, { size: 11, color: COLORS.text })
-  setCell(sheet, 'K2', formatDate(new Date().toISOString()), {
+  setCell(sheet, 'K2', formatDate(new Date().toISOString(), locale), {
     size: 11,
     color: COLORS.text,
   })
 
-  setCell(sheet, 'J3', 'Edificio:', { size: 11, color: COLORS.text })
-  setCell(sheet, 'K3', buildingName || 'Sin edificio', {
+  setCell(
+    sheet,
+    'J3',
+    safeT(t, 'inventoryExport.buildingLabel', 'Building:'),
+    {size: 11, color: COLORS.text}
+  )
+  setCell(
+    sheet,
+    'K3',
+    buildingName || safeT(t, 'inventoryExport.noBuilding', 'No building'),
+    {
     size: 11,
     color: COLORS.text,
-  })
+    }
+  )
 
   setCell(sheet, 'J4', generatedByLabel, { size: 11, color: COLORS.text })
-  setCell(sheet, 'K4', 'Conserje', { size: 11, color: COLORS.text })
+  setCell(
+    sheet,
+    'K4',
+    safeT(t, 'inventoryExport.concierge', 'Concierge'),
+    {size: 11, color: COLORS.text}
+  )
 }
 
 function addSummaryTable(
   sheet: ExcelJS.Worksheet,
   items: InventoryItem[],
+  t: TranslateFn,
   labels: {
     category: string
     items: string
@@ -338,10 +387,18 @@ function addSummaryTable(
     total: string
   }
 ) {
-  const rows = buildSummaryByCategory(items)
+  const rows = buildSummaryByCategory(items, t)
   const startRow = 12
 
-  addSectionTitle(sheet, 11, '1. RESUMEN POR CATEGORIA')
+  addSectionTitle(
+    sheet,
+    11,
+    safeT(
+      t,
+      'inventoryExport.sections.summaryByCategory',
+      '1. SUMMARY BY CATEGORY'
+    )
+  )
 
   sheet.getRow(startRow).values = [
     '',
@@ -394,7 +451,11 @@ function addStockTable(
   includeMinimumStock: boolean
 ) {
   const startRow = 23
-  addSectionTitle(sheet, 22, '2. STOCK ACTUAL')
+  addSectionTitle(
+    sheet,
+    22,
+    safeT(t, 'inventoryExport.sections.currentStock', '2. CURRENT STOCK')
+  )
 
   const headerValues = [
     '',
@@ -420,15 +481,25 @@ function addStockTable(
     row.values = [
       '',
       item.name,
-      item.category || '',
-      item.item_type || '',
-      item.unit_of_measure || 'unidad',
-      formatInventoryQuantityWithUnit(item.quantity, item.unit_of_measure),
+      translateInventoryCategoryLabel(item.category, t),
+      getInventoryItemTypeLabel(item, t, item.item_type || item.name || ''),
+      getInventoryUnitLabel(item.unit_of_measure, t, item.quantity),
+      formatInventoryQuantityWithUnit(item.quantity, item.unit_of_measure, t),
       ...(includeMinimumStock
-        ? [formatInventoryQuantityWithUnit(item.minimum_stock, item.unit_of_measure)]
+        ? [
+            formatInventoryQuantityWithUnit(
+              item.minimum_stock,
+              item.unit_of_measure,
+              t
+            ),
+          ]
         : []),
       translateCondition(item.condition, t),
-      item.location || '',
+      getInventoryLocationLabel(
+        item.location,
+        safeT(t, 'flatInventoryRow.noLocation', 'No location'),
+        t
+      ),
       item.notes || '',
       formatDateTime(item.updated_at, locale),
     ]
@@ -453,10 +524,14 @@ function buildHistoryRows(
   locale: string
 ) {
   return history.map((entry) => ({
-    itemName: itemNames[entry.item_id] || entry.item_id || '',
+    itemName:
+      itemNames[entry.item_id] ||
+      (entry.item_id && !isUuid(entry.item_id)
+        ? entry.item_id
+        : safeT(t, 'inventoryExport.unknownItem', 'Unknown item')),
     action:
       translateMovementType(entry.movement_type, t) ||
-      safeT(t, 'inventoryHistoryAction.stockAdjustment', 'Ajuste de stock'),
+      safeT(t, 'inventoryHistoryAction.stockAdjustment', 'Stock adjustment'),
     source:
       entry.source_type === 'task'
         ? entry.source_label?.trim() ||
@@ -472,17 +547,20 @@ function buildHistoryRows(
     unit: entry.unit_label || '',
     before: formatInventoryQuantityWithUnit(
       entry.quantity_before,
-      itemUnits[entry.item_id] || 'unidad'
+      itemUnits[entry.item_id] || 'unidad',
+      t
     ),
     change: `${Number(entry.quantity_change ?? 0) >= 0 ? '+' : ''}${formatInventoryQuantityWithUnit(
       Math.abs(Number(entry.quantity_change ?? 0)),
-      itemUnits[entry.item_id] || 'unidad'
+      itemUnits[entry.item_id] || 'unidad',
+      t
     )}`,
     after: formatInventoryQuantityWithUnit(
       entry.quantity_after,
-      itemUnits[entry.item_id] || 'unidad'
+      itemUnits[entry.item_id] || 'unidad',
+      t
     ),
-    note: entry.note || '',
+    note: getInventoryHistoryNoteLabel(entry.note, t),
     date: formatDateTime(entry.created_at, locale),
   }))
 }
@@ -490,10 +568,11 @@ function buildHistoryRows(
 function createDetailsSheet(
   workbook: ExcelJS.Workbook,
   name: string,
+  fallbackName: string,
   columns: string[],
   rows: (string | number)[][]
 ) {
-  const sheet = workbook.addWorksheet(name)
+  const sheet = workbook.addWorksheet(safeWorksheetName(name, fallbackName))
   sheet.columns = columns.map(() => ({ width: 18 }))
   applySheetDefaults(sheet)
   sheet.getRow(1).values = columns
@@ -543,7 +622,12 @@ export async function exportInventoryToExcel({
     safeItems.map((item) => item.category?.trim()).filter(Boolean)
   ).size
 
-  const summarySheet = workbook.addWorksheet('Resumen General')
+  const summarySheet = workbook.addWorksheet(
+    safeWorksheetName(
+      safeT(t, 'inventoryExport.sheet.summary', 'Inventory summary'),
+      'Inventory summary'
+    )
+  )
   summarySheet.columns = [
     { width: 3 },
     { width: 16 },
@@ -561,14 +645,16 @@ export async function exportInventoryToExcel({
 
   styleTitle(
     summarySheet,
-    buildingName || 'Sin edificio',
+    buildingName || safeT(t, 'inventoryExport.noBuilding', 'No building'),
+    locale,
+    t,
     safeT(t, 'inventoryExport.generatedAt', 'Fecha de generacion:'),
     safeT(t, 'inventoryExport.generatedBy', 'Generado por:'),
     `${safeT(
       t,
       'inventoryExport.reportSubtitle',
-      'Resumen de stock y movimientos del edificio'
-    )} ${buildingName || 'Sin edificio'}`
+      'Stock and movement summary for the building'
+    )} ${buildingName || safeT(t, 'inventoryExport.noBuilding', 'No building')}`
   )
 
   addMetricCard(
@@ -612,7 +698,7 @@ export async function exportInventoryToExcel({
     COLORS.amberLight
   )
 
-  addSummaryTable(summarySheet, safeItems, {
+  addSummaryTable(summarySheet, safeItems, t, {
     category: safeT(t, 'inventoryExport.columns.category', 'Categoria'),
     items: safeT(t, 'inventoryExport.metrics.itemsColumn', 'Items'),
     quantity: safeT(t, 'inventoryExport.columns.quantity', 'Cantidad'),
@@ -638,19 +724,35 @@ export async function exportInventoryToExcel({
   ]
   const stockRows = safeItems.map((item) => [
     item.name,
-    item.category || '',
-    item.item_type || '',
-    item.unit_of_measure || 'unidad',
-    formatInventoryQuantityWithUnit(item.quantity, item.unit_of_measure),
+    translateInventoryCategoryLabel(item.category, t),
+    getInventoryItemTypeLabel(item, t, item.item_type || item.name || ''),
+    getInventoryUnitLabel(item.unit_of_measure, t, item.quantity),
+    formatInventoryQuantityWithUnit(item.quantity, item.unit_of_measure, t),
     ...(includeMinimumStock
-      ? [formatInventoryQuantityWithUnit(item.minimum_stock, item.unit_of_measure)]
+      ? [
+          formatInventoryQuantityWithUnit(
+            item.minimum_stock,
+            item.unit_of_measure,
+            t
+          ),
+        ]
       : []),
     translateCondition(item.condition, t),
-    item.location || '',
+    getInventoryLocationLabel(
+      item.location,
+      safeT(t, 'flatInventoryRow.noLocation', 'No location'),
+      t
+    ),
     item.notes || '',
     formatDateTime(item.updated_at, locale),
   ])
-  createDetailsSheet(workbook, safeT(t, 'inventoryExport.sheet.inventory', 'Inventario'), stockColumns, stockRows)
+  createDetailsSheet(
+    workbook,
+    safeT(t, 'inventoryExport.sheet.inventory', 'Inventory'),
+    'Inventory',
+    stockColumns,
+    stockRows
+  )
 
   if (includeHistorySheet) {
     const itemNames = Object.fromEntries(
@@ -689,7 +791,8 @@ export async function exportInventoryToExcel({
     ])
     createDetailsSheet(
       workbook,
-      safeT(t, 'inventoryExport.sheet.history', 'Historial'),
+      safeT(t, 'inventoryExport.sheet.history', 'Inventory history'),
+      'Inventory history',
       historyColumns,
       historyRows
     )
@@ -701,6 +804,11 @@ export async function exportInventoryToExcel({
   })
 
   const date = new Date().toISOString().split('T')[0]
-  const safeBuildingName = safeFileName(buildingName || 'inventario')
-  saveAs(blob, `reporte-inventario-${safeBuildingName}-${date}.xlsx`)
+  const safeBuildingName = safeFileName(
+    buildingName || safeT(t, 'inventoryExport.noBuilding', 'inventory')
+  )
+  const filePrefix = safeFileName(
+    safeT(t, 'inventoryExport.filePrefix', 'inventory-report')
+  )
+  saveAs(blob, `${filePrefix}-${safeBuildingName}-${date}.xlsx`)
 }

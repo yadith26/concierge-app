@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { AlertTriangle, BellDot, MessageSquareMore } from 'lucide-react'
 
 import AppHeader from '@/components/layout/AppHeader'
@@ -66,6 +67,8 @@ export default function ConciergeDashboardHeader({
   onOpenUrgentTasks,
   onOpenOverdueTasks,
 }: ConciergeDashboardHeaderProps) {
+  const headerT = useTranslations('conciergeHeader')
+  const dashboardT = useTranslations('dashboard')
   const buildingShellClass = showManagerNotLinkedMessage
     ? 'flex w-full items-center justify-between gap-3 rounded-[28px] border border-[#D9E0EA] bg-white/92 px-4 py-3 text-[#142952] shadow-[0_8px_24px_rgba(20,41,82,0.08)] backdrop-blur-sm'
     : 'inline-flex max-w-full items-center gap-3 rounded-[28px] border border-[#D9E0EA] bg-white/92 px-4 py-3 text-[#142952] shadow-[0_8px_24px_rgba(20,41,82,0.08)] backdrop-blur-sm'
@@ -84,7 +87,7 @@ export default function ConciergeDashboardHeader({
         canOpenMessages
           ? {
               icon: <MessageSquareMore size={compact ? 20 : 22} />,
-              label: 'Abrir mensajes',
+              label: headerT('openMessages'),
               count: globalUnreadMessageCount || unreadMessageCount,
               onClick: onOpenMessages,
             }
@@ -104,7 +107,7 @@ export default function ConciergeDashboardHeader({
                 ? 'flex h-11 w-11 items-center justify-center rounded-[22px]'
                 : 'flex h-14 w-14 items-center justify-center rounded-[22px]'
             }`}
-            aria-label="Abrir eventos del manager"
+            aria-label={headerT('openManagerEvents')}
           >
             <BellDot size={compact ? 20 : 22} />
             {ownerRequestsOpenCount > 0 ? (
@@ -131,10 +134,10 @@ export default function ConciergeDashboardHeader({
                   getBuildingHref={(nextBuildingId) =>
                     `/dashboard?buildingId=${nextBuildingId}`
                   }
-                  label="Edificio actual"
+                  label={headerT('currentBuilding')}
                   mainHref="/dashboard"
-                  mainLabel="Mis edificios"
-                  mainDescription="Volver a la vista general"
+                  mainLabel={headerT('allBuildings')}
+                  mainDescription={headerT('backToOverview')}
                   size="compact"
                   singleBuildingMode="static"
                   appearance="embedded"
@@ -155,7 +158,7 @@ export default function ConciergeDashboardHeader({
                 onClick={onOpenTodayTasks}
                 className="rounded-full bg-white/80 px-3 py-1.5 text-[13px] font-bold text-[#142952] shadow-[0_6px_16px_rgba(20,41,82,0.06)] active:scale-[0.97]"
               >
-                {todayTasksCount} pendientes
+                {dashboardT('headerPills.pending', { count: todayTasksCount })}
               </button>
 
               {urgentCount > 0 ? (
@@ -164,7 +167,7 @@ export default function ConciergeDashboardHeader({
                   onClick={onOpenUrgentTasks}
                   className="rounded-full bg-[#FFF4F5]/90 px-3 py-1.5 text-[13px] font-bold text-[#D64555] shadow-[0_6px_16px_rgba(214,69,85,0.08)] active:scale-[0.97]"
                 >
-                  {urgentCount} urgente
+                  {dashboardT('headerPills.urgent', { count: urgentCount })}
                 </button>
               ) : null}
 
@@ -174,7 +177,7 @@ export default function ConciergeDashboardHeader({
                   onClick={onOpenOverdueTasks}
                   className="rounded-full bg-[#FFF8E8]/90 px-3 py-1.5 text-[13px] font-bold text-[#D9811E] shadow-[0_6px_16px_rgba(217,129,30,0.08)] active:scale-[0.97]"
                 >
-                  {overdueCount} atrasadas
+                  {dashboardT('headerPills.overdue', { count: overdueCount })}
                 </button>
               ) : null}
             </div>

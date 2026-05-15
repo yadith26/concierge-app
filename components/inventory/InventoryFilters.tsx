@@ -18,6 +18,10 @@ import type {
   ViewMode,
 } from '@/hooks/useInventoryFiltersState'
 import StyledDropdown from '@/components/ui/StyledDropdown'
+import {
+  getInventoryLocationLabel,
+  translateInventoryCategoryLabel,
+} from '@/lib/inventory/inventoryUi'
 
 type InventoryFiltersProps = {
   search: string
@@ -59,13 +63,14 @@ export default function InventoryFilters({
   onClearFilters,
 }: InventoryFiltersProps) {
   const t = useTranslations('inventoryFilters')
+  const tGlobal = useTranslations()
   const [filtersOpen, setFiltersOpen] = useState(false)
 
   const categoryOptions = [
     { value: 'all', label: t('categories.all') },
     ...availableCategories.map((category) => ({
       value: category,
-      label: category,
+      label: translateInventoryCategoryLabel(category, tGlobal) || category,
     })),
   ]
 
@@ -80,7 +85,7 @@ export default function InventoryFilters({
     { value: 'all', label: t('locations.all') },
     ...availableLocations.map((location) => ({
       value: location,
-      label: location,
+      label: getInventoryLocationLabel(location, location, tGlobal),
     })),
   ]
 
@@ -208,10 +213,10 @@ export default function InventoryFilters({
               <div className="space-y-3">
                 <FilterBlock
                   icon={<Package className="h-4 w-4" />}
-                  label="Categoria"
+                  label={t('category')}
                 >
                   <StyledDropdown
-                    ariaLabel="Categoria"
+                    ariaLabel={t('category')}
                     value={categoryFilter}
                     options={categoryOptions}
                     onChange={(value) => onCategoryFilterChange?.(value)}
@@ -221,10 +226,10 @@ export default function InventoryFilters({
 
                 <FilterBlock
                   icon={<CheckCircle2 className="h-4 w-4" />}
-                  label="Estado"
+                  label={t('condition')}
                 >
                   <StyledDropdown
-                    ariaLabel="Estado"
+                    ariaLabel={t('condition')}
                     value={conditionFilter}
                     options={conditionOptions}
                     onChange={(value) =>
@@ -236,10 +241,10 @@ export default function InventoryFilters({
 
                 <FilterBlock
                   icon={<MapPin className="h-4 w-4" />}
-                  label="Ubicacion"
+                  label={t('location')}
                 >
                   <StyledDropdown
-                    ariaLabel="Ubicacion"
+                    ariaLabel={t('location')}
                     value={locationFilter}
                     options={locationOptions}
                     onChange={(value) => onLocationFilterChange?.(value)}

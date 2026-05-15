@@ -1,23 +1,48 @@
 export const INVENTORY_CATEGORY_ITEMS = {
-  Appliances: [
-    'Refrigerador',
-    'Estufa',
-    'Microondas',
-    'Aire acondicionado',
-    'Lavadora',
-  ],
-  Materials: [
-    'Cemento blanco',
-    'Cemento cola',
-    'Pintura blanca',
-    'Primer',
-    'Yeso',
-    'Drywall',
-  ],
-  Tools: ['Taladro', 'Escalera', 'Destornillador', 'Martillo'],
-  Parts: ['Bombillo', 'Grifo', 'Interruptor', 'Cerradura'],
-  Cleaning: ['Detergente', 'Desinfectante', 'Mopa', 'Bolsas de basura'],
-  Other: [],
+  es: {
+    Appliances: [
+      'Refrigerador',
+      'Estufa',
+      'Microondas',
+      'Aire acondicionado',
+      'Lavadora',
+    ],
+    Materials: [
+      'Pintura',
+      'Cemento blanco',
+      'Cemento cola',
+      'Pintura blanca',
+      'Primer',
+      'Yeso',
+      'Drywall',
+    ],
+    Tools: ['Taladro', 'Escalera', 'Destornillador', 'Martillo'],
+    Parts: ['Bombillo', 'Grifo', 'Interruptor', 'Cerradura'],
+    Cleaning: ['Detergente', 'Desinfectante', 'Mopa', 'Bolsas de basura'],
+    Other: [],
+  },
+  en: {
+    Appliances: [
+      'Fridge',
+      'Stove',
+      'Microwave',
+      'Air conditioner',
+      'Washer',
+    ],
+    Materials: [
+      'Paint',
+      'White cement',
+      'Tile adhesive',
+      'White paint',
+      'Primer',
+      'Plaster',
+      'Drywall',
+    ],
+    Tools: ['Drill', 'Ladder', 'Screwdriver', 'Hammer'],
+    Parts: ['Light bulb', 'Faucet', 'Switch', 'Lock'],
+    Cleaning: ['Detergent', 'Disinfectant', 'Mop', 'Trash bags'],
+    Other: [],
+  },
 } as const
 
 export const MATERIAL_MEASUREMENT_UNIT_OPTIONS = [
@@ -36,10 +61,10 @@ export const MATERIAL_MEASUREMENT_UNIT_OPTIONS = [
 ] as const
 
 export const INVENTORY_CATEGORY_OPTIONS = Object.keys(
-  INVENTORY_CATEGORY_ITEMS
+  INVENTORY_CATEGORY_ITEMS.es
 ) as InventoryCatalogCategory[]
 
-export type InventoryCatalogCategory = keyof typeof INVENTORY_CATEGORY_ITEMS
+export type InventoryCatalogCategory = keyof typeof INVENTORY_CATEGORY_ITEMS.es
 
 const INVENTORY_CATEGORY_ALIASES: Record<string, InventoryCatalogCategory> = {
   appliance: 'Appliances',
@@ -69,18 +94,24 @@ const INVENTORY_CATEGORY_ALIASES: Record<string, InventoryCatalogCategory> = {
   other: 'Other',
 }
 
-export function getSuggestedItemsForCategory(category: string) {
+function resolveInventoryCatalogLocale(locale?: string) {
+  return locale?.toLowerCase().startsWith('es') ? 'es' : 'en'
+}
+
+export function getSuggestedItemsForCategory(category: string, locale?: string) {
+  const catalogLocale = resolveInventoryCatalogLocale(locale)
   return [
-    ...(INVENTORY_CATEGORY_ITEMS[
+    ...(INVENTORY_CATEGORY_ITEMS[catalogLocale][
       normalizeInventoryCategory(category) as InventoryCatalogCategory
     ] || []),
   ]
 }
 
-export function getAllSuggestedInventoryItems() {
+export function getAllSuggestedInventoryItems(locale?: string) {
+  const catalogLocale = resolveInventoryCatalogLocale(locale)
   return Array.from(
     new Set(
-      Object.values(INVENTORY_CATEGORY_ITEMS)
+      Object.values(INVENTORY_CATEGORY_ITEMS[catalogLocale])
         .flat()
         .map((item) => item.trim())
         .filter(Boolean)

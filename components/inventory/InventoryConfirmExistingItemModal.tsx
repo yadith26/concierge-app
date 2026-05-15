@@ -38,7 +38,8 @@ export default function InventoryConfirmExistingItemModal({
 
   const quantityLabel = formatInventoryQuantityWithUnit(
     quantity,
-    unitOfMeasure || item.unit_of_measure
+    unitOfMeasure || item.unit_of_measure,
+    tGlobal
   )
 
   return (

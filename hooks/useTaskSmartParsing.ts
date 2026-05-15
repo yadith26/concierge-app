@@ -34,6 +34,51 @@ type UseTaskSmartParsingParams = {
 
 type SmartParsedResult = ReturnType<typeof parseSmartTaskInput>
 
+function buildPestSelection(
+  parsed: SmartParsedResult,
+  detectedVisitType: TreatmentVisitType
+) {
+  const uniqueMap = new Map<string, TaskApartmentInput>()
+
+  const parsedApartments = Array.isArray(parsed.detectedApartments)
+    ? parsed.detectedApartments
+    : []
+
+  for (const apartment of parsedApartments) {
+    const cleanApartment = apartment.trim()
+    const apartmentKey = normalizeApartmentKey(cleanApartment)
+
+    if (!cleanApartment || !apartmentKey) continue
+
+    uniqueMap.set(apartmentKey, {
+      apartment_or_area: cleanApartment,
+      apartment_key: apartmentKey,
+      visit_type: detectedVisitType,
+    })
+  }
+
+  const parsedAreas = Array.isArray(parsed.detectedAreas)
+    ? parsed.detectedAreas
+    : parsed.detectedLocation?.trim()
+      ? [parsed.detectedLocation.trim()]
+      : []
+
+  for (const area of parsedAreas) {
+    const detectedArea = area.trim()
+    const areaKey = normalizeApartmentKey(detectedArea)
+
+    if (!areaKey) continue
+
+    uniqueMap.set(areaKey, {
+      apartment_or_area: detectedArea,
+      apartment_key: areaKey,
+      visit_type: detectedVisitType,
+    })
+  }
+
+  return Array.from(uniqueMap.values())
+}
+
 export function useTaskSmartParsing({
   title,
   category,
@@ -86,28 +131,11 @@ export function useTaskSmartParsing({
         setPestTargets(parsed.detectedPestTargets)
       }
 
-      const parsedApartments = Array.isArray(parsed.detectedApartments)
-        ? parsed.detectedApartments
-        : []
+      const pestSelections = buildPestSelection(parsed, detectedVisitType)
 
-      if (parsedApartments.length > 0) {
+      if (pestSelections.length > 0) {
         setSelectedApartments(() => {
-          const uniqueMap = new Map<string, TaskApartmentInput>()
-
-          for (const apartment of parsedApartments) {
-            const cleanApartment = apartment.trim()
-            const apartmentKey = normalizeApartmentKey(cleanApartment)
-
-            if (!cleanApartment || !apartmentKey) continue
-
-            uniqueMap.set(apartmentKey, {
-              apartment_or_area: cleanApartment,
-              apartment_key: apartmentKey,
-              visit_type: detectedVisitType,
-            })
-          }
-
-          return Array.from(uniqueMap.values())
+          return pestSelections
         })
       }
     } else if (parsed.detectedLocation) {

@@ -61,7 +61,8 @@ export default function InventoryVariantSelectorModal({
                   <p className="mt-1 text-[13px] text-[#7B8BA8]">
                     {formatInventoryQuantityWithUnit(
                       variant.quantity,
-                      variant.unit_of_measure
+                      variant.unit_of_measure,
+                      tGlobal
                     )} {t('availableNow')}
                   </p>
                 </div>

@@ -10,6 +10,8 @@ import {
   getConditionMeta,
   getInventoryItemTypeLabel,
   getInventoryLocationLabel,
+  getInventoryUnitLabel,
+  translateInventoryCategoryLabel,
 } from '@/lib/inventory/inventoryUi'
 import type { InventoryMatchReason, RankedInventoryMatch } from '@/lib/inventory/findMatchingInventoryItem'
 import {
@@ -103,8 +105,34 @@ export default function InventoryFormFields({
   const displayedSuggestedItem = fields.itemType || inferredItem
   const isMaterial = isMaterialInventoryCategory(fields.category)
   const measurementUnitOptions = useMemo(
-    () => getMeasurementUnitOptions(fields.category),
-    [fields.category]
+    () =>
+      getMeasurementUnitOptions(fields.category).map((unit) => ({
+        value: unit,
+        label: getInventoryUnitLabel(unit, tGlobal, 2),
+      })),
+    [fields.category, tGlobal]
+  )
+
+  const categoryOptions = useMemo(
+    () =>
+      options.categories.map((category) => ({
+        value: category,
+        label: translateInventoryCategoryLabel(category, tGlobal) || category,
+      })),
+    [options.categories, tGlobal]
+  )
+
+  const locationOptions = useMemo(
+    () =>
+      options.locations.map((location) => ({
+        value: location,
+        label: getInventoryLocationLabel(
+          location,
+          t('existingSuggestionNoLocation'),
+          tGlobal
+        ),
+      })),
+    [options.locations, t, tGlobal]
   )
 
   const conditionOptions = [
@@ -117,12 +145,23 @@ export default function InventoryFormFields({
   const suggestedItemOptions = useMemo(() => {
     return Array.from(
       new Set(
-        [inferredItem, ...getSuggestedItemsForCategory(fields.category)].filter(
-          Boolean
-        )
+        [
+          inferredItem,
+          ...getSuggestedItemsForCategory(fields.category, locale),
+        ].filter(Boolean)
       )
-    ).sort((a, b) => a.localeCompare(b))
-  }, [fields.category, inferredItem])
+    )
+      .sort((a, b) => a.localeCompare(b))
+      .map((item) => ({
+        value: item,
+        label:
+          getInventoryItemTypeLabel(
+            { item_type: item, name: item },
+            tGlobal,
+            item
+          ) || item,
+      }))
+  }, [fields.category, inferredItem, locale, tGlobal])
 
   const getSpeechLang = () => {
     if (locale.startsWith('en')) return 'en-US'
@@ -280,9 +319,9 @@ export default function InventoryFormFields({
                             </span>
                           ) : null}
 
-                          {getInventoryItemTypeLabel(match.item) ? (
+                          {getInventoryItemTypeLabel(match.item, tGlobal) ? (
                             <span className="inline-flex items-center rounded-full bg-[#EEF4FF] px-2.5 py-1 text-[11px] font-semibold text-[#2F66C8]">
-                              {getInventoryItemTypeLabel(match.item)}
+                              {getInventoryItemTypeLabel(match.item, tGlobal)}
                             </span>
                           ) : null}
 
@@ -306,7 +345,8 @@ export default function InventoryFormFields({
                             <MapPin className="h-4 w-4" />
                             {getInventoryLocationLabel(
                               match.item.location,
-                              t('existingSuggestionNoLocation')
+                              t('existingSuggestionNoLocation'),
+                              tGlobal
                             )}
                           </span>
                         </div>
@@ -347,7 +387,7 @@ export default function InventoryFormFields({
           placeholder={t('selectCategory')}
           searchPlaceholder={t('searchCategory')}
           addPlaceholder={t('addCategory')}
-          options={options.categories}
+          options={categoryOptions}
           open={dropdowns.categoryOpen}
           onToggle={dropdowns.handleToggleCategory}
           onClose={dropdowns.handleCloseCategory}
@@ -439,7 +479,7 @@ export default function InventoryFormFields({
         placeholder={t('selectLocation')}
         searchPlaceholder={t('searchLocation')}
         addPlaceholder={t('addLocation')}
-        options={options.locations}
+        options={locationOptions}
         open={dropdowns.locationOpen}
         onToggle={dropdowns.handleToggleLocation}
         onClose={dropdowns.handleCloseLocation}

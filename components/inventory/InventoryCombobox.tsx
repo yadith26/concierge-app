@@ -10,7 +10,7 @@ type InventoryComboboxProps = {
   placeholder: string
   searchPlaceholder: string
   addPlaceholder: string
-  options: string[]
+  options: Array<string | { value: string; label: string }>
   open: boolean
   onToggle: () => void
   onClose: () => void
@@ -40,10 +40,14 @@ export default function InventoryCombobox({
   const [newValue, setNewValue] = useState('')
 
   useEffect(() => {
-    if (!open) {
+    if (open) return
+
+    const timeoutId = window.setTimeout(() => {
       setSearch('')
       setNewValue('')
-    }
+    }, 0)
+
+    return () => window.clearTimeout(timeoutId)
   }, [open])
 
   useEffect(() => {
@@ -58,16 +62,30 @@ export default function InventoryCombobox({
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [onClose])
 
-  const safeOptions = options ?? []
+  const safeOptions = useMemo(
+    () =>
+      (options ?? []).map((option) =>
+        typeof option === 'string'
+          ? { value: option, label: option }
+          : option
+      ),
+    [options]
+  )
 
   const filteredOptions = useMemo(() => {
     const searchValue = search.toLowerCase().trim()
     if (!searchValue) return safeOptions
 
-    return safeOptions.filter((item) =>
-      item.toLowerCase().includes(searchValue)
+    return safeOptions.filter(
+      (item) =>
+        item.label.toLowerCase().includes(searchValue) ||
+        item.value.toLowerCase().includes(searchValue)
     )
   }, [safeOptions, search])
+
+  const selectedOption = safeOptions.find(
+    (option) => option.value.toLowerCase() === (value || '').toLowerCase()
+  )
 
   const handleSelect = (selectedValue: string) => {
     onChange(selectedValue)
@@ -95,7 +113,7 @@ export default function InventoryCombobox({
         className="flex w-full items-center justify-between rounded-2xl border border-[#E7EDF5] bg-white px-4 py-4 text-left text-base text-[#142952] shadow-sm"
       >
         <span className={value ? 'text-[#142952]' : 'text-[#8C9AB3]'}>
-          {value || placeholder}
+          {selectedOption?.label || value || placeholder}
         </span>
 
         <ChevronDown
@@ -127,20 +145,20 @@ export default function InventoryCombobox({
             {filteredOptions.length > 0 ? (
               filteredOptions.map((item) => {
                 const selected =
-                  (value || '').toLowerCase() === item.toLowerCase()
+                  (value || '').toLowerCase() === item.value.toLowerCase()
 
                 return (
                   <button
-                    key={item}
+                    key={`${item.value}-${item.label}`}
                     type="button"
-                    onClick={() => handleSelect(item)}
+                    onClick={() => handleSelect(item.value)}
                     className={`flex w-full items-center justify-between px-4 py-3 text-left transition ${
                       selected
                         ? 'bg-[#EEF4FF] text-[#2F66C8]'
                         : 'text-[#5E6E8C] hover:bg-[#F8FAFE]'
                     }`}
                   >
-                    <span className="text-base font-medium">{item}</span>
+                    <span className="text-base font-medium">{item.label}</span>
 
                     {selected && (
                       <Check className="h-4 w-4 text-[#2F66C8]" />

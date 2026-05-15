@@ -89,6 +89,19 @@ export function useSetupProfilePage() {
     languageOptions.find((option) => option.value === locale) ||
     languageOptions[0]
 
+  const persistSelectedBuildingId = (nextBuildingId: string | null, currentUserId?: string | null) => {
+    if (typeof window === 'undefined' || !currentUserId) return
+
+    const storageKey = `setup-profile:selected-building-id:${currentUserId}`
+
+    if (!nextBuildingId) {
+      window.localStorage.removeItem(storageKey)
+      return
+    }
+
+    window.localStorage.setItem(storageKey, nextBuildingId)
+  }
+
   useEffect(() => {
     const loadUserData = async () => {
       try {
@@ -142,7 +155,18 @@ export function useSetupProfilePage() {
 
         setBuildings(nextBuildings)
 
-        const buildingData = nextBuildings[0] ?? null
+        const persistedBuildingId =
+          typeof window !== 'undefined'
+            ? window.localStorage.getItem(
+                `setup-profile:selected-building-id:${user.id}`
+              )
+            : null
+
+        const buildingData =
+          nextBuildings.find((building) => building.id === persistedBuildingId) ||
+          nextBuildings.find((building) => building.id === profileData?.building_id) ||
+          nextBuildings[0] ||
+          null
 
         if (buildingData) {
           setBuildingId(buildingData.id)
@@ -150,6 +174,7 @@ export function useSetupProfilePage() {
           setBuildingAddress(buildingData.address ?? '')
           setBuildingInviteCode(buildingData.invite_code ?? '')
           setCurrentBuilding(buildingData)
+          persistSelectedBuildingId(buildingData.id, user.id)
           setHasExistingProfile(true)
           setBuildingConnectionMode('edit')
         }
@@ -278,6 +303,7 @@ export function useSetupProfilePage() {
         setBuildingAddress(buildingToJoin.address ?? '')
         setBuildingInviteCode(buildingToJoin.invite_code ?? '')
         setCurrentBuilding(buildingToJoin)
+        persistSelectedBuildingId(buildingToJoin.id, userId)
         setBuildings((prev) =>
           prev.some((building) => building.id === buildingToJoin.id)
             ? prev
@@ -377,6 +403,7 @@ export function useSetupProfilePage() {
       setBuildingAddress(createdBuilding.address ?? '')
       setBuildingInviteCode(createdBuilding.invite_code ?? '')
       setCurrentBuilding(createdBuilding)
+      persistSelectedBuildingId(createdBuilding.id, userId)
       setBuildings((prev) =>
         prev.some((building) => building.id === createdBuilding.id)
           ? prev
@@ -538,6 +565,7 @@ export function useSetupProfilePage() {
     setBuildingInviteCode(building.invite_code ?? '')
     setCurrentBuilding(building)
     setBuildingConnectionMode('edit')
+    persistSelectedBuildingId(building.id, userId)
   }
 
   const disconnectBuilding = async (building: BuildingSummary) => {
@@ -569,6 +597,7 @@ export function useSetupProfilePage() {
           setBuildingInviteCode('')
           setCurrentBuilding(null)
           setBuildingConnectionMode('create')
+          persistSelectedBuildingId(null, userId)
         }
       }
 

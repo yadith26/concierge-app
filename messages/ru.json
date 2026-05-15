@@ -16,11 +16,11 @@
     "agenda": "Календарь"
   },
   "appHeader": {
-    "today": "Segodnya",
+    "today": "Сегодня",
     "hello": "Привет",
     "user": "Пользователь",
     "goToProfile": "Перейти в профиль",
-    "headerBackgroundAlt": "Fon shapkI"
+    "headerBackgroundAlt": "Фон шапки"
   },
   "dashboard": {
     "loading": "Загрузка панели...",
@@ -29,6 +29,11 @@
     "nextTask": "Следующая задача",
     "noLocation": "Без локации",
     "showing": "Показано:",
+    "headerPills": {
+      "pending": "{count} в ожидании",
+      "urgent": "{count} срочн{count, plural, one {ая} few {ые} many {ых} other {ые}}",
+      "overdue": "{count} просрочено"
+    },
     "summaryCard": {
       "building": "Здание",
       "noBuilding": "Без здания",
@@ -73,44 +78,44 @@
     },
     "commonClose": "Zakryt",
     "conciergeCopy": {
-      "subtitle": "Segodnya budet otlichny den",
-      "spotlight": "Samoe vazhnoe seichas",
-      "spotlightToday": "Chto dalshe segodnya",
-      "spotlightNext": "Sleduyushchaya zadacha",
-      "spotlightOverdue": "Nuzhno srochnoe vnimanie",
-      "spotlightUrgentToday": "Srochno segodnya",
-      "spotlightUrgentOverdue": "Prosrochennaya srochnaya",
-      "spotlightUrgentNext": "Zaplanovannaya srochnaya",
-      "completeTask": "Zavershit zadachu",
-      "alerts": "Umnye upozhdeniya",
-      "overdueTasks": "Prosrochennye zadachi",
-      "urgentTasks": "Srochnye",
-      "todayTasks": "Zadachi na segodnya",
-      "upcomingTasks": "Blizhaishie zadachi",
-      "quickActions": "Bystrye deistviya",
-      "quickActionNewTask": "Novaya zadacha",
-      "quickActionTasks": "Otkryt zadachi",
-      "quickActionInventory": "Otkryt inventar",
-      "quickActionAgenda": "Otkryt kalendar",
-      "activeProblems": "Aktivnye problemy",
-      "noActiveProblems": "Net aktivnyh problem.",
-      "smartReminders": "Vazhnye napominaniya",
-      "noSmartReminders": "Poka vse pod kontrolem.",
-      "hotAreas": "Chashche vsego povtoryayutsya",
-      "noHotAreas": "Poka net vydayushchihsya zon.",
-      "singleHotAreaTask": "1 zadacha",
-      "hotAreaTasks": "{count} zadach",
-      "quickHistory": "Bystraya istoriya dnya",
-      "noHistoryToday": "Segodnya eshche net zavershennyh zadach.",
-      "completedAtLabel": "Zaversheno v {time}",
-      "viewAll": "Smotret vse",
-      "noTasks": "Seichas net zadach.",
-      "noTodayTasks": "Na segodnya net zadach.",
-      "noUpcomingTasks": "Net blizhaishih zadach.",
-      "noOverdueTasks": "Net prosrochennyh zadach.",
-      "noUrgentTasks": "Net srochnyh zadach.",
-      "todayWord": "Segodnya",
-      "tomorrowWord": "Zavtra"
+      "subtitle": "Сегодня будет отличный день",
+      "spotlight": "Самое важное сейчас",
+      "spotlightToday": "Что дальше сегодня",
+      "spotlightNext": "Следующая задача",
+      "spotlightOverdue": "Требует срочного внимания",
+      "spotlightUrgentToday": "Срочно сегодня",
+      "spotlightUrgentOverdue": "Срочная и просроченная",
+      "spotlightUrgentNext": "Запланированная срочная",
+      "completeTask": "Завершить задачу",
+      "alerts": "Умные оповещения",
+      "overdueTasks": "Просроченные задачи",
+      "urgentTasks": "Срочные",
+      "todayTasks": "Задачи на сегодня",
+      "upcomingTasks": "Ближайшие задачи",
+      "quickActions": "Быстрые действия",
+      "quickActionNewTask": "Новая задача",
+      "quickActionTasks": "Открыть задачи",
+      "quickActionInventory": "Открыть инвентарь",
+      "quickActionAgenda": "Открыть календарь",
+      "activeProblems": "Активные проблемы",
+      "noActiveProblems": "Активных проблем нет.",
+      "smartReminders": "Важные напоминания",
+      "noSmartReminders": "Пока все под контролем.",
+      "hotAreas": "Зоны, которые повторяются чаще всего",
+      "noHotAreas": "Пока нет заметных зон.",
+      "singleHotAreaTask": "1 задача",
+      "hotAreaTasks": "{count} задач",
+      "quickHistory": "Быстрая история дня",
+      "noHistoryToday": "Сегодня еще нет завершенных задач.",
+      "completedAtLabel": "Завершено в {time}",
+      "viewAll": "Смотреть все",
+      "noTasks": "Сейчас нет задач.",
+      "noTodayTasks": "На сегодня нет задач.",
+      "noUpcomingTasks": "Нет ближайших задач.",
+      "noOverdueTasks": "Нет просроченных задач.",
+      "noUrgentTasks": "Нет срочных задач.",
+      "todayWord": "Сегодня",
+      "tomorrowWord": "Завтра"
     },
     "quickActions": {
       "newTask": "Novaya\nzadacha",
@@ -155,9 +160,9 @@
       "preventivo": "Профилактический"
     },
     "taskVisitSummary": {
-      "initial": "{count, plural, one {# первичный} few {# первичных} many {# первичных}}",
-      "followUp": "{count, plural, one {# повторный} few {# повторных} many {# повторных}}",
-      "preventive": "{count, plural, one {# профилактический} few {# профилактических} many {# профилактических}}"
+      "initial": "{count, plural, one {# первичный} few {# первичных} many {# первичных} other {# первичных}}",
+      "followUp": "{count, plural, one {# повторный} few {# повторных} many {# повторных} other {# повторных}}",
+      "preventive": "{count, plural, one {# профилактический} few {# профилактических} many {# профилактических} other {# профилактических}}"
     },
     "pestTarget": {
       "cucarachas": "Тараканы",
@@ -185,6 +190,7 @@
     "noLocation": "Без локации",
     "dateAndTime": "Дата и время",
     "completedOn": "Завершено",
+    "createdAt": "Дата создания",
     "pests": "Вредители",
     "unspecified": "Не указано",
     "visitType": "Тип визита",
@@ -221,14 +227,14 @@
     "history": "История",
     "activeWarranty": "Активная гарантия",
     "recurrentProblem": "Повторяющаяся проблема",
-    "visits": "{count, plural, one {визит} few {визита} many {визитов}}",
+    "visits": "{count, plural, one {визит} few {визита} many {визитов} other {визита}}",
     "latest": "Последний",
     "total": "Всего",
     "unspecified": "Не указано",
     "activeUntil": "Гарантия активна до"
   },
   "pestGroupCard": {
-    "times": "{count, plural, one {раз} few {раза} many {раз}}",
+    "times": "{count, plural, one {раз} few {раза} many {раз} other {раза}}",
     "visitType": "Тип обработки",
     "note": "Заметка",
     "noNote": "Без заметки",
@@ -254,7 +260,7 @@
   },
   "treatmentExport": {
     "sheetName": "Сводка обработок",
-    "filePrefix": "obrabotki",
+    "filePrefix": "отчет-обработки",
     "active": "Активна",
     "closed": "Закрыта",
     "columns": {
@@ -266,11 +272,38 @@
       "firstDate": "Первая дата",
       "lastDate": "Последняя дата",
       "latestPest": "Последний вредитель",
-      "latestVisit": "Тип последнего визита",
+      "latestVisit": "Последний тип визита",
       "activeWarranty": "Гарантия активна",
       "warrantyUntil": "Гарантия до",
       "status": "Статус",
-      "notes": "Заметки"
+      "notes": "Заметки",
+      "treatmentDate": "Дата обработки",
+      "createdAt": "Создано"
+    },
+    "reportTitle": "ОТЧЕТ ПО ОБРАБОТКАМ",
+    "reportSubtitle": "Сводка обработок по {buildingName}",
+    "generatedOn": "Сформировано:",
+    "building": "Здание:",
+    "generatedBy": "Сформировано кем:",
+    "concierge": "Консьерж",
+    "noBuilding": "Без здания",
+    "detailSheetName": "Детали обработок",
+    "sections": {
+      "summary": "1. СВОДКА ОБРАБОТОК"
+    },
+    "metrics": {
+      "totalTreatments": "ВСЕГО ОБРАБОТОК",
+      "totalTreatmentsLine1": "Зарегистрированные визиты",
+      "totalTreatmentsLine2": "В этом отчете",
+      "apartments": "КВАРТИРЫ / ЗОНЫ",
+      "apartmentsLine1": "Уникальные места",
+      "apartmentsLine2": "Включены сюда",
+      "followUps": "ПОВТОРНЫЕ ВИЗИТЫ",
+      "followUpsLine1": "Запланированы или выполнены",
+      "followUpsLine2": "Тип визита",
+      "activeWarranties": "АКТИВНЫЕ ГАРАНТИИ",
+      "activeWarrantiesLine1": "Действующие защиты",
+      "activeWarrantiesLine2": "По квартире/зоне"
     }
   },
   "taskPestSection": {
@@ -288,7 +321,8 @@
     "priority": "Приоритет",
     "apartmentAddedAutomatically": "Квартира добавлена автоматически",
     "pressEnterToSave": "Можно нажать Enter для быстрого сохранения",
-    "useCleanTitle": "Использовать очищенный заголовок"
+    "useCleanTitle": "Использовать очищенный заголовок",
+    "areaAddedAutomatically": "Зона добавлена автоматически: {area}"
   },
   "taskCategoryPriorityFields": {
     "category": "Категория *",
@@ -364,8 +398,13 @@
     "newTask": "Новая задача",
     "building": "Здание",
     "noBuilding": "Без здания",
-    "undoCompleteTitle": "Zadacha zavershena",
-    "undo": "Otmenit"
+    "undoCompleteTitle": "?????? ?????????",
+    "undo": "????????",
+    "pendingSummary": {
+      "title": "В ожидании",
+      "showing": "Показ задач в ожидании",
+      "tapToView": "Нажмите, чтобы открыть"
+    }
   },
   "tasksFilterBar": {
     "searchPlaceholder": "Поиск задач...",
@@ -375,7 +414,8 @@
     "overdue": "Просроченные",
     "pending": "В ожидании",
     "inProgress": "В процессе",
-    "completed": "Завершённые"
+    "completed": "Завершённые",
+    "export": "Экспорт"
   },
   "tasksEmptyState": {
     "defaultMessage": "Нет задач для отображения"
@@ -389,7 +429,7 @@
     "undo": "Отменить"
   },
   "tasksPageSections": {
-    "pendingTasks": "Zadachi v ozhidanii",
+    "pendingTasks": "Задачи в ожидании",
     "todayTasks": "Задачи на сегодня",
     "tomorrowTasks": "Задачи на завтра",
     "upcomingTasks": "Предстоящие задачи",
@@ -405,8 +445,8 @@
     "today": "Сегодня",
     "newTask": "Новая задача",
     "goToToday": "К сегодня",
-    "undoCompleteTitle": "Zadacha zavershena",
-    "undo": "Otmenit"
+    "undoCompleteTitle": "Задача завершена",
+    "undo": "Отменить"
   },
   "agendaCalendar": {
     "export": "Экспорт в Excel",
@@ -454,6 +494,7 @@
   "inventoryPage": {
     "loading": "Загрузка инвентаря...",
     "title": "Инвентарь",
+    "noBuilding": "Нет здания",
     "exportInventory": "Экспортировать инвентарь",
     "mergeCategories": "Объединить категории",
     "newItem": "Новый элемент",
@@ -481,6 +522,14 @@
   },
   "inventoryFilters": {
     "searchPlaceholder": "Поиск по инвентарю...",
+    "filters": "Фильтры",
+    "filtersDescription": "Настройте вид инвентаря",
+    "closeFilters": "Закрыть фильтры",
+    "noActiveFilters": "Нет активных фильтров",
+    "activeFilters": "{count} активных фильтров",
+    "category": "Категория",
+    "condition": "Состояние",
+    "location": "Локация",
     "categories": {
       "all": "Все категории"
     },
@@ -540,7 +589,12 @@
     "emptyCategory": "В этой категории пока нет элементов.",
     "addItemToCategory": "Добавить элемент в эту категорию",
     "expandCategory": "Развернуть категорию",
-    "collapseCategory": "Свернуть категорию"
+    "collapseCategory": "Свернуть категорию",
+    "variantsCount": "{count, plural, one {# вариант} few {# варианта} many {# вариантов} other {# варианта}}",
+    "addSelectorHelp": "Выберите, хотите ли вы увеличить существующий вариант или создать новый.",
+    "currentUnits": "Сейчас {count} ед.",
+    "increaseExisting": "Увеличить",
+    "createVariant": "Создать новый вариант"
   },
   "flatInventoryRow": {
     "lowStock": "Низкий запас",
@@ -670,7 +724,8 @@
       "updated": "Элемент обновлён",
       "quickAdd": "Быстрое увеличение +1",
       "quickRemove": "Быстрое уменьшение -1",
-      "categoryChanged": "Категория изменена с \"{from}\" на \"{to}\""
+      "categoryChanged": "Категория изменена с \"{from}\" на \"{to}\"",
+      "reasonLabel": "Причина:"
     },
     "merge": {
       "errors": {
@@ -705,14 +760,46 @@
       "change": "Изменение",
       "after": "После",
       "note": "Заметка",
-      "date": "Дата"
+      "date": "Дата",
+      "source": "Источник",
+      "unit": "Единица"
     },
     "sheet": {
       "inventory": "Инвентарь",
-      "history": "История"
+      "history": "История",
+      "summary": "Сводка инвентаря"
     },
     "noData": "Нет данных для экспорта",
-    "noHistory": "Нет истории"
+    "noHistory": "История недоступна",
+    "unknownItem": "Неизвестный предмет",
+    "generatedAt": "Сформировано:",
+    "generatedBy": "Сформировано кем:",
+    "reportTitle": "ОТЧЕТ ПО ИНВЕНТАРЮ",
+    "reportSubtitle": "Сводка по запасам и движениям по зданию",
+    "buildingLabel": "Здание:",
+    "concierge": "Консьерж",
+    "noBuilding": "Без здания",
+    "filePrefix": "отчет-инвентарь",
+    "totalRow": "ИТОГО",
+    "metrics": {
+      "totalItems": "ЗАРЕГИСТРИРОВАННЫЕ ПОЗИЦИИ",
+      "totalItemsLine1": "Уникальные позиции",
+      "totalItemsLine2": "В инвентаре",
+      "totalUnits": "ОБЩЕЕ КОЛИЧЕСТВО",
+      "totalUnitsLine1": "Доступная сумма",
+      "totalUnitsLine2": "Текущий запас",
+      "lowStock": "НИЗКИЙ ЗАПАС",
+      "lowStockLine1": "Позиции в тревоге",
+      "lowStockLine2": "Нужно пополнить",
+      "categories": "КАТЕГОРИИ",
+      "categoriesLine1": "Активные категории",
+      "categoriesLine2": "В этом виде",
+      "itemsColumn": "Позиции"
+    },
+    "sections": {
+      "summaryByCategory": "1. СВОДКА ПО КАТЕГОРИЯМ",
+      "currentStock": "2. ТЕКУЩИЙ ЗАПАС"
+    }
   },
   "inventoryHelpers": {
     "emptyItems": "Нет элементов"
@@ -795,6 +882,18 @@
     },
     "avatar": {
       "changeAvatar": "Сменить аватар",
+      "changePhoto": "Сменить фото",
+      "hideOptions": "Скрыть варианты",
+      "takePhoto": "Сделать фото",
+      "uploadPhoto": "Загрузить фото",
+      "removePhoto": "Убрать фото и использовать аватар",
+      "orChooseAvatar": "Или выберите аватар",
+      "account": "Аккаунт",
+      "buildingsCount": "{count, plural, one {# здание} few {# здания} many {# зданий} other {# здания}}",
+      "roles": {
+        "manager": "Менеджер",
+        "concierge": "Консьерж"
+      },
       "hideAvatars": "Скрыть аватары",
       "chooseAvatar": "Выбрать аватар",
       "yourProfile": "Ваш профиль",
@@ -820,22 +919,58 @@
       "signOut": "Выйти"
     },
     "messages": {
-      "userError": "Ошибка идентификации пользователя",
+      "userError": "Ошибка определения пользователя",
       "profileSaveError": "Ошибка при сохранении профиля",
       "buildingSaveError": "Ошибка при сохранении здания",
       "success": "Изменения успешно сохранены"
     },
+    "managerBuildings": {
+      "title": "Управление зданиями",
+      "description": "Создавайте, подключайте, редактируйте или отвязывайте здания в разделе Здания.",
+      "cta": "Перейти к управлению зданиями"
+    },
+    "buildingsCard": {
+      "myBuildings": "Мои здания",
+      "myBuildingsDescription": "Выберите здание, чтобы изменить его или удалить из аккаунта.",
+      "noAddress": "Без адреса",
+      "unlinkConfirm": "Удалить \"{building}\" из вашего аккаунта? Его задачи и история не будут удалены.",
+      "unlinking": "Удаление связи...",
+      "unlink": "Удалить связь",
+      "noBuildings": "У вас пока нет подключенных зданий. Создайте новое или подключитесь по коду.",
+      "addOrEdit": "Добавить или изменить здание",
+      "editCurrent": "Изменить",
+      "createAnother": "Создать",
+      "createBuilding": "Создать",
+      "join": "Вступить",
+      "joinWithCode": "Вступить",
+      "sharedCode": "Общий код здания",
+      "sharedCodeHelp": "Попросите этот код у другого человека, подключенного к зданию.",
+      "codeToShare": "Код для отправки",
+      "shareHelp": "Поделитесь этим кодом, чтобы подключить другого {role} к этому же зданию.",
+      "copy": "Копировать",
+      "share": "Поделиться",
+      "email": "Email",
+      "textMessage": "Текстовое сообщение",
+      "noCodeYet": "У этого здания пока нет кода. Нажмите Сохранить изменения, чтобы создать его.",
+      "shareTitle": "Код здания",
+      "shareMessage": "Используйте этот код, чтобы подключиться к зданию {building}: {code}",
+      "roles": {
+        "manager": "manager",
+        "concierge": "concierge"
+      }
+    },
     "emailAccess": {
-      "title": "Эл. почта для входа",
-      "currentEmail": "Текущая эл. почта",
-      "newEmail": "Новая эл. почта",
-      "help": "Мы отправим ссылку для подтверждения. Email для входа изменится после подтверждения.",
+      "title": "Почта для входа",
+      "editEmail": "Изменить почту",
+      "currentEmail": "Текущая почта",
+      "newEmail": "Новая почта",
+      "help": "Мы отправим ссылку для подтверждения. Почта для входа изменится после подтверждения.",
       "sendConfirmation": "Отправить подтверждение",
       "sending": "Отправка...",
-      "success": "Письмо для подтверждения отправлено. Проверьте почту, чтобы завершить смену.",
+      "success": "Письмо с подтверждением отправлено. Проверьте почту, чтобы завершить изменение.",
       "emptyError": "Введите новый email.",
-      "sameEmailError": "Этот email уже текущий.",
-      "genericError": "Не удалось начать смену email."
+      "sameEmailError": "Этот email уже является текущим.",
+      "genericError": "Не удалось начать изменение email."
     }
   },
   "register": {
@@ -944,26 +1079,31 @@
     "goToToday": "К сегодня"
   },
   "dashboardHomeOverview": {
-    "title": "Svodka dnya",
-    "subtitle": "Operativnye voprosy, kotorye trebuyut vnimaniya.",
+    "title": "Сводка дня",
+    "subtitle": "Оперативные вопросы, которые требуют внимания.",
     "summary": {
-      "today": "Segodnya",
-      "urgent": "Srochnye",
-      "overdue": "Prosrochennye"
+      "today": "Сегодня",
+      "urgent": "Срочные",
+      "overdue": "Просроченные"
     },
     "taskCount": {
-      "single": "{count} v ozhidanii",
-      "plural": "{count} v ozhidanii"
+      "single": "{count} в ожидании",
+      "plural": "{count} в ожидании"
     },
     "close": "Zakryt",
     "emptySummary": "Poka net novostei.",
     "buildingsTitle": "Moi zdaniya",
     "buildingsSubtitle": "Nezavershennye zadachi po kazhdomu zdaniyu.",
     "noAddress": "Bez adresa",
-    "todayCount": "{count} segodnya",
-    "selectBuildingTitle": "Vyberite zdanie",
-    "selectBuildingDescription": "Chtoby prodolzhit s zadachami, inventarem, obrabotkami i kalendarem.",
-    "noLocation": "Bez lokacii"
+    "todayCount": "{count} сегодня",
+    "selectBuildingTitle": "Выберите здание",
+    "selectBuildingDescription": "Чтобы продолжить с задачами, инвентарем, обработками и календарем.",
+    "noLocation": "Bez lokacii",
+    "summaryLabels": {
+      "today": "Сегодня",
+      "urgent": "Срочные",
+      "overdue": "Просроченные"
+    }
   },
   "dashboardMessagesModal": {
     "title": "Soobshcheniya managera",
@@ -980,7 +1120,41 @@
   },
   "headerConversation": {
     "openError": "Ne udalos otkryt perepisku.",
-    "sendError": "Ne udalos otpravit soobshchenie."
+    "sendError": "Ne udalos otpravit soobshchenie.",
+    "errors": {
+      "conciergeBuilding": "Ne udalos poluchit zdanie konserzha.",
+      "managerBuilding": "Ne udalos poluchit zdanie menedzhera.",
+      "buildingManager": "Ne udalos poluchit menedzhera zdaniya.",
+      "buildingConcierge": "Ne udalos poluchit konserzha zdaniya."
+    }
+  },
+  "conciergeHeader": {
+    "openMessages": "Открыть сообщения",
+    "openManagerEvents": "Открыть события менеджера",
+    "currentBuilding": "Текущее здание",
+    "allBuildings": "Мои здания",
+    "backToOverview": "Вернуться к обзору",
+    "messagesTitle": "Сообщения",
+    "noAssignedContact": "Контакт не назначен"
+  },
+  "dashboardInboxSection": {
+    "title": "Сообщения",
+    "unreadCount": "{count} непрочитанных",
+    "allRead": "Все ваши сообщения прочитаны",
+    "markAsRead": "Прочитано"
+  },
+  "globalMessagesInboxModal": {
+    "eyebrow": "Общий inbox",
+    "title": "Сообщения",
+    "close": "Закрыть сообщения",
+    "loading": "Загрузка разговоров...",
+    "empty": "У вас пока нет недавних разговоров.",
+    "footer": "Каждый разговор хранится отдельно по зданию.",
+    "relative": {
+      "now": "Сейчас",
+      "minutes": "{count} мин",
+      "hours": "{count} ч"
+    }
   },
   "dashboardDictation": {
     "errors": {
@@ -993,107 +1167,107 @@
     }
   },
   "dashboardFloatingAddButton": {
-    "addTask": "Dobavit zadachu"
+    "addTask": "Добавить задачу"
   },
   "dashboardFilterLabels": {
-    "urgent": "Srochnye",
-    "pending": "V ozhidanii",
-    "completed": "Zavershennye"
+    "urgent": "Срочные",
+    "pending": "В ожидании",
+    "completed": "Завершенные"
   },
   "taskApartments": {
-    "missingApartment": "Ukazhite kvartiru ili zonu pered dobavleniem.",
-    "multipleApartmentsNotAllowed": "Dobavlyayte po odnoi kvartire za raz.",
-    "missingVisitType": "Vyberite tip vizita dlya etoi kvartiry.",
-    "alreadyAdded": "Eta kvartira uzhe dobavlena."
+    "missingApartment": "Укажите квартиру или зону перед добавлением.",
+    "multipleApartmentsNotAllowed": "Добавляйте по одной квартире за раз.",
+    "missingVisitType": "Выберите тип визита для этой квартиры.",
+    "alreadyAdded": "Эта квартира уже добавлена."
   },
   "followUpPrompt": {
-    "title": "Sozdat povtornyi vizit",
-    "subtitle": "Zaplaniruite ego seichas.",
-    "description": "Dlya etoi obrabotki budet sozdana zadacha povtornogo vizita s rekomendovannoi datoi.",
-    "skip": "Ne seichas",
-    "confirm": "Sozdat povtor",
-    "creating": "Sozdaem povtor..."
+    "title": "Создать повторный визит",
+    "subtitle": "Запланируйте его сейчас.",
+    "description": "Для этой обработки будет создана задача повторного визита с рекомендованной датой.",
+    "skip": "Не сейчас",
+    "confirm": "Создать повтор",
+    "creating": "Создаем повтор..."
   },
   "inventoryMatchReasons": {
-    "name": "Sovpadenie po nazvaniyu",
-    "item": "Sovpadenie po predmetu",
-    "sameCategory": "Ta zhe kategoriya",
-    "variant": "Tot zhe variant",
-    "sharedTokens": "Obshchie slova"
+    "name": "Совпадение по названию",
+    "item": "Совпадение по предмету",
+    "sameCategory": "Та же категория",
+    "variant": "Тот же вариант",
+    "sharedTokens": "Общие слова"
   },
   "taskValidation": {
-    "titleRequired": "Trebuetsya zagolovok.",
-    "dateRequired": "Trebuetsya data.",
-    "dateBeforeToday": "Data ne mozhet byt ranshe segodnyashnego dnya.",
-    "missingUserOrBuilding": "Ne hvataet dannyh o polzovatele ili zdanii.",
-    "categoryRequired": "Nuzhno vybrat kategoriyu.",
-    "pestRequired": "Nuzhno vybrat hotya by odnu vreditelskuyu problemu.",
-    "apartmentRequired": "Nuzhno dobavit hotya by odnu kvartiru."
+    "titleRequired": "Требуется заголовок.",
+    "dateRequired": "Требуется дата.",
+    "dateBeforeToday": "Дата не может быть раньше сегодняшнего дня.",
+    "missingUserOrBuilding": "Не хватает данных о пользователе или здании.",
+    "categoryRequired": "Нужно выбрать категорию.",
+    "pestRequired": "Нужно выбрать хотя бы одну проблему с вредителями.",
+    "apartmentRequired": "Нужно добавить хотя бы одну квартиру."
   },
   "taskFormFallback": {
-    "createError": "Ne udalos sokhranit zadachu.",
-    "updateError": "Ne udalos obnovit zadachu."
+    "createError": "Не удалось сохранить задачу.",
+    "updateError": "Не удалось обновить задачу."
   },
   "inventoryPageMessages": {
-    "couldNotDiscountItem": "Ne udalos spisat predmet.",
-    "couldNotSaveManualAdjustment": "Ne udalos sohranit ruchnuyu korrektirovku."
+    "couldNotDiscountItem": "Не удалось списать предмет.",
+    "couldNotSaveManualAdjustment": "Не удалось сохранить ручную корректировку."
   },
   "taskInventoryFlow": {
-    "foundSimilarItemsInfo": "My nashli pohozhie pozicii v inventare. Pri zhelanii mozhno uvelichit odnu iz nih pered sozdaniem novoi.",
-    "completeTaskError": "Ne udalos zavershit zadachu.",
-    "loadInventoryOptionsError": "Ne udalos zagruzit parametry inventarya.",
-    "loadAvailableInventoryError": "Ne udalos zagruzit dostupnyi inventar.",
-    "saveInventoryError": "Ne udalos sohranit inventar.",
-    "inventoryFlowError": "Ne udalos zavershit inventarnyi potok.",
-    "selectedItemNotFound": "Ne udalos nayti vybrannyi predmet.",
-    "buildingNotFoundForUpdate": "Ne udalos nayti zdanie dlya obnovleniya inventarya.",
-    "buildingNotFoundForReview": "Ne udalos nayti zdanie dlya proverki inventarya.",
-    "missingInventoryData": "Ne hvataet dannyh dlya obnovleniya inventarya.",
-    "taskCompletedInventorySaveError": "Zadacha uzhe zavershena, no inventar ne udalos sohranit.",
-    "invalidUsedQuantity": "Ukazano nevernoe ispolzovannoe kolichestvo.",
-    "taskCompletedInventoryConsumeError": "Zadacha uzhe zavershena, no inventar ne udalos spisat."
+    "foundSimilarItemsInfo": "Мы нашли похожие позиции в инвентаре. При желании можно увеличить одну из них перед созданием новой.",
+    "completeTaskError": "Не удалось завершить задачу.",
+    "loadInventoryOptionsError": "Не удалось загрузить параметры инвентаря.",
+    "loadAvailableInventoryError": "Не удалось загрузить доступный инвентарь.",
+    "saveInventoryError": "Не удалось сохранить инвентарь.",
+    "inventoryFlowError": "Не удалось завершить инвентарный поток.",
+    "selectedItemNotFound": "Не удалось найти выбранный предмет.",
+    "buildingNotFoundForUpdate": "Не удалось найти здание для обновления инвентаря.",
+    "buildingNotFoundForReview": "Не удалось найти здание для проверки инвентаря.",
+    "missingInventoryData": "Не хватает данных для обновления инвентаря.",
+    "taskCompletedInventorySaveError": "Задача уже завершена, но инвентарь не удалось сохранить.",
+    "invalidUsedQuantity": "Указано неверное использованное количество.",
+    "taskCompletedInventoryConsumeError": "Задача уже завершена, но инвентарь не удалось списать."
   },
   "taskInventoryPromptModal": {
-    "eyebrow": "Inventar",
-    "usedInventoryTitle": "Vy ispolzovali inventar?",
-    "updateInventoryTitle": "Obnovit inventar?",
-    "close": "Zakryt",
-    "replacementDescription": "Zadacha <taskTitle></taskTitle> gotova k zaversheniyu. Esli dlya etoi zameny ispolzovan inventar, ego mozhno spisat seichas ili sozdat novyi predmet.",
-    "deliveryDescription": "Zadacha <taskTitle></taskTitle> gotova k zaversheniyu. Pri zhelanii my takzhe mozhem dobavit dostavlennyi predmet v inventar pered zakrytiem deistviya.",
-    "usageDescription": "Zadacha <taskTitle></taskTitle> gotova k zaversheniyu. Esli vy ispolzovali inventar, ego mozhno spisat seichas i sohranit aktualnuyu istoriyu.",
-    "genericDescription": "Zadacha <taskTitle></taskTitle> gotova k zaversheniyu. Pri zhelanii my takzhe mozhem zaregistrirovat etot predmet v inventare pered zakrytiem deistviya.",
-    "completeWithoutInventory": "Zavershit bez inventarya",
-    "useExistingItem": "Ispolzovat sushchestvuyushchii predmet",
-    "consumeExistingItem": "Spisat sushchestvuyushchii predmet",
-    "createNewItem": "Sozdat novyi predmet",
-    "addToInventory": "Dobavit v inventar",
-    "completeAndAdd": "Zavershit i dobavit"
+    "eyebrow": "Инвентарь",
+    "usedInventoryTitle": "Вы использовали инвентарь?",
+    "updateInventoryTitle": "Обновить инвентарь?",
+    "close": "Закрыть",
+    "replacementDescription": "Задача <taskTitle></taskTitle> готова к завершению. Если для этой замены использован инвентарь, его можно списать сейчас или создать новый предмет.",
+    "deliveryDescription": "Задача <taskTitle></taskTitle> готова к завершению. При желании мы также можем добавить доставленный предмет в инвентарь перед закрытием действия.",
+    "usageDescription": "Задача <taskTitle></taskTitle> готова к завершению. Если вы использовали инвентарь, его можно списать сейчас и сохранить актуальную историю.",
+    "genericDescription": "Задача <taskTitle></taskTitle> готова к завершению. При желании мы также можем зарегистрировать этот предмет в инвентаре перед закрытием действия.",
+    "completeWithoutInventory": "Завершить без инвентаря",
+    "useExistingItem": "Использовать существующий предмет",
+    "consumeExistingItem": "Списать существующий предмет",
+    "createNewItem": "Создать новый предмет",
+    "addToInventory": "Добавить в инвентарь",
+    "completeAndAdd": "Завершить и добавить"
   },
   "taskInventoryUsageModal": {
-    "eyebrow": "Inventar",
-    "title": "Podtverdit ispolzovanie",
-    "close": "Zakryt",
-    "description": "Vy sobiraetes ispolzovat <itemName></itemName> dlya zaversheniya <taskTitle></taskTitle>.",
-    "quantityLabel": "Ispolzovannoe kolichestvo ({unit})",
-    "materialHint": "Dlya materialov mozhno ispolzovat drobnye kolichestva, naprimer 0.25 ili 0.5.",
-    "unitHint": "Etot predmet spisyvaetsya tolko celymi edinicami.",
-    "locationLabel": "Gde ispolzovano",
-    "locationPlaceholder": "Naprimyer: Apt 15, Lobby, Koridor",
-    "confirm": "Spisat iz inventarya"
+    "eyebrow": "Инвентарь",
+    "title": "Подтвердить использование",
+    "close": "Закрыть",
+    "description": "Вы собираетесь использовать <itemName></itemName> для завершения <taskTitle></taskTitle>.",
+    "quantityLabel": "Использованное количество ({unit})",
+    "materialHint": "Для материалов можно использовать дробные количества, например 0.25 или 0.5.",
+    "unitHint": "Этот предмет списывается только целыми единицами.",
+    "locationLabel": "Где использовано",
+    "locationPlaceholder": "Например: кв. 15, лобби, коридор",
+    "confirm": "Списать из инвентаря"
   },
   "taskInventorySelectModal": {
-    "eyebrow": "Inventar",
-    "chooseIncreaseTitle": "Vyberite, kuda dobavit stock",
-    "chooseConsumeTitle": "Vyberite predmet dlya spisaniya",
-    "close": "Zakryt",
-    "singleUnit": "1 edinica",
-    "deliveryDescription": "Chtoby zavershit <taskTitle></taskTitle>, vyberite sushchestvuyushchii predmet, k kotoromu nuzhno dobavit <quantity></quantity>.",
-    "usageDescription": "Chtoby zavershit <taskTitle></taskTitle>, vyberite, kakoi{itemLabel} iz inventarya budet ispolzovan. My spishem <quantity></quantity>.",
-    "genericItemLabel": " predmet",
-    "suggested": "Rekomenduem",
-    "lowStock": "Nizkii ostatok",
-    "available": "{count} dostupno",
-    "increase": "Dobavit",
+    "eyebrow": "Инвентарь",
+    "chooseIncreaseTitle": "Выберите, куда добавить запас",
+    "chooseConsumeTitle": "Выберите предмет для списания",
+    "close": "Закрыть",
+    "singleUnit": "1 единица",
+    "deliveryDescription": "Чтобы завершить <taskTitle></taskTitle>, выберите существующий предмет, к которому нужно добавить <quantity></quantity>.",
+    "usageDescription": "Чтобы завершить <taskTitle></taskTitle>, выберите, какой{itemLabel} из инвентаря будет использован. Мы спишем <quantity></quantity>.",
+    "genericItemLabel": " предмет",
+    "suggested": "Рекомендуем",
+    "lowStock": "Низкий запас",
+    "available": "{count} доступно",
+    "increase": "Добавить",
     "use": "Ispolzovat",
     "noMatchesDelivery": "My ne nashli pohozhih predmetov v inventare dlya etoi dostavki.",
     "noMatchesReplacement": "My ne nashli sovmestimykh predmetov v inventare dlya etoi zameny.",
@@ -1102,10 +1276,10 @@
     "createNew": "Sozdat novyi predmet"
   },
   "dashboardTodaySummary": {
-    "today": "Segodnya",
-    "pendingTasks": "{count} zadach v ozhidanii",
-    "urgentTasks": "{count} srochnyh",
-    "overdueTasks": "{count} prosrochennyh"
+    "today": "Сегодня",
+    "pendingTasks": "{count} задач в ожидании",
+    "urgentTasks": "{count} срочных",
+    "overdueTasks": "{count} просроченных"
   },
   "taskPhotosValidation": {
     "onlyImagesAllowed": "Razresheny tolko izobrazheniya."
@@ -1118,5 +1292,153 @@
     "availableNow": "seichas",
     "increase": "Uvelichit",
     "createNewVariant": "Sozdat novyi variant"
+  },
+  "inventoryTaxonomy": {
+    "categories": {
+      "appliances": "Техника",
+      "materials": "Материалы",
+      "tools": "Инструменты",
+      "parts": "Запчасти",
+      "cleaning": "Уборка",
+      "other": "Другое"
+    },
+    "itemTypes": {
+      "fridge": "Холодильник",
+      "stove": "Плита",
+      "microwave": "Микроволновка",
+      "airConditioner": "Кондиционер",
+      "washer": "Стиральная машина",
+      "whiteCement": "Белый цемент",
+      "tileAdhesive": "Плиточный клей",
+      "whitePaint": "Белая краска",
+      "primer": "Грунтовка",
+      "plaster": "Штукатурка",
+      "drywall": "Гипсокартон",
+      "drill": "Дрель",
+      "ladder": "Лестница",
+      "screwdriver": "Отвертка",
+      "hammer": "Молоток",
+      "lightBulb": "Лампочка",
+      "faucet": "Кран",
+      "switch": "Выключатель",
+      "lock": "Замок",
+      "detergent": "Моющее средство",
+      "disinfectant": "Дезинфицирующее средство",
+      "mop": "Швабра",
+      "trashBags": "Мешки для мусора",
+      "paint": "Краска"
+    },
+    "units": {
+      "unit": "{count, plural, one {единица} few {единицы} many {единиц} other {единицы}}",
+      "gallon": "{count, plural, one {галлон} few {галлона} many {галлонов} other {галлона}}",
+      "can": "{count, plural, one {банка} few {банки} many {банок} other {банки}}",
+      "bag": "{count, plural, one {мешок} few {мешка} many {мешков} other {мешка}}",
+      "box": "{count, plural, one {коробка} few {коробки} many {коробок} other {коробки}}",
+      "pouch": "{count, plural, one {пакет} few {пакета} many {пакетов} other {пакета}}",
+      "roll": "{count, plural, one {рулон} few {рулона} many {рулонов} other {рулона}}",
+      "tube": "{count, plural, one {тюбик} few {тюбика} many {тюбиков} other {тюбика}}",
+      "bottle": "{count, plural, one {бутылка} few {бутылки} many {бутылок} other {бутылки}}",
+      "liter": "{count, plural, one {литр} few {литра} many {литров} other {литра}}",
+      "kg": "кг",
+      "lb": "lb"
+    },
+    "locations": {
+      "storage": "Склад",
+      "maintenanceRoom": "Техпомещение",
+      "garage": "Гараж",
+      "lobby": "Лобби"
+    }
+  },
+  "taskCardMeta": {
+    "note": "Заметка",
+    "pests": "{count} вредител{count, plural, one {ь} few {я} many {ей} other {я}}",
+    "apartments": "{count} квартира{count, plural, one {} few {ы} many {} other {ы}}"
+  },
+  "conversationModal": {
+    "closeConversation": "Закрыть разговор",
+    "loading": "Загрузка разговора...",
+    "empty": "В этом разговоре пока нет сообщений.",
+    "defaultUser": "Пользователь",
+    "urgent": "Срочно",
+    "important": "Важно",
+    "selectedReaction": "Выбранная реакция",
+    "placeholder": "Напишите сообщение здесь",
+    "send": "Отправить сообщение",
+    "saveAsTask": "Создать задачу из сообщения",
+    "reactions": {
+      "like": "Нравится",
+      "laugh": "Смех",
+      "done": "Просмотрено"
+    }
+  },
+  "taskNotesField": {
+    "label": "Заметки",
+    "placeholder": "Дополнительные детали..."
+  },
+  "tasksExport": {
+    "reportTitle": "ОТЧЕТ ПО ЗАДАЧАМ",
+    "filePrefix": "отчет-задачи",
+    "reportSubtitle": "Оперативная сводка по {buildingName}",
+    "generatedOn": "Сформировано:",
+    "building": "Здание:",
+    "generatedBy": "Сформировано кем:",
+    "concierge": "Консьерж",
+    "noBuilding": "Без здания",
+    "sections": {
+      "summaryByCategory": "1. СВОДКА ЗАДАЧ ПО КАТЕГОРИЯМ",
+      "taskDetails": "2. ДЕТАЛИ ЗАДАЧ"
+    },
+    "metrics": {
+      "completedPercentTitle": "% ВЫПОЛНЕННЫХ ЗАДАЧ",
+      "completedPercentLine1": "Выполнено: {count}",
+      "completedPercentLine2": "Назначено: {count}",
+      "pendingTitle": "ЗАДАЧИ В ОЖИДАНИИ",
+      "pendingLine1": "В ожидании: {count}",
+      "pendingLine2": "В этом отчете",
+      "overdueTitle": "ПРОСРОЧЕННЫЕ ЗАДАЧИ",
+      "overdueLine1": "Просрочено: {count}",
+      "overdueLine2": "Требуют внимания",
+      "urgentTitle": "СРОЧНЫЕ",
+      "urgentLine1": "Высокий приоритет: {count}",
+      "urgentLine2": "Не завершены"
+    },
+    "summaryColumns": {
+      "category": "Категория",
+      "totalAssigned": "Всего назначено",
+      "completed": "Выполнено",
+      "pending": "В ожидании",
+      "overdue": "Просрочено",
+      "urgent": "Срочные",
+      "percentCompleted": "% выполнено"
+    },
+    "detailColumns": {
+      "createdAt": "Создано",
+      "taskDate": "Дата задачи",
+      "time": "Время",
+      "title": "Заголовок",
+      "location": "Место",
+      "category": "Категория",
+      "priority": "Приоритет",
+      "status": "Статус",
+      "completedAt": "Завершено",
+      "reasonReturnedPending": "Причина возврата в ожидание",
+      "notes": "Заметки"
+    },
+    "sheets": {
+      "summary": "Общая сводка",
+      "completed": "Выполненные",
+      "overdue": "Просроченные",
+      "urgent": "Срочные",
+      "statusHistory": "История статусов"
+    },
+    "historyColumns": {
+      "date": "Дата",
+      "task": "Задача",
+      "previousStatus": "Предыдущий статус",
+      "newStatus": "Новый статус",
+      "reason": "Причина"
+    },
+    "totalRow": "ИТОГО",
+    "noStatusHistory": "Пока не зарегистрировано изменений статуса."
   }
 }

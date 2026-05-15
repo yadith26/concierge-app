@@ -222,13 +222,12 @@ export function useTaskFormModal({
   useEffect(() => {
     if (!open || taskToEdit) return
 
-    if (category !== 'pest' && !locationValue.trim() && smartParsed.detectedLocation) {
+    if (!locationValue.trim() && smartParsed.detectedLocation) {
       setLocationValue(smartParsed.detectedLocation)
     }
   }, [
     open,
     taskToEdit,
-    category,
     locationValue,
     smartParsed.detectedLocation,
     setLocationValue,

@@ -1,51 +1,274 @@
 {
   "apartmentPrefix": "Apto",
-  "apartmentAliases": ["apto", "apt", "apt.", "apartamento", "apartamentos"],
+  "apartmentAliases": [
+    "apto",
+    "apt",
+    "apt.",
+    "apartamento",
+    "apartamentos"
+  ],
   "dateWords": {
-    "today": ["hoy"],
-    "tomorrow": ["mañana", "manana"],
-    "dayAfterTomorrow": ["pasado mañana", "pasado manana"]
+    "today": [
+      "hoy"
+    ],
+    "tomorrow": [
+      "mañana",
+      "manana"
+    ],
+    "dayAfterTomorrow": [
+      "pasado mañana",
+      "pasado manana"
+    ]
   },
   "timeWords": {
-    "morning": ["por la mañana", "por la manana"],
-    "early": ["temprano"],
-    "noon": ["al mediodía", "al mediodia"],
-    "afternoon": ["por la tarde"],
-    "night": ["por la noche"]
+    "morning": [
+      "por la mañana",
+      "por la manana"
+    ],
+    "early": [
+      "temprano"
+    ],
+    "noon": [
+      "al mediodía",
+      "al mediodia"
+    ],
+    "afternoon": [
+      "por la tarde"
+    ],
+    "night": [
+      "por la noche"
+    ]
   },
-  "timePrefixes": ["a las", "alas", "a la", "al"],
+  "timePrefixes": [
+    "a las",
+    "alas",
+    "a la",
+    "al"
+  ],
   "pestTargets": {
-    "cucarachas": ["cucaracha", "cucarachas", "insecto", "insectos"],
-    "roedores": ["roedor", "roedores", "raton", "ratones", "rata", "ratas"],
-    "chinches": ["chinche", "chinches", "bedbug", "bedbugs"]
+    "cucarachas": [
+      "cucaracha",
+      "cucarachas",
+      "insecto",
+      "insectos"
+    ],
+    "roedores": [
+      "roedor",
+      "roedores",
+      "raton",
+      "ratones",
+      "rata",
+      "ratas"
+    ],
+    "chinches": [
+      "chinche",
+      "chinches",
+      "bedbug",
+      "bedbugs"
+    ]
   },
   "locationWords": {
-    "lobby": ["lobby"],
-    "basement": ["sotano", "sótano"],
-    "hallway": ["pasillo"],
-    "mainEntrance": ["entrada principal"],
-    "garage": ["garaje"],
-    "area": ["area", "área"],
-    "building": ["edificio"]
+    "lobby": [
+      "lobby"
+    ],
+    "basement": [
+      "sotano",
+      "sótano"
+    ],
+    "hallway": [
+      "pasillo"
+    ],
+    "mainEntrance": [
+      "entrada principal"
+    ],
+    "garage": [
+      "garaje"
+    ],
+    "area": [
+      "area",
+      "área"
+    ],
+    "building": [
+      "edificio"
+    ],
+    "stairs": [
+      "escalera",
+      "escaleras"
+    ],
+    "elevator": [
+      "ascensor",
+      "elevador"
+    ],
+    "terrace": [
+      "terraza"
+    ],
+    "laundry": [
+      "lavanderia",
+      "lavandería"
+    ]
   },
   "categories": {
-    "cleaning": ["limpiar", "limpieza", "limpiando", "barrer", "trapear", "fregar", "sucio", "sucia", "basura", "desinfectar"],
-    "repair": ["arreglar", "arreglo", "reparar", "reparacion", "reparación", "salidero", "fuga", "plomeria", "plomería", "tuberia", "tubería", "goteo", "electricidad", "electrico", "eléctrico", "bombillo", "cerradura", "filtracion", "filtración", "puerta rota", "lavamanos", "toilet", "inodoro", "nevera", "estufa"],
-    "pest": ["cucaracha", "cucarachas", "roedor", "roedores", "raton", "ratones", "rata", "ratas", "chinche", "chinches", "insecto", "insectos", "plaga", "plagas", "control de plagas", "fumigar", "fumigacion", "fumigación", "fumigador", "exterminar", "exterminador", "exterminacion", "exterminación", "tratamiento", "tratamiento de plagas"],
-    "paint": ["pintar", "pintura", "pintada", "pintado", "pintor", "retocar pintura", "retoque de pintura"],
-    "inspection": ["inspeccion", "inspección", "inspeccionar", "revision", "revisión", "revisar", "chequear", "verificar"],
-    "visit": ["visita", "visitar", "visitando", "mostrar apartamento", "ensenar apartamento", "enseñar apartamento"],
-    "change": ["cambio", "cambiar", "cambiando", "reemplazo", "reemplazar", "remplazo", "remplazar", "sustituir", "sustitucion", "sustitución", "instalar", "instalacion", "instalación", "instalar nevera", "instalar refrigerador", "instalar cocina", "instalar estufa", "cambiar nevera", "cambiar refrigerador", "cambiar cocina", "cambiar estufa"],
-    "delivery": ["entrega", "entregar", "delivery", "paquete", "recibir paquete", "recoger paquete", "recibido"],
+    "cleaning": [
+      "limpiar",
+      "limpieza",
+      "limpiando",
+      "barrer",
+      "trapear",
+      "fregar",
+      "sucio",
+      "sucia",
+      "basura",
+      "desinfectar"
+    ],
+    "repair": [
+      "arreglar",
+      "arreglo",
+      "reparar",
+      "reparacion",
+      "reparación",
+      "salidero",
+      "fuga",
+      "plomeria",
+      "plomería",
+      "tuberia",
+      "tubería",
+      "goteo",
+      "electricidad",
+      "electrico",
+      "eléctrico",
+      "bombillo",
+      "cerradura",
+      "filtracion",
+      "filtración",
+      "puerta rota",
+      "lavamanos",
+      "toilet",
+      "inodoro",
+      "nevera",
+      "estufa"
+    ],
+    "pest": [
+      "cucaracha",
+      "cucarachas",
+      "roedor",
+      "roedores",
+      "raton",
+      "ratones",
+      "rata",
+      "ratas",
+      "chinche",
+      "chinches",
+      "insecto",
+      "insectos",
+      "plaga",
+      "plagas",
+      "control de plagas",
+      "fumigar",
+      "fumigacion",
+      "fumigación",
+      "fumigador",
+      "exterminar",
+      "exterminador",
+      "exterminacion",
+      "exterminación",
+      "tratamiento",
+      "tratamiento de plagas"
+    ],
+    "paint": [
+      "pintar",
+      "pintura",
+      "pintada",
+      "pintado",
+      "pintor",
+      "retocar pintura",
+      "retoque de pintura"
+    ],
+    "inspection": [
+      "inspeccion",
+      "inspección",
+      "inspeccionar",
+      "revision",
+      "revisión",
+      "revisar",
+      "chequear",
+      "verificar"
+    ],
+    "visit": [
+      "visita",
+      "visitar",
+      "visitando",
+      "mostrar apartamento",
+      "ensenar apartamento",
+      "enseñar apartamento"
+    ],
+    "change": [
+      "cambio",
+      "cambiar",
+      "cambiando",
+      "reemplazo",
+      "reemplazar",
+      "remplazo",
+      "remplazar",
+      "sustituir",
+      "sustitucion",
+      "sustitución",
+      "instalar",
+      "instalacion",
+      "instalación",
+      "instalar nevera",
+      "instalar refrigerador",
+      "instalar cocina",
+      "instalar estufa",
+      "cambiar nevera",
+      "cambiar refrigerador",
+      "cambiar cocina",
+      "cambiar estufa"
+    ],
+    "delivery": [
+      "entrega",
+      "entregar",
+      "delivery",
+      "paquete",
+      "recibir paquete",
+      "recoger paquete",
+      "recibido"
+    ],
     "other": []
   },
   "priorities": {
-    "high": ["urgente", "ya", "ahora", "asap", "inmediato", "inmediata", "hoy mismo"],
-    "low": ["puede esperar", "sin apuro", "baja prioridad"]
+    "high": [
+      "urgente",
+      "ya",
+      "ahora",
+      "asap",
+      "inmediato",
+      "inmediata",
+      "hoy mismo"
+    ],
+    "low": [
+      "puede esperar",
+      "sin apuro",
+      "baja prioridad"
+    ]
   },
   "visitTypes": {
-    "nuevo": ["inicial", "primera visita", "nuevo tratamiento", "nueva visita", "primera"],
-    "seguimiento": ["seguimiento", "revisita", "segunda visita"],
-    "preventivo": ["preventivo", "prevencion", "prevención", "preventiva"]
+    "nuevo": [
+      "inicial",
+      "primera visita",
+      "nuevo tratamiento",
+      "nueva visita",
+      "primera"
+    ],
+    "seguimiento": [
+      "seguimiento",
+      "revisita",
+      "segunda visita"
+    ],
+    "preventivo": [
+      "preventivo",
+      "prevencion",
+      "prevención",
+      "preventiva"
+    ]
   }
 }

@@ -69,6 +69,7 @@ export type EditableTask = {
   status: TaskStatus
   task_date: string
   task_time?: string | null
+  created_at?: string
   completed_at?: string | null
   pest_treatment_type?: string | null
   pest_targets?: PestTarget[] | null

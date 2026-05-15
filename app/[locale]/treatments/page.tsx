@@ -36,6 +36,7 @@ type TreatmentsTab = 'scheduled' | 'history'
 export default function TreatmentsPage() {
   const t = useTranslations('treatmentsPage')
   const reopenReasonT = useTranslations('taskStatusReasonModal')
+  const headerT = useTranslations('conciergeHeader')
   const locale = useLocale()
   const searchParams = useSearchParams()
   const selectedBuildingId = searchParams.get('buildingId')
@@ -153,7 +154,7 @@ export default function TreatmentsPage() {
               headerConversation.canOpenConversation
                 ? {
                     icon: <MessageSquareMore size={compactHeader ? 20 : 24} />,
-                    label: 'Abrir mensajes',
+                    label: headerT('openMessages'),
                     count: headerConversation.unreadCount,
                     onClick: () => {
                       void headerConversation.openInbox()
@@ -177,7 +178,7 @@ export default function TreatmentsPage() {
                       ? 'flex h-11 w-11 items-center justify-center rounded-[22px]'
                       : 'flex h-14 w-14 items-center justify-center rounded-[22px]'
                   }`}
-                  aria-label="Abrir eventos del manager"
+                  aria-label={headerT('openManagerEvents')}
                 >
                   <BellDot size={compactHeader ? 20 : 22} />
                   {ownerRequests.openCount > 0 ? (
@@ -206,10 +207,10 @@ export default function TreatmentsPage() {
             }
           >
             <div
-              className={`overflow-hidden transition-all duration-300 ${
+              className={`relative z-40 transition-all duration-300 ${
                 compactHeader
-                  ? 'pointer-events-none max-h-0 -translate-y-2 opacity-0'
-                  : 'max-h-[220px] translate-y-0 opacity-100'
+                  ? 'pointer-events-none max-h-0 -translate-y-2 overflow-hidden opacity-0'
+                  : 'max-h-[220px] translate-y-0 overflow-visible opacity-100'
               }`}
             >
               <ManagerBuildingChip
@@ -221,8 +222,8 @@ export default function TreatmentsPage() {
                 }
                 label={t('building')}
                 mainHref="/dashboard"
-                mainLabel="Mis edificios"
-                mainDescription="Volver a la vista general"
+                mainLabel={headerT('allBuildings')}
+                mainDescription={headerT('backToOverview')}
                 size="compact"
                 singleBuildingMode="static"
               />
@@ -324,8 +325,8 @@ export default function TreatmentsPage() {
 
       <ConversationModal
         open={headerConversation.modalOpen}
-        title="Mensajes"
-        subtitle={headerConversation.contactName || 'Sin contacto asignado'}
+        title={headerT('messagesTitle')}
+        subtitle={headerConversation.contactName || headerT('noAssignedContact')}
         currentUserId={headerConversation.currentUserId}
         messages={headerConversation.messages}
         value={headerConversation.value}

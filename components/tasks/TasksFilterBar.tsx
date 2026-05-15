@@ -190,7 +190,7 @@ export default function TasksFilterBar({
             className="inline-flex h-9 items-center gap-2 rounded-full border border-[#E1E7F0] bg-white px-3.5 text-[13px] font-semibold text-[#4B63DF] shadow-[0_6px_16px_rgba(20,41,82,0.04)] active:scale-[0.97]"
           >
             <Download size={15} />
-            Exportar
+            {t('export')}
           </button>
         </div>
       </div>

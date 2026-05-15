@@ -71,12 +71,19 @@ export async function loadInventoryPageData(
 
   const visibleItems = items.filter((item) => Number(item.quantity || 0) > 0)
 
-  const availableCategories = DEFAULT_INVENTORY_CATEGORIES.filter((category) =>
-    visibleItems.some(
-      (item) =>
-        (item.category || '').trim().toLowerCase() === category.toLowerCase()
-    )
-  )
+  const availableCategories: string[] = [...DEFAULT_INVENTORY_CATEGORIES]
+
+  visibleItems.forEach((item) => {
+    const value = item.category?.trim()
+    if (
+      value &&
+      !availableCategories.some(
+        (category) => category.toLowerCase() === value.toLowerCase()
+      )
+    ) {
+      availableCategories.push(value)
+    }
+  })
 
   const availableLocations = [...DEFAULT_INVENTORY_LOCATIONS]
   visibleItems.forEach((item) => {

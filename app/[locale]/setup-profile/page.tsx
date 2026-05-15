@@ -108,7 +108,12 @@ export default function SetupProfilePage() {
               firstName={firstName}
               lastName={lastName}
               userEmail={userEmail}
-              buildingName={buildingName}
+              buildingLabel={
+                buildings
+                  .map((building) => building.name?.trim())
+                  .filter(Boolean)
+                  .join(', ') || buildingName
+              }
               buildingsCount={buildings.length}
               profileRole={profileRole}
               avatarKey={avatarKey}
@@ -156,11 +161,10 @@ export default function SetupProfilePage() {
 
                   <div className="min-w-0 flex-1">
                     <h2 className="text-[20px] font-bold text-[#142952]">
-                      Administrar edificios
+                      {t('setupProfile.managerBuildings.title')}
                     </h2>
                     <p className="mt-2 text-sm leading-6 text-[#6E7F9D]">
-                      Crea, conecta, edita o desvincula edificios desde la
-                      seccion Edificios.
+                      {t('setupProfile.managerBuildings.description')}
                     </p>
                   </div>
                 </div>
@@ -169,7 +173,7 @@ export default function SetupProfilePage() {
                   href="/manager/buildings#manage-buildings"
                   className="mt-5 flex w-full items-center justify-center gap-2 rounded-[22px] border border-[#DCE7F5] bg-[#EEF4FF] px-4 py-3 text-sm font-bold text-[#2F66C8]"
                 >
-                  Ir a administrar edificios
+                  {t('setupProfile.managerBuildings.cta')}
                   <ChevronRight size={18} />
                 </Link>
               </div>

@@ -46,7 +46,7 @@ export default function InventoryItemRow({
 
   const conditionMeta = getConditionMeta(item.condition, tGlobal)
   const isLowStock = isLowStockItem(item.quantity, item.minimum_stock)
-  const itemTypeLabel = getInventoryItemTypeLabel(item)
+  const itemTypeLabel = getInventoryItemTypeLabel(item, tGlobal)
 
   return (
     <div
@@ -87,7 +87,8 @@ export default function InventoryItemRow({
             <span>
               {getInventoryLocationLabel(
                 item.location,
-                tGlobal('flatInventoryRow.noLocation')
+                tGlobal('flatInventoryRow.noLocation'),
+                tGlobal
               )}
             </span>
 
@@ -113,7 +114,11 @@ export default function InventoryItemRow({
           </button>
 
           <div className="min-w-0 text-center text-[14px] font-bold leading-tight text-[#142952] sm:min-w-[96px] sm:text-right">
-            {formatInventoryQuantityWithUnit(item.quantity, item.unit_of_measure)}
+            {formatInventoryQuantityWithUnit(
+              item.quantity,
+              item.unit_of_measure,
+              tGlobal
+            )}
           </div>
 
           <button

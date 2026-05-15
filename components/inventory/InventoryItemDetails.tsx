@@ -35,7 +35,7 @@ export default function InventoryItemDetails({
 }: InventoryItemDetailsProps) {
   const t = useTranslations('inventoryItemRow')
   const tGlobal = useTranslations()
-  const itemTypeLabel = getInventoryItemTypeLabel(item)
+  const itemTypeLabel = getInventoryItemTypeLabel(item, tGlobal)
 
   return (
     <div className="space-y-3 border-t px-4 py-4">
@@ -50,7 +50,8 @@ export default function InventoryItemDetails({
         label={t('currentQuantity')}
         value={formatInventoryQuantityWithUnit(
           item.quantity,
-          item.unit_of_measure
+          item.unit_of_measure,
+          tGlobal
         )}
       />
 
@@ -59,14 +60,15 @@ export default function InventoryItemDetails({
         label={t('minimumStock')}
         value={formatInventoryQuantityWithUnit(
           item.minimum_stock,
-          item.unit_of_measure
+          item.unit_of_measure,
+          tGlobal
         )}
       />
 
       <InventoryDetailRow
         icon={<Package />}
         label={tGlobal('inventoryFormModal.measurementUnit')}
-        value={getInventoryUnitLabel(item.unit_of_measure, 2)}
+        value={getInventoryUnitLabel(item.unit_of_measure, tGlobal, 2)}
       />
 
       <InventoryDetailRow
@@ -74,7 +76,8 @@ export default function InventoryItemDetails({
         label={t('location')}
         value={getInventoryLocationLabel(
           item.location,
-          tGlobal('flatInventoryRow.noLocation')
+          tGlobal('flatInventoryRow.noLocation'),
+          tGlobal
         )}
       />
 
@@ -128,10 +131,10 @@ export default function InventoryItemDetails({
         </div>
       ) : null}
 
-      <InventoryItemHistory
-        history={history}
-        unitOfMeasure={item.unit_of_measure || 'unidad'}
-      />
+        <InventoryItemHistory
+          history={history}
+          unitOfMeasure={item.unit_of_measure || 'unidad'}
+        />
     </div>
   )
 }
